@@ -36,18 +36,7 @@ const carouselScrollBy = parseInt(
  * SETUP CODE
  * This code runs once when the page loads, and sets up the carousel with
  * necessary event listeners and item locations (after duplicating items).
- *
  */
-
-// Stores the current position for each carousel.
-const carouselPositions: number[] = [];
-const isScrolling: boolean[] = [];
-for (let i = 0; i < leftArrows.length; i++) {
-  carouselPositions.push(0);
-  isScrolling.push(false);
-}
-
-// Determines if the user can click one of the arrows.
 
 /**
  * Returns n carousel items from either the beginning or end of the
@@ -82,6 +71,29 @@ const getNCarouselItems = (index: number, n: number, start: boolean) => {
   }
   return result;
 };
+
+// Stores the current position for each carousel.
+const carouselPositions: number[] = [];
+const isScrolling: boolean[] = [];
+for (let i = 0; i < leftArrows.length; i++) {
+  carouselPositions.push(0);
+  isScrolling.push(false);
+}
+
+// Reorder the elements in the carousel item container.
+const initializeCarousel = (index: number) => {
+  const carouselItems = carouselItemContainers[index].children;
+
+  // Fill the visible carousel items if needed.
+  let currIndex = 0;
+  while (carouselItems.length < carouselItemsVisible) {
+    carouselItemContainers[index].append(
+      carouselItems.item(currIndex)?.cloneNode(true) as Node
+    );
+    currIndex++;
+  }
+};
+initializeCarousel(0);
 
 // Click event listener for all left carousel arrow.
 Array.from(leftArrows).forEach((leftArrow, index) => {
