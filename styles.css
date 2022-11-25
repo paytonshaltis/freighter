@@ -1,0 +1,123 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  --carousel-item-width: 150px;
+  --carousel-item-height: 75px;
+  --carousel-item-spacing: 10px;
+  --carousel-button-width: 20px;
+  --carousel-button-height: var(--carousel-item-height);
+  --carousel-items-visible: 4;
+  --carousel-scroll-by: 4;
+}
+
+/* Top-level container for all carousel elements. */
+.carousel {
+  /* Position carousel on page. */
+  margin: 5rem auto;
+  width: fit-content;
+
+  /* Position relative for carousel buttons. */
+  position: relative;
+}
+
+/* Container that is sized to fit carousel items. */
+.carousel-item-container {
+  /* Set up carousel size and flexbox. */
+  display: flex;
+  gap: var(--carousel-item-spacing);
+  width: calc(
+    var(--carousel-item-width) * var(--carousel-items-visible) +
+      var(--carousel-item-spacing) * (var(--carousel-items-visible) - 1)
+  );
+
+  /* Stlyes for the carousel item container. */
+  transition: transform 0.5s ease;
+}
+
+.carousel-item-container-wrapper {
+  /* Should hide the flexbox portion that is overflowing. */
+  overflow: hidden;
+
+  /* Margin to account for button spacing. */
+  margin: 0 calc(var(--carousel-button-width) + var(--carousel-item-spacing));
+}
+
+/* Carousel navigation button styles. */
+.carousel-button {
+  /* Properly size the buttons. */
+  height: var(--carousel-button-height);
+  width: var(--carousel-button-width);
+
+  /* Properly position the buttons. */
+  position: absolute;
+
+  /* Button styles. */
+  border: none;
+  background-color: #333;
+  cursor: pointer;
+  opacity: 20%;
+}
+
+.carousel-button.left {
+  /* Properly position the left button. */
+  left: 0;
+  bottom: 0;
+}
+
+.carousel-button.right {
+  /* Properly position the right button. */
+  right: 0;
+  bottom: 0;
+}
+
+.carousel-item {
+  /* Set up carousel item size, prevent flex shrinking. */
+  height: var(--carousel-item-height);
+  width: var(--carousel-item-width);
+  flex-shrink: 0;
+}
+
+/* Each carousel item color styled individually for testing. */
+.carousel-item:nth-child(1) {
+  background-color: #f00;
+}
+
+.carousel-item:nth-child(2) {
+  background-color: #0f0;
+}
+
+.carousel-item:nth-child(3) {
+  background-color: #00f;
+}
+
+.carousel-item:nth-child(4) {
+  background-color: #ff0;
+}
+
+.carousel-item:nth-child(5) {
+  background-color: #f0f;
+}
+
+.carousel-item:nth-child(6) {
+  background-color: #0ff;
+}
+
+.carousel-item:nth-child(7) {
+  background-color: #fff;
+}
+
+.carousel-item:nth-child(8) {
+  background-color: #000;
+}
+
+.carousel-item:nth-child(9) {
+  background-color: #f00;
+}
+
+.carousel-item:nth-child(10) {
+  background-color: #0f0;
+}
