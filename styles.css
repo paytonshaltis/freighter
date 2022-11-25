@@ -11,7 +11,7 @@
   --carousel-button-width: 20px;
   --carousel-button-height: var(--carousel-item-height);
   --carousel-items-visible: 4;
-  --carousel-scroll-by: 4;
+  --carousel-scroll-by: 2;
 }
 
 /* Top-level container for all carousel elements. */
@@ -79,6 +79,9 @@
   height: var(--carousel-item-height);
   width: var(--carousel-item-width);
   flex-shrink: 0;
+
+  /* Set up carousel item styles. */
+  background-color: #333;
 }
 
 /* Each carousel item color styled individually for testing. */

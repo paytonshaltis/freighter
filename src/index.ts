@@ -32,11 +32,49 @@ const carouselScrollBy = parseInt(
   )
 );
 
+/**
+ * SETUP CODE
+ * This code runs once when the page loads, and sets up the carousel with
+ * necessary event listeners and item locations (after duplicating items).
+ *
+ */
+
 // Stores the current position for each carousel.
-const carouselPositions: number[] = [0, 0];
-// for (let i = 0; i < leftArrows.length; i++) {
-//   carouselPositions.push(0);
-// }
+const carouselPositions: number[] = [];
+for (let i = 0; i < leftArrows.length; i++) {
+  carouselPositions.push(0);
+}
+
+/**
+ * Returns n carousel items from either the beginning or end of the
+ * carousel item container. Will loop around to the other end if necessary.
+ * @param index The index of the carousel to get items from.
+ * @param n The number of carousel items to be returned.
+ * @param start If the items are to be taken from the start or end.
+ * @returns An array of carousel items.
+ */
+const getNCarouselItems = (index: number, n: number, start: boolean) => {
+  const carouselItems = carouselItemContainers[index].children;
+  const carouselItemsLength = carouselItems.length;
+  const result: HTMLElement[] = [];
+
+  if (start) {
+    for (let i = 0; i < n; i++) {
+      result.push(carouselItems[i % carouselItemsLength] as HTMLElement);
+    }
+  } else {
+    let currPos = carouselItemsLength - 1;
+    for (let i = 0; i < n; i++) {
+      result.push(carouselItems.item(currPos) as HTMLElement);
+      currPos--;
+      if (currPos < 0) {
+        currPos = carouselItemsLength - 1;
+      }
+    }
+  }
+  console.log(result);
+};
+getNCarouselItems(0, 4, false);
 
 // Click event listener for all left carousel arrow.
 Array.from(leftArrows).forEach((leftArrow, index) => {
