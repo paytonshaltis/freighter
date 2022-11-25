@@ -28,6 +28,7 @@
 .carousel-item-container {
   /* Set up carousel size and flexbox. */
   display: flex;
+  justify-content: center;
   gap: var(--carousel-item-spacing);
   width: calc(
     var(--carousel-item-width) * var(--carousel-items-visible) +
@@ -35,7 +36,7 @@
   );
 
   /* Stlyes for the carousel item container. */
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease-in-out;
 }
 
 .carousel-item-container-wrapper {

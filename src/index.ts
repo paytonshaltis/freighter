@@ -41,9 +41,13 @@ const carouselScrollBy = parseInt(
 
 // Stores the current position for each carousel.
 const carouselPositions: number[] = [];
+const isScrolling: boolean[] = [];
 for (let i = 0; i < leftArrows.length; i++) {
   carouselPositions.push(0);
+  isScrolling.push(false);
 }
+
+// Determines if the user can click one of the arrows.
 
 /**
  * Returns n carousel items from either the beginning or end of the
@@ -56,39 +60,55 @@ for (let i = 0; i < leftArrows.length; i++) {
 const getNCarouselItems = (index: number, n: number, start: boolean) => {
   const carouselItems = carouselItemContainers[index].children;
   const carouselItemsLength = carouselItems.length;
-  const result: HTMLElement[] = [];
+  let result: HTMLElement[] = [];
 
   if (start) {
     for (let i = 0; i < n; i++) {
-      result.push(carouselItems[i % carouselItemsLength] as HTMLElement);
+      result.push(
+        carouselItems
+          .item(i % carouselItemsLength)
+          ?.cloneNode(true) as HTMLElement
+      );
     }
   } else {
     let currPos = carouselItemsLength - 1;
     for (let i = 0; i < n; i++) {
-      result.push(carouselItems.item(currPos) as HTMLElement);
+      result.push(carouselItems.item(currPos)?.cloneNode(true) as HTMLElement);
       currPos--;
       if (currPos < 0) {
         currPos = carouselItemsLength - 1;
       }
     }
   }
-  console.log(result);
+  return result;
 };
-getNCarouselItems(0, 4, false);
 
 // Click event listener for all left carousel arrow.
 Array.from(leftArrows).forEach((leftArrow, index) => {
   leftArrow.addEventListener("click", () => {
-    carouselPositions[index] -= 1;
-    transformCarouselItems(index);
+    if (!isScrolling[index]) {
+      carouselPositions[index] -= 1;
+      transformCarouselItems(index);
+      isScrolling[index] = true;
+    }
   });
 });
 
 // Click event listener for all right carousel arrow.
 Array.from(rightArrows).forEach((rightArrow, index) => {
   rightArrow.addEventListener("click", () => {
-    carouselPositions[index] += 1;
-    transformCarouselItems(index);
+    if (!isScrolling[index]) {
+      carouselPositions[index] += 1;
+      transformCarouselItems(index);
+      isScrolling[index] = true;
+    }
+  });
+});
+
+// Transitionend event for all carousel item containers.
+Array.from(carouselItemContainers).forEach((carouselItemContainer, index) => {
+  carouselItemContainer.addEventListener("transitionend", () => {
+    isScrolling[index] = false;
   });
 });
 
