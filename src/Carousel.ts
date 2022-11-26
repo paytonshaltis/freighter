@@ -250,7 +250,38 @@ export default class Carousel {
 
     // Apply the appropriate styles to each class.
     this.applyStyles();
-
-    console.log(this.carouselID, this.carouselContainer, this.allCarouselItems);
   }
+
+  /**
+   * Returns n carousel items from the starting index provided.
+   * Will loop around to the other end if necessary.
+   * @param n The number of carousel items to be returned.
+   * @param start The index to start getting items from.
+   * @param deep Optional parameter. If true, the entire node will be returned.
+   * If false, only the outer element will be returned.
+   * @returns An array of carousel items.
+   */
+  private getNCarouselItems = (
+    n: number,
+    start: number,
+    deep: boolean = true
+  ) => {
+    const carouselItemsLength = this.allCarouselItems.length;
+    const result: HTMLElement[] = [];
+
+    // If the starting index is negative, wrap around to the other end.
+    while (start < 0) {
+      start = carouselItemsLength + start;
+    }
+
+    // Start at the start index and get n items.
+    for (let i = start; i < start + n; i++) {
+      result.push(
+        this.allCarouselItems[i % carouselItemsLength]?.cloneNode(
+          deep
+        ) as HTMLElement
+      );
+    }
+    return result;
+  };
 }
