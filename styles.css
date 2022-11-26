@@ -83,45 +83,8 @@
 
   /* Set up carousel item styles. */
   background-color: #333;
-}
-
-/* Each carousel item color styled individually for testing. */
-.carousel-item:nth-child(1) {
-  background-color: #f00;
-}
-
-.carousel-item:nth-child(2) {
-  background-color: #0f0;
-}
-
-.carousel-item:nth-child(3) {
-  background-color: #00f;
-}
-
-.carousel-item:nth-child(4) {
-  background-color: #ff0;
-}
-
-.carousel-item:nth-child(5) {
-  background-color: #f0f;
-}
-
-.carousel-item:nth-child(6) {
-  background-color: #0ff;
-}
-
-.carousel-item:nth-child(7) {
-  background-color: #fff;
-}
-
-.carousel-item:nth-child(8) {
-  background-color: #000;
-}
-
-.carousel-item:nth-child(9) {
-  background-color: #f00;
-}
-
-.carousel-item:nth-child(10) {
-  background-color: #0f0;
+  color: #fff;
+  text-align: center;
+  line-height: var(--carousel-item-height);
+  font-size: 2rem;
 }

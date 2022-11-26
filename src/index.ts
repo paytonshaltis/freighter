@@ -57,7 +57,7 @@ const getNCarouselItems = (
   const result: HTMLElement[] = [];
 
   // If the starting index is negative, wrap around to the other end.
-  if (start < 0) {
+  while (start < 0) {
     start = carouselItemsLength + start;
   }
 
