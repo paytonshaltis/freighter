@@ -97,7 +97,12 @@ export default class Carousel {
     });
 
     // Add the transitionend event listener to the carousel item container.
-    carouselItemContainer.addEventListener("transitionend", () => {
+    carouselItemContainer.addEventListener("transitionend", (event) => {
+      // Return if a transitionend event is not triggered on the carousel item container.
+      if (event.target !== this.carouselItemContainer) {
+        return;
+      }
+
       // Get the current length of the carousel item container.
       const carouselItemContainerLength = carouselItemContainer.children.length;
 
