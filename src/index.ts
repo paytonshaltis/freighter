@@ -21,7 +21,19 @@ const c2 = new Carousel({
   carouselItemsVisible: 4,
   carouselScrollBy: 2,
   carouselContainerId: "second-carousel",
-  resizingMethod: "stretch-scale",
+  resizingMethod: "stretch",
+});
+
+const c3 = new Carousel({
+  carouselItemWidth: 150,
+  carouselItemHeight: 75,
+  carouselItemSpacing: 10,
+  carouselButtonWidth: 20,
+  carouselButtonHeight: 75,
+  carouselItemsVisible: 4,
+  carouselScrollBy: 2,
+  carouselContainerId: "third-carousel",
+  resizingMethod: "stretch-gap",
 });
 
 const kingCrimson = new Carousel({
@@ -33,5 +45,5 @@ const kingCrimson = new Carousel({
   carouselItemsVisible: 3,
   carouselScrollBy: 1,
   carouselContainerId: "king-crimson",
-  resizingMethod: "stretch-gap",
+  resizingMethod: "stretch-scale",
 });
