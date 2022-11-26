@@ -244,8 +244,7 @@ export default class Carousel {
   // Apply styles to the carousel-container class.
   private applyCarouselContainerStyles(): void {
     // Apply the appropriate styles.
-    this.carouselContainer.style.width = "fit-content";
-    this.carouselContainer.style.margin = "5rem auto";
+    this.carouselContainer.style.width = "100%";
     this.carouselContainer.style.position = "relative";
   }
 
@@ -280,6 +279,7 @@ export default class Carousel {
       this.carouselItemWidth * this.carouselItemsVisible +
       this.carouselItemSpacing * (this.carouselItemsVisible - 1)
     }px`;
+    carouselItemContainer.style.width = "100%";
     carouselItemContainer.style.transition = "transform 0.5s ease-in-out";
   }
 
@@ -428,7 +428,8 @@ export default class Carousel {
 
     if (!animate) {
       setTimeout(() => {
-        this.carouselItemContainer.style.transition = "";
+        this.carouselItemContainer.style.transition =
+          "transform 0.5s ease-in-out";
       }, 0);
     }
   };
