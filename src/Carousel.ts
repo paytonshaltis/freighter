@@ -272,9 +272,6 @@ export default class Carousel {
 
     // Apply the appropriate styles.
     carouselItemContainerWrapper.style.overflow = "hidden";
-    carouselItemContainerWrapper.style.margin = `0 ${
-      this.carouselButtonWidth + this.carouselItemSpacing
-    }px`;
   }
 
   // Apply styles to the carousel-item-container class.
@@ -345,7 +342,7 @@ export default class Carousel {
 
   private resizeGap = () => {
     const computedGap =
-      (parseFloat(getComputedStyle(this.carouselItemContainer).width) -
+      (parseFloat(this.carouselItemContainer.style.width) -
         this.carouselItemWidth * this.carouselItemsVisible) /
       (this.carouselItemsVisible + 1);
     this.carouselItemContainer.style.gap =
@@ -381,15 +378,15 @@ export default class Carousel {
 
       // Set the width of the active carousel items to the newly computed width.
       for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
-        (this.carouselItemContainer.children[i] as HTMLElement).style.width =
-          this.carouselItemWidth + "px";
-        (this.carouselItemContainer.children[i] as HTMLElement).style.height =
-          computedHeight + "px";
         (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
           "0";
         (
           this.carouselItemContainer.children[i] as HTMLElement
         ).style.flexShrink = "0";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.width =
+          this.carouselItemWidth + "px";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.height =
+          computedHeight + "px";
       }
 
       // Set the width of all carousel items to the newly computed width.
@@ -400,8 +397,6 @@ export default class Carousel {
         carouselItem.style.flexShrink = "0";
       });
     }, 0);
-
-    console.log("all items:", this.allCarouselItems);
   };
 
   // Constructor with single object parameter.

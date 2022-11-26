@@ -21,7 +21,7 @@ const c2 = new Carousel({
   carouselItemsVisible: 4,
   carouselScrollBy: 2,
   carouselContainerId: "second-carousel",
-  resizingMethod: "stretch",
+  resizingMethod: "stretch-gap",
 });
 
 const c3 = new Carousel({
@@ -33,7 +33,7 @@ const c3 = new Carousel({
   carouselItemsVisible: 4,
   carouselScrollBy: 2,
   carouselContainerId: "third-carousel",
-  resizingMethod: "stretch-gap",
+  resizingMethod: "stretch",
 });
 
 const kingCrimson = new Carousel({
