@@ -21,3 +21,14 @@ const c2 = new Carousel({
   carouselScrollBy: 2,
   carouselContainerId: "second-carousel",
 });
+
+const kingCrimson = new Carousel({
+  carouselItemWidth: 200,
+  carouselItemHeight: 200,
+  carouselItemSpacing: 10,
+  carouselButtonWidth: 20,
+  carouselButtonHeight: 200,
+  carouselItemsVisible: 3,
+  carouselScrollBy: 1,
+  carouselContainerId: "king-crimson",
+});
