@@ -404,8 +404,6 @@ export default class Carousel {
       }
     }
 
-    console.log("Active Carousel Items:", activeCarouselItems);
-
     // Replace the carousel items with the active carousel items.
     this.carouselItemContainer.replaceChildren(...activeCarouselItems);
   };
