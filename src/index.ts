@@ -116,8 +116,6 @@ carouselItemContainers.forEach((carouselItemContainer, index) => {
 });
 console.log("All Items:", allCarouselItems);
 
-// DONE TO HERE!
-
 // Reorder the elements in the carousel item container.
 const initializeCarousel = (index: number) => {
   // The list of active carousel items; node list of elements.
@@ -138,6 +136,8 @@ const initializeCarousel = (index: number) => {
 };
 initializeCarousel(0);
 initializeCarousel(1);
+
+// DONE TO HERE!
 
 // Click event listener for all left carousel arrow.
 Array.from(leftArrows).forEach((leftArrow, index) => {

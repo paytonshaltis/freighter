@@ -109,6 +109,75 @@ export default class Carousel {
     arrow.classList.add(`carousel-arrow-${string}`);
     arrow.id = `carousel-arrow-${string}-${this.carouselID}`;
 
+    // Add the onclick event listener.
+    if (string === "left") {
+      if (!this.isScrolling) {
+        // Indicate the scrolling direction.
+        this.prevScrollDirection = "left";
+
+        // Add appropriate previous items.
+        this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
+        this.allCarouselItemsTopPtr -= this.carouselScrollBy;
+        const prevItems = this.getNCarouselItems(
+          this.carouselScrollBy,
+          this.allCarouselItemsBottomPtr
+        );
+        this.carouselContainer.children[1].children[0].prepend(...prevItems);
+
+        // Add two dummy next items.
+        const nextItems = this.getNCarouselItems(
+          this.carouselScrollBy,
+          0,
+          false
+        );
+        nextItems.forEach((item) => {
+          item.classList.add("dummy");
+        });
+        this.carouselContainer.children[1].children[0].append(...nextItems);
+
+        // Moving the carousel to the left.
+        this.carouselPosition -= 1;
+        transformCarouselItems();
+
+        // Allow next button input.
+        this.isScrolling = true;
+      }
+    } else if (string === "right") {
+      arrow.addEventListener("click", () => {
+        if (!this.isScrolling) {
+          // Indicate the scrolling direction.
+          this.prevScrollDirection = "right";
+
+          // Add appropriate next items.
+          const nextItems = this.getNCarouselItems(
+            this.carouselScrollBy,
+            this.allCarouselItemsTopPtr
+          );
+          this.carouselContainer.children[1].children[0].append(...nextItems);
+          this.allCarouselItemsBottomPtr += this.carouselScrollBy;
+          this.allCarouselItemsTopPtr += this.carouselScrollBy;
+
+          // Add two dummy previous items.
+          const prevItems = this.getNCarouselItems(
+            this.carouselScrollBy,
+            0,
+            false
+          );
+          prevItems.forEach((item) => {
+            item.classList.add("dummy");
+          });
+          this.carouselContainer.children[1].children[0].prepend(...prevItems);
+
+          // Moving the carousel to the right.
+          this.carouselPosition += 1;
+          transformCarouselItems();
+
+          // Allow next button input.
+          this.isScrolling = true;
+        }
+      });
+    }
+
     return arrow;
   }
 
