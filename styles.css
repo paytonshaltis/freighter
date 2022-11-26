@@ -11,7 +11,7 @@
   --carousel-button-width: 20px;
   --carousel-button-height: var(--carousel-item-height);
   --carousel-items-visible: 4;
-  --carousel-scroll-by: 4;
+  --carousel-scroll-by: 2;
 }
 
 /* Top-level container for all carousel elements. */
@@ -28,6 +28,7 @@
 .carousel-item-container {
   /* Set up carousel size and flexbox. */
   display: flex;
+  justify-content: center;
   gap: var(--carousel-item-spacing);
   width: calc(
     var(--carousel-item-width) * var(--carousel-items-visible) +
@@ -35,7 +36,7 @@
   );
 
   /* Stlyes for the carousel item container. */
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease-in-out;
 }
 
 .carousel-item-container-wrapper {
@@ -79,45 +80,11 @@
   height: var(--carousel-item-height);
   width: var(--carousel-item-width);
   flex-shrink: 0;
-}
 
-/* Each carousel item color styled individually for testing. */
-.carousel-item:nth-child(1) {
-  background-color: #f00;
-}
-
-.carousel-item:nth-child(2) {
-  background-color: #0f0;
-}
-
-.carousel-item:nth-child(3) {
-  background-color: #00f;
-}
-
-.carousel-item:nth-child(4) {
-  background-color: #ff0;
-}
-
-.carousel-item:nth-child(5) {
-  background-color: #f0f;
-}
-
-.carousel-item:nth-child(6) {
-  background-color: #0ff;
-}
-
-.carousel-item:nth-child(7) {
-  background-color: #fff;
-}
-
-.carousel-item:nth-child(8) {
-  background-color: #000;
-}
-
-.carousel-item:nth-child(9) {
-  background-color: #f00;
-}
-
-.carousel-item:nth-child(10) {
-  background-color: #0f0;
+  /* Set up carousel item styles. */
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  line-height: var(--carousel-item-height);
+  font-size: 2rem;
 }
