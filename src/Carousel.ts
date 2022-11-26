@@ -385,7 +385,9 @@ export default class Carousel {
     this.initializeCarousel();
 
     // Adjust the initial gap between carousel items.
-    this.resizeGap();
+    if (this.resizingMethod !== "none") {
+      this.resizeGap();
+    }
   }
 
   /**
