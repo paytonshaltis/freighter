@@ -23,12 +23,12 @@ const c2 = new Carousel({
 });
 
 const kingCrimson = new Carousel({
-  carouselItemWidth: 200,
-  carouselItemHeight: 200,
+  carouselItemWidth: 400,
+  carouselItemHeight: 400,
   carouselItemSpacing: 10,
   carouselButtonWidth: 20,
   carouselButtonHeight: 200,
-  carouselItemsVisible: 3,
+  carouselItemsVisible: 1,
   carouselScrollBy: 1,
   carouselContainerId: "king-crimson",
 });

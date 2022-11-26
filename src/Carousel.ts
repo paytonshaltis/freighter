@@ -129,6 +129,9 @@ export default class Carousel {
       this.isScrolling = false;
     });
 
+    // Add the resize event listener to the adjust the carousel item container's gap.
+    window.addEventListener("resize", this.resizeGap);
+
     return carouselItemContainer;
   }
 
@@ -275,10 +278,10 @@ export default class Carousel {
     carouselItemContainer.style.display = "flex";
     carouselItemContainer.style.justifyContent = "center";
     carouselItemContainer.style.gap = `${this.carouselItemSpacing}px`;
-    carouselItemContainer.style.width = `${
-      this.carouselItemWidth * this.carouselItemsVisible +
-      this.carouselItemSpacing * (this.carouselItemsVisible - 1)
-    }px`;
+    // carouselItemContainer.style.width = `${
+    //   this.carouselItemWidth * this.carouselItemsVisible +
+    //   this.carouselItemSpacing * (this.carouselItemsVisible - 1)
+    // }px`;
     carouselItemContainer.style.width = "100%";
     carouselItemContainer.style.transition = "transform 0.5s ease-in-out";
   }
@@ -326,6 +329,14 @@ export default class Carousel {
     }
   }
 
+  private resizeGap = () => {
+    this.carouselItemContainer.style.gap =
+      (parseFloat(getComputedStyle(this.carouselItemContainer).width) -
+        this.carouselItemWidth * this.carouselItemsVisible) /
+        (this.carouselItemsVisible + 1) +
+      "px";
+  };
+
   // Constructor with single object parameter.
   constructor(options: CarouselOptions) {
     // Carousel display attributes.
@@ -360,6 +371,9 @@ export default class Carousel {
 
     // Initialize the order of the carousel items.
     this.initializeCarousel();
+
+    // Adjust the initial gap between carousel items.
+    this.resizeGap();
   }
 
   /**
@@ -422,7 +436,8 @@ export default class Carousel {
     this.carouselItemContainer.style.transform = `translateX(${
       -1 *
       this.carouselPosition *
-      ((this.carouselItemWidth + this.carouselItemSpacing) *
+      ((this.carouselItemWidth +
+        parseFloat(getComputedStyle(this.carouselItemContainer).gap)) *
         this.carouselScrollBy)
     }px)`;
 
