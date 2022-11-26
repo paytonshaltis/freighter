@@ -137,8 +137,6 @@ const initializeCarousel = (index: number) => {
 initializeCarousel(0);
 initializeCarousel(1);
 
-// DONE TO HERE!
-
 // Click event listener for all left carousel arrow.
 Array.from(leftArrows).forEach((leftArrow, index) => {
   leftArrow.addEventListener("click", () => {

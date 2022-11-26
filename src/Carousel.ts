@@ -22,11 +22,12 @@ export default class Carousel {
 
   // Carousel DOM element attributes.
   private carouselContainer: HTMLElement;
+  private carouselItemContainer: HTMLElement;
+  private allCarouselItems: Element[];
 
   // Carousel data attributes.
   private static maxID: number = -1;
   private carouselID: number;
-  private allCarouselItems: Element[];
   private allCarouselItemsTopPtr: number;
   private allCarouselItemsBottomPtr: number;
   private carouselPosition: number;
@@ -50,11 +51,9 @@ export default class Carousel {
     selectedContainer.classList.add("carousel-container");
 
     // Add the arrows and carousel item container to the carousel container.
-    selectedContainer.appendChild(this.configureCarouselArrow("left"));
     selectedContainer.appendChild(
       this.configureCarouselItemContainerWrapper(carouselItems)
     );
-    selectedContainer.appendChild(this.configureCarouselArrow("right"));
 
     return selectedContainer;
   }
@@ -122,7 +121,7 @@ export default class Carousel {
           this.carouselScrollBy,
           this.allCarouselItemsBottomPtr
         );
-        this.carouselContainer.children[1].children[0].prepend(...prevItems);
+        this.carouselItemContainer.prepend(...prevItems);
 
         // Add two dummy next items.
         const nextItems = this.getNCarouselItems(
@@ -133,11 +132,11 @@ export default class Carousel {
         nextItems.forEach((item) => {
           item.classList.add("dummy");
         });
-        this.carouselContainer.children[1].children[0].append(...nextItems);
+        this.carouselItemContainer.append(...nextItems);
 
         // Moving the carousel to the left.
         this.carouselPosition -= 1;
-        transformCarouselItems();
+        this.transformCarouselItems();
 
         // Allow next button input.
         this.isScrolling = true;
@@ -153,7 +152,7 @@ export default class Carousel {
             this.carouselScrollBy,
             this.allCarouselItemsTopPtr
           );
-          this.carouselContainer.children[1].children[0].append(...nextItems);
+          this.carouselItemContainer.append(...nextItems);
           this.allCarouselItemsBottomPtr += this.carouselScrollBy;
           this.allCarouselItemsTopPtr += this.carouselScrollBy;
 
@@ -166,11 +165,11 @@ export default class Carousel {
           prevItems.forEach((item) => {
             item.classList.add("dummy");
           });
-          this.carouselContainer.children[1].children[0].prepend(...prevItems);
+          this.carouselItemContainer.prepend(...prevItems);
 
           // Moving the carousel to the right.
           this.carouselPosition += 1;
-          transformCarouselItems();
+          this.transformCarouselItems();
 
           // Allow next button input.
           this.isScrolling = true;
@@ -185,7 +184,7 @@ export default class Carousel {
   private configureCarouselItems(): Element[] {
     // Get all the carousel items.
     const carouselItems = Array.from(
-      this.carouselContainer.children[1].children[0].children
+      this.carouselItemContainer.children
     ) as HTMLElement[];
 
     // Apply the appropriate class and id.
@@ -308,9 +307,13 @@ export default class Carousel {
     this.carouselContainer = this.configureCarouselContainer(
       options.carouselContainerId
     );
+    this.carouselItemContainer = this.carouselContainer.children[0]
+      .children[0] as HTMLElement;
+    this.allCarouselItems = this.configureCarouselItems();
+    this.carouselContainer.prepend(this.configureCarouselArrow("left"));
+    this.carouselContainer.appendChild(this.configureCarouselArrow("right"));
 
     // Carousel data attributes.
-    this.allCarouselItems = this.configureCarouselItems();
     this.allCarouselItemsBottomPtr = 0;
     this.allCarouselItemsTopPtr = this.carouselItemsVisible;
     this.carouselPosition = 0;
@@ -374,8 +377,26 @@ export default class Carousel {
     console.log("Active Carousel Items:", activeCarouselItems);
 
     // Replace the carousel items with the active carousel items.
-    this.carouselContainer.children[1].children[0].replaceChildren(
-      ...activeCarouselItems
-    );
+    this.carouselItemContainer.replaceChildren(...activeCarouselItems);
+  };
+
+  // Transform the carousel items based on the position array.
+  private transformCarouselItems = (animate = true) => {
+    if (!animate) {
+      this.carouselItemContainer.style.transition = "none";
+    }
+
+    this.carouselItemContainer.style.transform = `translateX(${
+      -1 *
+      this.carouselPosition *
+      ((this.carouselItemWidth + this.carouselItemSpacing) *
+        this.carouselScrollBy)
+    }px)`;
+
+    if (!animate) {
+      setTimeout(() => {
+        this.carouselItemContainer.style.transition = "";
+      }, 0);
+    }
   };
 }
