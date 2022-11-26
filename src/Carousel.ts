@@ -250,6 +250,9 @@ export default class Carousel {
 
     // Apply the appropriate styles to each class.
     this.applyStyles();
+
+    // Initialize the order of the carousel items.
+    this.initializeCarousel();
   }
 
   /**
@@ -283,5 +286,27 @@ export default class Carousel {
       );
     }
     return result;
+  };
+
+  // Reorder the elements in the carousel item container.
+  private initializeCarousel = () => {
+    // The list of active carousel items.
+    const activeCarouselItems: Element[] = [];
+
+    // Fills the active carousel items list with the first
+    // carouselItemsVisible items. May need to wrap around.
+    for (let i = 0; i < this.carouselItemsVisible; i++) {
+      const element = this.allCarouselItems[i % this.allCarouselItems.length];
+      if (i < this.carouselItemsVisible && element) {
+        activeCarouselItems.push((element as Node).cloneNode(true) as Element);
+      }
+    }
+
+    console.log("Active Carousel Items:", activeCarouselItems);
+
+    // Replace the carousel items with the active carousel items.
+    this.carouselContainer.children[1].children[0].replaceChildren(
+      ...activeCarouselItems
+    );
   };
 }

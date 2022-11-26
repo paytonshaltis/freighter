@@ -116,6 +116,8 @@ carouselItemContainers.forEach((carouselItemContainer, index) => {
 });
 console.log("All Items:", allCarouselItems);
 
+// DONE TO HERE!
+
 // Reorder the elements in the carousel item container.
 const initializeCarousel = (index: number) => {
   // The list of active carousel items; node list of elements.
