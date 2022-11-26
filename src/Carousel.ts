@@ -8,6 +8,7 @@ type CarouselOptions = {
   carouselItemsVisible: number;
   carouselScrollBy: number;
   carouselContainerId: string;
+  resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 };
 
 export default class Carousel {
@@ -19,6 +20,8 @@ export default class Carousel {
   private carouselButtonHeight: number;
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
+  private carouselItemAspectRatio: number;
+  private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 
   // Carousel DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -128,6 +131,16 @@ export default class Carousel {
       }
       this.isScrolling = false;
     });
+
+    // Add the resize event listener to the adjust the carousel item container's gap.
+    if (this.resizingMethod === "stretch-gap") {
+      window.addEventListener("resize", this.resizeGap);
+    } else if (
+      this.resizingMethod === "stretch" ||
+      this.resizingMethod == "stretch-scale"
+    ) {
+      window.addEventListener("resize", this.resizeScale);
+    }
 
     return carouselItemContainer;
   }
@@ -244,8 +257,8 @@ export default class Carousel {
   // Apply styles to the carousel-container class.
   private applyCarouselContainerStyles(): void {
     // Apply the appropriate styles.
-    this.carouselContainer.style.width = "fit-content";
-    this.carouselContainer.style.margin = "5rem auto";
+    this.carouselContainer.style.width =
+      this.resizingMethod === "none" ? "fit-content" : "100%";
     this.carouselContainer.style.position = "relative";
   }
 
@@ -259,9 +272,6 @@ export default class Carousel {
 
     // Apply the appropriate styles.
     carouselItemContainerWrapper.style.overflow = "hidden";
-    carouselItemContainerWrapper.style.margin = `0 ${
-      this.carouselButtonWidth + this.carouselItemSpacing
-    }px`;
   }
 
   // Apply styles to the carousel-item-container class.
@@ -276,10 +286,14 @@ export default class Carousel {
     carouselItemContainer.style.display = "flex";
     carouselItemContainer.style.justifyContent = "center";
     carouselItemContainer.style.gap = `${this.carouselItemSpacing}px`;
-    carouselItemContainer.style.width = `${
-      this.carouselItemWidth * this.carouselItemsVisible +
-      this.carouselItemSpacing * (this.carouselItemsVisible - 1)
-    }px`;
+    if (this.resizingMethod === "none") {
+      carouselItemContainer.style.width = `${
+        this.carouselItemWidth * this.carouselItemsVisible +
+        this.carouselItemSpacing * (this.carouselItemsVisible - 1)
+      }px`;
+    } else {
+      carouselItemContainer.style.width = "100%";
+    }
     carouselItemContainer.style.transition = "transform 0.5s ease-in-out";
   }
 
@@ -326,6 +340,65 @@ export default class Carousel {
     }
   }
 
+  private resizeGap = () => {
+    const computedGap =
+      (parseFloat(this.carouselItemContainer.style.width) -
+        this.carouselItemWidth * this.carouselItemsVisible) /
+      (this.carouselItemsVisible + 1);
+    this.carouselItemContainer.style.gap =
+      computedGap > this.carouselItemSpacing
+        ? computedGap + "px"
+        : this.carouselItemSpacing + "px";
+  };
+
+  private resizeScale = () => {
+    // Allow each active carousel item to shrink or grow as needed.
+    for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
+      (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
+        "1";
+      (this.carouselItemContainer.children[i] as HTMLElement).style.flexShrink =
+        "1";
+    }
+
+    // Get the newly computed width of the carouse items.
+    setTimeout(() => {
+      this.carouselItemWidth = parseFloat(
+        getComputedStyle(this.carouselItemContainer.children[0] as HTMLElement)
+          .width
+      );
+      console.log(
+        getComputedStyle(this.carouselItemContainer.children[0] as HTMLElement)
+          .width
+      );
+
+      const computedHeight =
+        this.resizingMethod === "stretch-scale"
+          ? this.carouselItemAspectRatio * this.carouselItemWidth
+          : this.carouselItemHeight;
+
+      // Set the width of the active carousel items to the newly computed width.
+      for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
+        (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
+          "0";
+        (
+          this.carouselItemContainer.children[i] as HTMLElement
+        ).style.flexShrink = "0";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.width =
+          this.carouselItemWidth + "px";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.height =
+          computedHeight + "px";
+      }
+
+      // Set the width of all carousel items to the newly computed width.
+      (this.allCarouselItems as HTMLElement[]).forEach((carouselItem) => {
+        carouselItem.style.width = `${this.carouselItemWidth}px`;
+        carouselItem.style.height = `${computedHeight}px`;
+        carouselItem.style.flexGrow = "0";
+        carouselItem.style.flexShrink = "0";
+      });
+    }, 0);
+  };
+
   // Constructor with single object parameter.
   constructor(options: CarouselOptions) {
     // Carousel display attributes.
@@ -336,6 +409,9 @@ export default class Carousel {
     this.carouselButtonHeight = options.carouselButtonHeight;
     this.carouselItemsVisible = options.carouselItemsVisible;
     this.carouselScrollBy = options.carouselScrollBy;
+    this.resizingMethod = options.resizingMethod;
+    this.carouselItemAspectRatio =
+      this.carouselItemHeight / this.carouselItemWidth;
 
     // Carousel DOM element attributes.
     this.carouselID = ++Carousel.maxID;
@@ -360,6 +436,16 @@ export default class Carousel {
 
     // Initialize the order of the carousel items.
     this.initializeCarousel();
+
+    // Adjust the initial gap between carousel items.
+    if (this.resizingMethod === "stretch-gap") {
+      this.resizeGap();
+    } else if (
+      this.resizingMethod === "stretch" ||
+      this.resizingMethod == "stretch-scale"
+    ) {
+      this.resizeScale();
+    }
   }
 
   /**
@@ -419,16 +505,21 @@ export default class Carousel {
       this.carouselItemContainer.style.transition = "none";
     }
 
+    const spacingAmount =
+      this.resizingMethod === "stretch-gap"
+        ? parseFloat(getComputedStyle(this.carouselItemContainer).gap)
+        : this.carouselItemSpacing;
+
     this.carouselItemContainer.style.transform = `translateX(${
       -1 *
       this.carouselPosition *
-      ((this.carouselItemWidth + this.carouselItemSpacing) *
-        this.carouselScrollBy)
+      ((this.carouselItemWidth + spacingAmount) * this.carouselScrollBy)
     }px)`;
 
     if (!animate) {
       setTimeout(() => {
-        this.carouselItemContainer.style.transition = "";
+        this.carouselItemContainer.style.transition =
+          "transform 0.5s ease-in-out";
       }, 0);
     }
   };
