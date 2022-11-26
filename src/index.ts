@@ -1,3 +1,15 @@
+import Carousel from "./Carousel.js";
+const c = new Carousel({
+  carouselItemWidth: 200,
+  carouselItemHeight: 200,
+  carouselItemSpacing: 10,
+  carouselButtonWidth: 50,
+  carouselButtonHeight: 50,
+  carouselItemsVisible: 3,
+  carouselScrollBy: 1,
+  carouselContainerId: "my-carousel",
+});
+
 // Store important elements for event handlers.
 const leftArrows = document.querySelectorAll("button.carousel-button.left");
 const rightArrows = document.querySelectorAll("button.carousel-button.right");
