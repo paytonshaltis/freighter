@@ -330,11 +330,14 @@ export default class Carousel {
   }
 
   private resizeGap = () => {
-    this.carouselItemContainer.style.gap =
+    const computedGap =
       (parseFloat(getComputedStyle(this.carouselItemContainer).width) -
         this.carouselItemWidth * this.carouselItemsVisible) /
-        (this.carouselItemsVisible + 1) +
-      "px";
+      (this.carouselItemsVisible + 1);
+    this.carouselItemContainer.style.gap =
+      computedGap > this.carouselItemSpacing
+        ? computedGap + "px"
+        : this.carouselItemSpacing + "px";
   };
 
   // Constructor with single object parameter.
