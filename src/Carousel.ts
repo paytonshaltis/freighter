@@ -8,7 +8,7 @@ type CarouselOptions = {
   carouselItemsVisible: number;
   carouselScrollBy: number;
   carouselContainerId: string;
-  resizingMethod: "none" | "stretch-gap";
+  resizingMethod: "none" | "stretch-gap" | "stretch-scale";
 };
 
 export default class Carousel {
@@ -20,7 +20,7 @@ export default class Carousel {
   private carouselButtonHeight: number;
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
-  private resizingMethod: "none" | "stretch-gap";
+  private resizingMethod: "none" | "stretch-gap" | "stretch-scale";
 
   // Carousel DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -134,6 +134,8 @@ export default class Carousel {
     // Add the resize event listener to the adjust the carousel item container's gap.
     if (this.resizingMethod === "stretch-gap") {
       window.addEventListener("resize", this.resizeGap);
+    } else if (this.resizingMethod === "stretch-scale") {
+      window.addEventListener("resize", this.resizeScale);
     }
 
     return carouselItemContainer;
@@ -348,6 +350,49 @@ export default class Carousel {
         : this.carouselItemSpacing + "px";
   };
 
+  private resizeScale = () => {
+    // Allow each active carousel item to shrink or grow as needed.
+    for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
+      (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
+        "1";
+      (this.carouselItemContainer.children[i] as HTMLElement).style.flexShrink =
+        "1";
+    }
+
+    // Get the newly computed width of the carouse items.
+    setTimeout(() => {
+      this.carouselItemWidth = parseFloat(
+        getComputedStyle(this.carouselItemContainer.children[0] as HTMLElement)
+          .width
+      );
+      console.log(
+        getComputedStyle(this.carouselItemContainer.children[0] as HTMLElement)
+          .width
+      );
+      console.log("adjusted width:", this.carouselItemWidth);
+
+      // Set the width of the active carousel items to the newly computed width.
+      for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
+        (this.carouselItemContainer.children[i] as HTMLElement).style.width =
+          this.carouselItemWidth + "px";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
+          "0";
+        (
+          this.carouselItemContainer.children[i] as HTMLElement
+        ).style.flexShrink = "0";
+      }
+
+      // Set the width of all carousel items to the newly computed width.
+      (this.allCarouselItems as HTMLElement[]).forEach((carouselItem) => {
+        carouselItem.style.width = `${this.carouselItemWidth}px`;
+        carouselItem.style.flexGrow = "0";
+        carouselItem.style.flexShrink = "0";
+      });
+    }, 0);
+
+    console.log("all items:", this.allCarouselItems);
+  };
+
   // Constructor with single object parameter.
   constructor(options: CarouselOptions) {
     // Carousel display attributes.
@@ -385,8 +430,10 @@ export default class Carousel {
     this.initializeCarousel();
 
     // Adjust the initial gap between carousel items.
-    if (this.resizingMethod !== "none") {
+    if (this.resizingMethod === "stretch-gap") {
       this.resizeGap();
+    } else if (this.resizingMethod === "stretch-scale") {
+      this.resizeScale();
     }
   }
 
@@ -448,9 +495,10 @@ export default class Carousel {
     }
 
     const spacingAmount =
-      this.resizingMethod === "none"
-        ? this.carouselItemSpacing
-        : parseFloat(getComputedStyle(this.carouselItemContainer).gap);
+      this.resizingMethod === "stretch-gap"
+        ? parseFloat(getComputedStyle(this.carouselItemContainer).gap)
+        : this.carouselItemSpacing;
+
     this.carouselItemContainer.style.transform = `translateX(${
       -1 *
       this.carouselPosition *
