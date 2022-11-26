@@ -1,13 +1,24 @@
 import Carousel from "./Carousel.js";
 const c = new Carousel({
-  carouselItemWidth: 200,
-  carouselItemHeight: 200,
+  carouselItemWidth: 150,
+  carouselItemHeight: 75,
   carouselItemSpacing: 10,
-  carouselButtonWidth: 50,
-  carouselButtonHeight: 50,
-  carouselItemsVisible: 3,
-  carouselScrollBy: 1,
+  carouselButtonWidth: 20,
+  carouselButtonHeight: 75,
+  carouselItemsVisible: 4,
+  carouselScrollBy: 2,
   carouselContainerId: "my-carousel",
+});
+
+const c2 = new Carousel({
+  carouselItemWidth: 150,
+  carouselItemHeight: 75,
+  carouselItemSpacing: 10,
+  carouselButtonWidth: 20,
+  carouselButtonHeight: 75,
+  carouselItemsVisible: 4,
+  carouselScrollBy: 2,
+  carouselContainerId: "second-carousel",
 });
 
 // Store important elements for event handlers.
