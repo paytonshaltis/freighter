@@ -96,52 +96,82 @@ export default class Carousel {
       carouselItemContainer.appendChild(carouselItem);
     });
 
+    // Add the transitionend event listener to the carousel item container.
+    carouselItemContainer.addEventListener("transitionend", () => {
+      // Get the current length of the carousel item container.
+      const carouselItemContainerLength = carouselItemContainer.children.length;
+
+      // Remove the dummy items and non-visible items.
+      if (this.prevScrollDirection === "left") {
+        for (
+          let i = carouselItemContainerLength - 1;
+          i > carouselItemContainerLength - 1 - this.carouselScrollBy * 2;
+          i--
+        ) {
+          carouselItemContainer.children[i].remove();
+        }
+
+        this.carouselPosition += 1;
+        this.transformCarouselItems(false);
+      } else if (this.prevScrollDirection === "right") {
+        for (let i = 0; i < this.carouselScrollBy * 2; i++) {
+          carouselItemContainer.children[0].remove();
+        }
+
+        this.carouselPosition -= 1;
+        this.transformCarouselItems(false);
+      }
+      this.isScrolling = false;
+    });
+
     return carouselItemContainer;
   }
 
   // Configure the left arrow button.
-  private configureCarouselArrow(string: "left" | "right"): HTMLElement {
+  private configureCarouselArrow(direction: "left" | "right"): HTMLElement {
     // Create the arrow element.
     const arrow: HTMLElement = document.createElement("button");
 
     // Apply the appropriate class and id.
-    arrow.classList.add(`carousel-arrow-${string}`);
-    arrow.id = `carousel-arrow-${string}-${this.carouselID}`;
+    arrow.classList.add(`carousel-arrow-${direction}`);
+    arrow.id = `carousel-arrow-${direction}-${this.carouselID}`;
 
     // Add the onclick event listener.
-    if (string === "left") {
-      if (!this.isScrolling) {
-        // Indicate the scrolling direction.
-        this.prevScrollDirection = "left";
+    if (direction === "left") {
+      arrow.addEventListener("click", () => {
+        if (!this.isScrolling) {
+          // Indicate the scrolling direction.
+          this.prevScrollDirection = "left";
 
-        // Add appropriate previous items.
-        this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
-        this.allCarouselItemsTopPtr -= this.carouselScrollBy;
-        const prevItems = this.getNCarouselItems(
-          this.carouselScrollBy,
-          this.allCarouselItemsBottomPtr
-        );
-        this.carouselItemContainer.prepend(...prevItems);
+          // Add appropriate previous items.
+          this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
+          this.allCarouselItemsTopPtr -= this.carouselScrollBy;
+          const prevItems = this.getNCarouselItems(
+            this.carouselScrollBy,
+            this.allCarouselItemsBottomPtr
+          );
+          this.carouselItemContainer.prepend(...prevItems);
 
-        // Add two dummy next items.
-        const nextItems = this.getNCarouselItems(
-          this.carouselScrollBy,
-          0,
-          false
-        );
-        nextItems.forEach((item) => {
-          item.classList.add("dummy");
-        });
-        this.carouselItemContainer.append(...nextItems);
+          // Add two dummy next items.
+          const nextItems = this.getNCarouselItems(
+            this.carouselScrollBy,
+            0,
+            false
+          );
+          nextItems.forEach((item) => {
+            item.classList.add("dummy");
+          });
+          this.carouselItemContainer.append(...nextItems);
 
-        // Moving the carousel to the left.
-        this.carouselPosition -= 1;
-        this.transformCarouselItems();
+          // Moving the carousel to the left.
+          this.carouselPosition -= 1;
+          this.transformCarouselItems();
 
-        // Allow next button input.
-        this.isScrolling = true;
-      }
-    } else if (string === "right") {
+          // Allow next button input.
+          this.isScrolling = true;
+        }
+      });
+    } else if (direction === "right") {
       arrow.addEventListener("click", () => {
         if (!this.isScrolling) {
           // Indicate the scrolling direction.
