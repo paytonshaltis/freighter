@@ -64,24 +64,34 @@ const getNCarouselItems = (
   // Start at the start index and get n items.
   for (let i = start; i < start + n; i++) {
     result.push(
-      allCarouselItems[index]
-        .item(i % carouselItemsLength)
-        ?.cloneNode(deep) as HTMLElement
+      allCarouselItems[index][i % carouselItemsLength]?.cloneNode(
+        deep
+      ) as HTMLElement
     );
   }
   return result;
 };
 
 // Stores the current position for each carousel.
-const allCarouselItems: HTMLCollection[] = [];
+const allCarouselItems: Element[][] = [];
 const carouselPositions: number[] = [];
 const isScrolling: boolean[] = [];
 const prevScrollDirection: string[] = [];
+const allCarouselItemsTop: number[] = [];
+const allCarouselItemsBottom: number[] = [];
 for (let i = 0; i < leftArrows.length; i++) {
-  allCarouselItems[i] = carouselItemContainers[i].children;
+  allCarouselItems.push([]);
   carouselPositions.push(0);
   isScrolling.push(false);
+  allCarouselItemsTop.push(0);
+  allCarouselItemsBottom.push(0);
 }
+carouselItemContainers.forEach((carouselItemContainer, index) => {
+  Array.from(carouselItemContainer.children).forEach((element) => {
+    allCarouselItems[index].push(element);
+  });
+});
+console.log("All Items:", allCarouselItems);
 
 // Reorder the elements in the carousel item container.
 const initializeCarousel = (index: number) => {
@@ -91,11 +101,10 @@ const initializeCarousel = (index: number) => {
   // Fills the active carousel items list with the first
   // carouselItemsVisible items. May need to wrap around.
   for (let i = 0; i < carouselItemsVisible; i++) {
-    const element = allCarouselItems[index].item(
-      i % allCarouselItems[index].length
-    );
+    const element = allCarouselItems[index][i % allCarouselItems[index].length];
     if (i < carouselItemsVisible && element) {
       activeCarouselItems.push(element);
+      allCarouselItemsTop[index]++;
     }
   }
 
@@ -103,6 +112,7 @@ const initializeCarousel = (index: number) => {
   carouselItemContainers[index].replaceChildren(...activeCarouselItems);
 };
 initializeCarousel(0);
+initializeCarousel(1);
 
 // Click event listener for all left carousel arrow.
 Array.from(leftArrows).forEach((leftArrow, index) => {
@@ -112,10 +122,12 @@ Array.from(leftArrows).forEach((leftArrow, index) => {
       prevScrollDirection[index] = "left";
 
       // Add appropriate previous items.
+      allCarouselItemsBottom[index] -= carouselScrollBy;
+      allCarouselItemsTop[index] -= carouselScrollBy;
       const prevItems = getNCarouselItems(
         index,
         carouselScrollBy,
-        -carouselScrollBy
+        allCarouselItemsBottom[index]
       );
       carouselItemContainers[index].prepend(...prevItems);
 
@@ -147,9 +159,11 @@ Array.from(rightArrows).forEach((rightArrow, index) => {
       const nextItems = getNCarouselItems(
         index,
         carouselScrollBy,
-        carouselItemsVisible
+        allCarouselItemsTop[index]
       );
       carouselItemContainers[index].append(...nextItems);
+      allCarouselItemsBottom[index] += carouselScrollBy;
+      allCarouselItemsTop[index] += carouselScrollBy;
 
       // Add two dummy previous items.
       const prevItems = getNCarouselItems(index, carouselScrollBy, 0, false);
@@ -183,17 +197,27 @@ Array.from(carouselItemContainers).forEach((carouselItemContainer, index) => {
       ) {
         carouselItemContainer.children[i].remove();
       }
+
+      carouselPositions[index] += 1;
+      transformCarouselItems(index, false);
     } else if (prevScrollDirection[index] === "right") {
       for (let i = 0; i < carouselScrollBy * 2; i++) {
         carouselItemContainer.children[0].remove();
       }
+
+      carouselPositions[index] -= 1;
+      transformCarouselItems(index, false);
     }
     isScrolling[index] = false;
   });
 });
 
 // Transform the carousel items based on the position array.
-const transformCarouselItems = (index: number) => {
+const transformCarouselItems = (index: number, animate = true) => {
+  if (!animate) {
+    (carouselItemContainers[index] as HTMLElement).style.transition = "none";
+  }
+
   (
     carouselItemContainers[index] as HTMLElement
   ).style.transform = `translateX(${
@@ -201,4 +225,10 @@ const transformCarouselItems = (index: number) => {
     carouselPositions[index] *
     ((carouselItemWidth + carouselItemSpacing) * carouselScrollBy)
   }px)`;
+
+  if (!animate) {
+    setTimeout(() => {
+      (carouselItemContainers[index] as HTMLElement).style.transition = "";
+    }, 0);
+  }
 };
