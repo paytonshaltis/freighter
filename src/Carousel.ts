@@ -8,6 +8,7 @@ type CarouselOptions = {
   carouselItemsVisible: number;
   carouselScrollBy: number;
   carouselContainerId: string;
+  resizingMethod: "none" | "stretch-gap";
 };
 
 export default class Carousel {
@@ -19,6 +20,7 @@ export default class Carousel {
   private carouselButtonHeight: number;
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
+  private resizingMethod: "none" | "stretch-gap";
 
   // Carousel DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -130,7 +132,9 @@ export default class Carousel {
     });
 
     // Add the resize event listener to the adjust the carousel item container's gap.
-    window.addEventListener("resize", this.resizeGap);
+    if (this.resizingMethod === "stretch-gap") {
+      window.addEventListener("resize", this.resizeGap);
+    }
 
     return carouselItemContainer;
   }
@@ -247,7 +251,8 @@ export default class Carousel {
   // Apply styles to the carousel-container class.
   private applyCarouselContainerStyles(): void {
     // Apply the appropriate styles.
-    this.carouselContainer.style.width = "100%";
+    this.carouselContainer.style.width =
+      this.resizingMethod === "none" ? "fit-content" : "100%";
     this.carouselContainer.style.position = "relative";
   }
 
@@ -278,11 +283,14 @@ export default class Carousel {
     carouselItemContainer.style.display = "flex";
     carouselItemContainer.style.justifyContent = "center";
     carouselItemContainer.style.gap = `${this.carouselItemSpacing}px`;
-    // carouselItemContainer.style.width = `${
-    //   this.carouselItemWidth * this.carouselItemsVisible +
-    //   this.carouselItemSpacing * (this.carouselItemsVisible - 1)
-    // }px`;
-    carouselItemContainer.style.width = "100%";
+    if (this.resizingMethod === "none") {
+      carouselItemContainer.style.width = `${
+        this.carouselItemWidth * this.carouselItemsVisible +
+        this.carouselItemSpacing * (this.carouselItemsVisible - 1)
+      }px`;
+    } else {
+      carouselItemContainer.style.width = "100%";
+    }
     carouselItemContainer.style.transition = "transform 0.5s ease-in-out";
   }
 
@@ -350,6 +358,7 @@ export default class Carousel {
     this.carouselButtonHeight = options.carouselButtonHeight;
     this.carouselItemsVisible = options.carouselItemsVisible;
     this.carouselScrollBy = options.carouselScrollBy;
+    this.resizingMethod = options.resizingMethod;
 
     // Carousel DOM element attributes.
     this.carouselID = ++Carousel.maxID;
@@ -436,12 +445,14 @@ export default class Carousel {
       this.carouselItemContainer.style.transition = "none";
     }
 
+    const spacingAmount =
+      this.resizingMethod === "none"
+        ? this.carouselItemSpacing
+        : parseFloat(getComputedStyle(this.carouselItemContainer).gap);
     this.carouselItemContainer.style.transform = `translateX(${
       -1 *
       this.carouselPosition *
-      ((this.carouselItemWidth +
-        parseFloat(getComputedStyle(this.carouselItemContainer).gap)) *
-        this.carouselScrollBy)
+      ((this.carouselItemWidth + spacingAmount) * this.carouselScrollBy)
     }px)`;
 
     if (!animate) {
