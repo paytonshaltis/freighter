@@ -39,59 +39,68 @@ const carouselScrollBy = parseInt(
  */
 
 /**
- * Returns n carousel items from either the beginning or end of the
+ * Returns n carousel items from the starting index provided.
  * carousel item container. Will loop around to the other end if necessary.
  * @param index The index of the carousel to get items from.
  * @param n The number of carousel items to be returned.
- * @param start If the items are to be taken from the start or end.
+ * @param start The index to start getting items from.
+ * @param deep Optional parameter to get all contents of the item.
  * @returns An array of carousel items.
  */
-const getNCarouselItems = (index: number, n: number, start: boolean) => {
-  const carouselItems = carouselItemContainers[index].children;
-  const carouselItemsLength = carouselItems.length;
-  let result: HTMLElement[] = [];
+const getNCarouselItems = (
+  index: number,
+  n: number,
+  start: number,
+  deep: boolean = true
+) => {
+  const carouselItemsLength = allCarouselItems[index].length;
+  const result: HTMLElement[] = [];
 
-  if (start) {
-    for (let i = 0; i < n; i++) {
-      result.push(
-        carouselItems
-          .item(i % carouselItemsLength)
-          ?.cloneNode(true) as HTMLElement
-      );
-    }
-  } else {
-    let currPos = carouselItemsLength - 1;
-    for (let i = 0; i < n; i++) {
-      result.push(carouselItems.item(currPos)?.cloneNode(true) as HTMLElement);
-      currPos--;
-      if (currPos < 0) {
-        currPos = carouselItemsLength - 1;
-      }
-    }
+  // If the starting index is negative, wrap around to the other end.
+  if (start < 0) {
+    start = carouselItemsLength + start;
+  }
+
+  // Start at the start index and get n items.
+  for (let i = start; i < start + n; i++) {
+    result.push(
+      allCarouselItems[index]
+        .item(i % carouselItemsLength)
+        ?.cloneNode(deep) as HTMLElement
+    );
   }
   return result;
 };
 
 // Stores the current position for each carousel.
+const allCarouselItems: HTMLCollection[] = [];
 const carouselPositions: number[] = [];
 const isScrolling: boolean[] = [];
+const prevScrollDirection: string[] = [];
 for (let i = 0; i < leftArrows.length; i++) {
+  allCarouselItems[i] = carouselItemContainers[i].children;
   carouselPositions.push(0);
   isScrolling.push(false);
 }
 
 // Reorder the elements in the carousel item container.
 const initializeCarousel = (index: number) => {
-  const carouselItems = carouselItemContainers[index].children;
+  // The list of active carousel items; node list of elements.
+  const activeCarouselItems: Element[] = [];
 
-  // Fill the visible carousel items if needed.
-  let currIndex = 0;
-  while (carouselItems.length < carouselItemsVisible) {
-    carouselItemContainers[index].append(
-      carouselItems.item(currIndex)?.cloneNode(true) as Node
+  // Fills the active carousel items list with the first
+  // carouselItemsVisible items. May need to wrap around.
+  for (let i = 0; i < carouselItemsVisible; i++) {
+    const element = allCarouselItems[index].item(
+      i % allCarouselItems[index].length
     );
-    currIndex++;
+    if (i < carouselItemsVisible && element) {
+      activeCarouselItems.push(element);
+    }
   }
+
+  // Replace the carousel items with the active carousel items.
+  carouselItemContainers[index].replaceChildren(...activeCarouselItems);
 };
 initializeCarousel(0);
 
@@ -99,8 +108,29 @@ initializeCarousel(0);
 Array.from(leftArrows).forEach((leftArrow, index) => {
   leftArrow.addEventListener("click", () => {
     if (!isScrolling[index]) {
+      // Indicate the scrolling direction.
+      prevScrollDirection[index] = "left";
+
+      // Add appropriate previous items.
+      const prevItems = getNCarouselItems(
+        index,
+        carouselScrollBy,
+        -carouselScrollBy
+      );
+      carouselItemContainers[index].prepend(...prevItems);
+
+      // Add two dummy next items.
+      const nextItems = getNCarouselItems(index, carouselScrollBy, 0, false);
+      nextItems.forEach((item) => {
+        item.classList.add("dummy");
+      });
+      carouselItemContainers[index].append(...nextItems);
+
+      // Moving the carousel to the left.
       carouselPositions[index] -= 1;
       transformCarouselItems(index);
+
+      // Allow next button input.
       isScrolling[index] = true;
     }
   });
@@ -110,8 +140,29 @@ Array.from(leftArrows).forEach((leftArrow, index) => {
 Array.from(rightArrows).forEach((rightArrow, index) => {
   rightArrow.addEventListener("click", () => {
     if (!isScrolling[index]) {
+      // Indicate the scrolling direction.
+      prevScrollDirection[index] = "right";
+
+      // Add appropriate next items.
+      const nextItems = getNCarouselItems(
+        index,
+        carouselScrollBy,
+        carouselItemsVisible
+      );
+      carouselItemContainers[index].append(...nextItems);
+
+      // Add two dummy previous items.
+      const prevItems = getNCarouselItems(index, carouselScrollBy, 0, false);
+      prevItems.forEach((item) => {
+        item.classList.add("dummy");
+      });
+      carouselItemContainers[index].prepend(...prevItems);
+
+      // Moving the carousel to the right.
       carouselPositions[index] += 1;
       transformCarouselItems(index);
+
+      // Allow next button input.
       isScrolling[index] = true;
     }
   });
@@ -120,6 +171,23 @@ Array.from(rightArrows).forEach((rightArrow, index) => {
 // Transitionend event for all carousel item containers.
 Array.from(carouselItemContainers).forEach((carouselItemContainer, index) => {
   carouselItemContainer.addEventListener("transitionend", () => {
+    // Get the current length of the carousel item container.
+    const carouselItemContainerLength = carouselItemContainer.children.length;
+
+    // Remove the dummy items and non-visible items.
+    if (prevScrollDirection[index] === "left") {
+      for (
+        let i = carouselItemContainerLength - 1;
+        i > carouselItemContainerLength - 1 - carouselScrollBy * 2;
+        i--
+      ) {
+        carouselItemContainer.children[i].remove();
+      }
+    } else if (prevScrollDirection[index] === "right") {
+      for (let i = 0; i < carouselScrollBy * 2; i++) {
+        carouselItemContainer.children[0].remove();
+      }
+    }
     isScrolling[index] = false;
   });
 });
