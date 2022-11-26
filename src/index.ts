@@ -103,11 +103,11 @@ const initializeCarousel = (index: number) => {
   for (let i = 0; i < carouselItemsVisible; i++) {
     const element = allCarouselItems[index][i % allCarouselItems[index].length];
     if (i < carouselItemsVisible && element) {
-      activeCarouselItems.push(element);
+      activeCarouselItems.push((element as Node).cloneNode(true) as Element);
       allCarouselItemsTop[index]++;
     }
   }
-
+  console.log("Active Carousel Items:", activeCarouselItems);
   // Replace the carousel items with the active carousel items.
   carouselItemContainers[index].replaceChildren(...activeCarouselItems);
 };
