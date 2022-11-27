@@ -177,6 +177,10 @@ export default class Carousel {
         this.transformCarouselItems(false);
       }
 
+      // If the size changed while the carousel was scrolling, the carousel
+      // item container will need to be resized.
+      this.resizeCarousel();
+
       // Allow the carousel to be scrolled again.
       this.isScrolling = false;
     });
@@ -612,28 +616,21 @@ export default class Carousel {
     this.initializeCarousel();
 
     // Adjust the initial size of the carousel items based on the resizing method.
-    if (this.resizingMethod === "stretch-gap") {
-      this.resizeGap();
-    } else if (
-      this.resizingMethod === "stretch" ||
-      this.resizingMethod == "stretch-scale"
-    ) {
-      this.resizeScale();
-    }
+    this.resizeCarousel();
 
     // Add the correct event listeners to the window for resizing the carousel based
     // on the resizing method.
     if (this.resizingMethod === "stretch-gap") {
-      new ResizeObserver(() => this.resizeGap()).observe(
-        this.carouselContainer.parentElement as HTMLElement
-      );
+      new ResizeObserver(() => {
+        if (!this.isScrolling) this.resizeGap();
+      }).observe(this.carouselContainer.parentElement as HTMLElement);
     } else if (
       this.resizingMethod === "stretch" ||
       this.resizingMethod == "stretch-scale"
     ) {
-      new ResizeObserver(() => this.resizeScale()).observe(
-        this.carouselContainer.parentElement as HTMLElement
-      );
+      new ResizeObserver(() => {
+        if (!this.isScrolling) this.resizeScale();
+      }).observe(this.carouselContainer.parentElement as HTMLElement);
     }
   }
 
@@ -741,6 +738,21 @@ export default class Carousel {
       setTimeout(() => {
         this.carouselItemContainer.style.transition = this.carouselTransition;
       }, 0);
+    }
+  }
+
+  /**
+   * Adjusts the size of the carousel items based on the resizing method.
+   * @returns {void} Nothing.
+   */
+  private resizeCarousel(): void {
+    if (this.resizingMethod === "stretch-gap") {
+      this.resizeGap();
+    } else if (
+      this.resizingMethod === "stretch" ||
+      this.resizingMethod == "stretch-scale"
+    ) {
+      this.resizeScale();
     }
   }
 }
