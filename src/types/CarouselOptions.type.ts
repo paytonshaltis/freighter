@@ -10,6 +10,9 @@ type CarouselOptions = {
   carouselItemsVisible: number;
   carouselScrollBy: number;
   carouselContainerId: string;
+  carouselTransitionDuration?: number;
+  carouselTransitionDelay?: number;
+  carouselTransitionTimingFunction?: string;
   resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 };
 

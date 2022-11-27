@@ -6,10 +6,13 @@ const c = new Carousel({
   carouselItemSpacing: 10,
   carouselButtonWidth: 20,
   carouselButtonHeight: 75,
-  carouselItemsVisible: 4,
-  carouselScrollBy: 2,
+  carouselItemsVisible: 5,
+  carouselScrollBy: 3,
   carouselContainerId: "my-carousel",
   resizingMethod: "none",
+  carouselTransitionDuration: 1000,
+  carouselTransitionDelay: 250,
+  carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 
 const c2 = new Carousel({
@@ -34,6 +37,9 @@ const c3 = new Carousel({
   carouselScrollBy: 2,
   carouselContainerId: "third-carousel",
   resizingMethod: "stretch",
+  carouselTransitionDuration: 1000,
+  carouselTransitionDelay: 250,
+  carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
 });
 
 const kingCrimson = new Carousel({
@@ -43,7 +49,10 @@ const kingCrimson = new Carousel({
   carouselButtonWidth: 20,
   carouselButtonHeight: 200,
   carouselItemsVisible: 3,
-  carouselScrollBy: 1,
+  carouselScrollBy: 2,
   carouselContainerId: "king-crimson",
   resizingMethod: "stretch-scale",
+  carouselTransitionDuration: 1000,
+  carouselTransitionDelay: 250,
+  carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });

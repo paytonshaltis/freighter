@@ -13,7 +13,7 @@ export default class Carousel {
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
   private carouselItemAspectRatio: number;
-  private carouselTransition: string = "transform 500ms ease-in-out";
+  private carouselTransition: string;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 
   // Carousel DOM element attributes.
@@ -31,6 +31,7 @@ export default class Carousel {
   private prevScrollDirection: string;
   private carouselContainerConfigured = false;
   private carouselItemsConfigured = false;
+  private usingBezierTransition: boolean;
 
   /**
    * Configures the main carousel container. Constructs the carousel from the
@@ -219,8 +220,10 @@ export default class Carousel {
           // Add the matching number of dummy items to the right side.
           const nextItems = this.getCarouselItems(
             this.carouselScrollBy,
-            0,
-            false
+            this.usingBezierTransition
+              ? this.allCarouselItemsTopPtr + this.carouselScrollBy
+              : 0,
+            this.usingBezierTransition
           );
           nextItems.forEach((item) => {
             item.classList.add("dummy");
@@ -258,8 +261,10 @@ export default class Carousel {
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
             this.carouselScrollBy,
-            0,
-            false
+            this.usingBezierTransition
+              ? this.allCarouselItemsBottomPtr - this.carouselScrollBy * 2
+              : 0,
+            this.usingBezierTransition
           );
           prevItems.forEach((item) => {
             item.classList.add("dummy");
@@ -565,6 +570,12 @@ export default class Carousel {
     this.carouselItemsVisible = options.carouselItemsVisible;
     this.carouselScrollBy = options.carouselScrollBy;
     this.resizingMethod = options.resizingMethod;
+    this.carouselTransition = `transform ${
+      options.carouselTransitionDuration || 500
+    }ms ${options.carouselTransitionTimingFunction || "ease-in-out"} ${
+      options.carouselTransitionDelay || 0
+    }ms`;
+    console.log(this.carouselTransition);
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
 
@@ -590,6 +601,9 @@ export default class Carousel {
     this.carouselPosition = 0;
     this.isScrolling = false;
     this.prevScrollDirection = "";
+    this.usingBezierTransition = options.carouselTransitionTimingFunction
+      ? options.carouselTransitionTimingFunction.startsWith("cubic-bezier")
+      : false;
 
     // Apply the appropriate styles to each class.
     this.applyStyles();
