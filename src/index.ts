@@ -1,6 +1,7 @@
 import Carousel from "./Carousel.js";
+import CarouselManager from "./CarouselManager.js";
 
-const c = new Carousel({
+const c = new CarouselManager({
   carouselItemWidth: 150,
   carouselItemHeight: 75,
   carouselItemSpacing: 10,
@@ -16,7 +17,7 @@ const c = new Carousel({
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 
-const c2 = new Carousel({
+const c2 = new CarouselManager({
   carouselItemWidth: 150,
   carouselItemHeight: 75,
   carouselItemSpacing: 10,
@@ -29,7 +30,7 @@ const c2 = new Carousel({
   resizingMethod: "stretch-gap",
 });
 
-const c3 = new Carousel({
+const c3 = new CarouselManager({
   carouselItemWidth: 150,
   carouselItemHeight: 75,
   carouselItemSpacing: 10,
@@ -45,7 +46,7 @@ const c3 = new Carousel({
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
 });
 
-const kingCrimson = new Carousel({
+const kingCrimson = new CarouselManager({
   carouselItemWidth: 200,
   carouselItemHeight: 200,
   carouselItemSpacing: 25,
