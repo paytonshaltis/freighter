@@ -1,4 +1,7 @@
-import CarouselOptions from "./types/CarouselOptions.type";
+import CarouselOptions, {
+  convertCarouselOptions,
+  validateCarouselOptions,
+} from "./types/CarouselOptions.type.js";
 
 /**
  * Class representing a single carousel.
@@ -565,6 +568,10 @@ export default class Carousel {
    * @returns {Carousel} A new Carousel object.
    */
   constructor(options: CarouselOptions) {
+    // Validate and convert the options object.
+    validateCarouselOptions(options);
+    convertCarouselOptions(options);
+
     // Initialize all class attributes.
     this.carouselItemWidth = options.carouselItemWidth;
     this.carouselItemHeight = options.carouselItemHeight;
@@ -579,7 +586,6 @@ export default class Carousel {
     }ms ${options.carouselTransitionTimingFunction || "ease-in-out"} ${
       options.carouselTransitionDelay || 0
     }ms`;
-    console.log(this.carouselTransition);
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
 

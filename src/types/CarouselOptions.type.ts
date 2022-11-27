@@ -16,4 +16,91 @@ type CarouselOptions = {
   resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 };
 
+/**
+ * Validates all the options passed to the carousel constructor. Checks for the
+ * correct ranges and types of the options.
+ * @param {CarouselOptions} options The options object to be validated.
+ * @returns {void} Nothing.
+ */
+export function validateCarouselOptions(options: CarouselOptions): void {
+  if (options.carouselItemWidth < 0) {
+    throw new Error("carouselItemWidth must be a positive number or 0.");
+  }
+  if (options.carouselItemHeight < 0) {
+    throw new Error("carouselItemHeight must be a positive number or 0.");
+  }
+  if (options.carouselItemSpacing < 0) {
+    throw new Error("carouselItemSpacing must be a positive number or 0.");
+  }
+  if (options.carouselButtonWidth < 0) {
+    throw new Error("carouselButtonWidth must be a positive number or 0.");
+  }
+  if (options.carouselButtonHeight < 0) {
+    throw new Error("carouselButtonHeight must be a positive number or 0");
+  }
+  if (options.carouselItemsVisible < 1) {
+    throw new Error(
+      "carouselItemsVisible must be a positive number greater than 1."
+    );
+  }
+  if (options.carouselItemsVisible % 1 !== 0) {
+    throw new Error("carouselItemsVisible must be an integer.");
+  }
+  if (options.carouselScrollBy < 1) {
+    throw new Error(
+      "carouselScrollBy must be a positive number greater than 1."
+    );
+  }
+  if (options.carouselScrollBy % 1 !== 0) {
+    throw new Error("carouselScrollBy must be an integer.");
+  }
+  if (options.carouselContainerId.length === 0) {
+    throw new Error("carouselContainerId must be a non-empty string.");
+  }
+  if (
+    options.carouselTransitionDuration &&
+    options.carouselTransitionDuration < 0
+  ) {
+    throw new Error(
+      "carouselTransitionDuration must be a positive number or 0."
+    );
+  }
+  if (options.carouselTransitionDelay && options.carouselTransitionDelay < 0) {
+    throw new Error("carouselTransitionDelay must be a positive number or 0.");
+  }
+  if (
+    options.carouselTransitionTimingFunction &&
+    options.carouselTransitionTimingFunction.length === 0
+  ) {
+    throw new Error(
+      "carouselTransitionTimingFunction must be a non-empty string."
+    );
+  }
+  if (
+    options.resizingMethod !== "none" &&
+    options.resizingMethod !== "stretch" &&
+    options.resizingMethod !== "stretch-gap" &&
+    options.resizingMethod !== "stretch-scale"
+  ) {
+    throw new Error(
+      "resizingMethod must be one of the following: 'none', 'stretch', 'stretch-gap', 'stretch-scale'."
+    );
+  }
+}
+
+/**
+ * Converts some of the friendlier options to the more specific options used
+ * internally by the carousel. Rather than make the user remember these details,
+ * this method will just purify anything the user submits.
+ * @param {CarouselOptions} options The options object to be purified.
+ * @returns {void} Nothing.
+ */
+export function convertCarouselOptions(options: CarouselOptions): void {
+  if (options.carouselTransitionDuration == 0) {
+    options.carouselTransitionDuration = 1;
+  }
+  options.carouselItemsVisible = Math.floor(options.carouselItemsVisible);
+  options.carouselScrollBy = Math.floor(options.carouselScrollBy);
+}
+
 export default CarouselOptions;

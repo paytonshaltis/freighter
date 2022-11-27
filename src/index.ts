@@ -6,12 +6,12 @@ const c = new Carousel({
   carouselItemSpacing: 10,
   carouselButtonWidth: 20,
   carouselButtonHeight: 75,
-  carouselItemsVisible: 5,
-  carouselScrollBy: 3,
+  carouselItemsVisible: 1,
+  carouselScrollBy: 2.0,
   carouselContainerId: "my-carousel",
   resizingMethod: "none",
-  carouselTransitionDuration: 1000,
-  carouselTransitionDelay: 250,
+  carouselTransitionDuration: 0,
+  carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 
