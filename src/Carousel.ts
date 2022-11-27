@@ -1,4 +1,6 @@
-import CarouselOptions from "./types/CarouselOptions.type";
+import CarouselOptions, {
+  validateCarouselOptions,
+} from "./types/CarouselOptions.type.js";
 
 /**
  * Class representing a single carousel.
@@ -565,6 +567,9 @@ export default class Carousel {
    * @returns {Carousel} A new Carousel object.
    */
   constructor(options: CarouselOptions) {
+    // Validate and convert the options object.
+    validateCarouselOptions(options);
+
     // Initialize all class attributes.
     this.carouselItemWidth = options.carouselItemWidth;
     this.carouselItemHeight = options.carouselItemHeight;
