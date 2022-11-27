@@ -461,7 +461,8 @@ export default class Carousel {
 
     // Need to absolutely position the carousel button.
     carouselButton.style.position = "absolute";
-    carouselButton.style.bottom = "0";
+    carouselButton.style.bottom = "50%";
+    carouselButton.style.transform = "translateY(50%)";
     if (direction === "left") {
       carouselButton.style.left = "0";
     }
