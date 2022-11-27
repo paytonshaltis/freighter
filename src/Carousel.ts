@@ -1,4 +1,5 @@
 import CarouselOptions, {
+  convertCarouselOptions,
   validateCarouselOptions,
 } from "./types/CarouselOptions.type.js";
 
@@ -569,6 +570,7 @@ export default class Carousel {
   constructor(options: CarouselOptions) {
     // Validate and convert the options object.
     validateCarouselOptions(options);
+    convertCarouselOptions(options);
 
     // Initialize all class attributes.
     this.carouselItemWidth = options.carouselItemWidth;
