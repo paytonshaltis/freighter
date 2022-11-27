@@ -2,6 +2,7 @@ import CarouselOptions, {
   convertCarouselOptions,
   validateCarouselOptions,
 } from "./types/CarouselOptions.type.js";
+import CarouselState from "./types/CarouselState.type.js";
 
 /**
  * Class representing a single carousel.
@@ -17,6 +18,9 @@ export default class Carousel {
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
   private carouselItemAspectRatio: number;
+  private carouselTransitionDuration: number;
+  private carouselTransitionDelay: number;
+  private carouselTransitionTimingFunction: string;
   private carouselTransition: string;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 
@@ -585,10 +589,13 @@ export default class Carousel {
    * carousel options. The constructor initializes all class attributes, configures
    * all elements within the carousel container, styles the elements, and initializes
    * the carousel with the correct starting elements based on the carousel options.
-   * @param {CarouselOptions} options The options for the carousel.
+   * @param {CarouselOptions | CarouselState} options An object of the type CarouselOptions
+   * or CarouselState. Pass in a CarouselOptions object to initialize a new carousel, and
+   * pass in a CarouselState object to restore a carousel from a previous state.
+   * Carousel will be constructed from the passed in state.
    * @returns {Carousel} A new Carousel object.
    */
-  constructor(options: CarouselOptions) {
+  constructor(options: CarouselOptions | CarouselState) {
     // Validate and convert the options object.
     validateCarouselOptions(options);
     convertCarouselOptions(options);
@@ -603,11 +610,14 @@ export default class Carousel {
     this.carouselItemsVisible = options.carouselItemsVisible;
     this.carouselScrollBy = options.carouselScrollBy;
     this.resizingMethod = options.resizingMethod;
-    this.carouselTransition = `transform ${
-      options.carouselTransitionDuration || 500
-    }ms ${options.carouselTransitionTimingFunction || "ease-in-out"} ${
-      options.carouselTransitionDelay || 0
-    }ms`;
+    this.carouselTransitionDuration = options.carouselTransitionDuration || 500;
+    this.carouselTransitionDelay = options.carouselTransitionDelay || 0;
+    this.carouselTransitionTimingFunction =
+      options.carouselTransitionTimingFunction || "ease-in-out";
+    this.carouselTransition = `transform 
+      ${this.carouselTransitionDuration}ms 
+      ${this.carouselTransitionTimingFunction} 
+      ${this.carouselTransitionDelay}ms`;
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
 
@@ -798,5 +808,35 @@ export default class Carousel {
       parseFloat(getComputedStyle(this.carouselItemContainer).height)
     );
     this.carouselContainer.style.height = `${maxHeight}px`;
+  }
+
+  /**
+   * Returns the current state of the carousel. This is used by the CarouselManager
+   * when creating a new carousel with slightly different settings. The current
+   * state should be preserved, and only the settings that are different should be
+   * changed.
+   * @returns {CarouselState} The current state of the carousel.
+   */
+  public getCurrentState(): CarouselState {
+    return {
+      carouselItemWidth: this.carouselItemWidth,
+      carouselItemHeight: this.carouselItemHeight,
+      carouselItemSpacing: this.carouselItemSpacing,
+      carouselButtonWidth: this.carouselButtonWidth,
+      carouselButtonHeight: this.carouselButtonHeight,
+      carouselButtonPosition: this.carouselButtonPosition,
+      carouselItemsVisible: this.carouselItemsVisible,
+      carouselScrollBy: this.carouselScrollBy,
+      carouselContainerId: this.carouselContainer.id,
+      carouselTransitionDuration: this.carouselTransitionDuration,
+      carouselTransitionDelay: this.carouselTransitionDelay,
+      carouselTransitionTimingFunction: this.carouselTransitionTimingFunction,
+      resizingMethod: this.resizingMethod,
+      carouselID: this.carouselID,
+      allCarouselItems: this.allCarouselItems,
+      allCarouselItemsTopPtr: this.allCarouselItemsTopPtr,
+      allCarouselItemsBottomPtr: this.allCarouselItemsBottomPtr,
+      carouselPosition: this.carouselPosition,
+    };
   }
 }

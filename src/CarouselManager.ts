@@ -18,4 +18,8 @@ export default class CarouselManager {
   constructor(options: CarouselOptions) {
     this.carousel = new Carousel(options);
   }
+
+  public getCurrentState(): CarouselOptions {
+    return this.carousel.getCurrentState();
+  }
 }

@@ -28,6 +28,9 @@ const c2 = new CarouselManager({
   carouselScrollBy: 2,
   carouselContainerId: "second-carousel",
   resizingMethod: "stretch-gap",
+  carouselTransitionDelay: 0,
+  carouselTransitionDuration: 1000,
+  carouselTransitionTimingFunction: "linear",
 });
 
 const c3 = new CarouselManager({
@@ -61,3 +64,5 @@ const kingCrimson = new CarouselManager({
   carouselTransitionDelay: 250,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
+
+const c4 = new CarouselManager(c3.getCurrentState());
