@@ -5,8 +5,8 @@ type CarouselOptions = {
   carouselItemWidth: number;
   carouselItemHeight: number;
   carouselItemSpacing: number;
-  carouselButtonWidth: number;
-  carouselButtonHeight: number;
+  carouselButtonWidth: string;
+  carouselButtonHeight: string;
   carouselItemsVisible: number;
   carouselScrollBy: number;
   carouselContainerId: string;
@@ -32,10 +32,10 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   if (options.carouselItemSpacing < 0) {
     throw new Error("carouselItemSpacing must be a positive number or 0.");
   }
-  if (options.carouselButtonWidth < 0) {
+  if (parseFloat(options.carouselButtonWidth) < 0) {
     throw new Error("carouselButtonWidth must be a positive number or 0.");
   }
-  if (options.carouselButtonHeight < 0) {
+  if (parseFloat(options.carouselButtonHeight) < 0) {
     throw new Error("carouselButtonHeight must be a positive number or 0");
   }
   if (options.carouselItemsVisible < 1) {

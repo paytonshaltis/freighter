@@ -11,8 +11,8 @@ export default class Carousel {
   private carouselItemWidth: number;
   private carouselItemHeight: number;
   private carouselItemSpacing: number;
-  private carouselButtonWidth: number;
-  private carouselButtonHeight: number;
+  private carouselButtonWidth: string;
+  private carouselButtonHeight: string;
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
   private carouselItemAspectRatio: number;
@@ -451,8 +451,8 @@ export default class Carousel {
       ) as HTMLElement;
 
     // Set the width and height of the carousel button based on the constructor.
-    carouselButton.style.width = `${this.carouselButtonWidth}px`;
-    carouselButton.style.height = `${this.carouselButtonHeight}px`;
+    carouselButton.style.width = this.carouselButtonWidth;
+    carouselButton.style.height = this.carouselButtonHeight;
 
     // Other required styles.
     carouselButton.style.cursor = "pointer";
@@ -781,7 +781,6 @@ export default class Carousel {
   private resizeCarouselItemContainer(): void {
     // The height of the main container is the max of the button height and the
     // carousel item container height.
-    console.log("called");
     const maxHeight = Math.max(
       parseFloat(getComputedStyle(this.carouselContainer.children[0]).height),
       parseFloat(getComputedStyle(this.carouselItemContainer).height)
