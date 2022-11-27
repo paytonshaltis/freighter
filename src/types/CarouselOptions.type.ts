@@ -32,10 +32,16 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   if (options.carouselItemSpacing < 0) {
     throw new Error("carouselItemSpacing must be a positive number or 0.");
   }
-  if (parseFloat(options.carouselButtonWidth) < 0) {
+  if (
+    isNaN(parseFloat(options.carouselButtonWidth)) ||
+    parseFloat(options.carouselButtonWidth) < 0
+  ) {
     throw new Error("carouselButtonWidth must be a positive number or 0.");
   }
-  if (parseFloat(options.carouselButtonHeight) < 0) {
+  if (
+    isNaN(parseFloat(options.carouselButtonHeight)) ||
+    parseFloat(options.carouselButtonHeight) < 0
+  ) {
     throw new Error("carouselButtonHeight must be a positive number or 0");
   }
   if (options.carouselItemsVisible < 1) {
