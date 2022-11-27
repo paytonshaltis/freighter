@@ -13,7 +13,7 @@ export default class Carousel {
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
   private carouselItemAspectRatio: number;
-  private carouselTransition: string = "transform 500ms ease-in-out";
+  private carouselTransition: string;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
 
   // Carousel DOM element attributes.
@@ -31,6 +31,7 @@ export default class Carousel {
   private prevScrollDirection: string;
   private carouselContainerConfigured = false;
   private carouselItemsConfigured = false;
+  private usingBezierTransition: boolean;
 
   /**
    * Configures the main carousel container. Constructs the carousel from the
@@ -176,6 +177,10 @@ export default class Carousel {
         this.transformCarouselItems(false);
       }
 
+      // If the size changed while the carousel was scrolling, the carousel
+      // item container will need to be resized.
+      this.resizeCarousel();
+
       // Allow the carousel to be scrolled again.
       this.isScrolling = false;
     });
@@ -219,8 +224,10 @@ export default class Carousel {
           // Add the matching number of dummy items to the right side.
           const nextItems = this.getCarouselItems(
             this.carouselScrollBy,
-            0,
-            false
+            this.usingBezierTransition
+              ? this.allCarouselItemsTopPtr + this.carouselScrollBy
+              : 0,
+            this.usingBezierTransition
           );
           nextItems.forEach((item) => {
             item.classList.add("dummy");
@@ -258,8 +265,10 @@ export default class Carousel {
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
             this.carouselScrollBy,
-            0,
-            false
+            this.usingBezierTransition
+              ? this.allCarouselItemsBottomPtr - this.carouselScrollBy * 2
+              : 0,
+            this.usingBezierTransition
           );
           prevItems.forEach((item) => {
             item.classList.add("dummy");
@@ -565,6 +574,12 @@ export default class Carousel {
     this.carouselItemsVisible = options.carouselItemsVisible;
     this.carouselScrollBy = options.carouselScrollBy;
     this.resizingMethod = options.resizingMethod;
+    this.carouselTransition = `transform ${
+      options.carouselTransitionDuration || 500
+    }ms ${options.carouselTransitionTimingFunction || "ease-in-out"} ${
+      options.carouselTransitionDelay || 0
+    }ms`;
+    console.log(this.carouselTransition);
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
 
@@ -590,6 +605,9 @@ export default class Carousel {
     this.carouselPosition = 0;
     this.isScrolling = false;
     this.prevScrollDirection = "";
+    this.usingBezierTransition = options.carouselTransitionTimingFunction
+      ? options.carouselTransitionTimingFunction.startsWith("cubic-bezier")
+      : false;
 
     // Apply the appropriate styles to each class.
     this.applyStyles();
@@ -598,28 +616,21 @@ export default class Carousel {
     this.initializeCarousel();
 
     // Adjust the initial size of the carousel items based on the resizing method.
-    if (this.resizingMethod === "stretch-gap") {
-      this.resizeGap();
-    } else if (
-      this.resizingMethod === "stretch" ||
-      this.resizingMethod == "stretch-scale"
-    ) {
-      this.resizeScale();
-    }
+    this.resizeCarousel();
 
     // Add the correct event listeners to the window for resizing the carousel based
     // on the resizing method.
     if (this.resizingMethod === "stretch-gap") {
-      new ResizeObserver(() => this.resizeGap()).observe(
-        this.carouselContainer.parentElement as HTMLElement
-      );
+      new ResizeObserver(() => {
+        if (!this.isScrolling) this.resizeGap();
+      }).observe(this.carouselContainer.parentElement as HTMLElement);
     } else if (
       this.resizingMethod === "stretch" ||
       this.resizingMethod == "stretch-scale"
     ) {
-      new ResizeObserver(() => this.resizeScale()).observe(
-        this.carouselContainer.parentElement as HTMLElement
-      );
+      new ResizeObserver(() => {
+        if (!this.isScrolling) this.resizeScale();
+      }).observe(this.carouselContainer.parentElement as HTMLElement);
     }
   }
 
@@ -727,6 +738,21 @@ export default class Carousel {
       setTimeout(() => {
         this.carouselItemContainer.style.transition = this.carouselTransition;
       }, 0);
+    }
+  }
+
+  /**
+   * Adjusts the size of the carousel items based on the resizing method.
+   * @returns {void} Nothing.
+   */
+  private resizeCarousel(): void {
+    if (this.resizingMethod === "stretch-gap") {
+      this.resizeGap();
+    } else if (
+      this.resizingMethod === "stretch" ||
+      this.resizingMethod == "stretch-scale"
+    ) {
+      this.resizeScale();
     }
   }
 }
