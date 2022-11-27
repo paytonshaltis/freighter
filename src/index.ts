@@ -65,18 +65,19 @@ const kingCrimson = new CarouselManager({
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 
-// const c4 = new CarouselManager({
-//   ...c3.getCurrentState(),
-//   carouselItemHeight: 50,
-//   carouselItemWidth: 50,
-//   carouselItemSpacing: 1,
-//   carouselItemsVisible: 5,
-//   resizingMethod: "stretch-gap",
-//   carouselScrollBy: 5,
-// });
-
 (
   document.querySelector("button#remove-listeners") as HTMLElement
 ).addEventListener("click", () => {
-  c3.removeAllEventListners();
+  c3.changeCarouselOptions({
+    carouselItemHeight: 100,
+    carouselItemWidth: 100,
+    carouselItemSpacing: 1,
+    carouselItemsVisible: 5,
+    resizingMethod: "stretch-scale",
+    carouselScrollBy: 5,
+    carouselButtonHeight: "100px",
+  });
+  kingCrimson.changeCarouselOptions({
+    carouselItemsVisible: 5,
+  });
 });

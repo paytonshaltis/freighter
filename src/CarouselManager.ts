@@ -20,7 +20,13 @@ export default class CarouselManager {
     this.carousel = new Carousel(options);
   }
 
-  public getCurrentState(): CarouselOptions {
+  public changeCarouselOptions(options: Partial<CarouselOptions>): void {
+    this.removeAllEventListners();
+    console.log({ ...this.getCurrentState(), ...options });
+    this.carousel = new Carousel({ ...this.getCurrentState(), ...options });
+  }
+
+  private getCurrentState(): CarouselOptions {
     return this.carousel.getCurrentState();
   }
 

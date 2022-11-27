@@ -41,11 +41,16 @@ export default class Carousel {
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
 
+  // Maintain some original state for the carousel.
+  private originalCarouselItemHeight: number;
+  private originalCarouselItemWidth: number;
+
   // Event listeners.
   private transitionEndEventListener: EventListener = (event: Event) => {};
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
   private parentResizeObserver: ResizeObserver = new ResizeObserver(() => {});
+  private activeTimeoutFunctions: number[] = [];
 
   /**
    * Configures the main carousel container. Constructs the carousel from the
@@ -462,7 +467,6 @@ export default class Carousel {
       carouselItem.style.backgroundColor = "#333";
       carouselItem.style.color = "white";
       carouselItem.style.textAlign = "center";
-      carouselItem.style.lineHeight = `${this.carouselItemHeight}px`;
       carouselItem.style.fontSize = "2rem";
     });
   }
@@ -561,51 +565,60 @@ export default class Carousel {
     }
 
     // Sets a 0 second timeout to allow the browser to finish the resizing above.
-    setTimeout(() => {
-      // Get the new width of each carousel item containers after flex shrinking
-      // or flex growing.
-      this.carouselItemWidth = parseFloat(
-        getComputedStyle(this.carouselItemContainer.children[0] as HTMLElement)
-          .width
-      );
-
-      // If the resize method is 'stretch-scale', the carousel items preserve
-      // their aspect ratio. Otherwise, the height remains the same.
-      const computedHeight =
-        this.resizingMethod === "stretch-scale"
-          ? this.carouselItemAspectRatio * this.carouselItemWidth
-          : this.carouselItemHeight;
-
-      // Set the new width and height of each active carousel item, and remove the flex
-      // grow and shrink properties. This prevents the carousel items from
-      // resizing again when next and dummy items are added.
-      for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
-        (this.carouselItemContainer.children[i] as HTMLElement).style.width =
-          this.carouselItemWidth + "px";
-        (this.carouselItemContainer.children[i] as HTMLElement).style.height =
-          computedHeight + "px";
-        (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
-          "0";
-        (
-          this.carouselItemContainer.children[i] as HTMLElement
-        ).style.flexShrink = "0";
-      }
-
-      // Set the new width and height of all the carousel items, not just the
-      // active ones. This is neccessary for items to be added as next and dummy
-      // items as the appropriate sizes.
-      this.allCarouselItems.forEach((carouselItem) => {
-        carouselItem.style.width = `${this.carouselItemWidth}px`;
-        carouselItem.style.height = `${computedHeight}px`;
-        carouselItem.style.flexGrow = "0";
-        carouselItem.style.flexShrink = "0";
-      });
-
+    this.activeTimeoutFunctions.push(
       setTimeout(() => {
-        // Check for height changes and resize the carousel item container.
-        this.resizeCarouselItemContainer();
-      }, 0);
-    }, 0);
+        console.log("Hello");
+        // Get the new width of each carousel item containers after flex shrinking
+        // or flex growing.
+        this.carouselItemWidth = parseFloat(
+          getComputedStyle(
+            this.carouselItemContainer.children[0] as HTMLElement
+          ).width
+        );
+
+        // If the resize method is 'stretch-scale', the carousel items preserve
+        // their aspect ratio. Otherwise, the height remains the same.
+        const computedHeight =
+          this.resizingMethod === "stretch-scale"
+            ? this.carouselItemAspectRatio * this.carouselItemWidth
+            : this.carouselItemHeight;
+
+        // Set the new width and height of each active carousel item, and remove the flex
+        // grow and shrink properties. This prevents the carousel items from
+        // resizing again when next and dummy items are added.
+        for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
+          (this.carouselItemContainer.children[i] as HTMLElement).style.width =
+            this.carouselItemWidth + "px";
+          (this.carouselItemContainer.children[i] as HTMLElement).style.height =
+            computedHeight + "px";
+          (
+            this.carouselItemContainer.children[i] as HTMLElement
+          ).style.flexGrow = "0";
+          (
+            this.carouselItemContainer.children[i] as HTMLElement
+          ).style.flexShrink = "0";
+        }
+
+        // Set the new width and height of all the carousel items, not just the
+        // active ones. This is neccessary for items to be added as next and dummy
+        // items as the appropriate sizes.
+        this.allCarouselItems.forEach((carouselItem) => {
+          carouselItem.style.width = `${this.carouselItemWidth}px`;
+          carouselItem.style.height = `${computedHeight}px`;
+          carouselItem.style.flexGrow = "0";
+          carouselItem.style.flexShrink = "0";
+        });
+
+        this.activeTimeoutFunctions.push(
+          setTimeout(() => {
+            console.log("Hello");
+
+            // Check for height changes and resize the carousel item container.
+            this.resizeCarouselItemContainer();
+          }, 0)
+        );
+      }, 0)
+    );
   }
 
   /**
@@ -649,6 +662,8 @@ export default class Carousel {
       ${this.carouselTransitionDelay}ms`;
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
+    this.originalCarouselItemHeight = this.carouselItemHeight;
+    this.originalCarouselItemWidth = this.carouselItemWidth;
 
     // Give the carousel a unique internal ID if it is being constructed from
     // a CarouselOptions object.
@@ -699,6 +714,10 @@ export default class Carousel {
 
     // Adjust the initial size of the carousel items based on the resizing method.
     this.resizeCarousel();
+
+    // Should also try resizing the height in case a change from one resizing method
+    // to anothe is made.
+    this.resizeCarouselItemContainer();
 
     // Add the correct event listeners to the window for resizing the carousel based
     // on the resizing method.
@@ -824,9 +843,13 @@ export default class Carousel {
     // is done in a timeout to ensure that the transform is applied before the
     // transition is added back.
     if (!animate) {
-      setTimeout(() => {
-        this.carouselItemContainer.style.transition = this.carouselTransition;
-      }, 0);
+      this.activeTimeoutFunctions.push(
+        setTimeout(() => {
+          console.log("Hello");
+
+          this.carouselItemContainer.style.transition = this.carouselTransition;
+        }, 0)
+      );
     }
   }
 
@@ -853,7 +876,7 @@ export default class Carousel {
    * on each resize.
    * @returns {void} Nothing.
    */
-  private resizeCarouselItemContainer(): void {
+  public resizeCarouselItemContainer(): void {
     // The height of the main container is the max of the button height and the
     // carousel item container height.
     const maxHeight = Math.max(
@@ -877,8 +900,8 @@ export default class Carousel {
    */
   public getCurrentState(): CarouselState {
     return {
-      carouselItemWidth: this.carouselItemWidth,
-      carouselItemHeight: this.carouselItemHeight,
+      carouselItemWidth: this.originalCarouselItemWidth,
+      carouselItemHeight: this.originalCarouselItemHeight,
       carouselItemSpacing: this.carouselItemSpacing,
       carouselButtonWidth: this.carouselButtonWidth,
       carouselButtonHeight: this.carouselButtonHeight,
@@ -917,6 +940,12 @@ export default class Carousel {
       "transitionend",
       this.transitionEndEventListener
     );
+
+    // Clear all of the pending timeout functions.
+    // this.activeTimeoutFunctions.forEach((timeout) => {
+    //   console.log("Clearing timeout");
+    //   clearTimeout(timeout);
+    // });
 
     console.log("Removed all event listeners.");
   }

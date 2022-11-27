@@ -8,7 +8,6 @@ type CarouselState = CarouselOptions & {
   carouselPosition: number; // Handled in constructor.
 };
 
-// Height not changing in non-visible items.
 // Order of items is slightly wrong.
 
 export default CarouselState;
