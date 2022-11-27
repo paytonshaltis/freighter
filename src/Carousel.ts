@@ -364,6 +364,10 @@ export default class Carousel {
     // The position should be relative to allow for the absolute positioning of
     // the carousel control buttons.
     this.carouselContainer.style.position = "relative";
+    this.carouselContainer.style.display = "flex";
+    this.carouselContainer.style.flexDirection = "column";
+    this.carouselContainer.style.justifyContent = "center";
+    // this.carouselContainer.style.alignContent = "center";
   }
 
   /**
@@ -494,6 +498,9 @@ export default class Carousel {
       computedGap > this.carouselItemSpacing
         ? computedGap + "px"
         : this.carouselItemSpacing + "px";
+
+    // Check for height changes and resize the carousel item container.
+    this.resizeCarouselItemContainer();
   }
 
   /**
@@ -558,6 +565,9 @@ export default class Carousel {
         carouselItem.style.flexShrink = "0";
       });
     }, 0);
+
+    // Check for height changes and resize the carousel item container.
+    this.resizeCarouselItemContainer();
   }
 
   /**
@@ -761,5 +771,22 @@ export default class Carousel {
     ) {
       this.resizeScale();
     }
+  }
+
+  /**
+   * Adjusts the height of the carousel item container based on the control button
+   * height and the height of the carousel item container itself. Should be called
+   * on each resize.
+   * @returns {void} Nothing.
+   */
+  private resizeCarouselItemContainer(): void {
+    // The height of the main container is the max of the button height and the
+    // carousel item container height.
+    console.log("called");
+    const maxHeight = Math.max(
+      parseFloat(getComputedStyle(this.carouselContainer.children[0]).height),
+      parseFloat(getComputedStyle(this.carouselItemContainer).height)
+    );
+    this.carouselContainer.style.height = `${maxHeight}px`;
   }
 }

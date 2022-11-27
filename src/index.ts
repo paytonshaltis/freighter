@@ -47,7 +47,7 @@ const kingCrimson = new Carousel({
   carouselItemHeight: 200,
   carouselItemSpacing: 25,
   carouselButtonWidth: 20,
-  carouselButtonHeight: 200,
+  carouselButtonHeight: 250,
   carouselItemsVisible: 3,
   carouselScrollBy: 2,
   carouselContainerId: "king-crimson",
