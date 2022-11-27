@@ -13,6 +13,7 @@ export default class Carousel {
   private carouselItemSpacing: number;
   private carouselButtonWidth: string;
   private carouselButtonHeight: string;
+  private carouselButtonPosition: "top" | "center" | "bottom";
   private carouselItemsVisible: number;
   private carouselScrollBy: number;
   private carouselItemAspectRatio: number;
@@ -465,8 +466,18 @@ export default class Carousel {
 
     // Need to absolutely position the carousel button.
     carouselButton.style.position = "absolute";
-    carouselButton.style.bottom = "50%";
-    carouselButton.style.transform = "translateY(50%)";
+    switch (this.carouselButtonPosition) {
+      case "top":
+        carouselButton.style.top = "0";
+        break;
+      case "bottom":
+        carouselButton.style.bottom = "0";
+        break;
+      case "center":
+        carouselButton.style.bottom = "50%";
+        carouselButton.style.transform = "translateY(50%)";
+        break;
+    }
     if (direction === "left") {
       carouselButton.style.left = "0";
     }
@@ -588,6 +599,7 @@ export default class Carousel {
     this.carouselItemSpacing = options.carouselItemSpacing;
     this.carouselButtonWidth = options.carouselButtonWidth;
     this.carouselButtonHeight = options.carouselButtonHeight;
+    this.carouselButtonPosition = options.carouselButtonPosition;
     this.carouselItemsVisible = options.carouselItemsVisible;
     this.carouselScrollBy = options.carouselScrollBy;
     this.resizingMethod = options.resizingMethod;
