@@ -43,10 +43,16 @@ export function validateCarouselOptions(options: CarouselOptions): void {
       "carouselItemsVisible must be a positive number greater than 1."
     );
   }
+  if (options.carouselItemsVisible % 1 !== 0) {
+    throw new Error("carouselItemsVisible must be an integer.");
+  }
   if (options.carouselScrollBy < 1) {
     throw new Error(
       "carouselScrollBy must be a positive number greater than 1."
     );
+  }
+  if (options.carouselScrollBy % 1 !== 0) {
+    throw new Error("carouselScrollBy must be an integer.");
   }
   if (options.carouselContainerId.length === 0) {
     throw new Error("carouselContainerId must be a non-empty string.");
@@ -93,6 +99,8 @@ export function convertCarouselOptions(options: CarouselOptions): void {
   if (options.carouselTransitionDuration == 0) {
     options.carouselTransitionDuration = 1;
   }
+  options.carouselItemsVisible = Math.floor(options.carouselItemsVisible);
+  options.carouselScrollBy = Math.floor(options.carouselScrollBy);
 }
 
 export default CarouselOptions;

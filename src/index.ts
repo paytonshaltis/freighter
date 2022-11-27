@@ -7,11 +7,11 @@ const c = new Carousel({
   carouselButtonWidth: 20,
   carouselButtonHeight: 75,
   carouselItemsVisible: 1,
-  carouselScrollBy: 1,
+  carouselScrollBy: 2.0,
   carouselContainerId: "my-carousel",
   resizingMethod: "none",
   carouselTransitionDuration: 0,
-  carouselTransitionDelay: 250,
+  carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 

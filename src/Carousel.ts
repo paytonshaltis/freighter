@@ -586,7 +586,6 @@ export default class Carousel {
     }ms ${options.carouselTransitionTimingFunction || "ease-in-out"} ${
       options.carouselTransitionDelay || 0
     }ms`;
-    console.log(this.carouselTransition);
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
 
