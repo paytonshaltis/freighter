@@ -16,10 +16,15 @@ export default class CarouselManager {
    * @param options Carousel options to be passed to the Carousel constructor.
    */
   constructor(options: CarouselOptions) {
+    // Need to remove all event listeners from the carousel container.
     this.carousel = new Carousel(options);
   }
 
   public getCurrentState(): CarouselOptions {
     return this.carousel.getCurrentState();
+  }
+
+  public removeAllEventListners(): void {
+    this.carousel.removeAllEventListeners();
   }
 }

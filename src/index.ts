@@ -34,8 +34,8 @@ const c2 = new CarouselManager({
 });
 
 const c3 = new CarouselManager({
-  carouselItemWidth: 150,
-  carouselItemHeight: 75,
+  carouselItemWidth: 200,
+  carouselItemHeight: 200,
   carouselItemSpacing: 10,
   carouselButtonWidth: "5%",
   carouselButtonHeight: "75%",
@@ -65,4 +65,18 @@ const kingCrimson = new CarouselManager({
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 
-const c4 = new CarouselManager(c3.getCurrentState());
+// const c4 = new CarouselManager({
+//   ...c3.getCurrentState(),
+//   carouselItemHeight: 50,
+//   carouselItemWidth: 50,
+//   carouselItemSpacing: 1,
+//   carouselItemsVisible: 5,
+//   resizingMethod: "stretch-gap",
+//   carouselScrollBy: 5,
+// });
+
+(
+  document.querySelector("button#remove-listeners") as HTMLElement
+).addEventListener("click", () => {
+  c3.removeAllEventListners();
+});

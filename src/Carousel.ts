@@ -41,6 +41,12 @@ export default class Carousel {
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
 
+  // Event listeners.
+  private transitionEndEventListener: EventListener = (event: Event) => {};
+  private leftButtonClickListener: EventListener = (event: Event) => {};
+  private rightButtonClickListener: EventListener = (event: Event) => {};
+  private parentResizeObserver: ResizeObserver = new ResizeObserver(() => {});
+
   /**
    * Configures the main carousel container. Constructs the carousel from the
    * the provided ID for the target div, passing along the carousel items for
@@ -49,9 +55,15 @@ export default class Carousel {
    * constructed, and elements will be added to the target div. The only elements
    * that should be in the target div are the items that wish to be inserted into
    * the carousel as carousel items.
+   * @param {HTMLElement[]} caorouselItemsFromState Optional parameter, the carousel
+   * items from the previous state that should be used rather than the children
+   * of the target container div.
    * @returns {HTMLElement} A reference to the carousel container.
    */
-  private configureCarouselContainer(carouselContainerId: string): HTMLElement {
+  private configureCarouselContainer(
+    carouselContainerId: string,
+    carouselItemsFromState?: HTMLElement[]
+  ): HTMLElement {
     // Throw an error if the carousel container does not exist.
     const selectedContainer: HTMLElement | null =
       document.getElementById(carouselContainerId);
@@ -60,10 +72,14 @@ export default class Carousel {
     }
 
     // Store the children of the carousel container, removing them from the
-    // target div for processing later on.
-    const carouselItems = Array.from(
-      selectedContainer.children
-    ) as HTMLElement[];
+    // target div for processing later on. If we are constructing from state,
+    // simply pass an the carousel items from the state.
+    const carouselItems =
+      carouselItemsFromState !== undefined
+        ? (Array.from(
+            selectedContainer.children[1].children[0].children
+          ) as HTMLElement[])
+        : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
 
     // Apply the appropriate class. The div's own ID and any other classes
@@ -139,7 +155,7 @@ export default class Carousel {
     // event listener will be used to determine when the carousel has finished
     // scrolling, which allows for the carousel items that are no longer visible
     // to be removed from the DOM safely.
-    carouselItemContainer.addEventListener("transitionend", (event) => {
+    this.transitionEndEventListener = (event: Event) => {
       // Return if the transitionend event is not for the carousel item container,
       // but is instead fired for one of the carousel items.
       if (event.target !== this.carouselItemContainer) {
@@ -191,7 +207,11 @@ export default class Carousel {
 
       // Allow the carousel to be scrolled again.
       this.isScrolling = false;
-    });
+    };
+    carouselItemContainer.addEventListener(
+      "transitionend",
+      this.transitionEndEventListener
+    );
 
     // Return a reference to the generated carousel item container.
     return carouselItemContainer;
@@ -213,7 +233,7 @@ export default class Carousel {
 
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
-      button.addEventListener("click", () => {
+      this.leftButtonClickListener = () => {
         if (!this.isScrolling) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "left";
@@ -249,12 +269,13 @@ export default class Carousel {
           // Allow the next scrolling input.
           this.isScrolling = true;
         }
-      });
+      };
+      button.addEventListener("click", this.leftButtonClickListener);
     }
 
     // Add the event listener for scrolling to the right.
     else if (direction === "right") {
-      button.addEventListener("click", () => {
+      this.rightButtonClickListener = () => {
         if (!this.isScrolling) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "right";
@@ -290,7 +311,8 @@ export default class Carousel {
           // Allow the next scrolling input.
           this.isScrolling = true;
         }
-      });
+      };
+      button.addEventListener("click", this.rightButtonClickListener);
     }
 
     // Return a reference to the generated carousel control button.
@@ -321,7 +343,10 @@ export default class Carousel {
 
     // Apply the appropriate class and id to each carousel item.
     carouselItems.forEach((carouselItem, index) => {
+      carouselItem.removeAttribute("style");
+      carouselItem.classList.remove("carousel-item");
       carouselItem.classList.add("carousel-item");
+      carouselItem.id = "";
       carouselItem.id = `carousel-item-${this.carouselID}-${index}`;
     });
 
@@ -372,7 +397,6 @@ export default class Carousel {
     this.carouselContainer.style.display = "flex";
     this.carouselContainer.style.flexDirection = "column";
     this.carouselContainer.style.justifyContent = "center";
-    // this.carouselContainer.style.alignContent = "center";
   }
 
   /**
@@ -596,7 +620,12 @@ export default class Carousel {
    * @returns {Carousel} A new Carousel object.
    */
   constructor(options: CarouselOptions | CarouselState) {
-    // Validate and convert the options object.
+    // Determine if the constructor is being called with a CarouselOptions object
+    // or a CarouselState object.
+    const constructFromState =
+      (options as CarouselState).carouselID !== undefined;
+
+    // Validate and convert the options or state object.
     validateCarouselOptions(options);
     convertCarouselOptions(options);
 
@@ -621,26 +650,41 @@ export default class Carousel {
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
 
-    // Give the carousel a unique internal ID.
-    this.carouselID = ++Carousel.maxID;
+    // Give the carousel a unique internal ID if it is being constructed from
+    // a CarouselOptions object.
+    this.carouselID = constructFromState
+      ? (options as CarouselState).carouselID
+      : ++Carousel.maxID;
 
-    // Configure the main carousel container, carousel item container, and
-    // carousel item container.
+    // Configure the main carousel container and carousel item container. If
+    // restoring from state, indicate this so that the correct Carousel items
+    // are passed down.
     this.carouselContainer = this.configureCarouselContainer(
-      options.carouselContainerId
+      options.carouselContainerId,
+      (options as CarouselState).allCarouselItems
     );
     this.carouselItemContainer = this.carouselContainer.children[0]
       .children[0] as HTMLElement;
+
+    // Configure the carousel items.
     this.allCarouselItems = this.configureCarouselItems();
 
     // Configure and add the carousel buttons.
     this.carouselContainer.prepend(this.configureCarouselButton("left"));
     this.carouselContainer.appendChild(this.configureCarouselButton("right"));
 
-    // Initialize the carousel with the correct starting data.
-    this.allCarouselItemsBottomPtr = 0;
-    this.allCarouselItemsTopPtr = this.carouselItemsVisible;
-    this.carouselPosition = 0;
+    // Initialize the carousel with the correct starting data depending on
+    // whether the carousel is being constructed from a CarouselOptions object
+    // or a CarouselState object.
+    this.allCarouselItemsBottomPtr = constructFromState
+      ? (options as CarouselState).allCarouselItemsBottomPtr
+      : 0;
+    this.allCarouselItemsTopPtr = constructFromState
+      ? (options as CarouselState).allCarouselItemsTopPtr
+      : this.carouselItemsVisible;
+    this.carouselPosition = constructFromState
+      ? (options as CarouselState).carouselPosition
+      : 0;
     this.isScrolling = false;
     this.prevScrollDirection = "";
     this.usingBezierTransition = options.carouselTransitionTimingFunction
@@ -659,16 +703,22 @@ export default class Carousel {
     // Add the correct event listeners to the window for resizing the carousel based
     // on the resizing method.
     if (this.resizingMethod === "stretch-gap") {
-      new ResizeObserver(() => {
+      this.parentResizeObserver = new ResizeObserver(() => {
         if (!this.isScrolling) this.resizeGap();
-      }).observe(this.carouselContainer.parentElement as HTMLElement);
+      });
+      this.parentResizeObserver.observe(
+        this.carouselContainer.parentElement as HTMLElement
+      );
     } else if (
       this.resizingMethod === "stretch" ||
-      this.resizingMethod == "stretch-scale"
+      this.resizingMethod === "stretch-scale"
     ) {
-      new ResizeObserver(() => {
+      this.parentResizeObserver = new ResizeObserver(() => {
         if (!this.isScrolling) this.resizeScale();
-      }).observe(this.carouselContainer.parentElement as HTMLElement);
+      });
+      this.parentResizeObserver.observe(
+        this.carouselContainer.parentElement as HTMLElement
+      );
     }
   }
 
@@ -706,7 +756,6 @@ export default class Carousel {
         ) as HTMLElement
       );
     }
-
     // Return the array of retrieved carousel items.
     return result;
   }
@@ -759,7 +808,9 @@ export default class Carousel {
     // will have been changed if the resize method is "stretch-gap".
     const spacingAmount =
       this.resizingMethod === "stretch-gap"
-        ? parseFloat(getComputedStyle(this.carouselItemContainer).gap)
+        ? parseFloat(
+            getComputedStyle(this.carouselItemContainer as HTMLElement).gap
+          )
         : this.carouselItemSpacing;
 
     // Apply the transformation the correct distance.
@@ -788,9 +839,11 @@ export default class Carousel {
       this.resizeGap();
     } else if (
       this.resizingMethod === "stretch" ||
-      this.resizingMethod == "stretch-scale"
+      this.resizingMethod === "stretch-scale"
     ) {
       this.resizeScale();
+    } else {
+      console.log("Do not resize.");
     }
   }
 
@@ -804,8 +857,13 @@ export default class Carousel {
     // The height of the main container is the max of the button height and the
     // carousel item container height.
     const maxHeight = Math.max(
-      parseFloat(getComputedStyle(this.carouselContainer.children[0]).height),
-      parseFloat(getComputedStyle(this.carouselItemContainer).height)
+      parseFloat(
+        getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
+          .height
+      ),
+      parseFloat(
+        getComputedStyle(this.carouselItemContainer as HTMLElement).height
+      )
     );
     this.carouselContainer.style.height = `${maxHeight}px`;
   }
@@ -838,5 +896,28 @@ export default class Carousel {
       allCarouselItemsBottomPtr: this.allCarouselItemsBottomPtr,
       carouselPosition: this.carouselPosition,
     };
+  }
+
+  public removeAllEventListeners(): void {
+    // Remove clicks from both buttons.
+    this.carouselContainer.children[0].removeEventListener(
+      "click",
+      this.leftButtonClickListener
+    );
+    this.carouselContainer.children[2].removeEventListener(
+      "click",
+      this.rightButtonClickListener
+    );
+
+    // Remove resize from the parent container.
+    this.parentResizeObserver.disconnect();
+
+    // Remove transition end from the carousel item container.
+    this.carouselItemContainer.removeEventListener(
+      "transitionend",
+      this.transitionEndEventListener
+    );
+
+    console.log("Removed all event listeners.");
   }
 }
