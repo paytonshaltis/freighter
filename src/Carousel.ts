@@ -498,9 +498,6 @@ export default class Carousel {
       computedGap > this.carouselItemSpacing
         ? computedGap + "px"
         : this.carouselItemSpacing + "px";
-
-    // Check for height changes and resize the carousel item container.
-    this.resizeCarouselItemContainer();
   }
 
   /**
@@ -564,10 +561,12 @@ export default class Carousel {
         carouselItem.style.flexGrow = "0";
         carouselItem.style.flexShrink = "0";
       });
-    }, 0);
 
-    // Check for height changes and resize the carousel item container.
-    this.resizeCarouselItemContainer();
+      setTimeout(() => {
+        // Check for height changes and resize the carousel item container.
+        this.resizeCarouselItemContainer();
+      }, 0);
+    }, 0);
   }
 
   /**
