@@ -610,12 +610,16 @@ export default class Carousel {
     // Add the correct event listeners to the window for resizing the carousel based
     // on the resizing method.
     if (this.resizingMethod === "stretch-gap") {
-      window.addEventListener("resize", () => this.resizeGap());
+      new ResizeObserver(() => this.resizeGap()).observe(
+        this.carouselContainer.parentElement as HTMLElement
+      );
     } else if (
       this.resizingMethod === "stretch" ||
       this.resizingMethod == "stretch-scale"
     ) {
-      window.addEventListener("resize", () => this.resizeScale());
+      new ResizeObserver(() => this.resizeScale()).observe(
+        this.carouselContainer.parentElement as HTMLElement
+      );
     }
   }
 
@@ -696,7 +700,7 @@ export default class Carousel {
    * after a transition has ended.
    * @returns {void} Nothing.
    */
-  private transformCarouselItems(animate = true): void {
+  private transformCarouselItems(animate: boolean = true): void {
     // If the transform should not be animated, remove the transition property.
     if (!animate) {
       this.carouselItemContainer.style.transition = "none";
