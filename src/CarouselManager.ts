@@ -1,5 +1,6 @@
 import Carousel from "./Carousel.js";
 import CarouselOptions from "./types/CarouselOptions.type.js";
+import CarouselState from "./types/CarouselState.type.js";
 
 /**
  * Class responsible for managing an instance of the Carousel class. Includes
@@ -20,17 +21,25 @@ export default class CarouselManager {
     this.carousel = new Carousel(options);
   }
 
-  public changeCarouselOptions(options: Partial<CarouselOptions>): void {
+  private changeCarouselOptions(options: CarouselOptions): void {
     this.removeAllEventListners();
-    const param = { ...this.getCurrentState(), ...options };
-    this.carousel = new Carousel(param);
+    this.carousel = new Carousel(options);
   }
 
-  private getCurrentState(): CarouselOptions {
+  private getCurrentState(): CarouselState {
     return this.carousel.getCurrentState();
   }
 
-  public removeAllEventListners(): void {
+  private removeAllEventListners(): void {
     this.carousel.removeAllEventListeners();
+  }
+
+  public addCarouselItem(item: HTMLElement, index?: number): void {
+    const currentState = this.getCurrentState();
+    const param = {
+      ...currentState,
+      allCarouselItems: [...currentState.allCarouselItems, item],
+    };
+    this.changeCarouselOptions(param);
   }
 }
