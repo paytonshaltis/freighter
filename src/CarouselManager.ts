@@ -34,16 +34,26 @@ export default class CarouselManager {
     this.carousel.removeAllEventListeners();
   }
 
+  /**
+   * Adds a new item to the carousel. The item is added to the end of the
+   * carousel by default, but an optional index can be provided. Note that
+   * this operation involves the instantiation of a new Carousel instance
+   * that replaces the current one.
+   * @param {HTMLElement} item The item to be added to the carousel.
+   * @param {number} index Optional index at which to add the item. Adds to
+   * the end of the carousel by default.
+   */
   public addCarouselItem(item: HTMLElement, index?: number): void {
+    // Add the new item either at the end or at the specified index.
     const currentState = this.getCurrentState();
-    const newCarouselItems = currentState.allCarouselItems;
     index
       ? currentState.allCarouselItems.splice(index, 0, item)
-      : newCarouselItems.push(item);
-    const param = {
+      : currentState.allCarouselItems.push(item);
+
+    // Create a new carousel with the updated options.
+    this.changeCarouselOptions({
       ...currentState,
       allCarouselItems: currentState.allCarouselItems,
-    };
-    this.changeCarouselOptions(param);
+    } as CarouselState);
   }
 }
