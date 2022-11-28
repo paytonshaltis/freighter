@@ -105,6 +105,9 @@ const kingCrimson = new CarouselManager({
       carouselItemHeight: 40,
       carouselItemWidth: 40,
       carouselItemSpacing: 50,
+      carouselTransitionDelay: 100,
+      carouselTransitionDuration: 1000,
+      carouselTransitionTimingFunction: "ease",
     });
   }
 );

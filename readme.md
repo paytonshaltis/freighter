@@ -10,17 +10,22 @@ The following is a table that details exactly which Carousel properties can be c
 
 | Property                           | Changeable | Implemented | Inexpensive |
 | :--------------------------------- | :--------: | :---------: | :---------: |
-| `carouselitemWidth`                |     ✔      |     ❌      |     ❌      |
-| `carouselitemSpacing`              |     ✔      |     ❌      |     ❌      |
-| `carouselButtonWidth`              |     ✔      |     ❌      |     ❌      |
-| `carouselitemHeight`               |     ✔      |     ❌      |     ❌      |
-| `carouselButtonHeight`             |     ✔      |     ❌      |     ❌      |
-| `carouselButtonPosition`           |     ✔      |     ❌      |     ❌      |
-| `carouselitemsVisible`             |     ✔      |     ❌      |     ❌      |
-| `carouselScrollBy`                 |     ✔      |     ❌      |     ❌      |
-| `carouselTransitionDuration`       |     ✔      |     ❌      |      ✔      |
-| `carouselTransitionDelay`          |     ✔      |     ❌      |      ✔      |
-| `carouselTransitionTimingFunction` |     ✔      |     ❌      |      ✔      |
-| `carouselResizingMethod`           |     ✔      |     ❌      |     ❌      |
+| `carouselitemWidth`                |     ✔      |      ✔      |     ❌      |
+| `carouselitemSpacing`              |     ✔      |      ✔      |     ❌      |
+| `carouselButtonWidth`              |     ✔      |      ✔      |     ❌      |
+| `carouselitemHeight`               |     ✔      |      ✔      |     ❌      |
+| `carouselButtonHeight`             |     ✔      |      ✔      |     ❌      |
+| `carouselButtonPosition`           |     ✔      |      ✔      |     ❌      |
+| `carouselitemsVisible`             |     ✔      |      ✔      |     ❌      |
+| `carouselScrollBy`                 |     ✔      |      ✔      |     ❌      |
+| `carouselTransitionDuration`       |     ✔      |      ✔      |      ✔      |
+| `carouselTransitionDelay`          |     ✔      |      ✔      |      ✔      |
+| `carouselTransitionTimingFunction` |     ✔      |      ✔      |      ✔      |
+| `carouselResizingMethod`           |     ✔      |      ✔      |     ❌      |
+| `canScroll`                        |     ✔      |     ❌      |      ✔      |
+| `scrollTimer`                      |     ✔      |     ❌      |      ✔      |
+| `showTimeline`                     |     ✔      |     ❌      |      ✔      |
+| `addCarouselItem`                  |     ✔      |     ❌      |     ❌      |
+| `removeCarouselItem`               |     ✔      |     ❌      |     ❌      |
 
 </div>
