@@ -697,7 +697,8 @@ export default class Carousel {
       this.allCarouselItemsBottomPtr = 0;
     }
 
-    this.allCarouselItemsTopPtr = this.carouselItemsVisible;
+    this.allCarouselItemsTopPtr =
+      this.carouselItemsVisible + this.allCarouselItemsBottomPtr;
     this.carouselPosition = 0;
     this.isScrolling = false;
     this.prevScrollDirection = "";
