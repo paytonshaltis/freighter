@@ -66,8 +66,5 @@ const kingCrimson = new CarouselManager({
 });
 
 document.querySelector("button#add")?.addEventListener("click", () => {
-  kingCrimson.addCarouselItem(
-    document.createElement("div"),
-    Math.floor(Math.random() * 10)
-  );
+  kingCrimson.addCarouselItem(document.createElement("div"), 2);
 });

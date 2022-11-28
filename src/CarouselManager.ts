@@ -36,9 +36,13 @@ export default class CarouselManager {
 
   public addCarouselItem(item: HTMLElement, index?: number): void {
     const currentState = this.getCurrentState();
+    const newCarouselItems = currentState.allCarouselItems;
+    index
+      ? currentState.allCarouselItems.splice(index, 0, item)
+      : newCarouselItems.push(item);
     const param = {
       ...currentState,
-      allCarouselItems: [...currentState.allCarouselItems, item],
+      allCarouselItems: currentState.allCarouselItems,
     };
     this.changeCarouselOptions(param);
   }
