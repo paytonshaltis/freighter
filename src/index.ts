@@ -72,12 +72,13 @@ const kingCrimson = new CarouselManager({
     carouselItemHeight: 100,
     carouselItemWidth: 100,
     carouselItemSpacing: 1,
-    carouselItemsVisible: 5,
+    carouselItemsVisible: 10,
     resizingMethod: "stretch-scale",
     carouselScrollBy: 5,
     carouselButtonHeight: "100px",
   });
   kingCrimson.changeCarouselOptions({
-    carouselItemsVisible: 5,
+    carouselItemsVisible: 10,
+    carouselButtonHeight: "35%",
   });
 });

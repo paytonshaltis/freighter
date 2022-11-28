@@ -60,9 +60,9 @@ export default class Carousel {
    * constructed, and elements will be added to the target div. The only elements
    * that should be in the target div are the items that wish to be inserted into
    * the carousel as carousel items.
-   * @param {HTMLElement[]} caorouselItemsFromState Optional parameter, the carousel
-   * items from the previous state that should be used rather than the children
-   * of the target container div.
+   * @param {HTMLElement[]} carouselItemsFromState Optional parameter, the
+   * carousel items from the previous state that should be used rather than the
+   * children of the target container div.
    * @returns {HTMLElement} A reference to the carousel container.
    */
   private configureCarouselContainer(
@@ -81,11 +81,11 @@ export default class Carousel {
     // simply pass an the carousel items from the state.
     const carouselItems =
       carouselItemsFromState !== undefined
-        ? (Array.from(
-            selectedContainer.children[1].children[0].children
-          ) as HTMLElement[])
+        ? carouselItemsFromState
         : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
+
+    console.log("Carousel Items:", carouselItems);
 
     // Apply the appropriate class. The div's own ID and any other classes
     // remain and won't be overwritten.
@@ -567,7 +567,6 @@ export default class Carousel {
     // Sets a 0 second timeout to allow the browser to finish the resizing above.
     this.activeTimeoutFunctions.push(
       setTimeout(() => {
-        console.log("Hello");
         // Get the new width of each carousel item containers after flex shrinking
         // or flex growing.
         this.carouselItemWidth = parseFloat(
@@ -611,8 +610,6 @@ export default class Carousel {
 
         this.activeTimeoutFunctions.push(
           setTimeout(() => {
-            console.log("Hello");
-
             // Check for height changes and resize the carousel item container.
             this.resizeCarouselItemContainer();
           }, 0)
@@ -683,6 +680,7 @@ export default class Carousel {
 
     // Configure the carousel items.
     this.allCarouselItems = this.configureCarouselItems();
+    console.log(this.allCarouselItems);
 
     // Configure and add the carousel buttons.
     this.carouselContainer.prepend(this.configureCarouselButton("left"));
@@ -691,12 +689,8 @@ export default class Carousel {
     // Initialize the carousel with the correct starting data depending on
     // whether the carousel is being constructed from a CarouselOptions object
     // or a CarouselState object.
-    this.allCarouselItemsBottomPtr = constructFromState
-      ? (options as CarouselState).allCarouselItemsBottomPtr
-      : 0;
-    this.allCarouselItemsTopPtr = constructFromState
-      ? (options as CarouselState).allCarouselItemsTopPtr
-      : this.carouselItemsVisible;
+    this.allCarouselItemsBottomPtr = 0;
+    this.allCarouselItemsTopPtr = this.carouselItemsVisible;
     this.carouselPosition = constructFromState
       ? (options as CarouselState).carouselPosition
       : 0;
@@ -794,7 +788,9 @@ export default class Carousel {
     const activeCarouselItems: Element[] = [];
 
     // Fills the active carousel items list with the first this.carouselItemsVisible
-    // items. May need to wrap around.
+    // items. May need to wrap around. Need to also keep track of the original set of all
+    // carousel items so that the carousel items can be reordered correctly when getting
+    // the current state.
     for (let i = 0; i < this.carouselItemsVisible; i++) {
       const element = this.allCarouselItems[i % this.allCarouselItems.length];
       if (i < this.carouselItemsVisible && element) {
@@ -845,8 +841,6 @@ export default class Carousel {
     if (!animate) {
       this.activeTimeoutFunctions.push(
         setTimeout(() => {
-          console.log("Hello");
-
           this.carouselItemContainer.style.transition = this.carouselTransition;
         }, 0)
       );
@@ -865,8 +859,6 @@ export default class Carousel {
       this.resizingMethod === "stretch-scale"
     ) {
       this.resizeScale();
-    } else {
-      console.log("Do not resize.");
     }
   }
 
@@ -899,6 +891,7 @@ export default class Carousel {
    * @returns {CarouselState} The current state of the carousel.
    */
   public getCurrentState(): CarouselState {
+    console.log("All carousel items: ", this.allCarouselItems);
     return {
       carouselItemWidth: this.originalCarouselItemWidth,
       carouselItemHeight: this.originalCarouselItemHeight,
@@ -915,8 +908,6 @@ export default class Carousel {
       resizingMethod: this.resizingMethod,
       carouselID: this.carouselID,
       allCarouselItems: this.allCarouselItems,
-      allCarouselItemsTopPtr: this.allCarouselItemsTopPtr,
-      allCarouselItemsBottomPtr: this.allCarouselItemsBottomPtr,
       carouselPosition: this.carouselPosition,
     };
   }
@@ -940,13 +931,5 @@ export default class Carousel {
       "transitionend",
       this.transitionEndEventListener
     );
-
-    // Clear all of the pending timeout functions.
-    // this.activeTimeoutFunctions.forEach((timeout) => {
-    //   console.log("Clearing timeout");
-    //   clearTimeout(timeout);
-    // });
-
-    console.log("Removed all event listeners.");
   }
 }
