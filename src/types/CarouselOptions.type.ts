@@ -19,7 +19,10 @@ type CarouselOptions = {
 
 /**
  * Validates all the options passed to the carousel constructor. Checks for the
- * correct ranges and types of the options.
+ * correct ranges and types of the options. Note that CarouselState objects can
+ * be passed to this function as well, since they are a superset of the
+ * CarouselOptions type. None of their properties will be checked, however, since
+ * they cannot be invalid (no user input of these values is possible).
  * @param {CarouselOptions} options The options object to be validated.
  * @returns {void} Nothing.
  */
