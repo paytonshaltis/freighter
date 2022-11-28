@@ -716,7 +716,10 @@ export default class Carousel {
     this.resizeCarousel();
 
     // Should also try resizing the height in case a change from one resizing method
-    // to anothe is made.
+    // to anothe is made. Because the height of the children may cause the parent to
+    // change height, the height of the parent should be checked and adjusted after
+    // the fact by calling the same method again.
+    this.resizeCarouselItemContainer();
     this.resizeCarouselItemContainer();
 
     // Should transform the carousel items instantly to reflect the previous position

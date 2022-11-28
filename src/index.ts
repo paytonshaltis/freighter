@@ -78,8 +78,9 @@ const kingCrimson = new CarouselManager({
       carouselButtonHeight: "100px",
     });
     kingCrimson.changeCarouselOptions({
-      carouselItemsVisible: 10,
+      carouselItemsVisible: 2,
       carouselButtonHeight: "35%",
+      resizingMethod: "stretch-gap",
     });
   }
 );
@@ -98,7 +99,12 @@ const kingCrimson = new CarouselManager({
     });
     kingCrimson.changeCarouselOptions({
       carouselItemsVisible: 8,
-      carouselButtonHeight: "35%",
+      resizingMethod: "stretch-gap",
+      carouselButtonPosition: "top",
+      carouselButtonWidth: "40px",
+      carouselItemHeight: 40,
+      carouselItemWidth: 40,
+      carouselItemSpacing: 50,
     });
   }
 );
