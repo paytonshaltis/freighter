@@ -85,8 +85,6 @@ export default class Carousel {
         : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
 
-    console.log("Carousel Items:", carouselItems);
-
     // Apply the appropriate class. The div's own ID and any other classes
     // remain and won't be overwritten.
     selectedContainer.classList.add("carousel-container");
@@ -680,7 +678,6 @@ export default class Carousel {
 
     // Configure the carousel items.
     this.allCarouselItems = this.configureCarouselItems();
-    console.log(this.allCarouselItems);
 
     // Configure and add the carousel buttons.
     this.carouselContainer.prepend(this.configureCarouselButton("left"));
@@ -689,11 +686,19 @@ export default class Carousel {
     // Initialize the carousel with the correct starting data depending on
     // whether the carousel is being constructed from a CarouselOptions object
     // or a CarouselState object.
-    this.allCarouselItemsBottomPtr = 0;
+    if (constructFromState) {
+      this.allCarouselItemsBottomPtr = (
+        options as CarouselState
+      ).allCarouselItemsBottomPtr;
+      while (this.allCarouselItemsBottomPtr < 0) {
+        this.allCarouselItemsBottomPtr += this.allCarouselItems.length;
+      }
+    } else {
+      this.allCarouselItemsBottomPtr = 0;
+    }
+
     this.allCarouselItemsTopPtr = this.carouselItemsVisible;
-    this.carouselPosition = constructFromState
-      ? (options as CarouselState).carouselPosition
-      : 0;
+    this.carouselPosition = 0;
     this.isScrolling = false;
     this.prevScrollDirection = "";
     this.usingBezierTransition = options.carouselTransitionTimingFunction
@@ -712,6 +717,12 @@ export default class Carousel {
     // Should also try resizing the height in case a change from one resizing method
     // to anothe is made.
     this.resizeCarouselItemContainer();
+
+    // Should transform the carousel items instantly to reflect the previous position
+    // of the carousel if restoring from state.
+    if (constructFromState) {
+      this.transitionEndEventListener(new Event("transitionend"));
+    }
 
     // Add the correct event listeners to the window for resizing the carousel based
     // on the resizing method.
@@ -788,11 +799,13 @@ export default class Carousel {
     const activeCarouselItems: Element[] = [];
 
     // Fills the active carousel items list with the first this.carouselItemsVisible
-    // items. May need to wrap around. Need to also keep track of the original set of all
-    // carousel items so that the carousel items can be reordered correctly when getting
-    // the current state.
+    // items. May need to wrap around. If restoring from state, start at the correct
+    // index.
     for (let i = 0; i < this.carouselItemsVisible; i++) {
-      const element = this.allCarouselItems[i % this.allCarouselItems.length];
+      const element =
+        this.allCarouselItems[
+          (i + this.allCarouselItemsBottomPtr) % this.allCarouselItems.length
+        ];
       if (i < this.carouselItemsVisible && element) {
         activeCarouselItems.push((element as Node).cloneNode(true) as Element);
       }
@@ -891,7 +904,6 @@ export default class Carousel {
    * @returns {CarouselState} The current state of the carousel.
    */
   public getCurrentState(): CarouselState {
-    console.log("All carousel items: ", this.allCarouselItems);
     return {
       carouselItemWidth: this.originalCarouselItemWidth,
       carouselItemHeight: this.originalCarouselItemHeight,
@@ -908,7 +920,7 @@ export default class Carousel {
       resizingMethod: this.resizingMethod,
       carouselID: this.carouselID,
       allCarouselItems: this.allCarouselItems,
-      carouselPosition: this.carouselPosition,
+      allCarouselItemsBottomPtr: this.allCarouselItemsBottomPtr,
     };
   }
 

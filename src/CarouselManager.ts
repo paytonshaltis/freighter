@@ -22,7 +22,8 @@ export default class CarouselManager {
 
   public changeCarouselOptions(options: Partial<CarouselOptions>): void {
     this.removeAllEventListners();
-    this.carousel = new Carousel({ ...this.getCurrentState(), ...options });
+    const param = { ...this.getCurrentState(), ...options };
+    this.carousel = new Carousel(param);
   }
 
   private getCurrentState(): CarouselOptions {

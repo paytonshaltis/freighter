@@ -65,20 +65,40 @@ const kingCrimson = new CarouselManager({
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
 });
 
-(
-  document.querySelector("button#remove-listeners") as HTMLElement
-).addEventListener("click", () => {
-  c3.changeCarouselOptions({
-    carouselItemHeight: 100,
-    carouselItemWidth: 100,
-    carouselItemSpacing: 1,
-    carouselItemsVisible: 10,
-    resizingMethod: "stretch-scale",
-    carouselScrollBy: 5,
-    carouselButtonHeight: "100px",
-  });
-  kingCrimson.changeCarouselOptions({
-    carouselItemsVisible: 10,
-    carouselButtonHeight: "35%",
-  });
-});
+(document.querySelector("button#forwards") as HTMLElement).addEventListener(
+  "click",
+  () => {
+    c3.changeCarouselOptions({
+      carouselItemHeight: 100,
+      carouselItemWidth: 100,
+      carouselItemSpacing: 1,
+      carouselItemsVisible: 9,
+      resizingMethod: "stretch-scale",
+      carouselScrollBy: 5,
+      carouselButtonHeight: "100px",
+    });
+    kingCrimson.changeCarouselOptions({
+      carouselItemsVisible: 10,
+      carouselButtonHeight: "35%",
+    });
+  }
+);
+
+(document.querySelector("button#backwards") as HTMLElement).addEventListener(
+  "click",
+  () => {
+    c3.changeCarouselOptions({
+      carouselItemHeight: 100,
+      carouselItemWidth: 100,
+      carouselItemSpacing: 1,
+      carouselItemsVisible: 6,
+      resizingMethod: "stretch-scale",
+      carouselScrollBy: 3,
+      carouselButtonHeight: "100px",
+    });
+    kingCrimson.changeCarouselOptions({
+      carouselItemsVisible: 8,
+      carouselButtonHeight: "35%",
+    });
+  }
+);
