@@ -68,3 +68,11 @@ const kingCrimson = new CarouselManager({
 document.querySelector("button#add")?.addEventListener("click", () => {
   kingCrimson.addCarouselItem(document.createElement("div"), 2);
 });
+
+document.querySelector("button#remove")?.addEventListener("click", () => {
+  kingCrimson.removeCarouselItem(0);
+});
+
+document.querySelector("button#remove-2")?.addEventListener("click", () => {
+  kingCrimson.removeCarouselItem(0, 2);
+});

@@ -56,4 +56,25 @@ export default class CarouselManager {
       allCarouselItems: currentState.allCarouselItems,
     } as CarouselState);
   }
+
+  /**
+   * Removes a number of carousel items starting from the given index.
+   * By default, this method just returns the item at this index, but
+   * the number of items to remove can be specified. Note that this
+   * operation involves the instantiation of a new Carousel instance
+   * that replaces the current one.
+   * @param {number} index The index of the item to be removed.
+   * @param {number} count Optional number of items to remove. Defaults to 1.
+   */
+  public removeCarouselItem(index: number, count: number = 1): void {
+    // Remove the item at the specified index.
+    const currentState = this.getCurrentState();
+    currentState.allCarouselItems.splice(index, count);
+
+    // Create a new carousel with the updated options.
+    this.changeCarouselOptions({
+      ...currentState,
+      allCarouselItems: currentState.allCarouselItems,
+    } as CarouselState);
+  }
 }
