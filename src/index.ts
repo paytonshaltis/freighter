@@ -73,9 +73,9 @@ document.querySelector("button#add")?.addEventListener("click", () => {
 });
 
 document.querySelector("button#remove")?.addEventListener("click", () => {
-  kingCrimson.removeCarouselItem(0);
+  kingCrimson.removeCarouselItems(0);
 });
 
 document.querySelector("button#remove-2")?.addEventListener("click", () => {
-  kingCrimson.removeCarouselItem(0, 2);
+  kingCrimson.removeCarouselItems(0, 2);
 });

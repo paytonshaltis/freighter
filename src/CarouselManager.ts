@@ -79,7 +79,7 @@ export default class CarouselManager {
    * @param {number} index The index of the item to be removed.
    * @param {number} count Optional number of items to remove. Defaults to 1.
    */
-  public removeCarouselItem(index: number, count: number = 1): void {
+  public removeCarouselItems(index: number, count: number = 1): void {
     // Remove the item at the specified index.
     const currentState = this.getCurrentState();
     currentState.allCarouselItems.splice(index, count);
