@@ -18,11 +18,11 @@ The following is a table that details exactly which Carousel properties can be c
 | `carouselButtonPosition`           |     ✔      |      ✔      |
 | `carouselitemsVisible`             |     ✔      |      ✔      |
 | `carouselScrollBy`                 |     ✔      |      ✔      |
-| `carouselTransitionDuration`       |     ✔      |     ❌      |
-| `carouselTransitionDelay`          |     ✔      |     ❌      |
-| `carouselTransitionTimingFunction` |     ✔      |     ❌      |
+| `carouselTransitionDuration`       |     ✔      |      ✔      |
+| `carouselTransitionDelay`          |     ✔      |      ✔      |
+| `carouselTransitionTimingFunction` |     ✔      |      ✔      |
 | `carouselResizingMethod`           |     ✔      |      ✔      |
-| `canScroll`                        |     ✔      |     ❌      |
+| `canScroll`                        |     ✔      |      ✔      |
 | `scrollTimer`                      |     ✔      |     ❌      |
 | `showTimeline`                     |     ✔      |     ❌      |
 | `addCarouselItem`                  |     ✔      |      ✔      |
