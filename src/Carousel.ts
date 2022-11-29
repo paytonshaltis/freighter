@@ -23,6 +23,7 @@ export default class Carousel {
   private carouselTransitionTimingFunction: string;
   private carouselTransition: string;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
+  private allowCarouselScrolling: boolean;
 
   // Carousel DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -237,7 +238,11 @@ export default class Carousel {
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
       this.leftButtonClickListener = () => {
-        if (!this.isScrolling && this.canScroll) {
+        if (
+          !this.isScrolling &&
+          this.allowCarouselScrolling &&
+          this.canScroll
+        ) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "left";
 
@@ -279,7 +284,11 @@ export default class Carousel {
     // Add the event listener for scrolling to the right.
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
-        if (!this.isScrolling && this.canScroll) {
+        if (
+          !this.isScrolling &&
+          this.allowCarouselScrolling &&
+          this.canScroll
+        ) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "right";
 
@@ -654,6 +663,7 @@ export default class Carousel {
       ${this.carouselTransitionDuration}ms 
       ${this.carouselTransitionTimingFunction} 
       ${this.carouselTransitionDelay}ms`;
+    this.allowCarouselScrolling = options.allowCarouselScrolling;
     this.carouselItemAspectRatio =
       this.carouselItemHeight / this.carouselItemWidth;
     this.originalCarouselItemHeight = this.carouselItemHeight;
@@ -678,7 +688,7 @@ export default class Carousel {
     // Configure the carousel items.
     this.allCarouselItems = this.configureCarouselItems();
 
-    // Disallow the user from scrolling if there are no items.
+    // The carousel cannot be scrolled if there are no items in it.
     this.canScroll = this.allCarouselItems.length > 0;
     this.isScrolling = false;
 
@@ -693,8 +703,12 @@ export default class Carousel {
       this.allCarouselItemsBottomPtr = (
         options as CarouselState
       ).allCarouselItemsBottomPtr;
-      while (this.allCarouselItemsBottomPtr < 0) {
-        this.allCarouselItemsBottomPtr += this.allCarouselItems.length;
+      if (this.allCarouselItems.length > 0) {
+        while (this.allCarouselItemsBottomPtr < 0) {
+          this.allCarouselItemsBottomPtr += this.allCarouselItems.length;
+        }
+      } else {
+        this.allCarouselItemsBottomPtr = 0;
       }
     } else {
       this.allCarouselItemsBottomPtr = 0;
@@ -925,6 +939,7 @@ export default class Carousel {
       carouselID: this.carouselID,
       allCarouselItems: this.allCarouselItems,
       allCarouselItemsBottomPtr: this.allCarouselItemsBottomPtr,
+      allowCarouselScrolling: this.allowCarouselScrolling,
     };
   }
 
