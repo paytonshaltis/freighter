@@ -56,58 +56,26 @@ const kingCrimson = new CarouselManager({
   carouselButtonWidth: "20px",
   carouselButtonHeight: "250px",
   carouselButtonPosition: "center",
-  carouselItemsVisible: 3,
-  carouselScrollBy: 2,
+  carouselItemsVisible: 5,
+  carouselScrollBy: 1,
   carouselContainerId: "king-crimson",
   resizingMethod: "stretch-scale",
-  carouselTransitionDuration: 1000,
-  carouselTransitionDelay: 250,
-  carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
+  carouselTransitionDuration: 500,
+  carouselTransitionDelay: 0,
+  carouselTransitionTimingFunction: "ease",
 });
 
-(document.querySelector("button#forwards") as HTMLElement).addEventListener(
-  "click",
-  () => {
-    c3.changeCarouselOptions({
-      carouselItemHeight: 100,
-      carouselItemWidth: 100,
-      carouselItemSpacing: 1,
-      carouselItemsVisible: 9,
-      resizingMethod: "stretch-scale",
-      carouselScrollBy: 5,
-      carouselButtonHeight: "100px",
-    });
-    kingCrimson.changeCarouselOptions({
-      carouselItemsVisible: 2,
-      carouselButtonHeight: "35%",
-      resizingMethod: "stretch-gap",
-    });
-  }
-);
+document.querySelector("button#add")?.addEventListener("click", () => {
+  kingCrimson.addCarouselItems(
+    [document.createElement("div"), document.createElement("div")],
+    2
+  );
+});
 
-(document.querySelector("button#backwards") as HTMLElement).addEventListener(
-  "click",
-  () => {
-    c3.changeCarouselOptions({
-      carouselItemHeight: 100,
-      carouselItemWidth: 100,
-      carouselItemSpacing: 1,
-      carouselItemsVisible: 6,
-      resizingMethod: "stretch-scale",
-      carouselScrollBy: 3,
-      carouselButtonHeight: "100px",
-    });
-    kingCrimson.changeCarouselOptions({
-      carouselItemsVisible: 8,
-      resizingMethod: "stretch-gap",
-      carouselButtonPosition: "top",
-      carouselButtonWidth: "40px",
-      carouselItemHeight: 40,
-      carouselItemWidth: 40,
-      carouselItemSpacing: 50,
-      carouselTransitionDelay: 100,
-      carouselTransitionDuration: 1000,
-      carouselTransitionTimingFunction: "ease",
-    });
-  }
-);
+document.querySelector("button#remove")?.addEventListener("click", () => {
+  kingCrimson.removeCarouselItem(0);
+});
+
+document.querySelector("button#remove-2")?.addEventListener("click", () => {
+  kingCrimson.removeCarouselItem(0, 2);
+});

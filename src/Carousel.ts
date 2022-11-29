@@ -36,6 +36,7 @@ export default class Carousel {
   private allCarouselItemsBottomPtr: number;
   private carouselPosition: number;
   private isScrolling: boolean;
+  private canScroll: boolean;
   private prevScrollDirection: string;
   private carouselContainerConfigured = false;
   private carouselItemsConfigured = false;
@@ -50,7 +51,6 @@ export default class Carousel {
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
   private parentResizeObserver: ResizeObserver = new ResizeObserver(() => {});
-  private activeTimeoutFunctions: number[] = [];
 
   /**
    * Configures the main carousel container. Constructs the carousel from the
@@ -237,7 +237,7 @@ export default class Carousel {
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
       this.leftButtonClickListener = () => {
-        if (!this.isScrolling) {
+        if (!this.isScrolling && this.canScroll) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "left";
 
@@ -279,7 +279,7 @@ export default class Carousel {
     // Add the event listener for scrolling to the right.
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
-        if (!this.isScrolling) {
+        if (!this.isScrolling && this.canScroll) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "right";
 
@@ -563,57 +563,56 @@ export default class Carousel {
     }
 
     // Sets a 0 second timeout to allow the browser to finish the resizing above.
-    this.activeTimeoutFunctions.push(
-      setTimeout(() => {
-        // Get the new width of each carousel item containers after flex shrinking
-        // or flex growing.
+    setTimeout(() => {
+      // Get the new width of each carousel item containers after flex shrinking
+      // or flex growing. If there are no children, size back to the original height.
+      if (!(this.carouselItemContainer.children.length === 0)) {
         this.carouselItemWidth = parseFloat(
           getComputedStyle(
             this.carouselItemContainer.children[0] as HTMLElement
           ).width
         );
+      } else {
+        this.carouselItemWidth = this.originalCarouselItemWidth;
+      }
 
-        // If the resize method is 'stretch-scale', the carousel items preserve
-        // their aspect ratio. Otherwise, the height remains the same.
-        const computedHeight =
-          this.resizingMethod === "stretch-scale"
-            ? this.carouselItemAspectRatio * this.carouselItemWidth
-            : this.carouselItemHeight;
+      // If the resize method is 'stretch-scale', the carousel items preserve
+      // their aspect ratio. Otherwise, the height remains the same.
+      const computedHeight =
+        this.resizingMethod === "stretch-scale"
+          ? this.carouselItemAspectRatio * this.carouselItemWidth
+          : this.carouselItemHeight;
 
-        // Set the new width and height of each active carousel item, and remove the flex
-        // grow and shrink properties. This prevents the carousel items from
-        // resizing again when next and dummy items are added.
-        for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
-          (this.carouselItemContainer.children[i] as HTMLElement).style.width =
-            this.carouselItemWidth + "px";
-          (this.carouselItemContainer.children[i] as HTMLElement).style.height =
-            computedHeight + "px";
-          (
-            this.carouselItemContainer.children[i] as HTMLElement
-          ).style.flexGrow = "0";
-          (
-            this.carouselItemContainer.children[i] as HTMLElement
-          ).style.flexShrink = "0";
-        }
+      // Set the new width and height of each active carousel item, and remove the flex
+      // grow and shrink properties. This prevents the carousel items from
+      // resizing again when next and dummy items are added.
+      for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
+        (this.carouselItemContainer.children[i] as HTMLElement).style.width =
+          this.carouselItemWidth + "px";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.height =
+          computedHeight + "px";
+        (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
+          "0";
+        (
+          this.carouselItemContainer.children[i] as HTMLElement
+        ).style.flexShrink = "0";
+      }
 
-        // Set the new width and height of all the carousel items, not just the
-        // active ones. This is neccessary for items to be added as next and dummy
-        // items as the appropriate sizes.
-        this.allCarouselItems.forEach((carouselItem) => {
-          carouselItem.style.width = `${this.carouselItemWidth}px`;
-          carouselItem.style.height = `${computedHeight}px`;
-          carouselItem.style.flexGrow = "0";
-          carouselItem.style.flexShrink = "0";
-        });
+      // Set the new width and height of all the carousel items, not just the
+      // active ones. This is neccessary for items to be added as next and dummy
+      // items as the appropriate sizes.
+      this.allCarouselItems.forEach((carouselItem) => {
+        carouselItem.style.width = `${this.carouselItemWidth}px`;
+        carouselItem.style.height = `${computedHeight}px`;
+        carouselItem.style.flexGrow = "0";
+        carouselItem.style.flexShrink = "0";
+      });
 
-        this.activeTimeoutFunctions.push(
-          setTimeout(() => {
-            // Check for height changes and resize the carousel item container.
-            this.resizeCarouselItemContainer();
-          }, 0)
-        );
-      }, 0)
-    );
+      setTimeout(() => {
+        // Check for height changes and resize the carousel item container.
+        this.resizeCarouselItemContainer();
+      }, 0);
+    }, 0);
   }
 
   /**
@@ -679,6 +678,10 @@ export default class Carousel {
     // Configure the carousel items.
     this.allCarouselItems = this.configureCarouselItems();
 
+    // Disallow the user from scrolling if there are no items.
+    this.canScroll = this.allCarouselItems.length > 0;
+    this.isScrolling = false;
+
     // Configure and add the carousel buttons.
     this.carouselContainer.prepend(this.configureCarouselButton("left"));
     this.carouselContainer.appendChild(this.configureCarouselButton("right"));
@@ -700,7 +703,6 @@ export default class Carousel {
     this.allCarouselItemsTopPtr =
       this.carouselItemsVisible + this.allCarouselItemsBottomPtr;
     this.carouselPosition = 0;
-    this.isScrolling = false;
     this.prevScrollDirection = "";
     this.usingBezierTransition = options.carouselTransitionTimingFunction
       ? options.carouselTransitionTimingFunction.startsWith("cubic-bezier")
@@ -856,11 +858,9 @@ export default class Carousel {
     // is done in a timeout to ensure that the transform is applied before the
     // transition is added back.
     if (!animate) {
-      this.activeTimeoutFunctions.push(
-        setTimeout(() => {
-          this.carouselItemContainer.style.transition = this.carouselTransition;
-        }, 0)
-      );
+      setTimeout(() => {
+        this.carouselItemContainer.style.transition = this.carouselTransition;
+      }, 0);
     }
   }
 
