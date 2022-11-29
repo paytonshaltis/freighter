@@ -246,11 +246,15 @@ export default class Carousel {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "left";
 
+          // Reposition the pointers. If they become negative, they should
+          // roll over to the end of the carousel.
+          this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
+          this.allCarouselItemsTopPtr -= this.carouselScrollBy;
+          this.adjustPointers();
+
           // Add the appropriate number of carousel items to the left side of the
           // carousel item container. These should be actual carousel items, not
           // dummy items.
-          this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
-          this.allCarouselItemsTopPtr -= this.carouselScrollBy;
           const prevItems = this.getCarouselItems(
             this.carouselScrollBy,
             this.allCarouselItemsBottomPtr
@@ -300,8 +304,12 @@ export default class Carousel {
             this.allCarouselItemsTopPtr
           );
           this.carouselItemContainer.append(...nextItems);
+
+          // Reposition the pointers. If they become greater than the length of
+          // the carousel items, they should roll over to the beginning.
           this.allCarouselItemsBottomPtr += this.carouselScrollBy;
           this.allCarouselItemsTopPtr += this.carouselScrollBy;
+          this.adjustPointers();
 
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
@@ -703,13 +711,6 @@ export default class Carousel {
       this.allCarouselItemsBottomPtr = (
         options as CarouselState
       ).allCarouselItemsBottomPtr;
-      if (this.allCarouselItems.length > 0) {
-        while (this.allCarouselItemsBottomPtr < 0) {
-          this.allCarouselItemsBottomPtr += this.allCarouselItems.length;
-        }
-      } else {
-        this.allCarouselItemsBottomPtr = 0;
-      }
     } else {
       this.allCarouselItemsBottomPtr = 0;
     }
@@ -912,6 +913,30 @@ export default class Carousel {
       )
     );
     this.carouselContainer.style.height = `${maxHeight}px`;
+  }
+
+  /**
+   * Adjusts the top and bottom pointers of the carousel items to be the correct
+   * values based on the current carousel position. Specifically, this method
+   * keeps the top and bottom pointers within the range of [0, length) so that
+   * when items are added or removed, the entire carousel is not shifted to one
+   * direction if the position comes after all of the elements on screen.
+   * @returns {void} Nothing.
+   */
+  private adjustPointers(): void {
+    while (this.allCarouselItemsBottomPtr >= this.allCarouselItems.length) {
+      this.allCarouselItemsBottomPtr -= this.allCarouselItems.length;
+    }
+    while (this.allCarouselItemsTopPtr >= this.allCarouselItems.length) {
+      this.allCarouselItemsTopPtr -= this.allCarouselItems.length;
+    }
+
+    while (this.allCarouselItemsBottomPtr < 0) {
+      this.allCarouselItemsBottomPtr += this.allCarouselItems.length;
+    }
+    while (this.allCarouselItemsTopPtr < 0) {
+      this.allCarouselItemsTopPtr += this.allCarouselItems.length;
+    }
   }
 
   /**
