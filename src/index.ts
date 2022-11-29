@@ -69,10 +69,11 @@ const kingCrimson = new CarouselManager({
 });
 
 document.querySelector("button#add")?.addEventListener("click", () => {
-  kingCrimson.addCarouselItems(
-    [document.createElement("div"), document.createElement("div")],
-    2
-  );
+  const newItem1 = document.createElement("div");
+  newItem1.innerHTML = "New Item 1";
+  const newItem2 = document.createElement("div");
+  newItem2.innerHTML = "New Item 2";
+  kingCrimson.addCarouselItems([newItem1, newItem2]);
 });
 
 document.querySelector("button#remove")?.addEventListener("click", () => {
