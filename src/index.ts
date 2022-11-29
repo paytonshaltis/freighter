@@ -1,4 +1,3 @@
-import Carousel from "./Carousel.js";
 import CarouselManager from "./CarouselManager.js";
 
 const c = new CarouselManager({
@@ -15,6 +14,7 @@ const c = new CarouselManager({
   carouselTransitionDuration: 0,
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
+  allowCarouselScrolling: true,
 });
 
 const c2 = new CarouselManager({
@@ -31,6 +31,7 @@ const c2 = new CarouselManager({
   carouselTransitionDelay: 0,
   carouselTransitionDuration: 1000,
   carouselTransitionTimingFunction: "linear",
+  allowCarouselScrolling: true,
 });
 
 const c3 = new CarouselManager({
@@ -47,6 +48,7 @@ const c3 = new CarouselManager({
   carouselTransitionDuration: 1000,
   carouselTransitionDelay: 250,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
+  allowCarouselScrolling: true,
 });
 
 const kingCrimson = new CarouselManager({
@@ -63,6 +65,7 @@ const kingCrimson = new CarouselManager({
   carouselTransitionDuration: 500,
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "ease",
+  allowCarouselScrolling: true,
 });
 
 document.querySelector("button#add")?.addEventListener("click", () => {
