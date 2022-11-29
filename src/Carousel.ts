@@ -178,7 +178,14 @@ export default class Carousel {
           i > carouselItemContainerLength - 1 - this.carouselScrollBy * 2;
           i--
         ) {
-          carouselItemContainer.children[i].remove();
+          try {
+            carouselItemContainer.children[i].remove();
+          } catch (error) {
+            console.log(
+              "Tried deleting unloaded carousel items, caught the following exception:",
+              error
+            );
+          }
         }
 
         // Update the current position of the carousel and transform it.
@@ -194,7 +201,14 @@ export default class Carousel {
       // (this.carouselScrollBy * 2) since dummy items need to be accounted for.
       else if (this.prevScrollDirection === "right") {
         for (let i = 0; i < this.carouselScrollBy * 2; i++) {
-          carouselItemContainer.children[0].remove();
+          try {
+            carouselItemContainer.children[0].remove();
+          } catch (error) {
+            console.log(
+              "Tried deleting unloaded carousel items, caught the following exception:",
+              error
+            );
+          }
         }
 
         // Update the current position of the carousel and transform it.
@@ -584,11 +598,18 @@ export default class Carousel {
       // Get the new width of each carousel item containers after flex shrinking
       // or flex growing. If there are no children, size back to the original height.
       if (!(this.carouselItemContainer.children.length === 0)) {
-        this.carouselItemWidth = parseFloat(
-          getComputedStyle(
-            this.carouselItemContainer.children[0] as HTMLElement
-          ).width
-        );
+        try {
+          this.carouselItemWidth = parseFloat(
+            getComputedStyle(
+              this.carouselItemContainer.children[0] as HTMLElement
+            ).width
+          );
+        } catch (error) {
+          console.log(
+            "Tried getting the computed style for a carousel item, caught the following exception:",
+            error
+          );
+        }
       } else {
         this.carouselItemWidth = this.originalCarouselItemWidth;
       }
@@ -690,8 +711,16 @@ export default class Carousel {
       options.carouselContainerId,
       (options as CarouselState).allCarouselItems
     );
-    this.carouselItemContainer = this.carouselContainer.children[0]
-      .children[0] as HTMLElement;
+    try {
+      this.carouselItemContainer = this.carouselContainer.children[0]
+        .children[0] as HTMLElement;
+    } catch (error) {
+      console.log(
+        "Tried getting the carousel item container from the configured carousel container, caught the following exception:",
+        error
+      );
+      this.carouselItemContainer = document.createElement("div");
+    }
 
     // Configure the carousel items.
     this.allCarouselItems = this.configureCarouselItems();
@@ -903,15 +932,24 @@ export default class Carousel {
   public resizeCarouselItemContainer(): void {
     // The height of the main container is the max of the button height and the
     // carousel item container height.
-    const maxHeight = Math.max(
-      parseFloat(
-        getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
-          .height
-      ),
-      parseFloat(
-        getComputedStyle(this.carouselItemContainer as HTMLElement).height
-      )
-    );
+    let maxHeight;
+    try {
+      maxHeight = Math.max(
+        parseFloat(
+          getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
+            .height
+        ),
+        parseFloat(
+          getComputedStyle(this.carouselItemContainer as HTMLElement).height
+        )
+      );
+    } catch (error) {
+      console.log(
+        "Tried getting the computed style of a carousel item, caught the following exception:",
+        error
+      );
+      maxHeight = 0;
+    }
     this.carouselContainer.style.height = `${maxHeight}px`;
   }
 
@@ -970,14 +1008,21 @@ export default class Carousel {
 
   public removeAllEventListeners(): void {
     // Remove clicks from both buttons.
-    this.carouselContainer.children[0].removeEventListener(
-      "click",
-      this.leftButtonClickListener
-    );
-    this.carouselContainer.children[2].removeEventListener(
-      "click",
-      this.rightButtonClickListener
-    );
+    try {
+      this.carouselContainer.children[0].removeEventListener(
+        "click",
+        this.leftButtonClickListener
+      );
+      this.carouselContainer.children[2].removeEventListener(
+        "click",
+        this.rightButtonClickListener
+      );
+    } catch (error) {
+      console.log(
+        "Tried removing event listeners from carousel buttons, caught the following exception:",
+        error
+      );
+    }
 
     // Remove resize from the parent container.
     this.parentResizeObserver.disconnect();
