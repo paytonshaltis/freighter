@@ -964,6 +964,63 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   private adjustPointers(direction: "left" | "right"): void {
+    // If the user is scrolling left, they are either:
+    //  1. At the beginning of the carousel will roll over to the end.
+    //  2. In the middle of the carousel and will roll over to the end.
+    //  3. In the middle of the carousel and won't roll over to the end.
+    if (direction === "left") {
+      // 1. At the beginning of the carousel and will roll over to the end.
+      if (this.allCarouselItemsBottomPtr === 0) {
+        console.log("At the beginning of the carousel, rolls over.");
+      }
+
+      // 2. In the middle of the carousel and will roll over to the end.
+      else if (this.allCarouselItemsBottomPtr < this.carouselScrollBy) {
+        console.log("In the middle of the carousel, rolls over.");
+      }
+
+      // 3. In the middle of the carousel and won't roll over to the end.
+      else if (this.allCarouselItemsBottomPtr >= this.carouselScrollBy) {
+        console.log("In the middle of the carousel, doesn't roll over.");
+      }
+    }
+
+    // If the user is scrolling right, they are either:
+    //  1. At the end of the carousel and will roll over to the beginning.
+    //  2. In the middle of the carousel and will roll over to the beginning.
+    //  3. In the middle of the carousel and won't roll over to the beginning.
+    else if (direction === "right") {
+      console.log(
+        "Top:",
+        this.allCarouselItemsTopPtr,
+        "Scroll:",
+        this.carouselScrollBy,
+        "Length:",
+        this.allCarouselItems.length
+      );
+
+      // 1. At the end of the carousel and will roll over to the beginning.
+      if (this.allCarouselItemsTopPtr === 0) {
+        console.log("At the end of the carousel, rolls over.");
+      }
+
+      // 2. In the middle of the carousel and will roll over to the beginning.
+      else if (
+        this.carouselScrollBy + this.allCarouselItemsTopPtr >
+        this.allCarouselItems.length
+      ) {
+        console.log("In the middle of the carousel, rolls over.");
+      }
+
+      // 3. In the middle of the carousel and won't roll over to the beginning.
+      else if (
+        this.carouselScrollBy + this.allCarouselItemsTopPtr <=
+        this.allCarouselItems.length
+      ) {
+        console.log("In the middle of the carousel, doesn't roll over.");
+      }
+    }
+
     // Based on the direction of the scroll, adjust the pointers. They should only
     // be adjusted the currentCarouselScrollBy value, which may be less than the
     // carouselScrollBy value if the carousel is being scrolled at the start or end.

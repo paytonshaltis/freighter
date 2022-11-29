@@ -59,7 +59,7 @@ const kingCrimson = new CarouselManager({
   carouselButtonHeight: "250px",
   carouselButtonPosition: "center",
   carouselItemsVisible: 5,
-  carouselScrollBy: 1,
+  carouselScrollBy: 2,
   carouselContainerId: "king-crimson",
   resizingMethod: "stretch-scale",
   carouselTransitionDuration: 500,
