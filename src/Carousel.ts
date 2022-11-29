@@ -42,6 +42,7 @@ export default class Carousel {
   private carouselContainerConfigured = false;
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
+  private currentCarouselScrollBy: number;
 
   // Maintain some original state for the carousel.
   private originalCarouselItemHeight: number;
@@ -171,11 +172,12 @@ export default class Carousel {
 
       // If the previous scroll was left, remove items from the right
       // side of the carousel item container: this totals
-      // (this.carouselScrollBy * 2) since dummy items need to be accounted for.
+      // (this.currentCarouselScrollBy * 2) since dummy items need to be accounted for.
       if (this.prevScrollDirection === "left") {
         for (
           let i = carouselItemContainerLength - 1;
-          i > carouselItemContainerLength - 1 - this.carouselScrollBy * 2;
+          i >
+          carouselItemContainerLength - 1 - this.currentCarouselScrollBy * 2;
           i--
         ) {
           try {
@@ -198,9 +200,9 @@ export default class Carousel {
 
       // If the previous scroll was right, remove items from the left
       // side of the carousel item container: this totals
-      // (this.carouselScrollBy * 2) since dummy items need to be accounted for.
+      // (this.currentCarouselScrollBy * 2) since dummy items need to be accounted for.
       else if (this.prevScrollDirection === "right") {
-        for (let i = 0; i < this.carouselScrollBy * 2; i++) {
+        for (let i = 0; i < this.currentCarouselScrollBy * 2; i++) {
           try {
             carouselItemContainer.children[0].remove();
           } catch (error) {
@@ -267,16 +269,16 @@ export default class Carousel {
           // carousel item container. These should be actual carousel items, not
           // dummy items.
           const prevItems = this.getCarouselItems(
-            this.carouselScrollBy,
+            this.currentCarouselScrollBy,
             this.allCarouselItemsBottomPtr
           );
           this.carouselItemContainer.prepend(...prevItems);
 
           // Add the matching number of dummy items to the right side.
           const nextItems = this.getCarouselItems(
-            this.carouselScrollBy,
+            this.currentCarouselScrollBy,
             this.usingBezierTransition
-              ? this.allCarouselItemsTopPtr + this.carouselScrollBy
+              ? this.allCarouselItemsTopPtr + this.currentCarouselScrollBy
               : 0,
             this.usingBezierTransition
           );
@@ -311,7 +313,7 @@ export default class Carousel {
           // carousel item container. These should be actual carousel items, not
           // dummy items.
           const nextItems = this.getCarouselItems(
-            this.carouselScrollBy,
+            this.currentCarouselScrollBy,
             this.allCarouselItemsTopPtr
           );
           this.carouselItemContainer.append(...nextItems);
@@ -321,9 +323,10 @@ export default class Carousel {
 
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
-            this.carouselScrollBy,
+            this.currentCarouselScrollBy,
             this.usingBezierTransition
-              ? this.allCarouselItemsBottomPtr - this.carouselScrollBy * 2
+              ? this.allCarouselItemsBottomPtr -
+                  this.currentCarouselScrollBy * 2
               : 0,
             this.usingBezierTransition
           );
@@ -692,6 +695,9 @@ export default class Carousel {
     this.originalCarouselItemHeight = this.carouselItemHeight;
     this.originalCarouselItemWidth = this.carouselItemWidth;
 
+    // The current amount to scroll should default to the user's indicated amount.
+    this.currentCarouselScrollBy = this.carouselScrollBy;
+
     // Give the carousel a unique internal ID if it is being constructed from
     // a CarouselOptions object.
     this.carouselID = constructFromState
@@ -889,7 +895,7 @@ export default class Carousel {
     this.carouselItemContainer.style.transform = `translateX(${
       -1 *
       this.carouselPosition *
-      ((this.carouselItemWidth + spacingAmount) * this.carouselScrollBy)
+      ((this.carouselItemWidth + spacingAmount) * this.currentCarouselScrollBy)
     }px)`;
 
     // If the transform was not animated, add the transition property back. This
@@ -958,14 +964,16 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   private adjustPointers(direction: "left" | "right"): void {
+    // Based on the direction of the scroll, adjust the pointers. They should only
+    // be adjusted the currentCarouselScrollBy value, which may be less than the
+    // carouselScrollBy value if the carousel is being scrolled at the start or end.
     if (direction === "left") {
-      this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
-      this.allCarouselItemsTopPtr -= this.carouselScrollBy;
+      this.allCarouselItemsBottomPtr -= this.currentCarouselScrollBy;
+      this.allCarouselItemsTopPtr -= this.currentCarouselScrollBy;
     } else if (direction === "right") {
-      this.allCarouselItemsBottomPtr += this.carouselScrollBy;
-      this.allCarouselItemsTopPtr += this.carouselScrollBy;
+      this.allCarouselItemsBottomPtr += this.currentCarouselScrollBy;
+      this.allCarouselItemsTopPtr += this.currentCarouselScrollBy;
     }
-
     while (this.allCarouselItemsBottomPtr >= this.allCarouselItems.length) {
       this.allCarouselItemsBottomPtr -= this.allCarouselItems.length;
     }
