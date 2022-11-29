@@ -260,11 +260,8 @@ export default class Carousel {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "left";
 
-          // Reposition the pointers. If they become negative, they should
-          // roll over to the end of the carousel.
-          this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
-          this.allCarouselItemsTopPtr -= this.carouselScrollBy;
-          this.adjustPointers();
+          // Reposition the pointers.
+          this.adjustPointers(direction);
 
           // Add the appropriate number of carousel items to the left side of the
           // carousel item container. These should be actual carousel items, not
@@ -319,11 +316,8 @@ export default class Carousel {
           );
           this.carouselItemContainer.append(...nextItems);
 
-          // Reposition the pointers. If they become greater than the length of
-          // the carousel items, they should roll over to the beginning.
-          this.allCarouselItemsBottomPtr += this.carouselScrollBy;
-          this.allCarouselItemsTopPtr += this.carouselScrollBy;
-          this.adjustPointers();
+          // Reposition the pointers.
+          this.adjustPointers(direction);
 
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
@@ -959,9 +953,19 @@ export default class Carousel {
    * keeps the top and bottom pointers within the range of [0, length) so that
    * when items are added or removed, the entire carousel is not shifted to one
    * direction if the position comes after all of the elements on screen.
+   * @param {"left" | "right"} direction The direction that the carousel is being
+   * scrolled. This is used to determine how to adjust pointers.
    * @returns {void} Nothing.
    */
-  private adjustPointers(): void {
+  private adjustPointers(direction: "left" | "right"): void {
+    if (direction === "left") {
+      this.allCarouselItemsBottomPtr -= this.carouselScrollBy;
+      this.allCarouselItemsTopPtr -= this.carouselScrollBy;
+    } else if (direction === "right") {
+      this.allCarouselItemsBottomPtr += this.carouselScrollBy;
+      this.allCarouselItemsTopPtr += this.carouselScrollBy;
+    }
+
     while (this.allCarouselItemsBottomPtr >= this.allCarouselItems.length) {
       this.allCarouselItemsBottomPtr -= this.allCarouselItems.length;
     }
