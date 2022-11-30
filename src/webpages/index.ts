@@ -1,4 +1,4 @@
-import CarouselManager from "./CarouselManager.js";
+import CarouselManager from "../CarouselManager.js";
 
 const c = new CarouselManager({
   carouselItemWidth: 150,
