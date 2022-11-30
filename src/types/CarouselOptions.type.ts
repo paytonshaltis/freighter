@@ -2,6 +2,7 @@
  * Type definition for the options object to be passed to the carousel constructor.
  */
 type CarouselOptions = {
+  carouselContainerId: string;
   carouselItemWidth: number;
   carouselItemHeight: number;
   carouselItemSpacing: number;
@@ -10,7 +11,6 @@ type CarouselOptions = {
   carouselButtonPosition: "top" | "center" | "bottom";
   carouselItemsVisible: number;
   carouselScrollBy: number;
-  carouselContainerId: string;
   carouselTransitionDuration?: number;
   carouselTransitionDelay?: number;
   carouselTransitionTimingFunction?: string;

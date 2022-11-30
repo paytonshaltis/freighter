@@ -8,7 +8,8 @@ import CarouselState from "./types/CarouselState.type.js";
  * Class representing a single carousel.
  */
 export default class Carousel {
-  // Carousel display attributes.
+  // Options directly passed in from the constructor.
+  private carouselID: number;
   private carouselItemWidth: number;
   private carouselItemHeight: number;
   private carouselItemSpacing: number;
@@ -22,25 +23,23 @@ export default class Carousel {
   private carouselTransitionDelay: number;
   private carouselTransitionTimingFunction: string;
   private carouselTransition: string;
-  private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private allowCarouselScrolling: boolean;
+  private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private carouselWrappingMethod:
     | "none"
     | "wrap-jump"
     | "wrap-simple"
     | "wrap-smart";
 
-  // Carousel DOM element attributes.
+  // Carousel internal DOM element attributes.
   private carouselContainer: HTMLElement;
   private carouselItemContainer: HTMLElement;
   private allCarouselItems: HTMLElement[];
 
-  // Carousel data attributes.
+  // Carousel internal data attributes.
   private static maxID: number = -1;
-  private carouselID: number;
   private allCarouselItemsTopPtr: number;
   private allCarouselItemsBottomPtr: number;
-  private carouselPosition: number;
   private isScrolling: boolean;
   private canScrollLeft: boolean;
   private canScrollRight: boolean;
@@ -202,8 +201,7 @@ export default class Carousel {
         // back to its correct location after the items are removed. Calls
         // transformCarouselItemContainer() with false to prevent the
         // transition from occurring.
-        this.carouselPosition += 1;
-        this.transformCarouselItems(false);
+        this.transformCarouselItems(0, false);
       }
 
       // If the previous scroll was right, remove items from the left
@@ -225,8 +223,7 @@ export default class Carousel {
         // back to its correct location after the items are removed. Calls
         // transformCarouselItemContainer() with false to prevent the
         // transition from occurring.
-        this.carouselPosition -= 1;
-        this.transformCarouselItems(false);
+        this.transformCarouselItems(0, false);
       }
 
       // If the size changed while the carousel was scrolling, the carousel
@@ -296,8 +293,7 @@ export default class Carousel {
           this.carouselItemContainer.append(...nextItems);
 
           // Adjust the carousel's position, and transform it with animation.
-          this.carouselPosition -= 1;
-          this.transformCarouselItems();
+          this.transformCarouselItems(-1);
 
           // Allow the next scrolling input.
           this.isScrolling = true;
@@ -344,8 +340,7 @@ export default class Carousel {
           this.carouselItemContainer.prepend(...prevItems);
 
           // Adjust the carousel's position, and transform it with animation.
-          this.carouselPosition += 1;
-          this.transformCarouselItems();
+          this.transformCarouselItems(1);
 
           // Allow the next scrolling input.
           this.isScrolling = true;
@@ -777,7 +772,6 @@ export default class Carousel {
     this.isScrolling = false;
     this.allCarouselItemsTopPtr =
       this.carouselItemsVisible + this.allCarouselItemsBottomPtr;
-    this.carouselPosition = 0;
     this.prevScrollDirection = "";
     this.usingBezierTransition = options.carouselTransitionTimingFunction
       ? options.carouselTransitionTimingFunction.startsWith("cubic-bezier")
@@ -925,6 +919,7 @@ export default class Carousel {
   /**
    * Transform the carousel items to the correct position based on the current
    * carousel position.
+   * @param {"right" | "left" | "revert"} direction The direction to move the carousel.
    * @param {boolean} animate Optional parameter. If true, the carousel items will
    * be animated to the correct position. Otherwise, the carousel items will be
    * immediately transformed to the correct position. Only explicitly call this
@@ -932,7 +927,10 @@ export default class Carousel {
    * after a transition has ended.
    * @returns {void} Nothing.
    */
-  private transformCarouselItems(animate: boolean = true): void {
+  private transformCarouselItems(
+    direction: -1 | 0 | 1,
+    animate: boolean = true
+  ): void {
     // If the transform should not be animated, remove the transition property.
     if (!animate) {
       this.carouselItemContainer.style.transition = "none";
@@ -950,7 +948,7 @@ export default class Carousel {
     // Apply the transformation the correct distance.
     this.carouselItemContainer.style.transform = `translateX(${
       -1 *
-      this.carouselPosition *
+      direction *
       ((this.carouselItemWidth + spacingAmount) * this.currentCarouselScrollBy)
     }px)`;
 
