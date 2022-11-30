@@ -48,14 +48,12 @@ export default class Carousel {
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
   private currentCarouselScrollBy: number;
-  private shouldJumpStart: boolean;
-  private shouldJumpEnd: boolean;
 
   // Maintain some original state for the carousel.
   private originalCarouselItemHeight: number;
   private originalCarouselItemWidth: number;
 
-  // Event listeners.
+  // Event listeners and resize observer references.
   private transitionEndEventListener: EventListener = (event: Event) => {};
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
@@ -85,13 +83,10 @@ export default class Carousel {
       throw new Error("Carousel container not found.");
     }
 
-    // Store the children of the carousel container, removing them from the
-    // target div for processing later on. If we are constructing from state,
-    // simply pass an the carousel items from the state.
-    const carouselItems =
-      carouselItemsFromState !== undefined
-        ? carouselItemsFromState
-        : (Array.from(selectedContainer.children) as HTMLElement[]);
+    // Temporarily store the carousel items and clear the container.
+    const carouselItems = carouselItemsFromState
+      ? carouselItemsFromState
+      : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
 
     // Apply the appropriate class. The div's own ID and any other classes
@@ -178,8 +173,7 @@ export default class Carousel {
       const carouselItemContainerLength = carouselItemContainer.children.length;
 
       // If the previous scroll was left, remove items from the right
-      // side of the carousel item container: this totals
-      // (this.currentCarouselScrollBy * 2) since dummy items need to be accounted for.
+      // side of the carousel item container.
       if (this.prevScrollDirection === "left") {
         for (
           let i = carouselItemContainerLength - 1;
@@ -187,58 +181,39 @@ export default class Carousel {
           carouselItemContainerLength - 1 - this.currentCarouselScrollBy * 2;
           i--
         ) {
-          try {
-            carouselItemContainer.children[i].remove();
-          } catch (error) {
-            console.log(
-              "Tried deleting unloaded carousel items, caught the following exception:",
-              error
-            );
-          }
+          carouselItemContainer.children[i].remove();
         }
 
-        // Update the current position of the carousel and transform it.
-        // back to its correct location after the items are removed. Calls
-        // transformCarouselItemContainer() with false to prevent the
-        // transition from occurring.
+        // Transform the carousel item container back to its original position
+        // with no animation.
         this.transformCarouselItems(0, false);
       }
 
       // If the previous scroll was right, remove items from the left
-      // side of the carousel item container: this totals
-      // (this.currentCarouselScrollBy * 2) since dummy items need to be accounted for.
+      // side of the carousel item container.
       else if (this.prevScrollDirection === "right") {
         for (let i = 0; i < this.currentCarouselScrollBy * 2; i++) {
-          try {
-            carouselItemContainer.children[0].remove();
-          } catch (error) {
-            console.log(
-              "Tried deleting unloaded carousel items, caught the following exception:",
-              error
-            );
-          }
+          carouselItemContainer.children[0].remove();
         }
 
-        // Update the current position of the carousel and transform it.
-        // back to its correct location after the items are removed. Calls
-        // transformCarouselItemContainer() with false to prevent the
-        // transition from occurring.
+        // Transform the carousel item container back to its original position
+        // with no animation.
         this.transformCarouselItems(0, false);
       }
 
-      // If the size changed while the carousel was scrolling, the carousel
-      // item container will need to be resized.
+      // Performs resizing if the carousel was resized while scrolling.
       this.resizeCarousel();
 
       // Allow the carousel to be scrolled again.
       this.isScrolling = false;
     };
+
+    // Add the event listener to the container and return a reference to the
+    // generated carousel item container.
     carouselItemContainer.addEventListener(
       "transitionend",
       this.transitionEndEventListener
     );
-
-    // Return a reference to the generated carousel item container.
     return carouselItemContainer;
   }
 
@@ -698,8 +673,6 @@ export default class Carousel {
       this.carouselItemHeight / this.carouselItemWidth;
     this.originalCarouselItemHeight = this.carouselItemHeight;
     this.originalCarouselItemWidth = this.carouselItemWidth;
-    this.shouldJumpStart = false;
-    this.shouldJumpEnd = false;
 
     // The current amount to scroll should default to the user's indicated amount.
     this.currentCarouselScrollBy = this.carouselScrollBy;
@@ -1027,8 +1000,6 @@ export default class Carousel {
     ) {
       // Always reset the amount to scroll, shouldJump, and canScroll values.
       this.currentCarouselScrollBy = this.carouselScrollBy;
-      this.shouldJumpStart = false;
-      this.shouldJumpEnd = false;
       this.canScrollLeft = true;
       this.canScrollRight = true;
 
@@ -1047,7 +1018,6 @@ export default class Carousel {
         // Need to shift everything over by an entire carouselItemsVisible amount.
         if (this.allCarouselItemsBottomPtr === 0) {
           this.currentCarouselScrollBy = this.carouselItemsVisible;
-          this.shouldJumpEnd = true;
         }
 
         // 2. In the middle of the carousel and will roll over to the end.
@@ -1071,7 +1041,6 @@ export default class Carousel {
         // Need to shift everything over by an entire carouselItemsVisible amount.
         if (this.allCarouselItemsTopPtr === 0) {
           this.currentCarouselScrollBy = this.carouselItemsVisible;
-          this.shouldJumpStart = true;
         }
 
         // 2. In the middle of the carousel and will roll over to the beginning.
