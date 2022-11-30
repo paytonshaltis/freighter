@@ -109,7 +109,9 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   }
   if (
     options.carouselWrappingMethod !== "wrap-simple" &&
-    options.carouselWrappingMethod !== "wrap-smart"
+    options.carouselWrappingMethod !== "wrap-smart" &&
+    options.carouselWrappingMethod !== "wrap-jump" &&
+    options.carouselWrappingMethod !== "none"
   ) {
     throw new Error(
       "carouselWrappingMethod must be one of the following: 'wrap-simple', 'wrap-smart'."

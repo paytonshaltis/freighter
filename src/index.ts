@@ -33,7 +33,7 @@ const c2 = new CarouselManager({
   carouselTransitionDuration: 1000,
   carouselTransitionTimingFunction: "linear",
   allowCarouselScrolling: true,
-  carouselWrappingMethod: "wrap-simple",
+  carouselWrappingMethod: "none",
 });
 
 const c3 = new CarouselManager({

@@ -748,8 +748,15 @@ export default class Carousel {
     }
 
     // The carousel cannot be scrolled if there are no items in it.
-    this.canScrollLeft = this.allCarouselItems.length > 0;
-    this.canScrollRight = this.allCarouselItems.length > 0;
+    this.canScrollLeft =
+      this.carouselWrappingMethod === "none"
+        ? false
+        : this.allCarouselItems.length > 0;
+    this.canScrollRight =
+      this.carouselWrappingMethod === "none" &&
+      this.allCarouselItems.length <= this.carouselItemsVisible
+        ? false
+        : this.allCarouselItems.length > 0;
     this.isScrolling = false;
 
     // Configure and add the carousel buttons.
@@ -991,12 +998,15 @@ export default class Carousel {
     // should scroll by from click to click.
     if (
       this.carouselWrappingMethod === "wrap-smart" ||
-      this.carouselWrappingMethod === "wrap-jump"
+      this.carouselWrappingMethod === "wrap-jump" ||
+      this.carouselWrappingMethod === "none"
     ) {
-      // Always reset the amount to scroll and shouldJump values.
+      // Always reset the amount to scroll, shouldJump, and canScroll values.
       this.currentCarouselScrollBy = this.carouselScrollBy;
       this.shouldJumpStart = false;
       this.shouldJumpEnd = false;
+      this.canScrollLeft = true;
+      this.canScrollRight = true;
 
       // If a carousel has an equal number of total items and items visible, then
       // smart wrapping always shifts the carousel by the number of items visible.
@@ -1094,6 +1104,20 @@ export default class Carousel {
     }
     while (this.allCarouselItemsTopPtr < 0) {
       this.allCarouselItemsTopPtr += this.allCarouselItems.length;
+    }
+
+    // Determine if the carousel can scroll left or right.
+    if (
+      this.carouselWrappingMethod === "none" &&
+      this.allCarouselItemsBottomPtr === 0
+    ) {
+      this.canScrollLeft = false;
+    }
+    if (
+      this.carouselWrappingMethod === "none" &&
+      this.allCarouselItemsTopPtr === 0
+    ) {
+      this.canScrollRight = false;
     }
   }
 
