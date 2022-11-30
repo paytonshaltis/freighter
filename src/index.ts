@@ -15,6 +15,7 @@ const c = new CarouselManager({
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-simple",
 });
 
 const c2 = new CarouselManager({
@@ -32,6 +33,7 @@ const c2 = new CarouselManager({
   carouselTransitionDuration: 1000,
   carouselTransitionTimingFunction: "linear",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-simple",
 });
 
 const c3 = new CarouselManager({
@@ -49,6 +51,7 @@ const c3 = new CarouselManager({
   carouselTransitionDelay: 250,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-smart",
 });
 
 const kingCrimson = new CarouselManager({
@@ -66,6 +69,7 @@ const kingCrimson = new CarouselManager({
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "ease",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-smart",
 });
 
 document.querySelector("button#add")?.addEventListener("click", () => {

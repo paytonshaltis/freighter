@@ -16,6 +16,7 @@ type CarouselOptions = {
   carouselTransitionTimingFunction?: string;
   resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   allowCarouselScrolling: boolean;
+  carouselWrappingMethod: "wrap-simple" | "wrap-smart";
 };
 
 /**
@@ -104,6 +105,14 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   ) {
     throw new Error(
       "resizingMethod must be one of the following: 'none', 'stretch', 'stretch-gap', 'stretch-scale'."
+    );
+  }
+  if (
+    options.carouselWrappingMethod !== "wrap-simple" &&
+    options.carouselWrappingMethod !== "wrap-smart"
+  ) {
+    throw new Error(
+      "carouselWrappingMethod must be one of the following: 'wrap-simple', 'wrap-smart'."
     );
   }
 }
