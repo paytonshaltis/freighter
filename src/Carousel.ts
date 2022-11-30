@@ -1042,6 +1042,13 @@ export default class Carousel {
       }
     }
 
+    // If the currentScrollBy happens to become negative (through deletion of items),
+    // should continue adding the length until it is positive. This will ensure that
+    // the carousel does not shift to the left to blank spaces.
+    while (this.currentCarouselScrollBy < 0) {
+      this.currentCarouselScrollBy += this.allCarouselItems.length;
+    }
+
     // Based on the direction of the scroll, adjust the pointers. They should only
     // be adjusted the currentCarouselScrollBy value, which may be less than the
     // carouselScrollBy value if the carousel is being scrolled at the start or end.
