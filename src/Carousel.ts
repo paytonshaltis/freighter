@@ -309,17 +309,17 @@ export default class Carousel {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "right";
 
+          // Reposition the pointers.
+          this.adjustPointers(direction);
+
           // Add the appropriate number of carousel items to the right side of the
           // carousel item container. These should be actual carousel items, not
           // dummy items.
           const nextItems = this.getCarouselItems(
             this.currentCarouselScrollBy,
-            this.allCarouselItemsTopPtr
+            this.allCarouselItemsTopPtr - this.currentCarouselScrollBy
           );
           this.carouselItemContainer.append(...nextItems);
-
-          // Reposition the pointers.
-          this.adjustPointers(direction);
 
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
@@ -816,6 +816,8 @@ export default class Carousel {
     const carouselItemsLength = this.allCarouselItems.length;
     const result: HTMLElement[] = [];
 
+    console.log("Gettings items from", start, "to", start + numItems);
+
     // If the starting index is negative, wrap around to the other end.
     while (start < 0) {
       start = carouselItemsLength + start;
@@ -964,14 +966,19 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   private adjustPointers(direction: "left" | "right"): void {
+    // Always reset the amount to scroll by default.
+    this.currentCarouselScrollBy = this.carouselScrollBy;
+
     // If the user is scrolling left, they are either:
     //  1. At the beginning of the carousel will roll over to the end.
     //  2. In the middle of the carousel and will roll over to the end.
     //  3. In the middle of the carousel and won't roll over to the end.
     if (direction === "left") {
       // 1. At the beginning of the carousel and will roll over to the end.
+      // Need to shift everything over by an entire carouselItemsVisible amount.
       if (this.allCarouselItemsBottomPtr === 0) {
         console.log("At the beginning of the carousel, rolls over.");
+        this.currentCarouselScrollBy = this.carouselItemsVisible;
       }
 
       // 2. In the middle of the carousel and will roll over to the end.
@@ -990,18 +997,11 @@ export default class Carousel {
     //  2. In the middle of the carousel and will roll over to the beginning.
     //  3. In the middle of the carousel and won't roll over to the beginning.
     else if (direction === "right") {
-      console.log(
-        "Top:",
-        this.allCarouselItemsTopPtr,
-        "Scroll:",
-        this.carouselScrollBy,
-        "Length:",
-        this.allCarouselItems.length
-      );
-
       // 1. At the end of the carousel and will roll over to the beginning.
+      // Need to shift everything over by an entire carouselItemsVisible amount.
       if (this.allCarouselItemsTopPtr === 0) {
         console.log("At the end of the carousel, rolls over.");
+        this.currentCarouselScrollBy = this.carouselItemsVisible;
       }
 
       // 2. In the middle of the carousel and will roll over to the beginning.
@@ -1044,6 +1044,10 @@ export default class Carousel {
     while (this.allCarouselItemsTopPtr < 0) {
       this.allCarouselItemsTopPtr += this.allCarouselItems.length;
     }
+
+    console.log(
+      `Bottom pointer: ${this.allCarouselItemsBottomPtr}, Top pointer: ${this.allCarouselItemsTopPtr}`
+    );
   }
 
   /**
