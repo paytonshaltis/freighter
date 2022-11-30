@@ -982,11 +982,14 @@ export default class Carousel {
       }
 
       // 2. In the middle of the carousel and will roll over to the end.
+      // Determine how many positions to shift over, update scroll amount.
       else if (this.allCarouselItemsBottomPtr < this.carouselScrollBy) {
         console.log("In the middle of the carousel, rolls over.");
+        this.currentCarouselScrollBy = this.allCarouselItemsBottomPtr;
       }
 
       // 3. In the middle of the carousel and won't roll over to the end.
+      // No special actions need to be taken.
       else if (this.allCarouselItemsBottomPtr >= this.carouselScrollBy) {
         console.log("In the middle of the carousel, doesn't roll over.");
       }
@@ -1010,9 +1013,12 @@ export default class Carousel {
         this.allCarouselItems.length
       ) {
         console.log("In the middle of the carousel, rolls over.");
+        this.currentCarouselScrollBy =
+          this.allCarouselItems.length - this.allCarouselItemsTopPtr;
       }
 
       // 3. In the middle of the carousel and won't roll over to the beginning.
+      // No special actions need to be taken.
       else if (
         this.carouselScrollBy + this.allCarouselItemsTopPtr <=
         this.allCarouselItems.length
