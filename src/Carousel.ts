@@ -969,11 +969,17 @@ export default class Carousel {
     // Always reset the amount to scroll by default.
     this.currentCarouselScrollBy = this.carouselScrollBy;
 
+    // If a carousel has an equal number of total items and items visible, then
+    // smart wrapping always shifts the carousel by the number of items visible.
+    if (this.allCarouselItems.length === this.carouselItemsVisible) {
+      this.currentCarouselScrollBy = this.carouselItemsVisible;
+    }
+
     // If the user is scrolling left, they are either:
     //  1. At the beginning of the carousel will roll over to the end.
     //  2. In the middle of the carousel and will roll over to the end.
     //  3. In the middle of the carousel and won't roll over to the end.
-    if (direction === "left") {
+    else if (direction === "left") {
       // 1. At the beginning of the carousel and will roll over to the end.
       // Need to shift everything over by an entire carouselItemsVisible amount.
       if (this.allCarouselItemsBottomPtr === 0) {
