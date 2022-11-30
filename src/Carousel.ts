@@ -775,7 +775,6 @@ export default class Carousel {
         ? false
         : this.allCarouselItems.length > 0;
     this.isScrolling = false;
-
     this.allCarouselItemsTopPtr =
       this.carouselItemsVisible + this.allCarouselItemsBottomPtr;
     this.carouselPosition = 0;

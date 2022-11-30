@@ -27,6 +27,6 @@ The following is a table that details exactly which Carousel properties can be c
 | `showTimeline`                     |     ✔      |     ❌      |
 | `addCarouselItem`                  |     ✔      |      ✔      |
 | `removeCarouselItem`               |     ✔      |      ✔      |
-| `carouselWrappingMethod`           |     ✔      |      ✔      |
+| `carouselWrappingMethod`           |     ❌     |      ✔      |
 
 </div>

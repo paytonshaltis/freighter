@@ -72,7 +72,7 @@ const kingCrimson = new CarouselManager({
   carouselWrappingMethod: "none",
 });
 
-document.querySelector("button#add")?.addEventListener("click", () => {
+document.querySelector("button#b1")?.addEventListener("click", () => {
   const newItem1 = document.createElement("div");
   newItem1.innerHTML = "New Item 1";
   const newItem2 = document.createElement("div");
@@ -80,10 +80,6 @@ document.querySelector("button#add")?.addEventListener("click", () => {
   kingCrimson.addCarouselItems([newItem1, newItem2]);
 });
 
-document.querySelector("button#remove")?.addEventListener("click", () => {
+document.querySelector("button#b2")?.addEventListener("click", () => {
   kingCrimson.removeCarouselItems(2);
-});
-
-document.querySelector("button#remove-2")?.addEventListener("click", () => {
-  kingCrimson.removeCarouselItems(0, 2);
 });
