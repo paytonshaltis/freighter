@@ -747,18 +747,6 @@ export default class Carousel {
       this.carouselWrappingMethod = "wrap-simple";
     }
 
-    // The carousel cannot be scrolled if there are no items in it.
-    this.canScrollLeft =
-      this.carouselWrappingMethod === "none"
-        ? false
-        : this.allCarouselItems.length > 0;
-    this.canScrollRight =
-      this.carouselWrappingMethod === "none" &&
-      this.allCarouselItems.length <= this.carouselItemsVisible
-        ? false
-        : this.allCarouselItems.length > 0;
-    this.isScrolling = false;
-
     // Configure and add the carousel buttons.
     this.carouselContainer.prepend(this.configureCarouselButton("left"));
     this.carouselContainer.appendChild(this.configureCarouselButton("right"));
@@ -773,6 +761,20 @@ export default class Carousel {
     } else {
       this.allCarouselItemsBottomPtr = 0;
     }
+
+    // The carousel cannot be scrolled if there are no items in it, or if there
+    // is no wrap option and we are at the end of the carousel on either side.
+    this.canScrollLeft =
+      this.carouselWrappingMethod === "none" &&
+      this.allCarouselItemsBottomPtr === 0
+        ? false
+        : this.allCarouselItems.length > 0;
+    this.canScrollRight =
+      this.carouselWrappingMethod === "none" &&
+      this.allCarouselItems.length <= this.carouselItemsVisible
+        ? false
+        : this.allCarouselItems.length > 0;
+    this.isScrolling = false;
 
     this.allCarouselItemsTopPtr =
       this.carouselItemsVisible + this.allCarouselItemsBottomPtr;
@@ -880,15 +882,40 @@ export default class Carousel {
 
     // Fills the active carousel items list with the first this.carouselItemsVisible
     // items. May need to wrap around. If restoring from state, start at the correct
-    // index.
+    // index. If the wrap method is "none", do not wrap around.
+    let timesWrapped = 0;
+    let firstIteration = true;
     for (let i = 0; i < this.carouselItemsVisible; i++) {
       const element =
         this.allCarouselItems[
           (i + this.allCarouselItemsBottomPtr) % this.allCarouselItems.length
         ];
-      if (i < this.carouselItemsVisible && element) {
+
+      // Keep track of the number of times that the index wraps around allCarouselItems.
+      if (
+        (i + this.allCarouselItemsBottomPtr) % this.allCarouselItems.length ===
+          0 &&
+        !firstIteration
+      ) {
+        timesWrapped++;
+      }
+
+      // If we should not wrap, just add a blank div with correct dimensions.
+      if (this.carouselWrappingMethod == "none" && timesWrapped > 0) {
+        const dummyItem = document.createElement("div");
+        dummyItem.classList.add("carousel-item");
+        dummyItem.classList.add("dummy");
+        dummyItem.style.width = `${this.carouselItemWidth}px`;
+        dummyItem.style.height = `${this.carouselItemHeight}px`;
+        activeCarouselItems.push(dummyItem);
+      }
+
+      // If we should wrap, clone the correct carousel item.
+      else if (i < this.carouselItemsVisible && element) {
         activeCarouselItems.push((element as Node).cloneNode(true) as Element);
       }
+
+      firstIteration = false;
     }
 
     // Replace the carousel items with the active carousel items. This ensures

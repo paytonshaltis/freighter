@@ -88,8 +88,28 @@ export default class CarouselManager {
    * @param {number} count Optional number of items to remove. Defaults to 1.
    */
   public removeCarouselItems(index: number, count: number = 1): void {
-    // Remove the item at the specified index.
     const currentState = this.carousel.getCurrentState();
+
+    // If wrapping is not allowed for the carousel, then removing items must move
+    // the bottom pointer slightly as to not show duplicates.
+    if (currentState.carouselWrappingMethod === "none") {
+      // If the carousel is scrolled to the end, need to move the bottom pointer
+      // back by the number of items removed.
+      if (
+        currentState.allCarouselItemsBottomPtr +
+          currentState.carouselItemsVisible ===
+        currentState.allCarouselItems.length
+      ) {
+        currentState.allCarouselItemsBottomPtr -= count;
+      }
+
+      // If the bottom pointer shifted into the negatives, reset it to 0.
+      if (currentState.allCarouselItemsBottomPtr < 0) {
+        currentState.allCarouselItemsBottomPtr = 0;
+      }
+    }
+
+    // Remove the item at the specified index.
     currentState.allCarouselItems.splice(index, count);
 
     // Create a new carousel with the updated options.
