@@ -72,7 +72,7 @@ export default class CarouselManager {
   public addCarouselItems(items: HTMLElement[], index?: number): void {
     // Add the new item either at the end or at the specified index.
     const state = this.carousel.getCurrentState();
-    index
+    index !== undefined
       ? state.carouselItems.splice(index, 0, ...items)
       : state.carouselItems.push(...items);
 
