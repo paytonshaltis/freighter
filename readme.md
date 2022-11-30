@@ -25,8 +25,6 @@ The following is a table that details exactly which Carousel properties can be c
 | `canScroll`                        |     ✔      |      ✔      |
 | `scrollTimer`                      |     ✔      |     ❌      |
 | `showTimeline`                     |     ✔      |     ❌      |
-| `addCarouselItem`                  |     ✔      |      ✔      |
-| `removeCarouselItem`               |     ✔      |      ✔      |
-| `carouselWrappingMethod`           |     ✔      |      ✔      |
+| `carouselWrappingMethod`           |     ❌     |      ✔      |
 
 </div>
