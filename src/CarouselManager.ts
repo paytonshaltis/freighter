@@ -69,13 +69,13 @@ export default class CarouselManager {
     // Add the new item either at the end or at the specified index.
     const currentState = this.carousel.getCurrentState();
     index
-      ? currentState.allCarouselItems.splice(index, 0, ...items)
-      : currentState.allCarouselItems.push(...items);
+      ? currentState.carouselItems.splice(index, 0, ...items)
+      : currentState.carouselItems.push(...items);
 
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
       ...currentState,
-      allCarouselItems: currentState.allCarouselItems,
+      carouselItems: currentState.carouselItems,
     } as CarouselState);
     console.log("Added item(s) at index", index);
   }
@@ -92,30 +92,29 @@ export default class CarouselManager {
 
     // If wrapping is not allowed for the carousel, then removing items must move
     // the bottom pointer slightly as to not show duplicates.
-    if (currentState.carouselWrappingMethod === "none") {
+    if (currentState.wrappingMethod === "none") {
       // If the carousel is scrolled to the end, need to move the bottom pointer
       // back by the number of items removed.
       if (
-        currentState.allCarouselItemsBottomPtr +
-          currentState.carouselItemsVisible ===
-        currentState.allCarouselItems.length
+        currentState.leftCarouselPointer + currentState.numItemsVisible ===
+        currentState.carouselItems.length
       ) {
-        currentState.allCarouselItemsBottomPtr -= count;
+        currentState.leftCarouselPointer -= count;
       }
 
       // If the bottom pointer shifted into the negatives, reset it to 0.
-      if (currentState.allCarouselItemsBottomPtr < 0) {
-        currentState.allCarouselItemsBottomPtr = 0;
+      if (currentState.leftCarouselPointer < 0) {
+        currentState.leftCarouselPointer = 0;
       }
     }
 
     // Remove the item at the specified index.
-    currentState.allCarouselItems.splice(index, count);
+    currentState.carouselItems.splice(index, count);
 
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
       ...currentState,
-      allCarouselItems: currentState.allCarouselItems,
+      carouselItems: currentState.carouselItems,
     } as CarouselState);
     console.log("Removed item at index", index);
   }

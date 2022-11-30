@@ -2,21 +2,21 @@
  * Type definition for the options object to be passed to the carousel constructor.
  */
 type CarouselOptions = {
-  carouselContainerId: string;
-  carouselItemWidth: number;
-  carouselItemHeight: number;
-  carouselItemSpacing: number;
-  carouselButtonWidth: string;
-  carouselButtonHeight: string;
-  carouselButtonPosition: "top" | "center" | "bottom";
-  carouselItemsVisible: number;
-  carouselScrollBy: number;
-  carouselTransitionDuration?: number;
-  carouselTransitionDelay?: number;
-  carouselTransitionTimingFunction?: string;
+  containerID: string;
+  itemWidth: number;
+  itemHeight: number;
+  itemSpacing: number;
+  buttonWidth: string;
+  buttonHeight: string;
+  buttonPosition: "top" | "center" | "bottom";
+  numItemsVisible: number;
+  scrollBy: number;
+  transitionDuration?: number;
+  transitionDelay?: number;
+  transitionTimingFunction?: string;
+  scrollable: boolean;
   resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
-  allowCarouselScrolling: boolean;
-  carouselWrappingMethod: "none" | "wrap-jump" | "wrap-simple" | "wrap-smart";
+  wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 };
 
 /**
@@ -29,73 +29,58 @@ type CarouselOptions = {
  * @returns {void} Nothing.
  */
 export function validateCarouselOptions(options: CarouselOptions): void {
-  if (options.carouselItemWidth < 0) {
-    throw new Error("carouselItemWidth must be a positive number or 0.");
+  if (options.itemWidth < 0) {
+    throw new Error("itemWidth must be a positive number or 0.");
   }
-  if (options.carouselItemHeight < 0) {
-    throw new Error("carouselItemHeight must be a positive number or 0.");
+  if (options.itemHeight < 0) {
+    throw new Error("itemHeight must be a positive number or 0.");
   }
-  if (options.carouselItemSpacing < 0) {
-    throw new Error("carouselItemSpacing must be a positive number or 0.");
+  if (options.itemSpacing < 0) {
+    throw new Error("itemSpacing must be a positive number or 0.");
   }
   if (
-    isNaN(parseFloat(options.carouselButtonWidth)) ||
-    parseFloat(options.carouselButtonWidth) < 0
+    isNaN(parseFloat(options.buttonWidth)) ||
+    parseFloat(options.buttonWidth) <= 0
   ) {
-    throw new Error("carouselButtonWidth must be a positive number or 0.");
+    throw new Error("buttonWidth must be a positive number greater than 0.");
   }
   if (
-    isNaN(parseFloat(options.carouselButtonHeight)) ||
-    parseFloat(options.carouselButtonHeight) < 0
+    isNaN(parseFloat(options.buttonHeight)) ||
+    parseFloat(options.buttonHeight) <= 0
   ) {
-    throw new Error("carouselButtonHeight must be a positive number or 0");
+    throw new Error("buttonHeight must be a positive number greater than 0.");
   }
   if (
-    options.carouselButtonPosition !== "top" &&
-    options.carouselButtonPosition !== "center" &&
-    options.carouselButtonPosition !== "bottom"
+    options.buttonPosition !== "top" &&
+    options.buttonPosition !== "center" &&
+    options.buttonPosition !== "bottom"
   ) {
     throw new Error(
       "buttonPosition must be either 'top', 'center' or 'bottom'."
     );
   }
-  if (options.carouselItemsVisible < 1) {
+  if (options.numItemsVisible < 1 || options.numItemsVisible % 1 !== 0) {
     throw new Error(
-      "carouselItemsVisible must be a positive number greater than 1."
+      "numItemsVisible must be a positive integer greater than 0."
     );
   }
-  if (options.carouselItemsVisible % 1 !== 0) {
-    throw new Error("carouselItemsVisible must be an integer.");
+  if (options.scrollBy < 1 || options.scrollBy % 1 !== 0) {
+    throw new Error("scrollBy must be a positive integer greater than 1.");
   }
-  if (options.carouselScrollBy < 1) {
-    throw new Error(
-      "carouselScrollBy must be a positive number greater than 1."
-    );
+  if (options.containerID.length === 0) {
+    throw new Error("containerID must be a non-empty string.");
   }
-  if (options.carouselScrollBy % 1 !== 0) {
-    throw new Error("carouselScrollBy must be an integer.");
+  if (options.transitionDuration && options.transitionDuration < 0) {
+    throw new Error("transitionDuration must be a positive number or 0.");
   }
-  if (options.carouselContainerId.length === 0) {
-    throw new Error("carouselContainerId must be a non-empty string.");
+  if (options.transitionDelay && options.transitionDelay < 0) {
+    throw new Error("transitionDelay must be a positive number or 0.");
   }
   if (
-    options.carouselTransitionDuration &&
-    options.carouselTransitionDuration < 0
+    options.transitionTimingFunction &&
+    options.transitionTimingFunction.length === 0
   ) {
-    throw new Error(
-      "carouselTransitionDuration must be a positive number or 0."
-    );
-  }
-  if (options.carouselTransitionDelay && options.carouselTransitionDelay < 0) {
-    throw new Error("carouselTransitionDelay must be a positive number or 0.");
-  }
-  if (
-    options.carouselTransitionTimingFunction &&
-    options.carouselTransitionTimingFunction.length === 0
-  ) {
-    throw new Error(
-      "carouselTransitionTimingFunction must be a non-empty string."
-    );
+    throw new Error("transitionTimingFunction must be a non-empty string.");
   }
   if (
     options.resizingMethod !== "none" &&
@@ -108,13 +93,12 @@ export function validateCarouselOptions(options: CarouselOptions): void {
     );
   }
   if (
-    options.carouselWrappingMethod !== "wrap-simple" &&
-    options.carouselWrappingMethod !== "wrap-smart" &&
-    options.carouselWrappingMethod !== "wrap-jump" &&
-    options.carouselWrappingMethod !== "none"
+    options.wrappingMethod !== "wrap-simple" &&
+    options.wrappingMethod !== "wrap-smart" &&
+    options.wrappingMethod !== "none"
   ) {
     throw new Error(
-      "carouselWrappingMethod must be one of the following: 'wrap-simple', 'wrap-smart'."
+      "wrappingMethod must be one of the following: 'none', 'wrap-simple', 'wrap-smart'."
     );
   }
 }
@@ -127,11 +111,11 @@ export function validateCarouselOptions(options: CarouselOptions): void {
  * @returns {void} Nothing.
  */
 export function convertCarouselOptions(options: CarouselOptions): void {
-  if (options.carouselTransitionDuration == 0) {
-    options.carouselTransitionDuration = 1;
+  if (options.transitionDuration == 0) {
+    options.transitionDuration = 1;
   }
-  options.carouselItemsVisible = Math.floor(options.carouselItemsVisible);
-  options.carouselScrollBy = Math.floor(options.carouselScrollBy);
+  options.numItemsVisible = Math.floor(options.numItemsVisible);
+  options.scrollBy = Math.floor(options.scrollBy);
 }
 
 export default CarouselOptions;

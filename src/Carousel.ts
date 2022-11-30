@@ -25,7 +25,7 @@ export default class Carousel {
   private transition: string;
   private scrollable: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
-  private wrappingMethod: "none" | "wrap-jump" | "wrap-simple" | "wrap-smart";
+  private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 
   // Carousel internal DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -622,25 +622,25 @@ export default class Carousel {
     convertCarouselOptions(options);
 
     // Initialize all class attributes.
-    this.itemWidth = options.carouselItemWidth;
-    this.itemHeight = options.carouselItemHeight;
-    this.itemSpacing = options.carouselItemSpacing;
-    this.buttonWidth = options.carouselButtonWidth;
-    this.buttonHeight = options.carouselButtonHeight;
-    this.buttonPosition = options.carouselButtonPosition;
-    this.numItemsVisible = options.carouselItemsVisible;
-    this.scrollBy = options.carouselScrollBy;
+    this.itemWidth = options.itemWidth;
+    this.itemHeight = options.itemHeight;
+    this.itemSpacing = options.itemSpacing;
+    this.buttonWidth = options.buttonWidth;
+    this.buttonHeight = options.buttonHeight;
+    this.buttonPosition = options.buttonPosition;
+    this.numItemsVisible = options.numItemsVisible;
+    this.scrollBy = options.scrollBy;
     this.resizingMethod = options.resizingMethod;
-    this.transitionDuration = options.carouselTransitionDuration || 500;
-    this.transitionDelay = options.carouselTransitionDelay || 0;
+    this.transitionDuration = options.transitionDuration || 500;
+    this.transitionDelay = options.transitionDelay || 0;
     this.transitionTimingFunction =
-      options.carouselTransitionTimingFunction || "ease-in-out";
-    this.wrappingMethod = options.carouselWrappingMethod;
+      options.transitionTimingFunction || "ease-in-out";
+    this.wrappingMethod = options.wrappingMethod;
     this.transition = `transform 
       ${this.transitionDuration}ms 
       ${this.transitionTimingFunction} 
       ${this.transitionDelay}ms`;
-    this.scrollable = options.allowCarouselScrolling;
+    this.scrollable = options.scrollable;
     this.itemAspectRatio = this.itemHeight / this.itemWidth;
     this.originalItemHeight = this.itemHeight;
     this.originalItemWidth = this.itemWidth;
@@ -658,8 +658,8 @@ export default class Carousel {
     // restoring from state, indicate this so that the correct Carousel items
     // are passed down.
     this.carouselContainer = this.configureCarouselContainer(
-      options.carouselContainerId,
-      (options as CarouselState).allCarouselItems
+      options.containerID,
+      (options as CarouselState).carouselItems
     );
     try {
       this.carouselItemContainer = this.carouselContainer.children[0]
@@ -681,7 +681,7 @@ export default class Carousel {
       this.numItemsVisible > this.allItems.length
     ) {
       console.warn(
-        `Carousel ID "${options.carouselContainerId}": Cannot allow smart wrapping if the carousel has fewer items than items visible. Setting wrapping method to 'wrap-simple'.`
+        `Carousel ID "${options.containerID}": Cannot allow smart wrapping if the carousel has fewer items than items visible. Setting wrapping method to 'wrap-simple'.`
       );
       this.wrappingMethod = "wrap-simple";
     }
@@ -694,9 +694,7 @@ export default class Carousel {
     // whether the carousel is being constructed from a CarouselOptions object
     // or a CarouselState object.
     if (constructFromState) {
-      this.leftCarouselPointer = (
-        options as CarouselState
-      ).allCarouselItemsBottomPtr;
+      this.leftCarouselPointer = (options as CarouselState).leftCarouselPointer;
     } else {
       this.leftCarouselPointer = 0;
     }
@@ -715,8 +713,8 @@ export default class Carousel {
     this.isScrolling = false;
     this.rightCarouselPointer = this.numItemsVisible + this.leftCarouselPointer;
     this.prevScroll = "";
-    this.usingBezierTransition = options.carouselTransitionTimingFunction
-      ? options.carouselTransitionTimingFunction.startsWith("cubic-bezier")
+    this.usingBezierTransition = options.transitionTimingFunction
+      ? options.transitionTimingFunction.startsWith("cubic-bezier")
       : false;
 
     // Apply the appropriate styles to each class.
@@ -952,7 +950,6 @@ export default class Carousel {
     // should scroll by from click to click.
     if (
       this.wrappingMethod === "wrap-smart" ||
-      this.wrappingMethod === "wrap-jump" ||
       this.wrappingMethod === "none"
     ) {
       // Always reset the amount to scroll and canScroll values.
@@ -1069,24 +1066,24 @@ export default class Carousel {
    */
   public getCurrentState(): CarouselState {
     return {
-      carouselItemWidth: this.originalItemWidth,
-      carouselItemHeight: this.originalItemHeight,
-      carouselItemSpacing: this.itemSpacing,
-      carouselButtonWidth: this.buttonWidth,
-      carouselButtonHeight: this.buttonHeight,
-      carouselButtonPosition: this.buttonPosition,
-      carouselItemsVisible: this.numItemsVisible,
-      carouselScrollBy: this.scrollBy,
-      carouselContainerId: this.carouselContainer.id,
-      carouselTransitionDuration: this.transitionDuration,
-      carouselTransitionDelay: this.transitionDelay,
-      carouselTransitionTimingFunction: this.transitionTimingFunction,
+      itemWidth: this.originalItemWidth,
+      itemHeight: this.originalItemHeight,
+      itemSpacing: this.itemSpacing,
+      buttonWidth: this.buttonWidth,
+      buttonHeight: this.buttonHeight,
+      buttonPosition: this.buttonPosition,
+      numItemsVisible: this.numItemsVisible,
+      scrollBy: this.scrollBy,
+      containerID: this.carouselContainer.id,
+      transitionDuration: this.transitionDuration,
+      transitionDelay: this.transitionDelay,
+      transitionTimingFunction: this.transitionTimingFunction,
       resizingMethod: this.resizingMethod,
       carouselID: this.carouselID,
-      allCarouselItems: this.allItems,
-      allCarouselItemsBottomPtr: this.leftCarouselPointer,
-      allowCarouselScrolling: this.scrollable,
-      carouselWrappingMethod: this.wrappingMethod,
+      carouselItems: this.allItems,
+      leftCarouselPointer: this.leftCarouselPointer,
+      scrollable: this.scrollable,
+      wrappingMethod: this.wrappingMethod,
     };
   }
 
