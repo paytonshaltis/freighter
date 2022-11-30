@@ -21,7 +21,7 @@ export default class CarouselManager {
    */
   constructor(options: CarouselOptions) {
     // Need to remove all event listeners from the carousel container.
-    this.carousel = new Carousel(options);
+    this.carousel = this.changeCarouselOptions(options);
   }
 
   /**
@@ -33,17 +33,22 @@ export default class CarouselManager {
    * instantiated.
    * @param {CarouselOptions} options The new options to be passed to the
    * Carousel constructor.
+   * @returns {Carousel} The new Carousel instance; allows constructor of
+   * CarouselManager to call this method directly.
    */
-  private changeCarouselOptions(options: CarouselOptions): void {
+  private changeCarouselOptions(options: CarouselOptions): Carousel {
     // Should first validate and convert all carousel options.
     validateCarouselOptions(options);
     convertCarouselOptions(options);
 
     // Need to remove all event listeners from the carousel container.
-    this.carousel.removeAllEventListeners();
+    if (this.carousel) {
+      this.carousel.removeAllEventListeners();
+    }
 
     // Create a new carousel with the updated options.
     this.carousel = new Carousel(options);
+    return this.carousel;
   }
 
   /**
@@ -55,7 +60,6 @@ export default class CarouselManager {
    */
   public addCarouselItem(item: HTMLElement, index?: number): void {
     this.addCarouselItems([item], index);
-    console.log("Added item at index", index);
   }
 
   /**
@@ -67,17 +71,16 @@ export default class CarouselManager {
    */
   public addCarouselItems(items: HTMLElement[], index?: number): void {
     // Add the new item either at the end or at the specified index.
-    const currentState = this.carousel.getCurrentState();
+    const state = this.carousel.getCurrentState();
     index
-      ? currentState.carouselItems.splice(index, 0, ...items)
-      : currentState.carouselItems.push(...items);
+      ? state.carouselItems.splice(index, 0, ...items)
+      : state.carouselItems.push(...items);
 
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
-      ...currentState,
-      carouselItems: currentState.carouselItems,
+      ...state,
+      carouselItems: state.carouselItems,
     } as CarouselState);
-    console.log("Added item(s) at index", index);
   }
 
   /**
@@ -88,34 +91,33 @@ export default class CarouselManager {
    * @param {number} count Optional number of items to remove. Defaults to 1.
    */
   public removeCarouselItems(index: number, count: number = 1): void {
-    const currentState = this.carousel.getCurrentState();
+    const state = this.carousel.getCurrentState();
 
     // If wrapping is not allowed for the carousel, then removing items must move
     // the bottom pointer slightly as to not show duplicates.
-    if (currentState.wrappingMethod === "none") {
+    if (state.wrappingMethod === "none") {
       // If the carousel is scrolled to the end, need to move the bottom pointer
       // back by the number of items removed.
       if (
-        currentState.leftCarouselPointer + currentState.numItemsVisible ===
-        currentState.carouselItems.length
+        state.leftCarouselPointer + state.numItemsVisible ===
+        state.carouselItems.length
       ) {
-        currentState.leftCarouselPointer -= count;
+        state.leftCarouselPointer -= count;
       }
 
       // If the bottom pointer shifted into the negatives, reset it to 0.
-      if (currentState.leftCarouselPointer < 0) {
-        currentState.leftCarouselPointer = 0;
+      if (state.leftCarouselPointer < 0) {
+        state.leftCarouselPointer = 0;
       }
     }
 
     // Remove the item at the specified index.
-    currentState.carouselItems.splice(index, count);
+    state.carouselItems.splice(index, count);
 
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
-      ...currentState,
-      carouselItems: currentState.carouselItems,
+      ...state,
+      carouselItems: state.carouselItems,
     } as CarouselState);
-    console.log("Removed item at index", index);
   }
 }

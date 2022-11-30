@@ -1,7 +1,4 @@
-import CarouselOptions, {
-  convertCarouselOptions,
-  validateCarouselOptions,
-} from "./types/CarouselOptions.type.js";
+import CarouselOptions from "./types/CarouselOptions.type.js";
 import CarouselState from "./types/CarouselState.type.js";
 
 /**
@@ -616,10 +613,6 @@ export default class Carousel {
     // or a CarouselState object.
     const constructFromState =
       (options as CarouselState).carouselID !== undefined;
-
-    // Validate and convert the options or state object.
-    validateCarouselOptions(options);
-    convertCarouselOptions(options);
 
     // Initialize all class attributes.
     this.itemWidth = options.itemWidth;
