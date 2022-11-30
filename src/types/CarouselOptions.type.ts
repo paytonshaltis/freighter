@@ -16,7 +16,7 @@ type CarouselOptions = {
   carouselTransitionTimingFunction?: string;
   resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   allowCarouselScrolling: boolean;
-  carouselWrappingMethod: "wrap-simple" | "wrap-smart";
+  carouselWrappingMethod: "none" | "wrap-jump" | "wrap-simple" | "wrap-smart";
 };
 
 /**

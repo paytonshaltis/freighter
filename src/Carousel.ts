@@ -24,7 +24,11 @@ export default class Carousel {
   private carouselTransition: string;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private allowCarouselScrolling: boolean;
-  private carouselWrappingMethod: "wrap-simple" | "wrap-smart";
+  private carouselWrappingMethod:
+    | "none"
+    | "wrap-jump"
+    | "wrap-simple"
+    | "wrap-smart";
 
   // Carousel DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -44,6 +48,8 @@ export default class Carousel {
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
   private currentCarouselScrollBy: number;
+  private shouldJumpStart: boolean;
+  private shouldJumpEnd: boolean;
 
   // Maintain some original state for the carousel.
   private originalCarouselItemHeight: number;
@@ -696,6 +702,8 @@ export default class Carousel {
       this.carouselItemHeight / this.carouselItemWidth;
     this.originalCarouselItemHeight = this.carouselItemHeight;
     this.originalCarouselItemWidth = this.carouselItemWidth;
+    this.shouldJumpStart = false;
+    this.shouldJumpEnd = false;
 
     // The current amount to scroll should default to the user's indicated amount.
     this.currentCarouselScrollBy = this.carouselScrollBy;
@@ -977,10 +985,16 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   private adjustPointers(direction: "left" | "right"): void {
-    // Skip smart wrapping actions if the carousel does not use smart wrapping.
-    if (this.carouselWrappingMethod === "wrap-smart") {
-      // Always reset the amount to scroll by default.
+    // Simple wrapping does not need to worry about changing how much the carousel
+    // should scroll by from click to click.
+    if (
+      this.carouselWrappingMethod === "wrap-smart" ||
+      this.carouselWrappingMethod === "wrap-jump"
+    ) {
+      // Always reset the amount to scroll and shouldJump values.
       this.currentCarouselScrollBy = this.carouselScrollBy;
+      this.shouldJumpStart = false;
+      this.shouldJumpEnd = false;
 
       // If a carousel has an equal number of total items and items visible, then
       // smart wrapping always shifts the carousel by the number of items visible.
@@ -997,6 +1011,7 @@ export default class Carousel {
         // Need to shift everything over by an entire carouselItemsVisible amount.
         if (this.allCarouselItemsBottomPtr === 0) {
           this.currentCarouselScrollBy = this.carouselItemsVisible;
+          this.shouldJumpEnd = true;
         }
 
         // 2. In the middle of the carousel and will roll over to the end.
@@ -1020,6 +1035,7 @@ export default class Carousel {
         // Need to shift everything over by an entire carouselItemsVisible amount.
         if (this.allCarouselItemsTopPtr === 0) {
           this.currentCarouselScrollBy = this.carouselItemsVisible;
+          this.shouldJumpStart = true;
         }
 
         // 2. In the middle of the carousel and will roll over to the beginning.
