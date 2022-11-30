@@ -15,6 +15,7 @@ const c = new CarouselManager({
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-simple",
 });
 
 const c2 = new CarouselManager({
@@ -25,13 +26,14 @@ const c2 = new CarouselManager({
   carouselButtonHeight: "75px",
   carouselButtonPosition: "top",
   carouselItemsVisible: 4,
-  carouselScrollBy: 2,
+  carouselScrollBy: 1,
   carouselContainerId: "second-carousel",
   resizingMethod: "stretch-gap",
   carouselTransitionDelay: 0,
   carouselTransitionDuration: 1000,
   carouselTransitionTimingFunction: "linear",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-simple",
 });
 
 const c3 = new CarouselManager({
@@ -42,13 +44,14 @@ const c3 = new CarouselManager({
   carouselButtonHeight: "75%",
   carouselButtonPosition: "bottom",
   carouselItemsVisible: 4,
-  carouselScrollBy: 2,
+  carouselScrollBy: 3,
   carouselContainerId: "third-carousel",
   resizingMethod: "stretch",
   carouselTransitionDuration: 1000,
   carouselTransitionDelay: 250,
   carouselTransitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-smart",
 });
 
 const kingCrimson = new CarouselManager({
@@ -59,13 +62,14 @@ const kingCrimson = new CarouselManager({
   carouselButtonHeight: "250px",
   carouselButtonPosition: "center",
   carouselItemsVisible: 5,
-  carouselScrollBy: 1,
+  carouselScrollBy: 4,
   carouselContainerId: "king-crimson",
   resizingMethod: "stretch-scale",
   carouselTransitionDuration: 500,
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "ease",
   allowCarouselScrolling: true,
+  carouselWrappingMethod: "wrap-smart",
 });
 
 document.querySelector("button#add")?.addEventListener("click", () => {
