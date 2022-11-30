@@ -42,7 +42,8 @@ export default class Carousel {
   private allCarouselItemsBottomPtr: number;
   private carouselPosition: number;
   private isScrolling: boolean;
-  private canScroll: boolean;
+  private canScrollLeft: boolean;
+  private canScrollRight: boolean;
   private prevScrollDirection: string;
   private carouselContainerConfigured = false;
   private carouselItemsConfigured = false;
@@ -264,7 +265,7 @@ export default class Carousel {
         if (
           !this.isScrolling &&
           this.allowCarouselScrolling &&
-          this.canScroll
+          this.canScrollLeft
         ) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "left";
@@ -311,7 +312,7 @@ export default class Carousel {
         if (
           !this.isScrolling &&
           this.allowCarouselScrolling &&
-          this.canScroll
+          this.canScrollRight
         ) {
           // Indicate the scrolling direction.
           this.prevScrollDirection = "right";
@@ -747,7 +748,8 @@ export default class Carousel {
     }
 
     // The carousel cannot be scrolled if there are no items in it.
-    this.canScroll = this.allCarouselItems.length > 0;
+    this.canScrollLeft = this.allCarouselItems.length > 0;
+    this.canScrollRight = this.allCarouselItems.length > 0;
     this.isScrolling = false;
 
     // Configure and add the carousel buttons.

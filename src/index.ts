@@ -69,7 +69,7 @@ const kingCrimson = new CarouselManager({
   carouselTransitionDelay: 0,
   carouselTransitionTimingFunction: "ease",
   allowCarouselScrolling: true,
-  carouselWrappingMethod: "wrap-smart",
+  carouselWrappingMethod: "none",
 });
 
 document.querySelector("button#add")?.addEventListener("click", () => {
