@@ -10,48 +10,44 @@ import CarouselState from "./types/CarouselState.type.js";
 export default class Carousel {
   // Options directly passed in from the constructor.
   private carouselID: number;
-  private carouselItemWidth: number;
-  private carouselItemHeight: number;
-  private carouselItemSpacing: number;
-  private carouselButtonWidth: string;
-  private carouselButtonHeight: string;
-  private carouselButtonPosition: "top" | "center" | "bottom";
-  private carouselItemsVisible: number;
-  private carouselScrollBy: number;
-  private carouselItemAspectRatio: number;
-  private carouselTransitionDuration: number;
-  private carouselTransitionDelay: number;
-  private carouselTransitionTimingFunction: string;
-  private carouselTransition: string;
-  private allowCarouselScrolling: boolean;
+  private itemWidth: number;
+  private itemHeight: number;
+  private itemSpacing: number;
+  private buttonWidth: string;
+  private buttonHeight: string;
+  private buttonPosition: "top" | "center" | "bottom";
+  private numItemsVisible: number;
+  private scrollBy: number;
+  private itemAspectRatio: number;
+  private transitionDuration: number;
+  private transitionDelay: number;
+  private transitionTimingFunction: string;
+  private transition: string;
+  private scrollable: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
-  private carouselWrappingMethod:
-    | "none"
-    | "wrap-jump"
-    | "wrap-simple"
-    | "wrap-smart";
+  private wrappingMethod: "none" | "wrap-jump" | "wrap-simple" | "wrap-smart";
 
   // Carousel internal DOM element attributes.
   private carouselContainer: HTMLElement;
   private carouselItemContainer: HTMLElement;
-  private allCarouselItems: HTMLElement[];
+  private allItems: HTMLElement[];
 
   // Carousel internal data attributes.
   private static maxID: number = -1;
-  private allCarouselItemsTopPtr: number;
-  private allCarouselItemsBottomPtr: number;
+  private rightCarouselPointer: number;
+  private leftCarouselPointer: number;
   private isScrolling: boolean;
   private canScrollLeft: boolean;
   private canScrollRight: boolean;
-  private prevScrollDirection: string;
+  private prevScroll: string;
   private carouselContainerConfigured = false;
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
-  private currentCarouselScrollBy: number;
+  private currentScrollBy: number;
 
   // Maintain some original state for the carousel.
-  private originalCarouselItemHeight: number;
-  private originalCarouselItemWidth: number;
+  private originalItemHeight: number;
+  private originalItemWidth: number;
 
   // Event listeners and resize observer references.
   private transitionEndEventListener: EventListener = (event: Event) => {};
@@ -174,31 +170,28 @@ export default class Carousel {
 
       // If the previous scroll was left, remove items from the right
       // side of the carousel item container.
-      if (this.prevScrollDirection === "left") {
+      if (this.prevScroll === "left") {
         for (
           let i = carouselItemContainerLength - 1;
-          i >
-          carouselItemContainerLength - 1 - this.currentCarouselScrollBy * 2;
+          i > carouselItemContainerLength - 1 - this.currentScrollBy * 2;
           i--
         ) {
           carouselItemContainer.children[i].remove();
         }
 
         // Transform the carousel item container back to its original position
-        // with no animation.
-        this.transformCarouselItems(0, false);
+        this.transformCarouselItems(0);
       }
 
       // If the previous scroll was right, remove items from the left
       // side of the carousel item container.
-      else if (this.prevScrollDirection === "right") {
-        for (let i = 0; i < this.currentCarouselScrollBy * 2; i++) {
+      else if (this.prevScroll === "right") {
+        for (let i = 0; i < this.currentScrollBy * 2; i++) {
           carouselItemContainer.children[0].remove();
         }
 
         // Transform the carousel item container back to its original position
-        // with no animation.
-        this.transformCarouselItems(0, false);
+        this.transformCarouselItems(0);
       }
 
       // Performs resizing if the carousel was resized while scrolling.
@@ -234,31 +227,24 @@ export default class Carousel {
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
       this.leftButtonClickListener = () => {
-        if (
-          !this.isScrolling &&
-          this.allowCarouselScrolling &&
-          this.canScrollLeft
-        ) {
-          // Indicate the scrolling direction.
-          this.prevScrollDirection = "left";
-
+        if (!this.isScrolling && this.scrollable && this.canScrollLeft) {
           // Reposition the pointers.
+          this.prevScroll = "left";
           this.adjustPointers(direction);
 
-          // Add the appropriate number of carousel items to the left side of the
-          // carousel item container. These should be actual carousel items, not
-          // dummy items.
-          const prevItems = this.getCarouselItems(
-            this.currentCarouselScrollBy,
-            this.allCarouselItemsBottomPtr
+          // Add the appropriate number of carousel items to the left side.
+          this.carouselItemContainer.prepend(
+            ...this.getCarouselItems(
+              this.currentScrollBy,
+              this.leftCarouselPointer
+            )
           );
-          this.carouselItemContainer.prepend(...prevItems);
 
           // Add the matching number of dummy items to the right side.
           const nextItems = this.getCarouselItems(
-            this.currentCarouselScrollBy,
+            this.currentScrollBy,
             this.usingBezierTransition
-              ? this.allCarouselItemsTopPtr + this.currentCarouselScrollBy
+              ? this.rightCarouselPointer + this.currentScrollBy
               : 0,
             this.usingBezierTransition
           );
@@ -280,32 +266,24 @@ export default class Carousel {
     // Add the event listener for scrolling to the right.
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
-        if (
-          !this.isScrolling &&
-          this.allowCarouselScrolling &&
-          this.canScrollRight
-        ) {
-          // Indicate the scrolling direction.
-          this.prevScrollDirection = "right";
-
+        if (!this.isScrolling && this.scrollable && this.canScrollRight) {
           // Reposition the pointers.
+          this.prevScroll = "right";
           this.adjustPointers(direction);
 
-          // Add the appropriate number of carousel items to the right side of the
-          // carousel item container. These should be actual carousel items, not
-          // dummy items.
-          const nextItems = this.getCarouselItems(
-            this.currentCarouselScrollBy,
-            this.allCarouselItemsTopPtr - this.currentCarouselScrollBy
+          // Add the appropriate number of carousel items to the right.
+          this.carouselItemContainer.append(
+            ...this.getCarouselItems(
+              this.currentScrollBy,
+              this.rightCarouselPointer - this.currentScrollBy
+            )
           );
-          this.carouselItemContainer.append(...nextItems);
 
           // Add the matching number of dummy items to the left side.
           const prevItems = this.getCarouselItems(
-            this.currentCarouselScrollBy,
+            this.currentScrollBy,
             this.usingBezierTransition
-              ? this.allCarouselItemsBottomPtr -
-                  this.currentCarouselScrollBy * 2
+              ? this.leftCarouselPointer - this.currentScrollBy * 2
               : 0,
             this.usingBezierTransition
           );
@@ -329,7 +307,7 @@ export default class Carousel {
   }
 
   /**
-   * Configures the carousel buttons. Note that as a prerequisite, the carousel
+   * Configures the carousel items. Note that as a prerequisite, the carousel
    * container must have been congifured with the configureCarouselContainer()
    * method. This ensures that the carousel items have been passed down to the
    * carousel item container.
@@ -352,14 +330,11 @@ export default class Carousel {
 
     // Apply the appropriate class and id to each carousel item.
     carouselItems.forEach((carouselItem, index) => {
-      carouselItem.removeAttribute("style");
-      carouselItem.classList.remove("carousel-item");
       carouselItem.classList.add("carousel-item");
-      carouselItem.id = "";
       carouselItem.id = `carousel-item-${this.carouselID}-${index}`;
     });
 
-    // Return the array of carousel items, and indicate that the carousel
+    // Return the array of carousel items, and indicates that the carousel
     // container has been configured.
     this.carouselItemsConfigured = true;
     return carouselItems;
@@ -437,20 +412,20 @@ export default class Carousel {
     // Display flex to appropriately space out the carousel items.
     carouselItemContainer.style.display = "flex";
     carouselItemContainer.style.justifyContent = "center";
-    carouselItemContainer.style.gap = `${this.carouselItemSpacing}px`;
+    carouselItemContainer.style.gap = `${this.itemSpacing}px`;
 
     // The width is dependend on the resize mode.
     if (this.resizingMethod === "none") {
       carouselItemContainer.style.width = `${
-        this.carouselItemWidth * this.carouselItemsVisible +
-        this.carouselItemSpacing * (this.carouselItemsVisible - 1)
+        this.itemWidth * this.numItemsVisible +
+        this.itemSpacing * (this.numItemsVisible - 1)
       }px`;
     } else {
       carouselItemContainer.style.width = "100%";
     }
 
     // A transition must be applied in order to trigger transitionend events.
-    carouselItemContainer.style.transition = this.carouselTransition;
+    carouselItemContainer.style.transition = this.transition;
   }
 
   /**
@@ -459,19 +434,16 @@ export default class Carousel {
    */
   private applyCarouselItemStyles(): void {
     // Need to loop through all the carousel items.
-    this.allCarouselItems.forEach((carouselItem) => {
+    this.allItems.forEach((carouselItem) => {
       // Set the width and height of the carousel items based on the constructor.
-      carouselItem.style.width = `${this.carouselItemWidth}px`;
-      carouselItem.style.height = `${this.carouselItemHeight}px`;
+      carouselItem.style.width = `${this.itemWidth}px`;
+      carouselItem.style.height = `${this.itemHeight}px`;
 
       // The carousel items should by default not be allowed to shrink.
       carouselItem.style.flexShrink = "0";
 
       // TODO: Apply other styles based on the constructor.
-      carouselItem.style.backgroundColor = "#333";
-      carouselItem.style.color = "white";
-      carouselItem.style.textAlign = "center";
-      carouselItem.style.fontSize = "2rem";
+      carouselItem.style.backgroundColor = "#fff";
     });
   }
 
@@ -488,8 +460,8 @@ export default class Carousel {
       ) as HTMLElement;
 
     // Set the width and height of the carousel button based on the constructor.
-    carouselButton.style.width = this.carouselButtonWidth;
-    carouselButton.style.height = this.carouselButtonHeight;
+    carouselButton.style.width = this.buttonWidth;
+    carouselButton.style.height = this.buttonHeight;
 
     // Other required styles.
     carouselButton.style.cursor = "pointer";
@@ -497,12 +469,12 @@ export default class Carousel {
 
     // TODO: Apply other styles based on the constructor.
     carouselButton.style.border = "none";
-    carouselButton.style.backgroundColor = "#CCC";
+    carouselButton.style.backgroundColor = "#555";
     carouselButton.style.opacity = "0.5";
 
-    // Need to absolutely position the carousel button.
+    // Position the button based on the user's options.
     carouselButton.style.position = "absolute";
-    switch (this.carouselButtonPosition) {
+    switch (this.buttonPosition) {
       case "top":
         carouselButton.style.top = "0";
         break;
@@ -536,15 +508,15 @@ export default class Carousel {
       (parseFloat(
         getComputedStyle(this.carouselItemContainer as Element).width
       ) -
-        this.carouselItemWidth * this.carouselItemsVisible) /
-      (this.carouselItemsVisible + 1);
+        this.itemWidth * this.numItemsVisible) /
+      (this.numItemsVisible + 1);
 
     // Set the gap size to the larger of the computed gap and the minimum gap
     // size provided by the constructor.
     this.carouselItemContainer.style.gap =
-      computedGap > this.carouselItemSpacing
+      computedGap > this.itemSpacing
         ? computedGap + "px"
-        : this.carouselItemSpacing + "px";
+        : this.itemSpacing + "px";
   }
 
   /**
@@ -574,7 +546,7 @@ export default class Carousel {
       // or flex growing. If there are no children, size back to the original height.
       if (!(this.carouselItemContainer.children.length === 0)) {
         try {
-          this.carouselItemWidth = parseFloat(
+          this.itemWidth = parseFloat(
             getComputedStyle(
               this.carouselItemContainer.children[0] as HTMLElement
             ).width
@@ -586,22 +558,22 @@ export default class Carousel {
           );
         }
       } else {
-        this.carouselItemWidth = this.originalCarouselItemWidth;
+        this.itemWidth = this.originalItemWidth;
       }
 
       // If the resize method is 'stretch-scale', the carousel items preserve
       // their aspect ratio. Otherwise, the height remains the same.
       const computedHeight =
         this.resizingMethod === "stretch-scale"
-          ? this.carouselItemAspectRatio * this.carouselItemWidth
-          : this.carouselItemHeight;
+          ? this.itemAspectRatio * this.itemWidth
+          : this.itemHeight;
 
       // Set the new width and height of each active carousel item, and remove the flex
       // grow and shrink properties. This prevents the carousel items from
       // resizing again when next and dummy items are added.
       for (let i = 0; i < this.carouselItemContainer.children.length; i++) {
         (this.carouselItemContainer.children[i] as HTMLElement).style.width =
-          this.carouselItemWidth + "px";
+          this.itemWidth + "px";
         (this.carouselItemContainer.children[i] as HTMLElement).style.height =
           computedHeight + "px";
         (this.carouselItemContainer.children[i] as HTMLElement).style.flexGrow =
@@ -614,8 +586,8 @@ export default class Carousel {
       // Set the new width and height of all the carousel items, not just the
       // active ones. This is neccessary for items to be added as next and dummy
       // items as the appropriate sizes.
-      this.allCarouselItems.forEach((carouselItem) => {
-        carouselItem.style.width = `${this.carouselItemWidth}px`;
+      this.allItems.forEach((carouselItem) => {
+        carouselItem.style.width = `${this.itemWidth}px`;
         carouselItem.style.height = `${computedHeight}px`;
         carouselItem.style.flexGrow = "0";
         carouselItem.style.flexShrink = "0";
@@ -650,32 +622,31 @@ export default class Carousel {
     convertCarouselOptions(options);
 
     // Initialize all class attributes.
-    this.carouselItemWidth = options.carouselItemWidth;
-    this.carouselItemHeight = options.carouselItemHeight;
-    this.carouselItemSpacing = options.carouselItemSpacing;
-    this.carouselButtonWidth = options.carouselButtonWidth;
-    this.carouselButtonHeight = options.carouselButtonHeight;
-    this.carouselButtonPosition = options.carouselButtonPosition;
-    this.carouselItemsVisible = options.carouselItemsVisible;
-    this.carouselScrollBy = options.carouselScrollBy;
+    this.itemWidth = options.carouselItemWidth;
+    this.itemHeight = options.carouselItemHeight;
+    this.itemSpacing = options.carouselItemSpacing;
+    this.buttonWidth = options.carouselButtonWidth;
+    this.buttonHeight = options.carouselButtonHeight;
+    this.buttonPosition = options.carouselButtonPosition;
+    this.numItemsVisible = options.carouselItemsVisible;
+    this.scrollBy = options.carouselScrollBy;
     this.resizingMethod = options.resizingMethod;
-    this.carouselTransitionDuration = options.carouselTransitionDuration || 500;
-    this.carouselTransitionDelay = options.carouselTransitionDelay || 0;
-    this.carouselTransitionTimingFunction =
+    this.transitionDuration = options.carouselTransitionDuration || 500;
+    this.transitionDelay = options.carouselTransitionDelay || 0;
+    this.transitionTimingFunction =
       options.carouselTransitionTimingFunction || "ease-in-out";
-    this.carouselWrappingMethod = options.carouselWrappingMethod;
-    this.carouselTransition = `transform 
-      ${this.carouselTransitionDuration}ms 
-      ${this.carouselTransitionTimingFunction} 
-      ${this.carouselTransitionDelay}ms`;
-    this.allowCarouselScrolling = options.allowCarouselScrolling;
-    this.carouselItemAspectRatio =
-      this.carouselItemHeight / this.carouselItemWidth;
-    this.originalCarouselItemHeight = this.carouselItemHeight;
-    this.originalCarouselItemWidth = this.carouselItemWidth;
+    this.wrappingMethod = options.carouselWrappingMethod;
+    this.transition = `transform 
+      ${this.transitionDuration}ms 
+      ${this.transitionTimingFunction} 
+      ${this.transitionDelay}ms`;
+    this.scrollable = options.allowCarouselScrolling;
+    this.itemAspectRatio = this.itemHeight / this.itemWidth;
+    this.originalItemHeight = this.itemHeight;
+    this.originalItemWidth = this.itemWidth;
 
     // The current amount to scroll should default to the user's indicated amount.
-    this.currentCarouselScrollBy = this.carouselScrollBy;
+    this.currentScrollBy = this.scrollBy;
 
     // Give the carousel a unique internal ID if it is being constructed from
     // a CarouselOptions object.
@@ -702,17 +673,17 @@ export default class Carousel {
     }
 
     // Configure the carousel items.
-    this.allCarouselItems = this.configureCarouselItems();
+    this.allItems = this.configureCarouselItems();
 
     // Cannot allow smart wrapping if the carousel has fewer items than items visible.
     if (
-      this.carouselWrappingMethod === "wrap-smart" &&
-      this.carouselItemsVisible > this.allCarouselItems.length
+      this.wrappingMethod === "wrap-smart" &&
+      this.numItemsVisible > this.allItems.length
     ) {
       console.warn(
         `Carousel ID "${options.carouselContainerId}": Cannot allow smart wrapping if the carousel has fewer items than items visible. Setting wrapping method to 'wrap-simple'.`
       );
-      this.carouselWrappingMethod = "wrap-simple";
+      this.wrappingMethod = "wrap-simple";
     }
 
     // Configure and add the carousel buttons.
@@ -723,29 +694,27 @@ export default class Carousel {
     // whether the carousel is being constructed from a CarouselOptions object
     // or a CarouselState object.
     if (constructFromState) {
-      this.allCarouselItemsBottomPtr = (
+      this.leftCarouselPointer = (
         options as CarouselState
       ).allCarouselItemsBottomPtr;
     } else {
-      this.allCarouselItemsBottomPtr = 0;
+      this.leftCarouselPointer = 0;
     }
 
     // The carousel cannot be scrolled if there are no items in it, or if there
     // is no wrap option and we are at the end of the carousel on either side.
     this.canScrollLeft =
-      this.carouselWrappingMethod === "none" &&
-      this.allCarouselItemsBottomPtr === 0
+      this.wrappingMethod === "none" && this.leftCarouselPointer === 0
         ? false
-        : this.allCarouselItems.length > 0;
+        : this.allItems.length > 0;
     this.canScrollRight =
-      this.carouselWrappingMethod === "none" &&
-      this.allCarouselItems.length <= this.carouselItemsVisible
+      this.wrappingMethod === "none" &&
+      this.allItems.length <= this.numItemsVisible
         ? false
-        : this.allCarouselItems.length > 0;
+        : this.allItems.length > 0;
     this.isScrolling = false;
-    this.allCarouselItemsTopPtr =
-      this.carouselItemsVisible + this.allCarouselItemsBottomPtr;
-    this.prevScrollDirection = "";
+    this.rightCarouselPointer = this.numItemsVisible + this.leftCarouselPointer;
+    this.prevScroll = "";
     this.usingBezierTransition = options.carouselTransitionTimingFunction
       ? options.carouselTransitionTimingFunction.startsWith("cubic-bezier")
       : false;
@@ -776,7 +745,9 @@ export default class Carousel {
     // on the resizing method.
     if (this.resizingMethod === "stretch-gap") {
       this.parentResizeObserver = new ResizeObserver(() => {
-        if (!this.isScrolling) this.resizeGap();
+        if (!this.isScrolling) {
+          this.resizeGap();
+        }
       });
       this.parentResizeObserver.observe(
         this.carouselContainer.parentElement as HTMLElement
@@ -786,7 +757,9 @@ export default class Carousel {
       this.resizingMethod === "stretch-scale"
     ) {
       this.parentResizeObserver = new ResizeObserver(() => {
-        if (!this.isScrolling) this.resizeScale();
+        if (!this.isScrolling) {
+          this.resizeScale();
+        }
       });
       this.parentResizeObserver.observe(
         this.carouselContainer.parentElement as HTMLElement
@@ -795,10 +768,10 @@ export default class Carousel {
   }
 
   /**
-   * Returns carousel items from the starting index provided from this.allCarouselItems.
-   * Will loop around to the beginning of this.allCarouselItems if the starting index
-   * provided is greater than or less than the length of this.allCarouselItems, or if
-   * the index progresses past the end of this.allCarouselItems.
+   * Returns carousel items from the starting index provided from this.carouselItems.
+   * Will loop around to the beginning of this.carouselItems if the starting index
+   * provided is greater than or less than the length of this.carouselItems, or if
+   * the index progresses past the end of this.carouselItems.
    * @param {number} numItems The number of carousel items to be returned.
    * @param {number} start The index to start getting items from.
    * @param {boolean} deep Optional parameter. If true, the entire node will be returned via a
@@ -811,21 +784,19 @@ export default class Carousel {
     start: number,
     deep: boolean = true
   ): HTMLElement[] {
-    const carouselItemsLength = this.allCarouselItems.length;
+    const itemsLength = this.allItems.length;
     const result: HTMLElement[] = [];
 
     // If the starting index is negative, wrap around to the other end.
     while (start < 0) {
-      start = carouselItemsLength + start;
+      start = itemsLength + start;
     }
 
     // Start at the start index and get n items, wrapping anytime the index
     // progresses past the end of this.allCarouselItems (using modulo).
     for (let i = start; i < start + numItems; i++) {
       result.push(
-        this.allCarouselItems[i % carouselItemsLength]?.cloneNode(
-          deep
-        ) as HTMLElement
+        this.allItems[i % itemsLength]?.cloneNode(deep) as HTMLElement
       );
     }
     // Return the array of retrieved carousel items.
@@ -839,48 +810,43 @@ export default class Carousel {
    * then the carousel items are duplicated until there are enough carousel items
    * to fill the carousel.
    * 2. If there are at least enough carousel items to fill the entire carousel, only
-   * this.carouselItemsVisible carousel items are shown.
+   * this.numItemsVisible carousel items are shown.
    * @returns {void} Nothing.
    */
   private initializeCarousel(): void {
-    // The list of active carousel items. This will have size this.carouselItemsVisible.
+    // The list of active carousel items. This will have size this.numItemsVisible.
     const activeCarouselItems: Element[] = [];
 
-    // Fills the active carousel items list with the first this.carouselItemsVisible
-    // items. May need to wrap around. If restoring from state, start at the correct
-    // index. If the wrap method is "none", do not wrap around.
+    // Fills the active carousel items list with the first this.numItemsVisible
+    // items. May need to wrap around. If the wrap method is "none", do not wrap around.
     let timesWrapped = 0;
     let firstIteration = true;
-    for (let i = 0; i < this.carouselItemsVisible; i++) {
+    for (let i = 0; i < this.numItemsVisible; i++) {
       const element =
-        this.allCarouselItems[
-          (i + this.allCarouselItemsBottomPtr) % this.allCarouselItems.length
-        ];
+        this.allItems[(i + this.leftCarouselPointer) % this.allItems.length];
 
       // Keep track of the number of times that the index wraps around allCarouselItems.
       if (
-        (i + this.allCarouselItemsBottomPtr) % this.allCarouselItems.length ===
-          0 &&
+        (i + this.leftCarouselPointer) % this.allItems.length === 0 &&
         !firstIteration
       ) {
         timesWrapped++;
       }
 
-      // If we should not wrap, just add a blank div with correct dimensions.
-      if (this.carouselWrappingMethod == "none" && timesWrapped > 0) {
+      // If wrap method is "none", just add a blank div with correct dimensions.
+      if (this.wrappingMethod == "none" && timesWrapped > 0) {
         const dummyItem = document.createElement("div");
         dummyItem.classList.add("carousel-item");
         dummyItem.classList.add("dummy");
-        dummyItem.style.width = `${this.carouselItemWidth}px`;
-        dummyItem.style.height = `${this.carouselItemHeight}px`;
+        dummyItem.style.width = `${this.itemWidth}px`;
+        dummyItem.style.height = `${this.itemHeight}px`;
         activeCarouselItems.push(dummyItem);
       }
 
       // If we should wrap, clone the correct carousel item.
-      else if (i < this.carouselItemsVisible && element) {
+      else if (i < this.numItemsVisible && element) {
         activeCarouselItems.push((element as Node).cloneNode(true) as Element);
       }
-
       firstIteration = false;
     }
 
@@ -892,20 +858,13 @@ export default class Carousel {
   /**
    * Transform the carousel items to the correct position based on the current
    * carousel position.
-   * @param {"right" | "left" | "revert"} direction The direction to move the carousel.
-   * @param {boolean} animate Optional parameter. If true, the carousel items will
-   * be animated to the correct position. Otherwise, the carousel items will be
-   * immediately transformed to the correct position. Only explicitly call this
-   * function with animate = false if it is to reposition the carousel items
-   * after a transition has ended.
+   * @param {-1 | 0 | 1} direction The direction to move the carousel.
+   * 0 is used to move to the center of the carousel, and indicates no animation.
    * @returns {void} Nothing.
    */
-  private transformCarouselItems(
-    direction: -1 | 0 | 1,
-    animate: boolean = true
-  ): void {
+  private transformCarouselItems(direction: -1 | 0 | 1): void {
     // If the transform should not be animated, remove the transition property.
-    if (!animate) {
+    if (direction === 0) {
       this.carouselItemContainer.style.transition = "none";
     }
 
@@ -916,21 +875,19 @@ export default class Carousel {
         ? parseFloat(
             getComputedStyle(this.carouselItemContainer as HTMLElement).gap
           )
-        : this.carouselItemSpacing;
+        : this.itemSpacing;
 
     // Apply the transformation the correct distance.
     this.carouselItemContainer.style.transform = `translateX(${
-      -1 *
-      direction *
-      ((this.carouselItemWidth + spacingAmount) * this.currentCarouselScrollBy)
+      -1 * direction * ((this.itemWidth + spacingAmount) * this.currentScrollBy)
     }px)`;
 
     // If the transform was not animated, add the transition property back. This
     // is done in a timeout to ensure that the transform is applied before the
     // transition is added back.
-    if (!animate) {
+    if (direction === 0) {
       setTimeout(() => {
-        this.carouselItemContainer.style.transition = this.carouselTransition;
+        this.carouselItemContainer.style.transition = this.transition;
       }, 0);
     }
   }
@@ -953,7 +910,7 @@ export default class Carousel {
   /**
    * Adjusts the height of the carousel item container based on the control button
    * height and the height of the carousel item container itself. Should be called
-   * on each resize.
+   * on each resize where carousel item heights change ("stretch-scale" resizing).
    * @returns {void} Nothing.
    */
   public resizeCarouselItemContainer(): void {
@@ -994,19 +951,19 @@ export default class Carousel {
     // Simple wrapping does not need to worry about changing how much the carousel
     // should scroll by from click to click.
     if (
-      this.carouselWrappingMethod === "wrap-smart" ||
-      this.carouselWrappingMethod === "wrap-jump" ||
-      this.carouselWrappingMethod === "none"
+      this.wrappingMethod === "wrap-smart" ||
+      this.wrappingMethod === "wrap-jump" ||
+      this.wrappingMethod === "none"
     ) {
-      // Always reset the amount to scroll, shouldJump, and canScroll values.
-      this.currentCarouselScrollBy = this.carouselScrollBy;
+      // Always reset the amount to scroll and canScroll values.
+      this.currentScrollBy = this.scrollBy;
       this.canScrollLeft = true;
       this.canScrollRight = true;
 
       // If a carousel has an equal number of total items and items visible, then
       // smart wrapping always shifts the carousel by the number of items visible.
-      if (this.allCarouselItems.length === this.carouselItemsVisible) {
-        this.currentCarouselScrollBy = this.carouselItemsVisible;
+      if (this.allItems.length === this.numItemsVisible) {
+        this.currentScrollBy = this.numItemsVisible;
       }
 
       // If the user is scrolling left, they are either:
@@ -1015,20 +972,20 @@ export default class Carousel {
       //  3. In the middle of the carousel and won't roll over to the end.
       else if (direction === "left") {
         // 1. At the beginning of the carousel and will roll over to the end.
-        // Need to shift everything over by an entire carouselItemsVisible amount.
-        if (this.allCarouselItemsBottomPtr === 0) {
-          this.currentCarouselScrollBy = this.carouselItemsVisible;
+        // Need to shift everything over by an entire numItemsVisible amount.
+        if (this.leftCarouselPointer === 0) {
+          this.currentScrollBy = this.numItemsVisible;
         }
 
         // 2. In the middle of the carousel and will roll over to the end.
         // Determine how many positions to shift over, update scroll amount.
-        else if (this.allCarouselItemsBottomPtr < this.carouselScrollBy) {
-          this.currentCarouselScrollBy = this.allCarouselItemsBottomPtr;
+        else if (this.leftCarouselPointer < this.scrollBy) {
+          this.currentScrollBy = this.leftCarouselPointer;
         }
 
         // 3. In the middle of the carousel and won't roll over to the end.
         // No special actions need to be taken.
-        else if (this.allCarouselItemsBottomPtr >= this.carouselScrollBy) {
+        else if (this.leftCarouselPointer >= this.scrollBy) {
         }
       }
 
@@ -1038,78 +995,67 @@ export default class Carousel {
       //  3. In the middle of the carousel and won't roll over to the beginning.
       else if (direction === "right") {
         // 1. At the end of the carousel and will roll over to the beginning.
-        // Need to shift everything over by an entire carouselItemsVisible amount.
-        if (this.allCarouselItemsTopPtr === 0) {
-          this.currentCarouselScrollBy = this.carouselItemsVisible;
+        // Need to shift everything over by an entire numItemsVisible amount.
+        if (this.rightCarouselPointer === 0) {
+          this.currentScrollBy = this.numItemsVisible;
         }
 
         // 2. In the middle of the carousel and will roll over to the beginning.
         // Determine how many positions to shift over, update scroll amount.
         else if (
-          this.carouselScrollBy + this.allCarouselItemsTopPtr >
-          this.allCarouselItems.length
+          this.scrollBy + this.rightCarouselPointer >
+          this.allItems.length
         ) {
-          this.currentCarouselScrollBy =
-            this.allCarouselItems.length - this.allCarouselItemsTopPtr;
+          this.currentScrollBy =
+            this.allItems.length - this.rightCarouselPointer;
         }
 
         // 3. In the middle of the carousel and won't roll over to the beginning.
         // No special actions need to be taken.
         else if (
-          this.carouselScrollBy + this.allCarouselItemsTopPtr <=
-          this.allCarouselItems.length
+          this.scrollBy + this.rightCarouselPointer <=
+          this.allItems.length
         ) {
         }
       }
     }
 
     // If the currentScrollBy happens to become negative (through deletion of items),
-    // should continue adding the length until it is positive. This will ensure that
-    // the carousel does not shift to the left to blank spaces.
-    // while (this.currentCarouselScrollBy < 0) {
-    //   this.currentCarouselScrollBy += this.allCarouselItems.length;
-    // }
-    if (this.currentCarouselScrollBy < 0) {
-      this.currentCarouselScrollBy =
-        this.carouselItemsVisible + this.currentCarouselScrollBy;
+    // this will ensure that the carousel does not shift to the left to blank spaces.
+    if (this.currentScrollBy < 0) {
+      this.currentScrollBy = this.numItemsVisible + this.currentScrollBy;
     }
 
     // Based on the direction of the scroll, adjust the pointers. They should only
-    // be adjusted the currentCarouselScrollBy value, which may be less than the
-    // carouselScrollBy value if the carousel is being scrolled at the start or end.
+    // be adjusted the currentScrollBy value, which may be less than the
+    // scrollyBy value if the carousel is being scrolled at the start or end.
     if (direction === "left") {
-      this.allCarouselItemsBottomPtr -= this.currentCarouselScrollBy;
-      this.allCarouselItemsTopPtr -= this.currentCarouselScrollBy;
+      this.leftCarouselPointer -= this.currentScrollBy;
+      this.rightCarouselPointer -= this.currentScrollBy;
     } else if (direction === "right") {
-      this.allCarouselItemsBottomPtr += this.currentCarouselScrollBy;
-      this.allCarouselItemsTopPtr += this.currentCarouselScrollBy;
+      this.leftCarouselPointer += this.currentScrollBy;
+      this.rightCarouselPointer += this.currentScrollBy;
     }
 
     // Need to ensure that both pointers remain within their valid ranges.
-    while (this.allCarouselItemsBottomPtr >= this.allCarouselItems.length) {
-      this.allCarouselItemsBottomPtr -= this.allCarouselItems.length;
+    while (this.leftCarouselPointer >= this.allItems.length) {
+      this.leftCarouselPointer -= this.allItems.length;
     }
-    while (this.allCarouselItemsTopPtr >= this.allCarouselItems.length) {
-      this.allCarouselItemsTopPtr -= this.allCarouselItems.length;
+    while (this.rightCarouselPointer >= this.allItems.length) {
+      this.rightCarouselPointer -= this.allItems.length;
     }
-    while (this.allCarouselItemsBottomPtr < 0) {
-      this.allCarouselItemsBottomPtr += this.allCarouselItems.length;
+    while (this.leftCarouselPointer < 0) {
+      this.leftCarouselPointer += this.allItems.length;
     }
-    while (this.allCarouselItemsTopPtr < 0) {
-      this.allCarouselItemsTopPtr += this.allCarouselItems.length;
+    while (this.rightCarouselPointer < 0) {
+      this.rightCarouselPointer += this.allItems.length;
     }
 
     // Determine if the carousel can scroll left or right.
-    if (
-      this.carouselWrappingMethod === "none" &&
-      this.allCarouselItemsBottomPtr === 0
-    ) {
+    if (this.wrappingMethod === "none" && this.leftCarouselPointer === 0) {
       this.canScrollLeft = false;
     }
-    if (
-      this.carouselWrappingMethod === "none" &&
-      this.allCarouselItemsTopPtr === 0
-    ) {
+    if (this.wrappingMethod === "none" && this.rightCarouselPointer === 0) {
       this.canScrollRight = false;
     }
   }
@@ -1123,24 +1069,24 @@ export default class Carousel {
    */
   public getCurrentState(): CarouselState {
     return {
-      carouselItemWidth: this.originalCarouselItemWidth,
-      carouselItemHeight: this.originalCarouselItemHeight,
-      carouselItemSpacing: this.carouselItemSpacing,
-      carouselButtonWidth: this.carouselButtonWidth,
-      carouselButtonHeight: this.carouselButtonHeight,
-      carouselButtonPosition: this.carouselButtonPosition,
-      carouselItemsVisible: this.carouselItemsVisible,
-      carouselScrollBy: this.carouselScrollBy,
+      carouselItemWidth: this.originalItemWidth,
+      carouselItemHeight: this.originalItemHeight,
+      carouselItemSpacing: this.itemSpacing,
+      carouselButtonWidth: this.buttonWidth,
+      carouselButtonHeight: this.buttonHeight,
+      carouselButtonPosition: this.buttonPosition,
+      carouselItemsVisible: this.numItemsVisible,
+      carouselScrollBy: this.scrollBy,
       carouselContainerId: this.carouselContainer.id,
-      carouselTransitionDuration: this.carouselTransitionDuration,
-      carouselTransitionDelay: this.carouselTransitionDelay,
-      carouselTransitionTimingFunction: this.carouselTransitionTimingFunction,
+      carouselTransitionDuration: this.transitionDuration,
+      carouselTransitionDelay: this.transitionDelay,
+      carouselTransitionTimingFunction: this.transitionTimingFunction,
       resizingMethod: this.resizingMethod,
       carouselID: this.carouselID,
-      allCarouselItems: this.allCarouselItems,
-      allCarouselItemsBottomPtr: this.allCarouselItemsBottomPtr,
-      allowCarouselScrolling: this.allowCarouselScrolling,
-      carouselWrappingMethod: this.carouselWrappingMethod,
+      allCarouselItems: this.allItems,
+      allCarouselItemsBottomPtr: this.leftCarouselPointer,
+      allowCarouselScrolling: this.scrollable,
+      carouselWrappingMethod: this.wrappingMethod,
     };
   }
 
