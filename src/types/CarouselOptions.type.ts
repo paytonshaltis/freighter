@@ -95,7 +95,8 @@ export function validateCarouselOptions(options: CarouselOptions): void {
     options.resizingMethod !== "none" &&
     options.resizingMethod !== "stretch" &&
     options.resizingMethod !== "stretch-gap" &&
-    options.resizingMethod !== "stretch-scale"
+    options.resizingMethod !== "stretch-scale" &&
+    options.resizingMethod !== "stretch-populate"
   ) {
     throw new Error(
       "resizingMethod must be one of the following: 'none', 'stretch', 'stretch-gap', 'stretch-scale'."

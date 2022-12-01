@@ -4,6 +4,7 @@ type CarouselState = CarouselOptions & {
   carouselID: number;
   carouselItems: HTMLElement[];
   leftCarouselPointer: number;
+  carouselContainer: HTMLElement;
 };
 
 export default CarouselState;

@@ -25,12 +25,7 @@ export default class Carousel {
   private autoScrollInterval: number;
   private autoScrollDirection: "left" | "right";
   private autoScrollPauseOnHover: boolean;
-  private resizingMethod:
-    | "none"
-    | "stretch"
-    | "stretch-gap"
-    | "stretch-scale"
-    | "stretch-populate";
+  private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 
   // Carousel internal DOM element attributes.
@@ -667,7 +662,10 @@ export default class Carousel {
     this.buttonPosition = options.buttonPosition;
     this.numItemsVisible = options.numItemsVisible;
     this.scrollBy = options.scrollBy;
-    this.resizingMethod = options.resizingMethod;
+    this.resizingMethod =
+      options.resizingMethod === "stretch-populate"
+        ? "stretch-gap"
+        : options.resizingMethod;
     this.autoScroll = options.autoScroll;
     this.autoScrollInterval = options.autoScrollInterval;
     this.autoScrollDirection = options.autoScrollDirection;
@@ -1134,6 +1132,7 @@ export default class Carousel {
       autoScrollDirection: this.autoScrollDirection,
       autoScrollPauseOnHover: this.autoScrollPauseOnHover,
       wrappingMethod: this.wrappingMethod,
+      carouselContainer: this.carouselContainer,
     };
   }
 

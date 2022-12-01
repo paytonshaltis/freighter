@@ -12,7 +12,7 @@ import CarouselState from "./types/CarouselState.type.js";
  */
 export default class CarouselManager {
   private carousel: Carousel;
-  private usingStretchPopulate: boolean;
+  private populateResizeObserver: ResizeObserver | null;
 
   /**
    * Constructor for the CarouselManager class. Initializes the Carousel by
@@ -24,10 +24,22 @@ export default class CarouselManager {
     // If the carousel is using stretch-populate, then the carousel manager
     // needs to check on each resize event to see if the carousel needs to
     // be re-initialized.
-    this.usingStretchPopulate = options.resizingMethod === "stretch-populate";
+    this.populateResizeObserver =
+      options.resizingMethod === "stretch-populate"
+        ? new ResizeObserver(() => {
+            const state = this.carousel.getCurrentState();
+            console.log(state.itemWidth);
+          })
+        : null;
 
     // Need to remove all event listeners from the carousel container.
     this.carousel = this.changeCarouselOptions(options);
+
+    if (this.populateResizeObserver) {
+      this.populateResizeObserver.observe(
+        this.carousel.getCurrentState().carouselContainer
+      );
+    }
   }
 
   /**
