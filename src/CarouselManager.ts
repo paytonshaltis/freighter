@@ -11,7 +11,8 @@ import CarouselState from "./types/CarouselState.type.js";
  * may freely change.
  */
 export default class CarouselManager {
-  public carousel: Carousel;
+  private carousel: Carousel;
+  private usingStretchPopulate: boolean;
 
   /**
    * Constructor for the CarouselManager class. Initializes the Carousel by
@@ -20,6 +21,11 @@ export default class CarouselManager {
    * @param {CarouselOptions} options Carousel options to be passed to the Carousel constructor.
    */
   constructor(options: CarouselOptions) {
+    // If the carousel is using stretch-populate, then the carousel manager
+    // needs to check on each resize event to see if the carousel needs to
+    // be re-initialized.
+    this.usingStretchPopulate = options.resizingMethod === "stretch-populate";
+
     // Need to remove all event listeners from the carousel container.
     this.carousel = this.changeCarouselOptions(options);
   }
@@ -36,7 +42,7 @@ export default class CarouselManager {
    * @returns {Carousel} The new Carousel instance; allows constructor of
    * CarouselManager to call this method directly.
    */
-  public changeCarouselOptions(options: CarouselOptions): Carousel {
+  private changeCarouselOptions(options: CarouselOptions): Carousel {
     // Should first validate and convert all carousel options.
     validateCarouselOptions(options);
     convertCarouselOptions(options);

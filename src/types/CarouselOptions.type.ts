@@ -19,7 +19,12 @@ type CarouselOptions = {
   autoScrollInterval: number;
   autoScrollDirection: "left" | "right";
   autoScrollPauseOnHover: boolean;
-  resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
+  resizingMethod:
+    | "none"
+    | "stretch"
+    | "stretch-gap"
+    | "stretch-scale"
+    | "stretch-populate";
   wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 };
 

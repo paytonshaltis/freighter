@@ -25,7 +25,12 @@ export default class Carousel {
   private autoScrollInterval: number;
   private autoScrollDirection: "left" | "right";
   private autoScrollPauseOnHover: boolean;
-  private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
+  private resizingMethod:
+    | "none"
+    | "stretch"
+    | "stretch-gap"
+    | "stretch-scale"
+    | "stretch-populate";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 
   // Carousel internal DOM element attributes.
