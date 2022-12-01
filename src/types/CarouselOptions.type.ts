@@ -15,6 +15,10 @@ type CarouselOptions = {
   transitionDelay?: number;
   transitionTimingFunction?: string;
   scrollable: boolean;
+  autoScroll: boolean;
+  autoScrollInterval: number;
+  autoScrollDirection: "left" | "right";
+  autoScrollPauseOnHover: boolean;
   resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 };

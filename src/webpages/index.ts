@@ -16,6 +16,10 @@ const c = new CarouselManager({
   transitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -2.56)",
   scrollable: true,
   wrappingMethod: "wrap-simple",
+  autoScroll: true,
+  autoScrollInterval: 1000,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: true,
 });
 
 const c2 = new CarouselManager({
@@ -34,6 +38,10 @@ const c2 = new CarouselManager({
   transitionTimingFunction: "linear",
   scrollable: true,
   wrappingMethod: "none",
+  autoScroll: true,
+  autoScrollInterval: 1000,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: true,
 });
 
 const c3 = new CarouselManager({
@@ -52,6 +60,10 @@ const c3 = new CarouselManager({
   transitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
   scrollable: true,
   wrappingMethod: "wrap-smart",
+  autoScroll: true,
+  autoScrollInterval: 1000,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: true,
 });
 
 const kingCrimson = new CarouselManager({
@@ -70,6 +82,10 @@ const kingCrimson = new CarouselManager({
   transitionTimingFunction: "ease",
   scrollable: true,
   wrappingMethod: "none",
+  autoScroll: true,
+  autoScrollInterval: 1000,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: true,
 });
 
 document.querySelector("button#b1")?.addEventListener("click", () => {
