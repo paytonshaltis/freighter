@@ -16,6 +16,10 @@ const c1 = new CarouselManager({
   transitionTimingFunction: "ease-in-out",
   scrollable: true,
   wrappingMethod: "none",
+  autoScroll: false,
+  autoScrollInterval: 300,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: true,
 });
 
 const c2 = new CarouselManager({
@@ -34,6 +38,10 @@ const c2 = new CarouselManager({
   transitionTimingFunction: "ease-in-out",
   scrollable: true,
   wrappingMethod: "wrap-simple",
+  autoScroll: false,
+  autoScrollInterval: 600,
+  autoScrollDirection: "left",
+  autoScrollPauseOnHover: true,
 });
 
 const c3 = new CarouselManager({
@@ -50,8 +58,12 @@ const c3 = new CarouselManager({
   transitionDuration: 750,
   transitionDelay: 0,
   transitionTimingFunction: "ease-in-out",
-  scrollable: true,
+  scrollable: false,
   wrappingMethod: "wrap-smart",
+  autoScroll: true,
+  autoScrollInterval: 500,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: false,
 });
 
 let index: number = 8;

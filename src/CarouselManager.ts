@@ -11,7 +11,7 @@ import CarouselState from "./types/CarouselState.type.js";
  * may freely change.
  */
 export default class CarouselManager {
-  private carousel: Carousel;
+  public carousel: Carousel;
 
   /**
    * Constructor for the CarouselManager class. Initializes the Carousel by
@@ -36,7 +36,7 @@ export default class CarouselManager {
    * @returns {Carousel} The new Carousel instance; allows constructor of
    * CarouselManager to call this method directly.
    */
-  private changeCarouselOptions(options: CarouselOptions): Carousel {
+  public changeCarouselOptions(options: CarouselOptions): Carousel {
     // Should first validate and convert all carousel options.
     validateCarouselOptions(options);
     convertCarouselOptions(options);

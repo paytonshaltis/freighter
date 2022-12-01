@@ -21,6 +21,10 @@ export default class Carousel {
   private transitionTimingFunction: string;
   private transition: string;
   private scrollable: boolean;
+  private autoScroll: boolean;
+  private autoScrollInterval: number;
+  private autoScrollDirection: "left" | "right";
+  private autoScrollPauseOnHover: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 
@@ -41,16 +45,28 @@ export default class Carousel {
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
   private currentScrollBy: number;
+  private isHovering: boolean = false;
 
   // Maintain some original state for the carousel.
   private originalItemHeight: number;
   private originalItemWidth: number;
 
-  // Event listeners and resize observer references.
+  // Event listeners, resize observer, and timeouts.
   private transitionEndEventListener: EventListener = (event: Event) => {};
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
+  private containerMouseEnterListener: EventListener = (event: Event) => {
+    this.isHovering = true;
+    clearTimeout(this.autoScrollTimeout);
+  };
+  private containerMouseLeaveListener: EventListener = (event: Event) => {
+    this.isHovering = false;
+    if (this.autoScroll) {
+      this.startAutoScrollTimeout();
+    }
+  };
   private parentResizeObserver: ResizeObserver = new ResizeObserver(() => {});
+  private autoScrollTimeout: number = -1;
 
   /**
    * Configures the main carousel container. Constructs the carousel from the
@@ -85,6 +101,18 @@ export default class Carousel {
     // Apply the appropriate class. The div's own ID and any other classes
     // remain and won't be overwritten.
     selectedContainer.classList.add("carousel-container");
+
+    // Add the mouse enter and leave listeners to the carousel container.
+    if (this.autoScrollPauseOnHover) {
+      selectedContainer.addEventListener(
+        "mouseenter",
+        this.containerMouseEnterListener
+      );
+      selectedContainer.addEventListener(
+        "mouseleave",
+        this.containerMouseLeaveListener
+      );
+    }
 
     // Append the carousel item container wrapper to the carousel container.
     // Pass the carousel items to the carousel item container wrapper config.
@@ -196,6 +224,11 @@ export default class Carousel {
 
       // Allow the carousel to be scrolled again.
       this.isScrolling = false;
+
+      // Start the next auto scroll timeout.
+      if (this.autoScroll && !this.isHovering) {
+        this.startAutoScrollTimeout();
+      }
     };
 
     // Add the event listener to the container and return a reference to the
@@ -225,6 +258,9 @@ export default class Carousel {
     if (direction === "left") {
       this.leftButtonClickListener = () => {
         if (!this.isScrolling && this.scrollable && this.canScrollLeft) {
+          // Clear the auto scroll timeout.
+          clearTimeout(this.autoScrollTimeout);
+
           // Reposition the pointers.
           this.prevScroll = "left";
           this.adjustPointers(direction);
@@ -264,6 +300,9 @@ export default class Carousel {
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
         if (!this.isScrolling && this.scrollable && this.canScrollRight) {
+          // Clear the auto scroll timeout.
+          clearTimeout(this.autoScrollTimeout);
+
           // Reposition the pointers.
           this.prevScroll = "right";
           this.adjustPointers(direction);
@@ -462,7 +501,7 @@ export default class Carousel {
 
     // Other required styles.
     carouselButton.style.cursor = "pointer";
-    carouselButton.style.zIndex = "1";
+    carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
     // TODO: Apply other styles based on the constructor.
     carouselButton.style.border = "none";
@@ -624,6 +663,10 @@ export default class Carousel {
     this.numItemsVisible = options.numItemsVisible;
     this.scrollBy = options.scrollBy;
     this.resizingMethod = options.resizingMethod;
+    this.autoScroll = options.autoScroll;
+    this.autoScrollInterval = options.autoScrollInterval;
+    this.autoScrollDirection = options.autoScrollDirection;
+    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover;
     this.transitionDuration = options.transitionDuration || 500;
     this.transitionDelay = options.transitionDelay || 0;
     this.transitionTimingFunction =
@@ -755,6 +798,11 @@ export default class Carousel {
       this.parentResizeObserver.observe(
         this.carouselContainer.parentElement as HTMLElement
       );
+    }
+
+    // Start the next auto scroll timeout.
+    if (this.autoScroll && !this.isHovering) {
+      this.startAutoScrollTimeout();
     }
   }
 
@@ -1076,8 +1124,35 @@ export default class Carousel {
       carouselItems: this.allItems,
       leftCarouselPointer: this.leftCarouselPointer,
       scrollable: this.scrollable,
+      autoScroll: this.autoScroll,
+      autoScrollInterval: this.autoScrollInterval,
+      autoScrollDirection: this.autoScrollDirection,
+      autoScrollPauseOnHover: this.autoScrollPauseOnHover,
       wrappingMethod: this.wrappingMethod,
     };
+  }
+
+  /**
+   * Begins the next timeout for the auto-scrolling carousel. Called first by the
+   * constructor, and then each time the carousel container transition ends.
+   * @returns {void} Nothing.
+   */
+  private startAutoScrollTimeout(): void {
+    this.autoScrollTimeout = setTimeout(() => {
+      const wasScrollable = this.scrollable;
+      switch (this.autoScrollDirection) {
+        case "left":
+          this.scrollable = true;
+          (this.carouselContainer.children[0] as HTMLButtonElement).click();
+          this.scrollable = wasScrollable;
+          break;
+        case "right":
+          this.scrollable = true;
+          (this.carouselContainer.children[2] as HTMLButtonElement).click();
+          this.scrollable = wasScrollable;
+          break;
+      }
+    }, this.autoScrollInterval);
   }
 
   public removeAllEventListeners(): void {
@@ -1098,13 +1173,33 @@ export default class Carousel {
       );
     }
 
-    // Remove resize from the parent container.
-    this.parentResizeObserver.disconnect();
+    // Remove the mouse enter and leave events from the carousel container.
+    try {
+      this.carouselContainer.removeEventListener(
+        "mouseenter",
+        this.containerMouseEnterListener
+      );
+      this.carouselContainer.removeEventListener(
+        "mouseleave",
+        this.containerMouseLeaveListener
+      );
+    } catch (error) {
+      console.log(
+        "Tried removing event listeners from carousel container, caught the following exception:",
+        error
+      );
+    }
 
     // Remove transition end from the carousel item container.
     this.carouselItemContainer.removeEventListener(
       "transitionend",
       this.transitionEndEventListener
     );
+
+    // Remove resize from the parent container.
+    this.parentResizeObserver.disconnect();
+
+    // Remove auto scroll timeout.
+    clearTimeout(this.autoScrollTimeout);
   }
 }
