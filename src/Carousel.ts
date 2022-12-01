@@ -943,15 +943,6 @@ export default class Carousel {
           getComputedStyle(this.carouselItemContainer as HTMLElement).height
         )
       );
-      console.log(
-        parseFloat(
-          getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
-            .height
-        ),
-        parseFloat(
-          getComputedStyle(this.carouselItemContainer as HTMLElement).height
-        )
-      );
     } catch (error) {
       console.log(
         "Tried getting the computed style of a carousel item, caught the following exception:",

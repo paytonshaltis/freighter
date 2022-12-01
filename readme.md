@@ -26,5 +26,9 @@ The following is a table that details exactly which Carousel properties can be c
 | `scrollTimer`                      |     ✔      |     ❌      |
 | `showTimeline`                     |     ✔      |     ❌      |
 | `carouselWrappingMethod`           |     ❌     |      ✔      |
+| `autoScroll`                       |     ✔      |     ❌      |
+| `autoScrollInterval`               |     ✔      |     ❌      |
+| `autoScrollDirection`              |     ✔      |     ❌      |
+| `autoScrollPauseOnHover`           |     ✔      |     ❌      |
 
 </div>

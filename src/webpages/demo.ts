@@ -61,7 +61,7 @@ const c3 = new CarouselManager({
   scrollable: false,
   wrappingMethod: "wrap-smart",
   autoScroll: true,
-  autoScrollInterval: 2000,
+  autoScrollInterval: 500,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
 });
