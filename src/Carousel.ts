@@ -45,6 +45,7 @@ export default class Carousel {
   private carouselItemsConfigured = false;
   private usingBezierTransition: boolean;
   private currentScrollBy: number;
+  private isHovering: boolean = false;
 
   // Maintain some original state for the carousel.
   private originalItemHeight: number;
@@ -54,6 +55,14 @@ export default class Carousel {
   private transitionEndEventListener: EventListener = (event: Event) => {};
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
+  private containerMouseEnterListener: EventListener = (event: Event) => {
+    this.isHovering = true;
+    console.log(this.isHovering);
+  };
+  private containerMouseLeaveListener: EventListener = (event: Event) => {
+    this.isHovering = false;
+    console.log(this.isHovering);
+  };
   private parentResizeObserver: ResizeObserver = new ResizeObserver(() => {});
   private autoScrollTimeout: number = -1;
 
@@ -90,6 +99,16 @@ export default class Carousel {
     // Apply the appropriate class. The div's own ID and any other classes
     // remain and won't be overwritten.
     selectedContainer.classList.add("carousel-container");
+
+    // Add the mouse enter and leave listeners to the carousel container.
+    selectedContainer.addEventListener(
+      "mouseenter",
+      this.containerMouseEnterListener
+    );
+    selectedContainer.addEventListener(
+      "mouseleave",
+      this.containerMouseLeaveListener
+    );
 
     // Append the carousel item container wrapper to the carousel container.
     // Pass the carousel items to the carousel item container wrapper config.
@@ -1146,6 +1165,23 @@ export default class Carousel {
     } catch (error) {
       console.log(
         "Tried removing event listeners from carousel buttons, caught the following exception:",
+        error
+      );
+    }
+
+    // Remove the mouse enter and leave events from the carousel container.
+    try {
+      this.carouselContainer.removeEventListener(
+        "mouseenter",
+        this.containerMouseEnterListener
+      );
+      this.carouselContainer.removeEventListener(
+        "mouseleave",
+        this.containerMouseLeaveListener
+      );
+    } catch (error) {
+      console.log(
+        "Tried removing event listeners from carousel container, caught the following exception:",
         error
       );
     }
