@@ -95,12 +95,24 @@ export default class CarouselManager {
 
     // If wrapping is not allowed for the carousel, then removing items must move
     // the bottom pointer slightly as to not show duplicates.
-    if (state.wrappingMethod === "none") {
+    if (
+      state.wrappingMethod === "none" ||
+      state.wrappingMethod === "wrap-smart"
+    ) {
       // If the carousel is scrolled to the end, need to move the bottom pointer
       // back by the number of items removed.
       if (
         state.leftCarouselPointer + state.numItemsVisible ===
         state.carouselItems.length
+      ) {
+        state.leftCarouselPointer -= count;
+      }
+
+      // If the top pointer will shift back to the other end of the carousel, need
+      // to move the index back by the number of items removed.
+      while (
+        state.leftCarouselPointer + state.numItemsVisible >=
+        state.carouselItems.length - count
       ) {
         state.leftCarouselPointer -= count;
       }

@@ -54,9 +54,9 @@ const c3 = new CarouselManager({
   wrappingMethod: "wrap-smart",
 });
 
-let index: number = 0;
-let amount: number = 0;
-let carouselNumber: number = 1;
+let index: number = 8;
+let amount: number = 2;
+let carouselNumber: number = 3;
 (document.getElementById("index") as HTMLElement).onchange = () => {
   index = parseInt(
     (document.getElementById("index") as HTMLInputElement).value
