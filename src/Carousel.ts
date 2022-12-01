@@ -57,11 +57,13 @@ export default class Carousel {
   private rightButtonClickListener: EventListener = (event: Event) => {};
   private containerMouseEnterListener: EventListener = (event: Event) => {
     this.isHovering = true;
-    console.log(this.isHovering);
+    clearTimeout(this.autoScrollTimeout);
   };
   private containerMouseLeaveListener: EventListener = (event: Event) => {
     this.isHovering = false;
-    console.log(this.isHovering);
+    if (this.autoScroll) {
+      this.startAutoScrollTimeout();
+    }
   };
   private parentResizeObserver: ResizeObserver = new ResizeObserver(() => {});
   private autoScrollTimeout: number = -1;
@@ -222,7 +224,7 @@ export default class Carousel {
       this.isScrolling = false;
 
       // Start the next auto scroll timeout.
-      if (this.autoScroll) {
+      if (this.autoScroll && !this.isHovering) {
         this.startAutoScrollTimeout();
       }
     };
@@ -797,7 +799,7 @@ export default class Carousel {
     }
 
     // Start the next auto scroll timeout.
-    if (this.autoScroll) {
+    if (this.autoScroll && !this.isHovering) {
       this.startAutoScrollTimeout();
     }
   }
