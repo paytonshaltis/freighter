@@ -63,7 +63,7 @@ const c3 = new CarouselManager({
   autoScroll: true,
   autoScrollInterval: 500,
   autoScrollDirection: "right",
-  autoScrollPauseOnHover: true,
+  autoScrollPauseOnHover: false,
 });
 
 let index: number = 8;

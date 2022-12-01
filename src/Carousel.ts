@@ -103,14 +103,16 @@ export default class Carousel {
     selectedContainer.classList.add("carousel-container");
 
     // Add the mouse enter and leave listeners to the carousel container.
-    selectedContainer.addEventListener(
-      "mouseenter",
-      this.containerMouseEnterListener
-    );
-    selectedContainer.addEventListener(
-      "mouseleave",
-      this.containerMouseLeaveListener
-    );
+    if (this.autoScrollPauseOnHover) {
+      selectedContainer.addEventListener(
+        "mouseenter",
+        this.containerMouseEnterListener
+      );
+      selectedContainer.addEventListener(
+        "mouseleave",
+        this.containerMouseLeaveListener
+      );
+    }
 
     // Append the carousel item container wrapper to the carousel container.
     // Pass the carousel items to the carousel item container wrapper config.
