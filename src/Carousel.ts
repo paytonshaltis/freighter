@@ -478,7 +478,7 @@ export default class Carousel {
 
     // Other required styles.
     carouselButton.style.cursor = "pointer";
-    carouselButton.style.zIndex = "1";
+    carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
     // TODO: Apply other styles based on the constructor.
     carouselButton.style.border = "none";
@@ -943,6 +943,15 @@ export default class Carousel {
           getComputedStyle(this.carouselItemContainer as HTMLElement).height
         )
       );
+      console.log(
+        parseFloat(
+          getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
+            .height
+        ),
+        parseFloat(
+          getComputedStyle(this.carouselItemContainer as HTMLElement).height
+        )
+      );
     } catch (error) {
       console.log(
         "Tried getting the computed style of a carousel item, caught the following exception:",
@@ -1116,12 +1125,17 @@ export default class Carousel {
    */
   private startAutoScrollTimeout(): void {
     this.autoScrollTimeout = setTimeout(() => {
+      const wasScrollable = this.scrollable;
       switch (this.autoScrollDirection) {
         case "left":
+          this.scrollable = true;
           (this.carouselContainer.children[0] as HTMLButtonElement).click();
+          this.scrollable = wasScrollable;
           break;
         case "right":
+          this.scrollable = true;
           (this.carouselContainer.children[2] as HTMLButtonElement).click();
+          this.scrollable = wasScrollable;
           break;
       }
     }, this.autoScrollInterval);
