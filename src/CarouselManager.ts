@@ -28,7 +28,47 @@ export default class CarouselManager {
       options.resizingMethod === "stretch-populate"
         ? new ResizeObserver(() => {
             const state = this.carousel.getCurrentState();
-            console.log(state.itemWidth);
+
+            // Compute the total gap size of the carousel.
+            const totalGapSize =
+              parseFloat(getComputedStyle(state.carouselContainer).width) -
+              state.numItemsVisible * state.itemWidth;
+            console.log(totalGapSize);
+
+            // Determine if there is enough room to increase numItemsVisible.
+            if (
+              totalGapSize >
+              state.itemWidth + (state.numItemsVisible + 1) * state.itemSpacing
+            ) {
+              // If wrapping is not allowed for the carousel, then removing items must move
+              // the bottom pointer slightly as to not show duplicates.
+              if (
+                state.wrappingMethod === "none" ||
+                state.wrappingMethod === "wrap-smart"
+              ) {
+                // If the carousel is scrolled to the end, need to move the bottom pointer
+                // back by one.
+                if (
+                  state.leftCarouselPointer + state.numItemsVisible ===
+                  state.carouselItems.length
+                ) {
+                  state.leftCarouselPointer--;
+                }
+              }
+
+              this.changeCarouselOptions({
+                ...state,
+                numItemsVisible: state.numItemsVisible + 1,
+              } as CarouselState);
+            }
+
+            // Determine if there is not enough room and should reduce numItemsVisible.
+            else if (totalGapSize < state.numItemsVisible * state.itemSpacing) {
+              this.changeCarouselOptions({
+                ...state,
+                numItemsVisible: state.numItemsVisible - 1,
+              } as CarouselState);
+            }
           })
         : null;
 
