@@ -25,6 +25,7 @@ export default class Carousel {
   private autoScrollInterval: number;
   private autoScrollDirection: "left" | "right";
   private autoScrollPauseOnHover: boolean;
+  private syncScrollWithVisibility: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
 
@@ -50,6 +51,7 @@ export default class Carousel {
   // Maintain some original state for the carousel.
   private originalItemHeight: number;
   private originalItemWidth: number;
+  private originalScrollBy: number;
 
   // Event listeners, resize observer, and timeouts.
   private transitionEndEventListener: EventListener = (event: Event) => {};
@@ -300,6 +302,10 @@ export default class Carousel {
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
         if (!this.isScrolling && this.scrollable && this.canScrollRight) {
+          while (this.rightCarouselPointer >= this.allItems.length) {
+            this.rightCarouselPointer -= this.allItems.length;
+          }
+
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
 
@@ -662,11 +668,15 @@ export default class Carousel {
     this.buttonPosition = options.buttonPosition;
     this.numItemsVisible = options.numItemsVisible;
     this.scrollBy = options.scrollBy;
-    this.resizingMethod = options.resizingMethod;
+    this.resizingMethod =
+      options.resizingMethod === "stretch-populate"
+        ? "stretch-gap"
+        : options.resizingMethod;
     this.autoScroll = options.autoScroll;
     this.autoScrollInterval = options.autoScrollInterval;
     this.autoScrollDirection = options.autoScrollDirection;
     this.autoScrollPauseOnHover = options.autoScrollPauseOnHover;
+    this.syncScrollWithVisibility = options.syncScrollWithVisibility;
     this.transitionDuration = options.transitionDuration || 500;
     this.transitionDelay = options.transitionDelay || 0;
     this.transitionTimingFunction =
@@ -680,8 +690,14 @@ export default class Carousel {
     this.itemAspectRatio = this.itemHeight / this.itemWidth;
     this.originalItemHeight = this.itemHeight;
     this.originalItemWidth = this.itemWidth;
+    this.originalScrollBy = this.scrollBy;
 
     // The current amount to scroll should default to the user's indicated amount.
+    // If the user wants to sync the scroll amount with the number of items visible,
+    // this is done here as well.
+    this.scrollBy = this.syncScrollWithVisibility
+      ? this.numItemsVisible
+      : this.scrollBy;
     this.currentScrollBy = this.scrollBy;
 
     // Give the carousel a unique internal ID if it is being constructed from
@@ -734,6 +750,7 @@ export default class Carousel {
     } else {
       this.leftCarouselPointer = 0;
     }
+    this.rightCarouselPointer = this.numItemsVisible + this.leftCarouselPointer;
 
     // The carousel cannot be scrolled if there are no items in it, or if there
     // is no wrap option and we are at the end of the carousel on either side.
@@ -743,11 +760,11 @@ export default class Carousel {
         : this.allItems.length > 0;
     this.canScrollRight =
       this.wrappingMethod === "none" &&
-      this.allItems.length <= this.numItemsVisible
+      (this.allItems.length <= this.numItemsVisible ||
+        this.rightCarouselPointer === this.allItems.length)
         ? false
         : this.allItems.length > 0;
     this.isScrolling = false;
-    this.rightCarouselPointer = this.numItemsVisible + this.leftCarouselPointer;
     this.prevScroll = "";
     this.usingBezierTransition = options.transitionTimingFunction
       ? options.transitionTimingFunction.startsWith("cubic-bezier")
@@ -1114,7 +1131,7 @@ export default class Carousel {
       buttonHeight: this.buttonHeight,
       buttonPosition: this.buttonPosition,
       numItemsVisible: this.numItemsVisible,
-      scrollBy: this.scrollBy,
+      scrollBy: this.originalScrollBy,
       containerID: this.carouselContainer.id,
       transitionDuration: this.transitionDuration,
       transitionDelay: this.transitionDelay,
@@ -1129,6 +1146,8 @@ export default class Carousel {
       autoScrollDirection: this.autoScrollDirection,
       autoScrollPauseOnHover: this.autoScrollPauseOnHover,
       wrappingMethod: this.wrappingMethod,
+      carouselContainer: this.carouselContainer,
+      syncScrollWithVisibility: this.syncScrollWithVisibility,
     };
   }
 

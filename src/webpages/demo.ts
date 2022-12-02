@@ -7,10 +7,10 @@ const c1 = new CarouselManager({
   buttonWidth: "25px",
   buttonHeight: "75%",
   buttonPosition: "center",
-  numItemsVisible: 4,
+  numItemsVisible: 3,
   scrollBy: 4,
   containerID: "carousel-1",
-  resizingMethod: "stretch-scale",
+  resizingMethod: "stretch-populate",
   transitionDuration: 750,
   transitionDelay: 0,
   transitionTimingFunction: "ease-in-out",
@@ -20,6 +20,7 @@ const c1 = new CarouselManager({
   autoScrollInterval: 300,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: true,
 });
 
 const c2 = new CarouselManager({
@@ -29,10 +30,10 @@ const c2 = new CarouselManager({
   buttonWidth: "25px",
   buttonHeight: "75%",
   buttonPosition: "center",
-  numItemsVisible: 4,
+  numItemsVisible: 3,
   scrollBy: 4,
   containerID: "carousel-2",
-  resizingMethod: "stretch-scale",
+  resizingMethod: "stretch-populate",
   transitionDuration: 750,
   transitionDelay: 0,
   transitionTimingFunction: "ease-in-out",
@@ -42,6 +43,7 @@ const c2 = new CarouselManager({
   autoScrollInterval: 600,
   autoScrollDirection: "left",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: true,
 });
 
 const c3 = new CarouselManager({
@@ -51,19 +53,20 @@ const c3 = new CarouselManager({
   buttonWidth: "25px",
   buttonHeight: "75%",
   buttonPosition: "center",
-  numItemsVisible: 4,
-  scrollBy: 4,
+  numItemsVisible: 2,
+  scrollBy: 2,
   containerID: "carousel-3",
-  resizingMethod: "stretch-scale",
-  transitionDuration: 750,
+  resizingMethod: "stretch-populate",
+  transitionDuration: 1000,
   transitionDelay: 0,
   transitionTimingFunction: "ease-in-out",
-  scrollable: false,
+  scrollable: true,
   wrappingMethod: "wrap-smart",
   autoScroll: true,
-  autoScrollInterval: 500,
+  autoScrollInterval: 5000,
   autoScrollDirection: "right",
-  autoScrollPauseOnHover: false,
+  autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: true,
 });
 
 let index: number = 8;
