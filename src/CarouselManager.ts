@@ -85,11 +85,14 @@ export default class CarouselManager {
 
     // Determine if there is not enough room and should reduce numItemsVisible.
     else if (totalGapSize < state.numItemsVisible * state.itemSpacing) {
-      this.changeCarouselOptions({
-        ...state,
-        numItemsVisible: state.numItemsVisible - 1,
-      } as CarouselState);
-      populatedOrDepopulated = true;
+      // Make sure to not remove items if the carousel only has 1 item visible.
+      if (state.numItemsVisible > 1) {
+        this.changeCarouselOptions({
+          ...state,
+          numItemsVisible: state.numItemsVisible - 1,
+        } as CarouselState);
+        populatedOrDepopulated = true;
+      }
     }
 
     return populatedOrDepopulated;
