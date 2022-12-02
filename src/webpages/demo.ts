@@ -29,7 +29,7 @@ const c2 = new CarouselManager({
   buttonWidth: "25px",
   buttonHeight: "75%",
   buttonPosition: "center",
-  numItemsVisible: 4,
+  numItemsVisible: 3,
   scrollBy: 4,
   containerID: "carousel-2",
   resizingMethod: "stretch-populate",

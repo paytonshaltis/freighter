@@ -26,60 +26,73 @@ export default class CarouselManager {
     // be re-initialized.
     this.populateResizeObserver =
       options.resizingMethod === "stretch-populate"
-        ? new ResizeObserver(() => {
-            const state = this.carousel.getCurrentState();
-
-            // Compute the total gap size of the carousel.
-            const totalGapSize =
-              parseFloat(getComputedStyle(state.carouselContainer).width) -
-              state.numItemsVisible * state.itemWidth;
-            console.log(totalGapSize);
-
-            // Determine if there is enough room to increase numItemsVisible.
-            if (
-              totalGapSize >
-              state.itemWidth + (state.numItemsVisible + 1) * state.itemSpacing
-            ) {
-              // If wrapping is not allowed for the carousel, then removing items must move
-              // the bottom pointer slightly as to not show duplicates.
-              if (
-                state.wrappingMethod === "none" ||
-                state.wrappingMethod === "wrap-smart"
-              ) {
-                // If the carousel is scrolled to the end, need to move the bottom pointer
-                // back by one.
-                if (
-                  state.leftCarouselPointer + state.numItemsVisible ===
-                  state.carouselItems.length
-                ) {
-                  state.leftCarouselPointer--;
-                }
-              }
-
-              this.changeCarouselOptions({
-                ...state,
-                numItemsVisible: state.numItemsVisible + 1,
-              } as CarouselState);
-            }
-
-            // Determine if there is not enough room and should reduce numItemsVisible.
-            else if (totalGapSize < state.numItemsVisible * state.itemSpacing) {
-              this.changeCarouselOptions({
-                ...state,
-                numItemsVisible: state.numItemsVisible - 1,
-              } as CarouselState);
-            }
-          })
+        ? new ResizeObserver(this.recalculateCarouselPopulation.bind(this))
         : null;
 
-    // Need to remove all event listeners from the carousel container.
+    // Reassign the carousel member attribute to a new Carousel instance
+    // with the updated options.
     this.carousel = this.changeCarouselOptions(options);
 
+    // Attach the resize observer to the carousel container after it
+    // has been initialized.
     if (this.populateResizeObserver) {
       this.populateResizeObserver.observe(
         this.carousel.getCurrentState().carouselContainer
       );
+      // Should also repopulate for the first time if using stretch-populate.
+      while (this.recalculateCarouselPopulation());
     }
+  }
+
+  private recalculateCarouselPopulation(): boolean {
+    const state = this.carousel.getCurrentState();
+    let populatedOrDepopulated = false;
+
+    // Compute the total gap size of the carousel.
+    const totalGapSize =
+      parseFloat(getComputedStyle(state.carouselContainer).width) -
+      state.numItemsVisible * state.itemWidth;
+    console.log(totalGapSize);
+
+    // Determine if there is enough room to increase numItemsVisible.
+    if (
+      totalGapSize >
+      state.itemWidth + (state.numItemsVisible + 1) * state.itemSpacing
+    ) {
+      // If wrapping is not allowed for the carousel, then removing items must move
+      // the bottom pointer slightly as to not show duplicates.
+      if (
+        state.wrappingMethod === "none" ||
+        state.wrappingMethod === "wrap-smart"
+      ) {
+        // If the carousel is scrolled to the end, need to move the bottom pointer
+        // back by one.
+        if (
+          state.leftCarouselPointer + state.numItemsVisible ===
+          state.carouselItems.length
+        ) {
+          state.leftCarouselPointer--;
+        }
+      }
+
+      this.changeCarouselOptions({
+        ...state,
+        numItemsVisible: state.numItemsVisible + 1,
+      } as CarouselState);
+
+      populatedOrDepopulated = true;
+    }
+
+    // Determine if there is not enough room and should reduce numItemsVisible.
+    else if (totalGapSize < state.numItemsVisible * state.itemSpacing) {
+      this.changeCarouselOptions({
+        ...state,
+        numItemsVisible: state.numItemsVisible - 1,
+      } as CarouselState);
+      populatedOrDepopulated = true;
+    }
+
+    return populatedOrDepopulated;
   }
 
   /**
