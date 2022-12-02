@@ -300,6 +300,10 @@ export default class Carousel {
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
         if (!this.isScrolling && this.scrollable && this.canScrollRight) {
+          while (this.rightCarouselPointer >= this.allItems.length) {
+            this.rightCarouselPointer -= this.allItems.length;
+          }
+
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
 
