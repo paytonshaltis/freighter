@@ -119,6 +119,7 @@ export default class CarouselManager {
           state.leftCarouselPointer + state.numItemsVisible ===
           state.carouselItems.length
         ) {
+          console.log("moving bottom pointer back by one");
           state.leftCarouselPointer--;
         }
 

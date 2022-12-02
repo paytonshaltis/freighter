@@ -20,6 +20,7 @@ const c1 = new CarouselManager({
   autoScrollInterval: 300,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: true,
 });
 
 const c2 = new CarouselManager({
@@ -42,6 +43,7 @@ const c2 = new CarouselManager({
   autoScrollInterval: 600,
   autoScrollDirection: "left",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: true,
 });
 
 const c3 = new CarouselManager({
@@ -64,6 +66,7 @@ const c3 = new CarouselManager({
   autoScrollInterval: 5000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: true,
 });
 
 let index: number = 8;

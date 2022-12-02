@@ -20,6 +20,7 @@ const c = new CarouselManager({
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: false,
 });
 
 const c2 = new CarouselManager({
@@ -42,6 +43,7 @@ const c2 = new CarouselManager({
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: false,
 });
 
 const c3 = new CarouselManager({
@@ -64,6 +66,7 @@ const c3 = new CarouselManager({
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: false,
 });
 
 const kingCrimson = new CarouselManager({
@@ -86,6 +89,7 @@ const kingCrimson = new CarouselManager({
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: false,
 });
 
 document.querySelector("button#b1")?.addEventListener("click", () => {

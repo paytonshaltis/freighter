@@ -19,6 +19,7 @@ type CarouselOptions = {
   autoScrollInterval: number;
   autoScrollDirection: "left" | "right";
   autoScrollPauseOnHover: boolean;
+  syncScrollWithVisibility: boolean;
   resizingMethod:
     | "none"
     | "stretch"
