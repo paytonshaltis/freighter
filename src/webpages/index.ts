@@ -76,8 +76,8 @@ const kingCrimson = new CarouselManager({
   buttonWidth: "20px",
   buttonHeight: "250px",
   buttonPosition: "center",
-  numItemsVisible: 5,
-  scrollBy: 4,
+  numItemsVisible: 1,
+  scrollBy: 1,
   containerID: "king-crimson",
   resizingMethod: "stretch-scale",
   transitionDuration: 500,
@@ -101,5 +101,5 @@ document.querySelector("button#b1")?.addEventListener("click", () => {
 });
 
 document.querySelector("button#b2")?.addEventListener("click", () => {
-  kingCrimson.removeCarouselItems(2);
+  kingCrimson.removeCarouselItems(0);
 });
