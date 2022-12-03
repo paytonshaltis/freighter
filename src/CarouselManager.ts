@@ -3,7 +3,7 @@ import CarouselOptions, {
   convertCarouselOptions,
   validateCarouselOptions,
 } from "./types/CarouselOptions.type.js";
-import CarouselState from "./types/CarouselState.type.js";
+import CarouselState, { equalStates } from "./types/CarouselState.type.js";
 
 /**
  * Class responsible for managing an instance of the Carousel class. Includes
@@ -40,6 +40,17 @@ export default class CarouselManager {
    * CarouselManager to call this method directly.
    */
   private changeCarouselOptions(options: CarouselOptions): Carousel {
+    // Don't do anything if the options are the same as the current carousel.
+    if (
+      this.carousel &&
+      equalStates(options as CarouselState, this.carousel.getCurrentState())
+    ) {
+      console.warn(
+        "The new Carousel options are the same as the current ones."
+      );
+      return this.carousel;
+    }
+
     // If the carousel is using stretch-populate, then the carousel manager
     // needs to check on each resize event to see if the carousel needs to
     // be re-initialized.
@@ -190,7 +201,7 @@ export default class CarouselManager {
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
       ...state,
-      carouselItems: state.carouselItems,
+      carouselItems: [...state.carouselItems],
     } as CarouselState);
   }
 
@@ -240,7 +251,7 @@ export default class CarouselManager {
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
       ...state,
-      carouselItems: state.carouselItems,
+      carouselItems: [...state.carouselItems],
     } as CarouselState);
   }
 }
