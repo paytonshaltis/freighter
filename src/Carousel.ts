@@ -479,7 +479,12 @@ export default class Carousel {
     this.allItems.forEach((carouselItem) => {
       // Set the width and height of the carousel items based on the constructor.
       carouselItem.style.width = `${this.itemWidth}px`;
-      carouselItem.style.height = `${this.itemHeight}px`;
+
+      // Source of adding and removing item flashing. Stretch-scale doesn't need
+      // to set an explicit height; the aspect ratio will be preserved.
+      if (this.resizingMethod !== "stretch-scale") {
+        carouselItem.style.height = `${this.itemHeight}px`;
+      }
 
       // The carousel items should by default not be allowed to shrink.
       carouselItem.style.flexShrink = "0";
