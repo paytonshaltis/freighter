@@ -1,0 +1,28 @@
+{
+  "name": "wrapping-carousel",
+  "description": "---",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-sass": "sass src/css/styles.scss dist/css/styles.css",
+    "build": "tsc && npm run build-sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paytonshaltis/wrapping-carousel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paytonshaltis/wrapping-carousel/issues"
+  },
+  "homepage": "https://github.com/paytonshaltis/wrapping-carousel#readme",
+  "devDependencies": {
+    "sass": "^1.56.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3"
+  }
+}
