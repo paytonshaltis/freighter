@@ -1,5 +1,5 @@
-import ButtonStyle from "./ButtonStyle.type";
-import CarouselProperties from "./CarouselProperties.type";
+import { validateButtonStyles } from "./ButtonStyle.type.js";
+import CarouselProperties from "./CarouselProperties.type.js";
 
 /**
  * Type definition for the options object to be passed to the carousel constructor.
@@ -132,6 +132,14 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   ) {
     throw new Error("transitionTimingFunction must be a non-empty string.");
   }
+
+  // Need to validate the ButtonStyle objects.
+  validateButtonStyles(options.buttonStyles);
+  validateButtonStyles(options.buttonHoverStyles);
+  validateButtonStyles(options.leftButtonStyles);
+  validateButtonStyles(options.leftButtonHoverStyles);
+  validateButtonStyles(options.rightButtonStyles);
+  validateButtonStyles(options.rightButtonHoverStyles);
 }
 
 /**

@@ -54,4 +54,26 @@ export function equalButtonStyles(
   );
 }
 
+/**
+ * Validates the styles of the buttons passed to the carousel constructor. Because
+ * most of these are standard CSS style strings, only the position (a custom
+ * carousel property) is checked for validity.
+ * @param buttonStyle The button style object to be validated.
+ * @returns {void} Nothing.
+ */
+export function validateButtonStyles(
+  buttonStyle: ButtonStyle | undefined
+): void {
+  if (
+    buttonStyle?.position &&
+    buttonStyle?.position !== "top" &&
+    buttonStyle?.position !== "center" &&
+    buttonStyle?.position !== "bottom"
+  ) {
+    throw new Error(
+      "Button position must be one of the following: 'top', 'center', 'bottom'."
+    );
+  }
+}
+
 export default ButtonStyle;

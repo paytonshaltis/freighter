@@ -37,9 +37,31 @@ export default class CarouselManager {
    */
   public setCarouselProperties(properties: CarouselProperties): void {
     // Create a new carousel with the updated options.
+    const state = this.carousel.getCurrentState();
     this.changeCarouselOptions({
-      ...this.carousel.getCurrentState(),
+      ...state,
       ...properties,
+      buttonStyles: { ...state.buttonStyles, ...properties.buttonStyles },
+      buttonHoverStyles: {
+        ...state.buttonHoverStyles,
+        ...properties.buttonHoverStyles,
+      },
+      leftButtonStyles: {
+        ...state.leftButtonStyles,
+        ...properties.leftButtonStyles,
+      },
+      leftButtonHoverStyles: {
+        ...state.leftButtonHoverStyles,
+        ...properties.leftButtonHoverStyles,
+      },
+      rightButtonStyles: {
+        ...state.rightButtonStyles,
+        ...properties.rightButtonStyles,
+      },
+      rightButtonHoverStyles: {
+        ...state.rightButtonHoverStyles,
+        ...properties.rightButtonHoverStyles,
+      },
     } as CarouselState);
   }
 
@@ -143,6 +165,7 @@ export default class CarouselManager {
    * CarouselManager to call this method directly.
    */
   private changeCarouselOptions(options: CarouselOptions): Carousel {
+    console.log(options);
     // Don't do anything if the options are the same as the current carousel.
     if (
       this.carousel &&

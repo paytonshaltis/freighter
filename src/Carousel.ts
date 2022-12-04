@@ -554,52 +554,42 @@ export default class Carousel {
         `.carousel-arrow-${direction}#carousel-arrow-${direction}-${this.carouselID}`
       ) as HTMLElement;
 
-    // Set the common width and height of both buttons.
-    carouselButton.style.width =
-      this.buttonStyles.width !== undefined ? this.buttonStyles.width : "25px";
-    carouselButton.style.height =
-      this.buttonStyles.height !== undefined ? this.buttonStyles.height : "80%";
-
-    // Set the width and height for each button's overriden styles.
-    if (direction === "left" && this.leftButtonStyles.width !== undefined) {
-      carouselButton.style.width = this.leftButtonStyles.width;
-    } else if (
-      direction === "right" &&
-      this.rightButtonStyles.width !== undefined
-    ) {
-      carouselButton.style.width = this.rightButtonStyles.width;
-    }
-    if (direction === "left" && this.leftButtonStyles.height !== undefined) {
-      carouselButton.style.height = this.leftButtonStyles.height;
-    } else if (
-      direction === "right" &&
-      this.rightButtonStyles.height !== undefined
-    ) {
-      carouselButton.style.height = this.rightButtonStyles.height;
-    }
-
     // Other required styles.
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
-    // Set the fill colors for static and hover.
-    const fillColorStatic = this.buttonStyles.color
-      ? this.buttonStyles.color
-      : direction === "left"
-      ? this.leftButtonStyles.color
-        ? this.leftButtonStyles.color
-        : "rgba(50, 50, 50, 0.75)"
-      : this.rightButtonStyles.color
-      ? this.rightButtonStyles.color
-      : "rgba(50, 50, 50, 0.75)";
-    const fillColorHover = this.buttonHoverStyles.color
-      ? this.buttonHoverStyles.color
-      : direction === "left"
-      ? this.leftButtonHoverStyles.color
-        ? this.leftButtonHoverStyles.color
-        : "rgba(50, 50, 50, 0.75)"
-      : this.rightButtonHoverStyles.color
-      ? this.rightButtonHoverStyles.color
-      : "rgba(50, 50, 50, 0.75)";
+    // Set the static chevron colors.
+    let fillColorStatic: string | undefined;
+    if (this.buttonStyles.color) {
+      fillColorStatic = this.buttonStyles.color;
+    }
+    if (direction === "left" && this.leftButtonStyles.color) {
+      fillColorStatic = this.leftButtonStyles.color;
+    } else if (!fillColorStatic) {
+      fillColorStatic = "rgba(50, 50, 50, 0.75)";
+    }
+    if (direction === "right" && this.rightButtonStyles.color) {
+      fillColorStatic = this.rightButtonStyles.color;
+    } else if (!fillColorStatic) {
+      fillColorStatic = "rgba(50, 50, 50, 0.75)";
+    }
+
+    // Set the hover chevron colors.
+    let fillColorHover: string | undefined;
+    if (this.buttonHoverStyles.color) {
+      fillColorHover = this.buttonHoverStyles.color;
+    }
+    if (direction === "left" && this.leftButtonHoverStyles.color) {
+      fillColorHover = this.leftButtonHoverStyles.color;
+    } else if (!fillColorHover) {
+      fillColorHover = "rgba(50, 50, 50, 0.75)";
+    }
+    if (direction === "right" && this.rightButtonHoverStyles.color) {
+      fillColorHover = this.rightButtonHoverStyles.color;
+    } else if (!fillColorHover) {
+      fillColorHover = "rgba(50, 50, 50, 0.75)";
+    }
+
+    console.log(fillColorStatic, fillColorHover);
 
     // Names for each style; used for looping.
     const styleNames: string[] = [
@@ -674,7 +664,7 @@ export default class Carousel {
         this.buttonHoverStyles,
         this.leftButtonHoverStyles,
         this.rightButtonHoverStyles,
-        fillColorHover
+        fillColorHover as string
       );
     };
     const mouseLeaveListener = () => {
@@ -686,7 +676,7 @@ export default class Carousel {
         this.buttonStyles,
         this.leftButtonStyles,
         this.rightButtonStyles,
-        fillColorStatic
+        fillColorStatic as string
       );
     };
     carouselButton.addEventListener("mouseleave", mouseLeaveListener);
@@ -747,6 +737,27 @@ export default class Carousel {
     rightButtonStyles: ButtonStyle,
     fillColor: string
   ): void {
+    // Set the common width and height of both buttons.
+    carouselButton.style.width =
+      buttonStyles.width !== undefined ? buttonStyles.width : "25px";
+    carouselButton.style.height =
+      buttonStyles.height !== undefined ? buttonStyles.height : "80%";
+
+    // Set the width and height for each button's overriden styles.
+    if (direction === "left" && leftButtonStyles.width !== undefined) {
+      carouselButton.style.width = leftButtonStyles.width;
+    } else if (direction === "right" && rightButtonStyles.width !== undefined) {
+      carouselButton.style.width = rightButtonStyles.width;
+    }
+    if (direction === "left" && leftButtonStyles.height !== undefined) {
+      carouselButton.style.height = leftButtonStyles.height;
+    } else if (
+      direction === "right" &&
+      rightButtonStyles.height !== undefined
+    ) {
+      carouselButton.style.height = rightButtonStyles.height;
+    }
+
     // Apply the styles common to both buttons.
     styleNames.forEach((styleName, index) => {
       carouselButton.style[styleName as any] = (buttonStyles as any)[styleName]

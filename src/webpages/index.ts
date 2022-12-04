@@ -114,9 +114,10 @@ document.querySelector("button#b2")?.addEventListener("click", () => {
 document.querySelector("button#b3")?.addEventListener("click", () => {
   kingCrimson.setCarouselProperties({
     leftButtonHoverStyles: {},
-    rightButtonHoverStyles: {},
     buttonHoverStyles: {
-      backgroundColor: "white",
+      width: "100px",
+      backgroundColor: "green",
+      borderRadius: "0px",
     },
   });
 });
