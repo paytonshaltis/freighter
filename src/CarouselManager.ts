@@ -28,6 +28,13 @@ export default class CarouselManager {
     this.carousel = this.changeCarouselOptions(options);
   }
 
+  /**
+   * Changes the carousel properties to those provided as arguments. Note that
+   * not all carousel properties can be changed, such as the wrap and resize
+   * methods.
+   * @param {CarouselProperties} properties The new carousel properties.
+   * @returns {void} Nothing.
+   */
   public changeCarouselProperties(properties: CarouselProperties): void {
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
