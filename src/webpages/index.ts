@@ -102,5 +102,3 @@ document.querySelector("button#b1")?.addEventListener("click", () => {
 document.querySelector("button#b2")?.addEventListener("click", () => {
   kingCrimson.removeCarouselItems(0);
 });
-
-console.log(kingCrimson.getCarouselProperties());

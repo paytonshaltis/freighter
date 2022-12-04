@@ -60,6 +60,10 @@ export default class Carousel {
   private transitionEndEventListener: EventListener = (event: Event) => {};
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
+  private leftButtonMouseEnterListener = (event: Event): void => {};
+  private leftButtonMouseLeaveListener = (event: Event): void => {};
+  private rightButtonMouseEnterListener = (event: Event): void => {};
+  private rightButtonMouseLeaveListener = (event: Event): void => {};
   private containerMouseEnterListener: EventListener = (event: Event) => {
     this.isHovering = true;
     clearTimeout(this.autoScrollTimeout);
@@ -614,6 +618,7 @@ export default class Carousel {
       "borderBottomRightRadius",
       "backgroundColor",
       "cursor",
+      "transition",
     ];
 
     // Default button styles.
@@ -630,6 +635,7 @@ export default class Carousel {
       direction === "left" ? "5px" : "none",
       "rgba(100, 100, 100, 0.5)",
       "pointer",
+      "all 200ms ease",
     ];
 
     // Default button styles.
@@ -646,6 +652,7 @@ export default class Carousel {
       direction === "left" ? "5px" : "none",
       "rgba(100, 100, 100, 0.8)",
       "pointer",
+      "all 200ms ease",
     ];
 
     // Apply the static button styles.
@@ -657,22 +664,33 @@ export default class Carousel {
     );
 
     // Set the hover styles for the button.
-    carouselButton.addEventListener("mouseenter", () => {
+    const mouseEnterListener = () => {
       this.applyMassButtonStyles(
         carouselButton as HTMLButtonElement,
         direction,
         styleNames,
         hoverDefaults
       );
-    });
-    carouselButton.addEventListener("mouseleave", () => {
+    };
+    const mouseLeaveListener = () => {
       this.applyMassButtonStyles(
         carouselButton as HTMLButtonElement,
         direction,
         styleNames,
         staticDefaults
       );
-    });
+    };
+    carouselButton.addEventListener("mouseleave", mouseLeaveListener);
+    carouselButton.addEventListener("mouseenter", mouseEnterListener);
+
+    // Store the proper reference to the event listeners.
+    if (direction === "left") {
+      this.leftButtonMouseEnterListener = mouseEnterListener;
+      this.leftButtonMouseLeaveListener = mouseLeaveListener;
+    } else {
+      this.rightButtonMouseEnterListener = mouseEnterListener;
+      this.rightButtonMouseLeaveListener = mouseLeaveListener;
+    }
 
     // Position the button based on the user's options.
     carouselButton.style.position = "absolute";
@@ -1249,7 +1267,6 @@ export default class Carousel {
       );
       maxHeight = 0;
     }
-    console.log(maxHeight);
     this.carouselContainer.style.height = `${maxHeight}px`;
   }
 
@@ -1466,6 +1483,31 @@ export default class Carousel {
     } catch (error) {
       console.log(
         "Tried removing event listeners from carousel container, caught the following exception:",
+        error
+      );
+    }
+
+    // Remove the mouse enter and leave events from the carousel buttons.
+    try {
+      this.carouselContainer.children[0].removeEventListener(
+        "mouseenter",
+        this.leftButtonMouseEnterListener
+      );
+      this.carouselContainer.children[0].removeEventListener(
+        "mouseleave",
+        this.leftButtonMouseLeaveListener
+      );
+      this.carouselContainer.children[2].removeEventListener(
+        "mouseenter",
+        this.rightButtonMouseEnterListener
+      );
+      this.carouselContainer.children[2].removeEventListener(
+        "mouseleave",
+        this.rightButtonMouseLeaveListener
+      );
+    } catch (error) {
+      console.log(
+        "Tried removing event listeners from carousel buttons, caught the following exception:",
         error
       );
     }
