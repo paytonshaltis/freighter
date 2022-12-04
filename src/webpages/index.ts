@@ -78,7 +78,7 @@ kingCrimson.setCarouselProperties({
   transitionDelay: 250,
   transitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
   scrollable: true,
-  autoScroll: true,
+  autoScroll: false,
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,

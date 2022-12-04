@@ -416,16 +416,35 @@ export default class Carousel {
       this.carouselItemContainer.children
     ) as HTMLElement[];
 
-    // Apply the appropriate class and id to each carousel item.
-    carouselItems.forEach((carouselItem, index) => {
-      carouselItem.classList.add("carousel-item");
-      carouselItem.id = `carousel-item-${this.carouselID}-${index}`;
+    // If we are restoring from state, need to unwrap each item from
+    // its previouse carouselItem container.
+    let updatedCarouselItems: HTMLElement[] = [];
+    carouselItems.forEach((item) => {
+      if (item.classList.contains("carousel-item")) {
+        updatedCarouselItems.push(item.children[0] as HTMLElement);
+      } else {
+        updatedCarouselItems.push(item);
+      }
+    });
+
+    // Create a new div, apply the appropriate class and id, and append
+    // the actual content to each carousel item.
+    const newCarouselItems: HTMLElement[] = [];
+    updatedCarouselItems.forEach((carouselItem, index) => {
+      // Create the new div.
+      const newDiv = document.createElement("div");
+      newDiv.classList.add("carousel-item");
+      newDiv.id = `carousel-item-${this.carouselID}-${index}`;
+
+      // Append the actual content to the new div.
+      newDiv.append(carouselItem);
+      newCarouselItems.push(newDiv);
     });
 
     // Return the array of carousel items, and indicates that the carousel
     // container has been configured.
     this.carouselItemsConfigured = true;
-    return carouselItems;
+    return newCarouselItems;
   }
 
   /**
