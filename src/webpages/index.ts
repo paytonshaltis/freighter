@@ -70,16 +70,10 @@ const c3 = new CarouselManager({
 });
 
 const kingCrimson = new CarouselManager({
-  itemWidth: 1,
-  itemHeight: 1,
-  numItemsVisible: 3,
-  itemSpacing: 25,
-  scrollBy: 1,
   containerID: "king-crimson",
   resizingMethod: "stretch-scale",
-  transitionDuration: 500,
-  transitionDelay: 0,
-  transitionTimingFunction: "ease",
+  itemHeight: 1,
+  itemWidth: 2,
   wrappingMethod: "none",
 });
 

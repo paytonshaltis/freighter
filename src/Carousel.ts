@@ -687,8 +687,8 @@ export default class Carousel {
     this.wrappingMethod = options.wrappingMethod;
 
     // Initialize the optional class attributes.
-    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 0;
-    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 0;
+    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 1;
+    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 1;
     this.itemSpacing =
       options.itemSpacing !== undefined ? options.itemSpacing : 0;
     this.buttonWidth =
