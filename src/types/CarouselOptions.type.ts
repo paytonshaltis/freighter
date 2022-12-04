@@ -40,7 +40,7 @@ type CarouselOptions = CarouselProperties & {
  */
 export function validateCarouselOptions(options: CarouselOptions): void {
   // Container ID is always required.
-  if (options.containerID.length === 0) {
+  if (!options.containerID || options.containerID.length === 0) {
     throw new Error("containerID must be a non-empty string.");
   }
 

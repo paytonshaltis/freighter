@@ -112,11 +112,11 @@ export default class Carousel {
 
     // Create the carousel container and append it to the target div.
     const carouselContainer: HTMLElement = document.createElement("div");
-    carouselContainer.id = `carousel-container-${this.carouselID}`;
+    carouselContainer.id = `freighter-carousel-container-${this.carouselID}`;
     selectedContainer.appendChild(carouselContainer);
 
     // Apply the appropriate class to the carousel container.
-    carouselContainer.classList.add("carousel-container");
+    carouselContainer.classList.add("freighter-carousel-container");
 
     // Add the mouse enter and leave listeners to the carousel container.
     if (this.autoScrollPauseOnHover) {
@@ -158,9 +158,9 @@ export default class Carousel {
 
     // Apply the appropriate class and ID based on the carousel ID.
     carouselItemContainerWrapper.classList.add(
-      "carousel-item-container-wrapper"
+      "freighter-carousel-item-container-wrapper"
     );
-    carouselItemContainerWrapper.id = `carousel-item-container-wrapper-${this.carouselID}`;
+    carouselItemContainerWrapper.id = `freighter-carousel-item-container-wrapper-${this.carouselID}`;
 
     // Add the carousel item container to the carousel item container wrapper.
     // Pass the carousel items to the carousel item container config.
@@ -186,8 +186,8 @@ export default class Carousel {
     const carouselItemContainer: HTMLElement = document.createElement("div");
 
     // Apply the appropriate class and id based on the carousel ID.
-    carouselItemContainer.classList.add("carousel-item-container");
-    carouselItemContainer.id = `carousel-item-container-${this.carouselID}`;
+    carouselItemContainer.classList.add("freighter-carousel-item-container");
+    carouselItemContainer.id = `freighter-carousel-item-container-${this.carouselID}`;
 
     // Add the carousel items to the carousel item container. They are added in the
     // same order, and will be processed later.
@@ -267,8 +267,8 @@ export default class Carousel {
     const button: HTMLElement = document.createElement("button");
 
     // Apply the appropriate class and id based on the carousel ID.
-    button.classList.add(`carousel-arrow-${direction}`);
-    button.id = `carousel-arrow-${direction}-${this.carouselID}`;
+    button.classList.add(`freighter-carousel-arrow-${direction}`);
+    button.id = `freighter-carousel-arrow-${direction}-${this.carouselID}`;
 
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
@@ -308,7 +308,7 @@ export default class Carousel {
             this.usingBezierTransition
           );
           nextItems.forEach((item) => {
-            item.classList.add("dummy");
+            item.classList.add("frieght-carousel-item-dummy");
 
             // If we are using the bezier transition, and the wrap method is
             // none, the dummy items should be hidden.
@@ -370,7 +370,7 @@ export default class Carousel {
             this.usingBezierTransition
           );
           prevItems.forEach((item) => {
-            item.classList.add("dummy");
+            item.classList.add("frieght-carousel-item-dummy");
 
             // If we are using the bezier transition, and the wrap method is
             // none, the dummy items should be hidden.
@@ -420,7 +420,7 @@ export default class Carousel {
     // its previouse carouselItem container.
     let updatedCarouselItems: HTMLElement[] = [];
     carouselItems.forEach((item) => {
-      if (item.classList.contains("carousel-item")) {
+      if (item.classList.contains("freighter-carousel-item")) {
         updatedCarouselItems.push(item.children[0] as HTMLElement);
       } else {
         updatedCarouselItems.push(item);
@@ -433,8 +433,8 @@ export default class Carousel {
     updatedCarouselItems.forEach((carouselItem, index) => {
       // Create the new div.
       const newDiv = document.createElement("div");
-      newDiv.classList.add("carousel-item");
-      newDiv.id = `carousel-item-${this.carouselID}-${index}`;
+      newDiv.classList.add("freighter-carousel-item");
+      newDiv.id = `freighter-carousel-item-${this.carouselID}-${index}`;
 
       // Append the actual content to the new div.
       newDiv.append(carouselItem);
@@ -500,7 +500,7 @@ export default class Carousel {
     // Get the carousel item container wrapper from the carousel container.
     const carouselItemContainerWrapper: HTMLElement | null =
       this.carouselContainer.querySelector(
-        `.carousel-item-container-wrapper#carousel-item-container-wrapper-${this.carouselID}`
+        `.freighter-carousel-item-container-wrapper#freighter-carousel-item-container-wrapper-${this.carouselID}`
       ) as HTMLElement;
 
     // Hide the overflow so that next and dummy items are not visible.
@@ -515,7 +515,7 @@ export default class Carousel {
     // Get the carousel item container from the carousel container.
     const carouselItemContainer: HTMLElement | null =
       this.carouselContainer.querySelector(
-        `.carousel-item-container#carousel-item-container-${this.carouselID}`
+        `.freighter-carousel-item-container#freighter-carousel-item-container-${this.carouselID}`
       ) as HTMLElement;
 
     // Display flex to appropriately space out the carousel items.
@@ -567,7 +567,7 @@ export default class Carousel {
     // Get the carousel button from the carousel container.
     const carouselButton: HTMLElement | null =
       this.carouselContainer.querySelector(
-        `.carousel-arrow-${direction}#carousel-arrow-${direction}-${this.carouselID}`
+        `.freighter-carousel-arrow-${direction}#freighter-carousel-arrow-${direction}-${this.carouselID}`
       ) as HTMLElement;
 
     // Other required styles.
@@ -1216,8 +1216,8 @@ export default class Carousel {
       // If wrap method is "none", just add a blank div with correct dimensions.
       if (this.wrappingMethod == "none" && timesWrapped > 0) {
         const dummyItem = document.createElement("div");
-        dummyItem.classList.add("carousel-item");
-        dummyItem.classList.add("dummy");
+        dummyItem.classList.add("freighter-carousel-item");
+        dummyItem.classList.add("frieght-carousel-item-dummy");
         dummyItem.style.width = `${this.itemWidth}px`;
         dummyItem.style.height = `${this.itemHeight}px`;
         activeCarouselItems.push(dummyItem);
