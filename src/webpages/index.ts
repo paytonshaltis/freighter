@@ -77,7 +77,7 @@ const kingCrimson = new CarouselManager({
   wrappingMethod: "none",
 });
 
-kingCrimson.changeCarouselProperties({
+kingCrimson.setCarouselProperties({
   itemHeight: 1,
   itemWidth: 2,
   itemSpacing: 0,

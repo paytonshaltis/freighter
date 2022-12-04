@@ -4,8 +4,6 @@
 
 The following is a table that details exactly which Carousel properties can be changed and if changing them is currently implemented.
 
-<div style="margin: 0 auto; width: fit-content;">
-
 | Property                           | Changeable | Implemented |
 | :--------------------------------- | :--------: | :---------: |
 | `carouselitemWidth`                |     ✔      |      ✔      |
@@ -19,14 +17,12 @@ The following is a table that details exactly which Carousel properties can be c
 | `carouselTransitionDuration`       |     ✔      |      ✔      |
 | `carouselTransitionDelay`          |     ✔      |      ✔      |
 | `carouselTransitionTimingFunction` |     ✔      |      ✔      |
-| `carouselResizingMethod`           |     ✔      |      ✔      |
-| `canScroll`                        |     ✔      |      ✔      |
-| `showTimeline`                     |     ✔      |     ❌      |
+| `carouselResizingMethod`           |     ❌     |      ✔      |
 | `carouselWrappingMethod`           |     ❌     |      ✔      |
+| `canScroll`                        |     ✔      |      ✔      |
 | `autoScroll`                       |     ✔      |      ✔      |
 | `autoScrollInterval`               |     ✔      |      ✔      |
 | `autoScrollDirection`              |     ✔      |      ✔      |
 | `autoScrollPauseOnHover`           |     ✔      |      ✔      |
 | `syncScrollWithVisibility`         |     ✔      |      ✔      |
-
-</div>
+| `showTimeline`                     |     ✔      |     ❌      |
