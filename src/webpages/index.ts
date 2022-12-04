@@ -83,15 +83,12 @@ kingCrimson.setCarouselProperties({
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
   syncScrollWithVisibility: false,
-  leftButtonStyles: {
-    height: "50px",
-  },
   leftButtonHoverStyles: {
     backgroundColor: "red",
     color: "white",
   },
   buttonStyles: {
-    height: "135px",
+    height: "85px",
   },
   buttonHoverStyles: {
     color: "#0066ff",
@@ -113,11 +110,16 @@ document.querySelector("button#b2")?.addEventListener("click", () => {
 
 document.querySelector("button#b3")?.addEventListener("click", () => {
   kingCrimson.setCarouselProperties({
-    leftButtonHoverStyles: {},
+    leftButtonHoverStyles: {
+      backgroundColor: "gray",
+      color: "white",
+    },
     buttonHoverStyles: {
-      width: "100px",
-      backgroundColor: "green",
-      borderRadius: "0px",
+      width: "35px",
+      height: "100px",
+      backgroundColor: "gray",
+      borderBottomLeftRadius: "10px",
+      borderTopLeftRadius: "10px",
     },
   });
 });

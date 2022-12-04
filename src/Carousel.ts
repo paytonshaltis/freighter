@@ -593,12 +593,10 @@ export default class Carousel {
 
     // Names for each style; used for looping.
     const styleNames: string[] = [
-      "border",
       "borderTop",
       "borderBottom",
       "borderLeft",
       "borderRight",
-      "borderRadius",
       "borderTopLeftRadius",
       "borderTopRightRadius",
       "borderBottomLeftRadius",
@@ -614,8 +612,6 @@ export default class Carousel {
       "none",
       "none",
       "none",
-      "none",
-      "none",
       direction === "right" ? "5px" : "none",
       direction === "left" ? "5px" : "none",
       direction === "right" ? "5px" : "none",
@@ -627,8 +623,6 @@ export default class Carousel {
 
     // Default button styles.
     const hoverDefaults: string[] = [
-      "none",
-      "none",
       "none",
       "none",
       "none",
