@@ -1,4 +1,4 @@
-# freighter.js
+# Freighter
 
 A highly customizable carousel library for the web.
 
