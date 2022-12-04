@@ -30,7 +30,7 @@ const c2 = new CarouselManager({
   buttonWidth: "20px",
   buttonHeight: "75px",
   buttonPosition: "top",
-  numItemsVisible: 4,
+  numItemsVisible: 2,
   scrollBy: 1,
   containerID: "second-carousel",
   resizingMethod: "stretch-gap",
@@ -70,21 +70,26 @@ const c3 = new CarouselManager({
 });
 
 const kingCrimson = new CarouselManager({
-  itemWidth: 200,
-  itemHeight: 200,
-  itemSpacing: 25,
-  buttonWidth: "20px",
-  buttonHeight: "250px",
-  buttonPosition: "center",
-  numItemsVisible: 1,
-  scrollBy: 1,
   containerID: "king-crimson",
   resizingMethod: "stretch-scale",
-  transitionDuration: 500,
-  transitionDelay: 0,
-  transitionTimingFunction: "ease",
-  scrollable: true,
+  itemHeight: 1,
+  itemWidth: 2,
   wrappingMethod: "none",
+});
+
+kingCrimson.setCarouselProperties({
+  itemHeight: 1,
+  itemWidth: 2,
+  itemSpacing: 0,
+  buttonWidth: "5%",
+  buttonHeight: "75%",
+  buttonPosition: "bottom",
+  numItemsVisible: 4,
+  scrollBy: 3,
+  transitionDuration: 1000,
+  transitionDelay: 250,
+  transitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
+  scrollable: true,
   autoScroll: true,
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
@@ -103,3 +108,5 @@ document.querySelector("button#b1")?.addEventListener("click", () => {
 document.querySelector("button#b2")?.addEventListener("click", () => {
   kingCrimson.removeCarouselItems(0);
 });
+
+console.log(kingCrimson.getCarouselProperties());

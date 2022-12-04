@@ -23,7 +23,7 @@ export default class Carousel {
   private scrollable: boolean;
   private autoScroll: boolean;
   private autoScrollInterval: number;
-  private autoScrollDirection: "left" | "right";
+  private autoScrollDirection: "left" | "right" | undefined;
   private autoScrollPauseOnHover: boolean;
   private syncScrollWithVisibility: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
@@ -75,7 +75,7 @@ export default class Carousel {
    * the provided ID for the target div, passing along the carousel items for
    * later processing.
    * @param {string} carouselContainerId The ID of the target div. The carousel will be
-   * constructed, and elements will be added to the target div. The only elements
+   * constructed, and elements will be appended to the target div. The only elements
    * that should be in the target div are the items that wish to be inserted into
    * the carousel as carousel items.
    * @param {HTMLElement[]} carouselItemsFromState Optional parameter, the
@@ -91,7 +91,9 @@ export default class Carousel {
     const selectedContainer: HTMLElement | null =
       document.getElementById(carouselContainerId);
     if (!selectedContainer) {
-      throw new Error("Carousel container not found.");
+      throw new Error(
+        `Carousel container with ID ${carouselContainerId} not found.`
+      );
     }
 
     // Temporarily store the carousel items and clear the container.
@@ -100,17 +102,21 @@ export default class Carousel {
       : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
 
-    // Apply the appropriate class. The div's own ID and any other classes
-    // remain and won't be overwritten.
-    selectedContainer.classList.add("carousel-container");
+    // Create the carousel container and append it to the target div.
+    const carouselContainer: HTMLElement = document.createElement("div");
+    carouselContainer.id = `carousel-container-${this.carouselID}`;
+    selectedContainer.appendChild(carouselContainer);
+
+    // Apply the appropriate class to the carousel container.
+    carouselContainer.classList.add("carousel-container");
 
     // Add the mouse enter and leave listeners to the carousel container.
     if (this.autoScrollPauseOnHover) {
-      selectedContainer.addEventListener(
+      carouselContainer.addEventListener(
         "mouseenter",
         this.containerMouseEnterListener
       );
-      selectedContainer.addEventListener(
+      carouselContainer.addEventListener(
         "mouseleave",
         this.containerMouseLeaveListener
       );
@@ -118,14 +124,14 @@ export default class Carousel {
 
     // Append the carousel item container wrapper to the carousel container.
     // Pass the carousel items to the carousel item container wrapper config.
-    selectedContainer.appendChild(
+    carouselContainer.appendChild(
       this.configureCarouselItemContainerWrapper(carouselItems)
     );
 
     // Return a reference to the generated carousel container, and indicate that
     // the carousel container has been configured.
     this.carouselContainerConfigured = true;
-    return selectedContainer;
+    return carouselContainer;
   }
 
   /**
@@ -263,6 +269,16 @@ export default class Carousel {
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
 
+          // For bezier transitions, the dummy items need to be hidden as
+          // to insinuate that the carousel cannot be scrolled if the
+          // wrapping method is none.
+          const hideDummies =
+            this.usingBezierTransition &&
+            this.wrappingMethod === "none" &&
+            !this.canScrollRight
+              ? true
+              : false;
+
           // Reposition the pointers.
           this.prevScroll = "left";
           this.adjustPointers(direction);
@@ -285,6 +301,12 @@ export default class Carousel {
           );
           nextItems.forEach((item) => {
             item.classList.add("dummy");
+
+            // If we are using the bezier transition, and the wrap method is
+            // none, the dummy items should be hidden.
+            if (hideDummies) {
+              item.style.visibility = "hidden";
+            }
           });
           this.carouselItemContainer.append(...nextItems);
 
@@ -305,6 +327,16 @@ export default class Carousel {
           while (this.rightCarouselPointer >= this.allItems.length) {
             this.rightCarouselPointer -= this.allItems.length;
           }
+
+          // For bezier transitions, the dummy items need to be hidden as
+          // to insinuate that the carousel cannot be scrolled if the
+          // wrapping method is none.
+          const hideDummies =
+            this.usingBezierTransition &&
+            this.wrappingMethod === "none" &&
+            !this.canScrollLeft
+              ? true
+              : false;
 
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
@@ -331,6 +363,12 @@ export default class Carousel {
           );
           prevItems.forEach((item) => {
             item.classList.add("dummy");
+
+            // If we are using the bezier transition, and the wrap method is
+            // none, the dummy items should be hidden.
+            if (hideDummies) {
+              item.style.visibility = "hidden";
+            }
           });
           this.carouselItemContainer.prepend(...prevItems);
 
@@ -416,6 +454,8 @@ export default class Carousel {
     // The width of the main container is dependend on the resize mode.
     this.carouselContainer.style.width =
       this.resizingMethod === "none" ? "fit-content" : "100%";
+    this.carouselContainer.style.margin =
+      this.resizingMethod === "none" ? "0 auto" : "0";
 
     // The position should be relative to allow for the absolute positioning of
     // the carousel control buttons.
@@ -643,6 +683,13 @@ export default class Carousel {
       setTimeout(() => {
         // Check for height changes and resize the carousel item container.
         this.resizeCarouselItemContainer();
+
+        // Used to properly resize buttons when using percentages.
+        setTimeout(() => {
+          this.carouselContainer.style.height = `${parseFloat(
+            getComputedStyle(this.carouselItemContainer as HTMLElement).height
+          )}px`;
+        }, 0);
       }, 0);
     }, 0);
   }
@@ -664,34 +711,62 @@ export default class Carousel {
     const constructFromState =
       (options as CarouselState).carouselID !== undefined;
 
-    // Initialize all class attributes.
-    this.itemWidth = options.itemWidth;
-    this.itemHeight = options.itemHeight;
-    this.itemSpacing = options.itemSpacing;
-    this.buttonWidth = options.buttonWidth;
-    this.buttonHeight = options.buttonHeight;
-    this.buttonPosition = options.buttonPosition;
-    this.numItemsVisible = options.numItemsVisible;
-    this.scrollBy = options.scrollBy;
+    // Initialize the required class attributes.
     this.resizingMethod =
       options.resizingMethod === "stretch-populate"
         ? "stretch-gap"
         : options.resizingMethod;
-    this.autoScroll = options.autoScroll;
-    this.autoScrollInterval = options.autoScrollInterval;
-    this.autoScrollDirection = options.autoScrollDirection;
-    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover;
-    this.syncScrollWithVisibility = options.syncScrollWithVisibility;
-    this.transitionDuration = options.transitionDuration || 500;
-    this.transitionDelay = options.transitionDelay || 0;
-    this.transitionTimingFunction =
-      options.transitionTimingFunction || "ease-in-out";
     this.wrappingMethod = options.wrappingMethod;
+
+    // Initialize the optional class attributes.
+    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 1;
+    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 1;
+    this.itemSpacing =
+      options.itemSpacing !== undefined ? options.itemSpacing : 0;
+    this.buttonWidth =
+      options.buttonWidth !== undefined ? options.buttonWidth : "25px";
+    this.buttonHeight =
+      options.buttonHeight !== undefined ? options.buttonHeight : "100%";
+    this.buttonPosition =
+      options.buttonPosition !== undefined ? options.buttonPosition : "center";
+    this.scrollable =
+      options.scrollable !== undefined ? options.scrollable : true;
+    this.autoScroll =
+      options.autoScroll !== undefined ? options.autoScroll : false;
+    this.autoScrollInterval =
+      options.autoScrollInterval !== undefined
+        ? options.autoScrollInterval
+        : 1000;
+    this.autoScrollDirection =
+      options.autoScrollInterval !== undefined
+        ? options.autoScrollDirection
+        : "right";
+    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover
+      ? options.autoScrollPauseOnHover
+      : false;
+    this.scrollBy = options.scrollBy !== undefined ? options.scrollBy : 1;
+    this.numItemsVisible =
+      options.numItemsVisible !== undefined ? options.numItemsVisible : 1;
+    this.syncScrollWithVisibility =
+      options.syncScrollWithVisibility !== undefined
+        ? options.syncScrollWithVisibility
+        : false;
+    this.transitionDuration =
+      options.transitionDuration !== undefined
+        ? options.transitionDuration
+        : 500;
+    this.transitionDelay =
+      options.transitionDelay !== undefined ? options.transitionDelay : 0;
+    this.transitionTimingFunction =
+      options.transitionTimingFunction !== undefined
+        ? options.transitionTimingFunction
+        : "ease-in-out";
     this.transition = `transform 
-      ${this.transitionDuration}ms 
-      ${this.transitionTimingFunction} 
-      ${this.transitionDelay}ms`;
-    this.scrollable = options.scrollable;
+        ${this.transitionDuration}ms 
+        ${this.transitionTimingFunction} 
+        ${this.transitionDelay}ms`;
+
+    // Initialize the carousel internal data.
     this.itemAspectRatio = this.itemHeight / this.itemWidth;
     this.originalItemHeight = this.itemHeight;
     this.originalItemWidth = this.itemWidth;
@@ -977,7 +1052,7 @@ export default class Carousel {
   public resizeCarouselItemContainer(): void {
     // The height of the main container is the max of the button height and the
     // carousel item container height.
-    let maxHeight;
+    let maxHeight: number;
     try {
       maxHeight = Math.max(
         parseFloat(
@@ -1137,7 +1212,7 @@ export default class Carousel {
       buttonPosition: this.buttonPosition,
       numItemsVisible: this.numItemsVisible,
       scrollBy: this.originalScrollBy,
-      containerID: this.carouselContainer.id,
+      containerID: (this.carouselContainer.parentElement as HTMLElement).id,
       transitionDuration: this.transitionDuration,
       transitionDelay: this.transitionDelay,
       transitionTimingFunction: this.transitionTimingFunction,
