@@ -108,6 +108,23 @@ export default class CarouselManager {
     const state = this.carousel.getCurrentState();
     let populatedOrDepopulated = false;
 
+    // Throw appropriate errors is fields are missing. Mainly to suppress TS errors.
+    if (!state.itemWidth) {
+      throw new Error(
+        "Item width is undefined, but required for 'stretch-populate' recalculations."
+      );
+    }
+    if (!state.itemSpacing) {
+      throw new Error(
+        "Item spacing is undefined, but required for 'stretch-populate' recalculations."
+      );
+    }
+    if (!state.numItemsVisible) {
+      throw new Error(
+        "Number of items visible is undefined, but required for 'stretch-populate' recalculations."
+      );
+    }
+
     // Compute the total gap size of the carousel.
     const totalGapSize =
       parseFloat(getComputedStyle(state.carouselContainer).width) -
@@ -213,6 +230,13 @@ export default class CarouselManager {
    */
   public removeCarouselItems(index: number, count: number = 1): void {
     const state = this.carousel.getCurrentState();
+
+    // Throw appropriate errors is fields are missing. Mainly to suppress TS errors.
+    if (!state.numItemsVisible) {
+      throw new Error(
+        "Number of items visible is undefined, but required for 'stretch-populate' recalculations."
+      );
+    }
 
     // If wrapping is not allowed for the carousel, then removing items must move
     // the bottom pointer slightly as to not show duplicates.

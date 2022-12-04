@@ -23,7 +23,7 @@ export default class Carousel {
   private scrollable: boolean;
   private autoScroll: boolean;
   private autoScrollInterval: number;
-  private autoScrollDirection: "left" | "right";
+  private autoScrollDirection: "left" | "right" | undefined;
   private autoScrollPauseOnHover: boolean;
   private syncScrollWithVisibility: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
@@ -672,34 +672,62 @@ export default class Carousel {
     const constructFromState =
       (options as CarouselState).carouselID !== undefined;
 
-    // Initialize all class attributes.
-    this.itemWidth = options.itemWidth;
-    this.itemHeight = options.itemHeight;
-    this.itemSpacing = options.itemSpacing;
-    this.buttonWidth = options.buttonWidth;
-    this.buttonHeight = options.buttonHeight;
-    this.buttonPosition = options.buttonPosition;
-    this.numItemsVisible = options.numItemsVisible;
-    this.scrollBy = options.scrollBy;
+    // Initialize the required class attributes.
     this.resizingMethod =
       options.resizingMethod === "stretch-populate"
         ? "stretch-gap"
         : options.resizingMethod;
-    this.autoScroll = options.autoScroll;
-    this.autoScrollInterval = options.autoScrollInterval;
-    this.autoScrollDirection = options.autoScrollDirection;
-    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover;
-    this.syncScrollWithVisibility = options.syncScrollWithVisibility;
-    this.transitionDuration = options.transitionDuration || 500;
-    this.transitionDelay = options.transitionDelay || 0;
-    this.transitionTimingFunction =
-      options.transitionTimingFunction || "ease-in-out";
     this.wrappingMethod = options.wrappingMethod;
+
+    // Initialize the optional class attributes.
+    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 0;
+    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 0;
+    this.itemSpacing =
+      options.itemSpacing !== undefined ? options.itemSpacing : 0;
+    this.buttonWidth =
+      options.buttonWidth !== undefined ? options.buttonWidth : "25px";
+    this.buttonHeight =
+      options.buttonHeight !== undefined ? options.buttonHeight : "25px";
+    this.buttonPosition =
+      options.buttonPosition !== undefined ? options.buttonPosition : "center";
+    this.scrollable =
+      options.scrollable !== undefined ? options.scrollable : true;
+    this.autoScroll =
+      options.autoScroll !== undefined ? options.autoScroll : false;
+    this.autoScrollInterval =
+      options.autoScrollInterval !== undefined
+        ? options.autoScrollInterval
+        : 1000;
+    this.autoScrollDirection =
+      options.autoScrollInterval !== undefined
+        ? options.autoScrollDirection
+        : "right";
+    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover
+      ? options.autoScrollPauseOnHover
+      : false;
+    this.scrollBy = options.scrollBy !== undefined ? options.scrollBy : 1;
+    this.numItemsVisible =
+      options.numItemsVisible !== undefined ? options.numItemsVisible : 1;
+    this.syncScrollWithVisibility =
+      options.syncScrollWithVisibility !== undefined
+        ? options.syncScrollWithVisibility
+        : false;
+    this.transitionDuration =
+      options.transitionDuration !== undefined
+        ? options.transitionDuration
+        : 500;
+    this.transitionDelay =
+      options.transitionDelay !== undefined ? options.transitionDelay : 0;
+    this.transitionTimingFunction =
+      options.transitionTimingFunction !== undefined
+        ? options.transitionTimingFunction
+        : "ease-in-out";
     this.transition = `transform 
-      ${this.transitionDuration}ms 
-      ${this.transitionTimingFunction} 
-      ${this.transitionDelay}ms`;
-    this.scrollable = options.scrollable;
+        ${this.transitionDuration}ms 
+        ${this.transitionTimingFunction} 
+        ${this.transitionDelay}ms`;
+
+    // Initialize the carousel internal data.
     this.itemAspectRatio = this.itemHeight / this.itemWidth;
     this.originalItemHeight = this.itemHeight;
     this.originalItemWidth = this.itemWidth;
