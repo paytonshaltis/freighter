@@ -4,9 +4,6 @@ const c = new CarouselManager({
   itemWidth: 150,
   itemHeight: 75,
   itemSpacing: 10,
-  buttonWidth: "5vw",
-  buttonHeight: "75%",
-  buttonPosition: "top",
   numItemsVisible: 1,
   scrollBy: 2.0,
   containerID: "my-carousel",
@@ -27,9 +24,6 @@ const c2 = new CarouselManager({
   itemWidth: 150,
   itemHeight: 75,
   itemSpacing: 10,
-  buttonWidth: "20px",
-  buttonHeight: "75px",
-  buttonPosition: "top",
   numItemsVisible: 2,
   scrollBy: 1,
   containerID: "second-carousel",
@@ -50,9 +44,6 @@ const c3 = new CarouselManager({
   itemWidth: 200,
   itemHeight: 200,
   itemSpacing: 10,
-  buttonWidth: "5%",
-  buttonHeight: "75%",
-  buttonPosition: "bottom",
   numItemsVisible: 4,
   scrollBy: 3,
   containerID: "third-carousel",
@@ -79,22 +70,30 @@ const kingCrimson = new CarouselManager({
 
 kingCrimson.setCarouselProperties({
   itemHeight: 1,
-  itemWidth: 2,
-  itemSpacing: 0,
-  buttonWidth: "5%",
-  buttonHeight: "75%",
-  buttonPosition: "bottom",
-  numItemsVisible: 4,
+  itemWidth: 1,
+  itemSpacing: 25,
+  numItemsVisible: 3,
   scrollBy: 3,
   transitionDuration: 1000,
   transitionDelay: 250,
   transitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
   scrollable: true,
-  autoScroll: true,
+  autoScroll: false,
   autoScrollInterval: 1000,
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
   syncScrollWithVisibility: false,
+  leftButtonHoverStyles: {
+    backgroundColor: "red",
+    color: "white",
+  },
+  buttonStyles: {
+    height: "85px",
+  },
+  buttonHoverStyles: {
+    color: "#0066ff",
+    backgroundColor: "#0066ff",
+  },
 });
 
 document.querySelector("button#b1")?.addEventListener("click", () => {
@@ -109,4 +108,18 @@ document.querySelector("button#b2")?.addEventListener("click", () => {
   kingCrimson.removeCarouselItems(0);
 });
 
-console.log(kingCrimson.getCarouselProperties());
+document.querySelector("button#b3")?.addEventListener("click", () => {
+  kingCrimson.setCarouselProperties({
+    leftButtonHoverStyles: {
+      backgroundColor: "gray",
+      color: "white",
+    },
+    buttonHoverStyles: {
+      width: "35px",
+      height: "100px",
+      backgroundColor: "gray",
+      borderBottomLeftRadius: "10px",
+      borderTopLeftRadius: "10px",
+    },
+  });
+});

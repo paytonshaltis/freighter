@@ -1,3 +1,5 @@
+import ButtonStyle from "./ButtonStyle.type";
+
 /**
  * Type definition for the changeable properties of a Carousel.
  */
@@ -5,9 +7,12 @@ type CarouselProperties = {
   itemWidth?: number;
   itemHeight?: number;
   itemSpacing?: number;
-  buttonWidth?: string;
-  buttonHeight?: string;
-  buttonPosition?: "top" | "center" | "bottom";
+  buttonStyles?: ButtonStyle;
+  buttonHoverStyles?: ButtonStyle;
+  leftButtonStyles?: ButtonStyle;
+  leftButtonHoverStyles?: ButtonStyle;
+  rightButtonStyles?: ButtonStyle;
+  rightButtonHoverStyles?: ButtonStyle;
   scrollable?: boolean;
   scrollBy?: number;
   numItemsVisible?: number;

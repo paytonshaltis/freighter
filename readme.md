@@ -4,7 +4,7 @@
 
 The following is a table that details exactly which Carousel properties can be changed and if changing them is currently implemented.
 
-| Property                   | Changeable | Implemented |
+| Carousel Style Property    | Changeable | Implemented |
 | :------------------------- | :--------: | :---------: |
 | `containerID`              |     ❌     |      ✔      |
 | `resizingMethod`           |     ❌     |      ✔      |
@@ -12,9 +12,6 @@ The following is a table that details exactly which Carousel properties can be c
 | `itemWidth`                |     ✔      |      ✔      |
 | `itemHeight`               |     ✔      |      ✔      |
 | `itemSpacing`              |     ✔      |      ✔      |
-| `buttonWidth`              |     ✔      |      ✔      |
-| `buttonHeight`             |     ✔      |      ✔      |
-| `buttonPosition`           |     ✔      |      ✔      |
 | `numItemsVisible`          |     ✔      |      ✔      |
 | `scrollBy`                 |     ✔      |      ✔      |
 | `syncScrollWithVisibility` |     ✔      |      ✔      |
@@ -26,4 +23,28 @@ The following is a table that details exactly which Carousel properties can be c
 | `transitionDuration`       |     ✔      |      ✔      |
 | `transitionDelay`          |     ✔      |      ✔      |
 | `transitionTimingFunction` |     ✔      |      ✔      |
+| `buttonStyles`             |     ✔      |      ✔      |
+| `buttonHoverStyles`        |     ✔      |      ✔      |
+| `leftButtonStyles`         |     ✔      |      ✔      |
+| `leftButtonHoverStyles`    |     ✔      |      ✔      |
+| `rightButtonStyles`        |     ✔      |      ✔      |
+| `rightButtonHoverStyles`   |     ✔      |      ✔      |
 | `showTimeline`             |     ✔      |     ❌      |
+
+| Button Style Property     | Changeable | Implemented |
+| :------------------------ | :--------: | :---------: |
+| `width`                   |     ✔      |      ✔      |
+| `height`                  |     ✔      |      ✔      |
+| `position`                |     ✔      |      ✔      |
+| `borderTop`               |     ✔      |      ✔      |
+| `borderRight`             |     ✔      |      ✔      |
+| `borderBottom`            |     ✔      |      ✔      |
+| `borderLeft`              |     ✔      |      ✔      |
+| `borderTopLeftRadius`     |     ✔      |      ✔      |
+| `borderTopRightRadius`    |     ✔      |      ✔      |
+| `borderBottomLeftRadius`  |     ✔      |      ✔      |
+| `borderBottomRightRadius` |     ✔      |      ✔      |
+| `backgroundColor`         |     ✔      |      ✔      |
+| `color`                   |     ✔      |      ✔      |
+| `cursor`                  |     ✔      |      ✔      |
+| `transition`              |     ✔      |      ✔      |

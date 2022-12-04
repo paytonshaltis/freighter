@@ -1,4 +1,5 @@
-import CarouselProperties from "./CarouselProperties.type";
+import { validateButtonStyles } from "./ButtonStyle.type.js";
+import CarouselProperties from "./CarouselProperties.type.js";
 
 /**
  * Type definition for the options object to be passed to the carousel constructor.
@@ -15,9 +16,6 @@ type CarouselOptions = CarouselProperties & {
   itemWidth?: number;
   itemHeight?: number;
   itemSpacing?: number;
-  buttonWidth?: string;
-  buttonHeight?: string;
-  buttonPosition?: "top" | "center" | "bottom";
   scrollable?: boolean;
   scrollBy?: number;
   numItemsVisible?: number;
@@ -81,22 +79,7 @@ export function validateCarouselOptions(options: CarouselOptions): void {
     );
   }
 
-  // Button dimensions are always optional, but if they are defined, they must be
-  // positive numbers greater than 0.
-  if (
-    options.buttonWidth &&
-    (isNaN(parseFloat(options.buttonWidth)) ||
-      parseFloat(options.buttonWidth) <= 0)
-  ) {
-    throw new Error("buttonWidth must be a positive number greater than 0.");
-  }
-  if (
-    options.buttonHeight &&
-    (isNaN(parseFloat(options.buttonHeight)) ||
-      parseFloat(options.buttonHeight) <= 0)
-  ) {
-    throw new Error("buttonHeight must be a positive number greater than 0.");
-  }
+  // TODO check button styles.
 
   // Only stretch-scale doesn't need an exact height.
   if (
@@ -149,6 +132,14 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   ) {
     throw new Error("transitionTimingFunction must be a non-empty string.");
   }
+
+  // Need to validate the ButtonStyle objects.
+  validateButtonStyles(options.buttonStyles);
+  validateButtonStyles(options.buttonHoverStyles);
+  validateButtonStyles(options.leftButtonStyles);
+  validateButtonStyles(options.leftButtonHoverStyles);
+  validateButtonStyles(options.rightButtonStyles);
+  validateButtonStyles(options.rightButtonHoverStyles);
 }
 
 /**

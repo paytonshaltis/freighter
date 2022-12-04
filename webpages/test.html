@@ -35,54 +35,49 @@
         <div>e</div>
       </div>
 
-      <div id="king-crimson" class="carousel" style="width: 50%">
-        <div>
-          <div class="album-info">
-            <a
-              href="https://en.wikipedia.org/wiki/In_the_Court_of_the_Crimson_King"
-            >
-              <img
-                src="../images/album-1.jpg"
-                style="width: 100%; height: 100%"
-              />
-            </a>
-            <p>In The Court of the Crimson King</p>
-          </div>
+      <div id="king-crimson" class="carousel">
+        <div class="album-info">
+          <a
+            href="https://en.wikipedia.org/wiki/In_the_Court_of_the_Crimson_King"
+          >
+            <img
+              src="../images/album-1.jpg"
+              style="width: 100%; height: 100%"
+            />
+          </a>
+          <p>In The Court of the Crimson King</p>
         </div>
-        <div>
-          <div class="album-info">
-            <a href="https://en.wikipedia.org/wiki/In_the_Wake_of_Poseidon">
-              <img
-                src="../images/album-2.jpg"
-                style="width: 100%; height: 100%"
-              />
-            </a>
-            <p>In the Wake of Poseidon</p>
-          </div>
+        <div class="album-info">
+          <a href="https://en.wikipedia.org/wiki/In_the_Wake_of_Poseidon">
+            <img
+              src="../images/album-2.jpg"
+              style="width: 100%; height: 100%"
+            />
+          </a>
+          <p>In the Wake of Poseidon</p>
         </div>
-        <div>
-          <div class="album-info">
-            <a href="https://en.wikipedia.org/wiki/Red_(King_Crimson_album)">
-              <img
-                src="../images/album-3.jpg"
-                style="width: 100%; height: 100%"
-              />
-            </a>
-            <p>Red</p>
-          </div>
+        <div class="album-info">
+          <a href="https://en.wikipedia.org/wiki/Red_(King_Crimson_album)">
+            <img
+              src="../images/album-3.jpg"
+              style="width: 100%; height: 100%"
+            />
+          </a>
+          <p>Red</p>
         </div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
+        <div class="album-info">1</div>
+        <div class="album-info">2</div>
+        <div class="album-info">3</div>
+        <div class="album-info">4</div>
+        <div class="album-info">5</div>
+        <div class="album-info">6</div>
+        <div class="album-info">7</div>
+        <div class="album-info">8</div>
       </div>
 
       <button id="b1">Add Items</button>
       <button id="b2">Remove Items</button>
+      <button id="b3">Change Buttons</button>
     </section>
 
     <style>
@@ -105,11 +100,17 @@
       }
       div.carousel {
         margin: 5rem auto;
-        background-color: brown;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: lightgray;
       }
       div.album-info {
+        border-radius: 5px;
+        overflow: hidden;
         position: relative;
-        height: inherit;
+        height: 100%;
+        width: 100%;
+        background-color: brown;
       }
       div.album-info a {
         transition: filter 0.3s ease-in-out;
