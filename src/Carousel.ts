@@ -576,63 +576,6 @@ export default class Carousel {
     // Other required styles.
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
-    // Names for each style; used for looping.
-    const styleNames: string[] = [
-      "border",
-      "borderTop",
-      "borderBottom",
-      "borderLeft",
-      "borderRight",
-      "borderRadius",
-      "borderTopLeftRadius",
-      "borderTopRightRadius",
-      "borderBottomLeftRadius",
-      "borderBottomRightRadius",
-      "backgroundColor",
-      "cursor",
-    ];
-
-    // Default button styles.
-    const styleDefaults: string[] = [
-      "none",
-      "none",
-      "none",
-      "none",
-      "none",
-      "none",
-      direction === "right" ? "5px" : "none",
-      direction === "left" ? "5px" : "none",
-      direction === "right" ? "5px" : "none",
-      direction === "left" ? "5px" : "none",
-      "rgba(100, 100, 100, 0.5)",
-      "pointer",
-    ];
-
-    // Apply the styles common to both buttons.
-    styleNames.forEach((styleName, index) => {
-      carouselButton.style[styleName as any] = (this.buttonStyles as any)[
-        styleName
-      ]
-        ? (this.buttonStyles as any)[styleName]
-        : styleDefaults[index];
-    });
-
-    // Apply the correct left, right, or default styles to the button.
-    styleNames.forEach((styleName) => {
-      if (direction === "left" && (this.leftButtonStyles as any)[styleName]) {
-        carouselButton.style[styleName as any] = (this.leftButtonStyles as any)[
-          styleName
-        ];
-      } else if (
-        direction === "right" &&
-        (this.rightButtonStyles as any)[styleName]
-      ) {
-        carouselButton.style[styleName as any] = (
-          this.rightButtonStyles as any
-        )[styleName];
-      }
-    });
-
     // Apply the correct left or right arrow to the button.
     carouselButton.innerHTML = `
         <svg 
@@ -656,6 +599,80 @@ export default class Carousel {
               : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
           }
         </svg>`;
+
+    // Names for each style; used for looping.
+    const styleNames: string[] = [
+      "border",
+      "borderTop",
+      "borderBottom",
+      "borderLeft",
+      "borderRight",
+      "borderRadius",
+      "borderTopLeftRadius",
+      "borderTopRightRadius",
+      "borderBottomLeftRadius",
+      "borderBottomRightRadius",
+      "backgroundColor",
+      "cursor",
+    ];
+
+    // Default button styles.
+    const staticDefaults: string[] = [
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      direction === "right" ? "5px" : "none",
+      direction === "left" ? "5px" : "none",
+      direction === "right" ? "5px" : "none",
+      direction === "left" ? "5px" : "none",
+      "rgba(100, 100, 100, 0.5)",
+      "pointer",
+    ];
+
+    // Default button styles.
+    const hoverDefaults: string[] = [
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      direction === "right" ? "5px" : "none",
+      direction === "left" ? "5px" : "none",
+      direction === "right" ? "5px" : "none",
+      direction === "left" ? "5px" : "none",
+      "rgba(100, 100, 100, 0.8)",
+      "pointer",
+    ];
+
+    // Apply the static button styles.
+    this.applyMassButtonStyles(
+      carouselButton as HTMLButtonElement,
+      direction,
+      styleNames,
+      staticDefaults
+    );
+
+    // Set the hover styles for the button.
+    carouselButton.addEventListener("mouseenter", () => {
+      this.applyMassButtonStyles(
+        carouselButton as HTMLButtonElement,
+        direction,
+        styleNames,
+        hoverDefaults
+      );
+    });
+    carouselButton.addEventListener("mouseleave", () => {
+      this.applyMassButtonStyles(
+        carouselButton as HTMLButtonElement,
+        direction,
+        styleNames,
+        staticDefaults
+      );
+    });
 
     // Position the button based on the user's options.
     carouselButton.style.position = "absolute";
@@ -681,6 +698,48 @@ export default class Carousel {
     if (direction === "right") {
       carouselButton.style.right = "0";
     }
+  }
+
+  /**
+   * Applies the button styles en masse. These styles change as the user hovers
+   * over the buttons, and each may need to have different styles applied
+   * appropriately.
+   * @param {HTMLButtonElement} carouselButton The button to apply the styles to.
+   * @param {string} direction The direction of the button.
+   * @param {string[]} styleNames The names of the styles to apply.
+   * @param {string[]} values The values of the styles to apply.
+   * @returns {void} Nothing.
+   */
+  private applyMassButtonStyles(
+    carouselButton: HTMLButtonElement,
+    direction: string,
+    styleNames: string[],
+    values: string[]
+  ): void {
+    // Apply the styles common to both buttons.
+    styleNames.forEach((styleName, index) => {
+      carouselButton.style[styleName as any] = (this.buttonStyles as any)[
+        styleName
+      ]
+        ? (this.buttonStyles as any)[styleName]
+        : values[index];
+    });
+
+    // Apply the correct left, right, or default styles to the button.
+    styleNames.forEach((styleName) => {
+      if (direction === "left" && (this.leftButtonStyles as any)[styleName]) {
+        carouselButton.style[styleName as any] = (this.leftButtonStyles as any)[
+          styleName
+        ];
+      } else if (
+        direction === "right" &&
+        (this.rightButtonStyles as any)[styleName]
+      ) {
+        carouselButton.style[styleName as any] = (
+          this.rightButtonStyles as any
+        )[styleName];
+      }
+    });
   }
 
   /**
