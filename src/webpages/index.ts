@@ -83,6 +83,9 @@ kingCrimson.setCarouselProperties({
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
   syncScrollWithVisibility: false,
+  leftButtonStyles: {
+    height: "50px",
+  },
   buttonStyles: {
     height: "135px",
   },

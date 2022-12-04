@@ -1166,8 +1166,8 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   public resizeCarouselItemContainer(): void {
-    // The height of the main container is the max of the button height and the
-    // carousel item container height.
+    // The height of the main container is the max of the left button height, the
+    // right button height, and the carousel item container height.
     let maxHeight: number;
     try {
       maxHeight = Math.max(
@@ -1177,6 +1177,10 @@ export default class Carousel {
         ),
         parseFloat(
           getComputedStyle(this.carouselItemContainer as HTMLElement).height
+        ),
+        parseFloat(
+          getComputedStyle(this.carouselContainer.children[2] as HTMLElement)
+            .height
         )
       );
     } catch (error) {
