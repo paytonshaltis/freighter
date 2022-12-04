@@ -88,13 +88,14 @@ kingCrimson.setCarouselProperties({
   },
   leftButtonHoverStyles: {
     backgroundColor: "red",
+    color: "white",
   },
   buttonStyles: {
     height: "135px",
   },
   buttonHoverStyles: {
-    // color: "#0066ff",
-    // backgroundColor: "#0066ff",
+    color: "#0066ff",
+    backgroundColor: "#0066ff",
   },
 });
 
@@ -108,4 +109,14 @@ document.querySelector("button#b1")?.addEventListener("click", () => {
 
 document.querySelector("button#b2")?.addEventListener("click", () => {
   kingCrimson.removeCarouselItems(0);
+});
+
+document.querySelector("button#b3")?.addEventListener("click", () => {
+  kingCrimson.setCarouselProperties({
+    leftButtonHoverStyles: {},
+    rightButtonHoverStyles: {},
+    buttonHoverStyles: {
+      backgroundColor: "white",
+    },
+  });
 });

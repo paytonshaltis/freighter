@@ -1433,6 +1433,8 @@ export default class Carousel {
       itemWidth: this.originalItemWidth,
       itemHeight: this.originalItemHeight,
       itemSpacing: this.itemSpacing,
+      buttonStyles: this.buttonStyles,
+      buttonHoverStyles: this.buttonHoverStyles,
       leftButtonStyles: this.leftButtonStyles,
       leftButtonHoverStyles: this.leftButtonHoverStyles,
       rightButtonStyles: this.rightButtonStyles,

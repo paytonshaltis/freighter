@@ -1,3 +1,4 @@
+import ButtonStyle, { equalButtonStyles } from "./ButtonStyle.type.js";
 import CarouselOptions from "./CarouselOptions.type.js";
 
 type CarouselState = CarouselOptions & {
@@ -23,7 +24,6 @@ export function equalStates(
     state1.itemWidth === state2.itemWidth &&
     state1.itemHeight === state2.itemHeight &&
     state1.itemSpacing === state2.itemSpacing &&
-    // TODO check button styles.
     state1.numItemsVisible === state2.numItemsVisible &&
     state1.scrollBy === state2.scrollBy &&
     state1.transitionDuration === state2.transitionDuration &&
@@ -37,6 +37,31 @@ export function equalStates(
     state1.syncScrollWithVisibility === state2.syncScrollWithVisibility &&
     state1.resizingMethod === state2.resizingMethod &&
     state1.wrappingMethod === state2.wrappingMethod &&
+    // Need to check for equivalence of all 6 ButtonStyle objects.
+    equalButtonStyles(
+      state1.buttonStyles as ButtonStyle,
+      state2.buttonStyles as ButtonStyle
+    ) &&
+    equalButtonStyles(
+      state1.buttonHoverStyles as ButtonStyle,
+      state2.buttonHoverStyles as ButtonStyle
+    ) &&
+    equalButtonStyles(
+      state1.leftButtonStyles as ButtonStyle,
+      state2.leftButtonStyles as ButtonStyle
+    ) &&
+    equalButtonStyles(
+      state1.leftButtonHoverStyles as ButtonStyle,
+      state2.leftButtonHoverStyles as ButtonStyle
+    ) &&
+    equalButtonStyles(
+      state1.rightButtonStyles as ButtonStyle,
+      state2.rightButtonStyles as ButtonStyle
+    ) &&
+    equalButtonStyles(
+      state1.rightButtonHoverStyles as ButtonStyle,
+      state2.rightButtonHoverStyles as ButtonStyle
+    ) &&
     // Referential equality is sufficient for this property, since the
     // carouseItems array, when adding or removing items, is always replaced
     // with a new array.
