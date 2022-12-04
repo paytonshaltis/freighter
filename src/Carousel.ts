@@ -75,7 +75,7 @@ export default class Carousel {
    * the provided ID for the target div, passing along the carousel items for
    * later processing.
    * @param {string} carouselContainerId The ID of the target div. The carousel will be
-   * constructed, and elements will be added to the target div. The only elements
+   * constructed, and elements will be appended to the target div. The only elements
    * that should be in the target div are the items that wish to be inserted into
    * the carousel as carousel items.
    * @param {HTMLElement[]} carouselItemsFromState Optional parameter, the
@@ -91,7 +91,9 @@ export default class Carousel {
     const selectedContainer: HTMLElement | null =
       document.getElementById(carouselContainerId);
     if (!selectedContainer) {
-      throw new Error("Carousel container not found.");
+      throw new Error(
+        `Carousel container with ID ${carouselContainerId} not found.`
+      );
     }
 
     // Temporarily store the carousel items and clear the container.
@@ -100,17 +102,22 @@ export default class Carousel {
       : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
 
-    // Apply the appropriate class. The div's own ID and any other classes
-    // remain and won't be overwritten.
-    selectedContainer.classList.add("carousel-container");
+    // Create the carousel container and append it to the target div.
+    const carouselContainer: HTMLElement = document.createElement("div");
+    carouselContainer.id = `carousel-container-${this.carouselID}`;
+    selectedContainer.appendChild(carouselContainer);
+    console.log("Appended carousel container to target div.");
+
+    // Apply the appropriate class to the carousel container.
+    carouselContainer.classList.add("carousel-container");
 
     // Add the mouse enter and leave listeners to the carousel container.
     if (this.autoScrollPauseOnHover) {
-      selectedContainer.addEventListener(
+      carouselContainer.addEventListener(
         "mouseenter",
         this.containerMouseEnterListener
       );
-      selectedContainer.addEventListener(
+      carouselContainer.addEventListener(
         "mouseleave",
         this.containerMouseLeaveListener
       );
@@ -118,14 +125,14 @@ export default class Carousel {
 
     // Append the carousel item container wrapper to the carousel container.
     // Pass the carousel items to the carousel item container wrapper config.
-    selectedContainer.appendChild(
+    carouselContainer.appendChild(
       this.configureCarouselItemContainerWrapper(carouselItems)
     );
 
     // Return a reference to the generated carousel container, and indicate that
     // the carousel container has been configured.
     this.carouselContainerConfigured = true;
-    return selectedContainer;
+    return carouselContainer;
   }
 
   /**
@@ -1137,7 +1144,7 @@ export default class Carousel {
       buttonPosition: this.buttonPosition,
       numItemsVisible: this.numItemsVisible,
       scrollBy: this.originalScrollBy,
-      containerID: this.carouselContainer.id,
+      containerID: (this.carouselContainer.parentElement as HTMLElement).id,
       transitionDuration: this.transitionDuration,
       transitionDelay: this.transitionDelay,
       transitionTimingFunction: this.transitionTimingFunction,

@@ -53,7 +53,7 @@ const c3 = new CarouselManager({
   buttonWidth: "25px",
   buttonHeight: "75%",
   buttonPosition: "center",
-  numItemsVisible: 2,
+  numItemsVisible: 3,
   scrollBy: 2,
   containerID: "carousel-3",
   resizingMethod: "stretch-populate",
@@ -100,7 +100,6 @@ let carouselNumber: number = 3;
       carousel = c3;
       break;
   }
-  console.log("Adding " + amount + " items to index " + index);
   for (let i = 0; i < amount; i++) {
     let div = document.createElement("div");
     div.innerHTML = "New Item " + (index + i);
@@ -120,6 +119,5 @@ let carouselNumber: number = 3;
       carousel = c3;
       break;
   }
-  console.log("Removing " + amount + " items from index " + index);
   carousel?.removeCarouselItems(index, amount);
 };

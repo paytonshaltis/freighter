@@ -78,7 +78,7 @@ export default class CarouselManager {
     // has been initialized.
     if (this.populateResizeObserver) {
       this.populateResizeObserver.observe(
-        this.carousel.getCurrentState().carouselContainer
+        this.carousel.getCurrentState().carouselContainer.parentElement!
       );
       // Should also repopulate for the first time if using stretch-populate.
       this.recalculateCarouselPopulation();
@@ -130,7 +130,6 @@ export default class CarouselManager {
           state.leftCarouselPointer + state.numItemsVisible ===
           state.carouselItems.length
         ) {
-          console.log("moving bottom pointer back by one");
           state.leftCarouselPointer--;
         }
 
