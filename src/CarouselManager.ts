@@ -165,7 +165,6 @@ export default class CarouselManager {
    * CarouselManager to call this method directly.
    */
   private changeCarouselOptions(options: CarouselOptions): Carousel {
-    console.log(options);
     // Don't do anything if the options are the same as the current carousel.
     if (
       this.carousel &&

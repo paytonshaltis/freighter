@@ -557,6 +557,22 @@ export default class Carousel {
     // Other required styles.
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
+    // Add the SVG icon to the button.
+    carouselButton.innerHTML = `
+    <svg
+      height="85.999px"
+      width="46.001px"
+      fill="black"
+      style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;"
+      viewBox="0 0 46.001 85.999"
+    >
+      ${
+        direction === "right"
+          ? '<path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43 L1.003,80.094z"/>'
+          : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
+      }
+    </svg>`;
+
     // Set the static chevron colors.
     let fillColorStatic: string | undefined;
     if (this.buttonStyles.color) {
@@ -588,8 +604,6 @@ export default class Carousel {
     } else if (!fillColorHover) {
       fillColorHover = "rgba(50, 50, 50, 0.75)";
     }
-
-    console.log(fillColorStatic, fillColorHover);
 
     // Names for each style; used for looping.
     const styleNames: string[] = [
@@ -673,8 +687,8 @@ export default class Carousel {
         fillColorStatic as string
       );
     };
-    carouselButton.addEventListener("mouseleave", mouseLeaveListener);
     carouselButton.addEventListener("mouseenter", mouseEnterListener);
+    carouselButton.addEventListener("mouseleave", mouseLeaveListener);
 
     // Store the proper reference to the event listeners.
     if (direction === "left") {
@@ -774,21 +788,8 @@ export default class Carousel {
         ];
       }
 
-      // Apply the correct left or right arrow to the button.
-      carouselButton.innerHTML = `
-    <svg 
-      height="85.999px" 
-      width="46.001px"
-      fill="${fillColor}" 
-      style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;" 
-      viewBox="0 0 46.001 85.999"
-    >
-      ${
-        direction === "right"
-          ? '<path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43 L1.003,80.094z"/>'
-          : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
-      }
-    </svg>`;
+      // Apply the correct fill color to the button.
+      carouselButton.children[0].children[0].setAttribute("fill", fillColor);
     });
   }
 
