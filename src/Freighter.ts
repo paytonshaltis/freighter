@@ -22,6 +22,11 @@ export default class Freighter {
    * @param {CarouselOptions} options Carousel options to be passed to the Carousel constructor.
    */
   constructor(options: CarouselOptions) {
+    // Throw an error if the constructor is called with no options.
+    if (!options) {
+      throw new Error("Carousel options must be provided.");
+    }
+
     // Reassign the carousel member attribute to a new Carousel instance
     // with the updated options.
     this.populateResizeObserver = null;
