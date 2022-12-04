@@ -23,9 +23,7 @@ export function equalStates(
     state1.itemWidth === state2.itemWidth &&
     state1.itemHeight === state2.itemHeight &&
     state1.itemSpacing === state2.itemSpacing &&
-    state1.buttonWidth === state2.buttonWidth &&
-    state1.buttonHeight === state2.buttonHeight &&
-    state1.buttonPosition === state2.buttonPosition &&
+    // TODO check button styles.
     state1.numItemsVisible === state2.numItemsVisible &&
     state1.scrollBy === state2.scrollBy &&
     state1.transitionDuration === state2.transitionDuration &&

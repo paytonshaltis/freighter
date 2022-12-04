@@ -4,9 +4,6 @@ const c = new CarouselManager({
   itemWidth: 150,
   itemHeight: 75,
   itemSpacing: 10,
-  buttonWidth: "5vw",
-  buttonHeight: "75%",
-  buttonPosition: "top",
   numItemsVisible: 1,
   scrollBy: 2.0,
   containerID: "my-carousel",
@@ -27,9 +24,6 @@ const c2 = new CarouselManager({
   itemWidth: 150,
   itemHeight: 75,
   itemSpacing: 10,
-  buttonWidth: "20px",
-  buttonHeight: "75px",
-  buttonPosition: "top",
   numItemsVisible: 2,
   scrollBy: 1,
   containerID: "second-carousel",
@@ -50,8 +44,6 @@ const c3 = new CarouselManager({
   itemWidth: 200,
   itemHeight: 200,
   itemSpacing: 10,
-  buttonWidth: "20px",
-  buttonHeight: "75%",
   numItemsVisible: 4,
   scrollBy: 3,
   containerID: "third-carousel",
@@ -78,12 +70,9 @@ const kingCrimson = new CarouselManager({
 
 kingCrimson.setCarouselProperties({
   itemHeight: 1,
-  itemWidth: 2,
-  itemSpacing: 0,
-  buttonWidth: "5%",
-  buttonHeight: "75%",
-  buttonPosition: "bottom",
-  numItemsVisible: 4,
+  itemWidth: 1,
+  itemSpacing: 10,
+  numItemsVisible: 3,
   scrollBy: 3,
   transitionDuration: 1000,
   transitionDelay: 250,
@@ -94,6 +83,9 @@ kingCrimson.setCarouselProperties({
   autoScrollDirection: "right",
   autoScrollPauseOnHover: true,
   syncScrollWithVisibility: false,
+  buttonStyles: {
+    height: "135px",
+  },
 });
 
 document.querySelector("button#b1")?.addEventListener("click", () => {

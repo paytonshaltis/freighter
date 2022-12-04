@@ -1,3 +1,4 @@
+import ButtonStyle from "./types/ButtonStyle.type.js";
 import CarouselOptions from "./types/CarouselOptions.type.js";
 import CarouselState from "./types/CarouselState.type.js";
 
@@ -10,9 +11,6 @@ export default class Carousel {
   private itemWidth: number;
   private itemHeight: number;
   private itemSpacing: number;
-  private buttonWidth: string;
-  private buttonHeight: string;
-  private buttonPosition: "top" | "center" | "bottom";
   private numItemsVisible: number;
   private scrollBy: number;
   private itemAspectRatio: number;
@@ -28,6 +26,11 @@ export default class Carousel {
   private syncScrollWithVisibility: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
+  private buttonStyles: ButtonStyle;
+  private leftButtonStyles: ButtonStyle;
+  private leftButtonHoverStyles: ButtonStyle;
+  private rightButtonStyles: ButtonStyle;
+  private rightButtonHoverStyles: ButtonStyle;
 
   // Carousel internal DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -546,32 +549,121 @@ export default class Carousel {
         `.carousel-arrow-${direction}#carousel-arrow-${direction}-${this.carouselID}`
       ) as HTMLElement;
 
-    // Set the width and height of the carousel button based on the constructor.
-    carouselButton.style.width = this.buttonWidth;
-    carouselButton.style.height = this.buttonHeight;
+    // Set the common width and height of both buttons.
+    carouselButton.style.width =
+      this.buttonStyles.width !== undefined ? this.buttonStyles.width : "25px";
+    carouselButton.style.height =
+      this.buttonStyles.height !== undefined ? this.buttonStyles.height : "80%";
+
+    // Set the width and height for each button's overriden styles.
+    if (direction === "left" && this.leftButtonStyles.width !== undefined) {
+      carouselButton.style.width = this.leftButtonStyles.width;
+    } else if (
+      direction === "right" &&
+      this.rightButtonStyles.width !== undefined
+    ) {
+      carouselButton.style.width = this.rightButtonStyles.width;
+    }
+    if (direction === "left" && this.leftButtonStyles.height !== undefined) {
+      carouselButton.style.height = this.leftButtonStyles.height;
+    } else if (
+      direction === "right" &&
+      this.rightButtonStyles.height !== undefined
+    ) {
+      carouselButton.style.height = this.rightButtonStyles.height;
+    }
 
     // Other required styles.
-    carouselButton.style.cursor = "pointer";
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
-    // TODO: Apply other styles based on the constructor.
-    carouselButton.style.border = "none";
-    carouselButton.style.backgroundColor = "#555";
-    carouselButton.style.backgroundColor = "transparent";
-    carouselButton.style.opacity = "0.5";
-    carouselButton.innerHTML = `<img src="../../icons/chevron-${direction}.svg" style="max-width: 60%; max-height: 60%;" />`;
-    carouselButton.style.borderTopLeftRadius =
-      direction === "left" ? "0" : "5px";
-    carouselButton.style.borderTopRightRadius =
-      direction === "right" ? "0" : "5px";
-    carouselButton.style.borderBottomLeftRadius =
-      direction === "left" ? "0" : "5px";
-    carouselButton.style.borderBottomRightRadius =
-      direction === "right" ? "0" : "5px";
+    // Names for each style; used for looping.
+    const styleNames: string[] = [
+      "border",
+      "borderTop",
+      "borderBottom",
+      "borderLeft",
+      "borderRight",
+      "borderRadius",
+      "borderTopLeftRadius",
+      "borderTopRightRadius",
+      "borderBottomLeftRadius",
+      "borderBottomRightRadius",
+      "backgroundColor",
+      "cursor",
+    ];
+
+    // Default button styles.
+    const styleDefaults: string[] = [
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      "none",
+      direction === "right" ? "5px" : "none",
+      direction === "left" ? "5px" : "none",
+      direction === "right" ? "5px" : "none",
+      direction === "left" ? "5px" : "none",
+      "rgba(100, 100, 100, 0.5)",
+      "pointer",
+    ];
+
+    // Apply the styles common to both buttons.
+    styleNames.forEach((styleName, index) => {
+      carouselButton.style[styleName as any] = (this.buttonStyles as any)[
+        styleName
+      ]
+        ? (this.buttonStyles as any)[styleName]
+        : styleDefaults[index];
+    });
+
+    // Apply the correct left, right, or default styles to the button.
+    styleNames.forEach((styleName) => {
+      if (direction === "left" && (this.leftButtonStyles as any)[styleName]) {
+        carouselButton.style[styleName as any] = (this.leftButtonStyles as any)[
+          styleName
+        ];
+      } else if (
+        direction === "right" &&
+        (this.rightButtonStyles as any)[styleName]
+      ) {
+        carouselButton.style[styleName as any] = (
+          this.rightButtonStyles as any
+        )[styleName];
+      }
+    });
+
+    // Apply the correct left or right arrow to the button.
+    carouselButton.innerHTML = `
+        <svg 
+          height="85.999px" 
+          width="46.001px"
+          fill="${
+            direction === "left"
+              ? this.leftButtonStyles.color
+                ? this.leftButtonStyles.color
+                : "rgba(50, 50, 50, 0.8)"
+              : this.rightButtonStyles.color
+              ? this.rightButtonStyles.color
+              : "rgba(50, 50, 50, 0.8)"
+          }" 
+          style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;" 
+          viewBox="0 0 46.001 85.999"
+        >
+          ${
+            direction === "right"
+              ? '<path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43 L1.003,80.094z"/>'
+              : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
+          }
+        </svg>`;
 
     // Position the button based on the user's options.
     carouselButton.style.position = "absolute";
-    switch (this.buttonPosition) {
+    switch (
+      direction === "left"
+        ? this.leftButtonStyles.position
+        : this.rightButtonStyles.position
+    ) {
       case "top":
         carouselButton.style.top = "0";
         break;
@@ -695,11 +787,17 @@ export default class Carousel {
         this.resizeCarouselItemContainer();
 
         // Used to properly resize buttons when using percentages.
-        setTimeout(() => {
-          this.carouselContainer.style.height = `${parseFloat(
-            getComputedStyle(this.carouselItemContainer as HTMLElement).height
-          )}px`;
-        }, 0);
+        if (
+          this.buttonStyles.height?.includes("%") ||
+          this.leftButtonStyles.height?.includes("%") ||
+          this.rightButtonStyles.height?.includes("%")
+        ) {
+          setTimeout(() => {
+            this.carouselContainer.style.height = `${parseFloat(
+              getComputedStyle(this.carouselItemContainer as HTMLElement).height
+            )}px`;
+          }, 0);
+        }
       }, 0);
     }, 0);
   }
@@ -733,12 +831,20 @@ export default class Carousel {
     this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 1;
     this.itemSpacing =
       options.itemSpacing !== undefined ? options.itemSpacing : 0;
-    this.buttonWidth =
-      options.buttonWidth !== undefined ? options.buttonWidth : "25px";
-    this.buttonHeight =
-      options.buttonHeight !== undefined ? options.buttonHeight : "100%";
-    this.buttonPosition =
-      options.buttonPosition !== undefined ? options.buttonPosition : "center";
+    this.buttonStyles =
+      options.buttonStyles !== undefined ? options.buttonStyles : {};
+    this.leftButtonStyles =
+      options.leftButtonStyles !== undefined ? options.leftButtonStyles : {};
+    this.leftButtonHoverStyles =
+      options.leftButtonHoverStyles !== undefined
+        ? options.leftButtonHoverStyles
+        : {};
+    this.rightButtonStyles =
+      options.rightButtonStyles !== undefined ? options.rightButtonStyles : {};
+    this.rightButtonHoverStyles =
+      options.rightButtonHoverStyles !== undefined
+        ? options.rightButtonHoverStyles
+        : {};
     this.scrollable =
       options.scrollable !== undefined ? options.scrollable : true;
     this.autoScroll =
@@ -1080,6 +1186,7 @@ export default class Carousel {
       );
       maxHeight = 0;
     }
+    console.log(maxHeight);
     this.carouselContainer.style.height = `${maxHeight}px`;
   }
 
@@ -1217,9 +1324,10 @@ export default class Carousel {
       itemWidth: this.originalItemWidth,
       itemHeight: this.originalItemHeight,
       itemSpacing: this.itemSpacing,
-      buttonWidth: this.buttonWidth,
-      buttonHeight: this.buttonHeight,
-      buttonPosition: this.buttonPosition,
+      leftButtonStyles: this.leftButtonStyles,
+      leftButtonHoverStyles: this.leftButtonHoverStyles,
+      rightButtonStyles: this.rightButtonStyles,
+      rightButtonHoverStyles: this.rightButtonHoverStyles,
       numItemsVisible: this.numItemsVisible,
       scrollBy: this.originalScrollBy,
       containerID: (this.carouselContainer.parentElement as HTMLElement).id,
