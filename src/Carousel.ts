@@ -1,3 +1,4 @@
+import ButtonStyle from "./types/ButtonStyle.type.js";
 import CarouselOptions from "./types/CarouselOptions.type.js";
 import CarouselState from "./types/CarouselState.type.js";
 
@@ -10,9 +11,6 @@ export default class Carousel {
   private itemWidth: number;
   private itemHeight: number;
   private itemSpacing: number;
-  private buttonWidth: string;
-  private buttonHeight: string;
-  private buttonPosition: "top" | "center" | "bottom";
   private numItemsVisible: number;
   private scrollBy: number;
   private itemAspectRatio: number;
@@ -23,11 +21,17 @@ export default class Carousel {
   private scrollable: boolean;
   private autoScroll: boolean;
   private autoScrollInterval: number;
-  private autoScrollDirection: "left" | "right";
+  private autoScrollDirection: "left" | "right" | undefined;
   private autoScrollPauseOnHover: boolean;
   private syncScrollWithVisibility: boolean;
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
+  private buttonStyles: ButtonStyle;
+  private buttonHoverStyles: ButtonStyle;
+  private leftButtonStyles: ButtonStyle;
+  private leftButtonHoverStyles: ButtonStyle;
+  private rightButtonStyles: ButtonStyle;
+  private rightButtonHoverStyles: ButtonStyle;
 
   // Carousel internal DOM element attributes.
   private carouselContainer: HTMLElement;
@@ -57,6 +61,10 @@ export default class Carousel {
   private transitionEndEventListener: EventListener = (event: Event) => {};
   private leftButtonClickListener: EventListener = (event: Event) => {};
   private rightButtonClickListener: EventListener = (event: Event) => {};
+  private leftButtonMouseEnterListener = (event: Event): void => {};
+  private leftButtonMouseLeaveListener = (event: Event): void => {};
+  private rightButtonMouseEnterListener = (event: Event): void => {};
+  private rightButtonMouseLeaveListener = (event: Event): void => {};
   private containerMouseEnterListener: EventListener = (event: Event) => {
     this.isHovering = true;
     clearTimeout(this.autoScrollTimeout);
@@ -75,7 +83,7 @@ export default class Carousel {
    * the provided ID for the target div, passing along the carousel items for
    * later processing.
    * @param {string} carouselContainerId The ID of the target div. The carousel will be
-   * constructed, and elements will be added to the target div. The only elements
+   * constructed, and elements will be appended to the target div. The only elements
    * that should be in the target div are the items that wish to be inserted into
    * the carousel as carousel items.
    * @param {HTMLElement[]} carouselItemsFromState Optional parameter, the
@@ -91,7 +99,9 @@ export default class Carousel {
     const selectedContainer: HTMLElement | null =
       document.getElementById(carouselContainerId);
     if (!selectedContainer) {
-      throw new Error("Carousel container not found.");
+      throw new Error(
+        `Carousel container with ID ${carouselContainerId} not found.`
+      );
     }
 
     // Temporarily store the carousel items and clear the container.
@@ -100,17 +110,21 @@ export default class Carousel {
       : (Array.from(selectedContainer.children) as HTMLElement[]);
     selectedContainer.innerHTML = "";
 
-    // Apply the appropriate class. The div's own ID and any other classes
-    // remain and won't be overwritten.
-    selectedContainer.classList.add("carousel-container");
+    // Create the carousel container and append it to the target div.
+    const carouselContainer: HTMLElement = document.createElement("div");
+    carouselContainer.id = `freighter-carousel-container-${this.carouselID}`;
+    selectedContainer.appendChild(carouselContainer);
+
+    // Apply the appropriate class to the carousel container.
+    carouselContainer.classList.add("freighter-carousel-container");
 
     // Add the mouse enter and leave listeners to the carousel container.
     if (this.autoScrollPauseOnHover) {
-      selectedContainer.addEventListener(
+      carouselContainer.addEventListener(
         "mouseenter",
         this.containerMouseEnterListener
       );
-      selectedContainer.addEventListener(
+      carouselContainer.addEventListener(
         "mouseleave",
         this.containerMouseLeaveListener
       );
@@ -118,14 +132,14 @@ export default class Carousel {
 
     // Append the carousel item container wrapper to the carousel container.
     // Pass the carousel items to the carousel item container wrapper config.
-    selectedContainer.appendChild(
+    carouselContainer.appendChild(
       this.configureCarouselItemContainerWrapper(carouselItems)
     );
 
     // Return a reference to the generated carousel container, and indicate that
     // the carousel container has been configured.
     this.carouselContainerConfigured = true;
-    return selectedContainer;
+    return carouselContainer;
   }
 
   /**
@@ -144,9 +158,9 @@ export default class Carousel {
 
     // Apply the appropriate class and ID based on the carousel ID.
     carouselItemContainerWrapper.classList.add(
-      "carousel-item-container-wrapper"
+      "freighter-carousel-item-container-wrapper"
     );
-    carouselItemContainerWrapper.id = `carousel-item-container-wrapper-${this.carouselID}`;
+    carouselItemContainerWrapper.id = `freighter-carousel-item-container-wrapper-${this.carouselID}`;
 
     // Add the carousel item container to the carousel item container wrapper.
     // Pass the carousel items to the carousel item container config.
@@ -172,8 +186,8 @@ export default class Carousel {
     const carouselItemContainer: HTMLElement = document.createElement("div");
 
     // Apply the appropriate class and id based on the carousel ID.
-    carouselItemContainer.classList.add("carousel-item-container");
-    carouselItemContainer.id = `carousel-item-container-${this.carouselID}`;
+    carouselItemContainer.classList.add("freighter-carousel-item-container");
+    carouselItemContainer.id = `freighter-carousel-item-container-${this.carouselID}`;
 
     // Add the carousel items to the carousel item container. They are added in the
     // same order, and will be processed later.
@@ -253,8 +267,8 @@ export default class Carousel {
     const button: HTMLElement = document.createElement("button");
 
     // Apply the appropriate class and id based on the carousel ID.
-    button.classList.add(`carousel-arrow-${direction}`);
-    button.id = `carousel-arrow-${direction}-${this.carouselID}`;
+    button.classList.add(`freighter-carousel-arrow-${direction}`);
+    button.id = `freighter-carousel-arrow-${direction}-${this.carouselID}`;
 
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
@@ -262,6 +276,16 @@ export default class Carousel {
         if (!this.isScrolling && this.scrollable && this.canScrollLeft) {
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
+
+          // For bezier transitions, the dummy items need to be hidden as
+          // to insinuate that the carousel cannot be scrolled if the
+          // wrapping method is none.
+          const hideDummies =
+            this.usingBezierTransition &&
+            this.wrappingMethod === "none" &&
+            !this.canScrollRight
+              ? true
+              : false;
 
           // Reposition the pointers.
           this.prevScroll = "left";
@@ -284,7 +308,13 @@ export default class Carousel {
             this.usingBezierTransition
           );
           nextItems.forEach((item) => {
-            item.classList.add("dummy");
+            item.classList.add("frieght-carousel-item-dummy");
+
+            // If we are using the bezier transition, and the wrap method is
+            // none, the dummy items should be hidden.
+            if (hideDummies) {
+              item.style.visibility = "hidden";
+            }
           });
           this.carouselItemContainer.append(...nextItems);
 
@@ -305,6 +335,16 @@ export default class Carousel {
           while (this.rightCarouselPointer >= this.allItems.length) {
             this.rightCarouselPointer -= this.allItems.length;
           }
+
+          // For bezier transitions, the dummy items need to be hidden as
+          // to insinuate that the carousel cannot be scrolled if the
+          // wrapping method is none.
+          const hideDummies =
+            this.usingBezierTransition &&
+            this.wrappingMethod === "none" &&
+            !this.canScrollLeft
+              ? true
+              : false;
 
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
@@ -330,7 +370,13 @@ export default class Carousel {
             this.usingBezierTransition
           );
           prevItems.forEach((item) => {
-            item.classList.add("dummy");
+            item.classList.add("frieght-carousel-item-dummy");
+
+            // If we are using the bezier transition, and the wrap method is
+            // none, the dummy items should be hidden.
+            if (hideDummies) {
+              item.style.visibility = "hidden";
+            }
           });
           this.carouselItemContainer.prepend(...prevItems);
 
@@ -370,16 +416,35 @@ export default class Carousel {
       this.carouselItemContainer.children
     ) as HTMLElement[];
 
-    // Apply the appropriate class and id to each carousel item.
-    carouselItems.forEach((carouselItem, index) => {
-      carouselItem.classList.add("carousel-item");
-      carouselItem.id = `carousel-item-${this.carouselID}-${index}`;
+    // If we are restoring from state, need to unwrap each item from
+    // its previouse carouselItem container.
+    let updatedCarouselItems: HTMLElement[] = [];
+    carouselItems.forEach((item) => {
+      if (item.classList.contains("freighter-carousel-item")) {
+        updatedCarouselItems.push(item.children[0] as HTMLElement);
+      } else {
+        updatedCarouselItems.push(item);
+      }
+    });
+
+    // Create a new div, apply the appropriate class and id, and append
+    // the actual content to each carousel item.
+    const newCarouselItems: HTMLElement[] = [];
+    updatedCarouselItems.forEach((carouselItem, index) => {
+      // Create the new div.
+      const newDiv = document.createElement("div");
+      newDiv.classList.add("freighter-carousel-item");
+      newDiv.id = `freighter-carousel-item-${this.carouselID}-${index}`;
+
+      // Append the actual content to the new div.
+      newDiv.append(carouselItem);
+      newCarouselItems.push(newDiv);
     });
 
     // Return the array of carousel items, and indicates that the carousel
     // container has been configured.
     this.carouselItemsConfigured = true;
-    return carouselItems;
+    return newCarouselItems;
   }
 
   /**
@@ -416,6 +481,8 @@ export default class Carousel {
     // The width of the main container is dependend on the resize mode.
     this.carouselContainer.style.width =
       this.resizingMethod === "none" ? "fit-content" : "100%";
+    this.carouselContainer.style.margin =
+      this.resizingMethod === "none" ? "0 auto" : "0";
 
     // The position should be relative to allow for the absolute positioning of
     // the carousel control buttons.
@@ -433,7 +500,7 @@ export default class Carousel {
     // Get the carousel item container wrapper from the carousel container.
     const carouselItemContainerWrapper: HTMLElement | null =
       this.carouselContainer.querySelector(
-        `.carousel-item-container-wrapper#carousel-item-container-wrapper-${this.carouselID}`
+        `.freighter-carousel-item-container-wrapper#freighter-carousel-item-container-wrapper-${this.carouselID}`
       ) as HTMLElement;
 
     // Hide the overflow so that next and dummy items are not visible.
@@ -448,7 +515,7 @@ export default class Carousel {
     // Get the carousel item container from the carousel container.
     const carouselItemContainer: HTMLElement | null =
       this.carouselContainer.querySelector(
-        `.carousel-item-container#carousel-item-container-${this.carouselID}`
+        `.freighter-carousel-item-container#freighter-carousel-item-container-${this.carouselID}`
       ) as HTMLElement;
 
     // Display flex to appropriately space out the carousel items.
@@ -479,13 +546,15 @@ export default class Carousel {
     this.allItems.forEach((carouselItem) => {
       // Set the width and height of the carousel items based on the constructor.
       carouselItem.style.width = `${this.itemWidth}px`;
-      carouselItem.style.height = `${this.itemHeight}px`;
+
+      // Source of adding and removing item flashing. Stretch-scale doesn't need
+      // to set an explicit height; the aspect ratio will be preserved.
+      if (this.resizingMethod !== "stretch-scale") {
+        carouselItem.style.height = `${this.itemHeight}px`;
+      }
 
       // The carousel items should by default not be allowed to shrink.
       carouselItem.style.flexShrink = "0";
-
-      // TODO: Apply other styles based on the constructor.
-      carouselItem.style.backgroundColor = "#fff";
     });
   }
 
@@ -498,25 +567,161 @@ export default class Carousel {
     // Get the carousel button from the carousel container.
     const carouselButton: HTMLElement | null =
       this.carouselContainer.querySelector(
-        `.carousel-arrow-${direction}#carousel-arrow-${direction}-${this.carouselID}`
+        `.freighter-carousel-arrow-${direction}#freighter-carousel-arrow-${direction}-${this.carouselID}`
       ) as HTMLElement;
 
-    // Set the width and height of the carousel button based on the constructor.
-    carouselButton.style.width = this.buttonWidth;
-    carouselButton.style.height = this.buttonHeight;
-
     // Other required styles.
-    carouselButton.style.cursor = "pointer";
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
-    // TODO: Apply other styles based on the constructor.
-    carouselButton.style.border = "none";
-    carouselButton.style.backgroundColor = "#555";
-    carouselButton.style.opacity = "0.5";
+    // Add the SVG icon to the button.
+    carouselButton.innerHTML = `
+    <svg
+      height="85.999px"
+      width="46.001px"
+      fill="black"
+      style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;"
+      viewBox="0 0 46.001 85.999"
+    >
+      ${
+        direction === "right"
+          ? '<path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43 L1.003,80.094z"/>'
+          : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
+      }
+    </svg>`;
+
+    // Set the static chevron colors.
+    let fillColorStatic: string | undefined;
+    if (this.buttonStyles.color) {
+      fillColorStatic = this.buttonStyles.color;
+    }
+    if (direction === "left" && this.leftButtonStyles.color) {
+      fillColorStatic = this.leftButtonStyles.color;
+    } else if (!fillColorStatic) {
+      fillColorStatic = "rgba(50, 50, 50, 0.75)";
+    }
+    if (direction === "right" && this.rightButtonStyles.color) {
+      fillColorStatic = this.rightButtonStyles.color;
+    } else if (!fillColorStatic) {
+      fillColorStatic = "rgba(50, 50, 50, 0.75)";
+    }
+
+    // Set the hover chevron colors.
+    let fillColorHover: string | undefined;
+    if (this.buttonHoverStyles.color) {
+      fillColorHover = this.buttonHoverStyles.color;
+    }
+    if (direction === "left" && this.leftButtonHoverStyles.color) {
+      fillColorHover = this.leftButtonHoverStyles.color;
+    } else if (!fillColorHover) {
+      fillColorHover = "rgba(50, 50, 50, 0.75)";
+    }
+    if (direction === "right" && this.rightButtonHoverStyles.color) {
+      fillColorHover = this.rightButtonHoverStyles.color;
+    } else if (!fillColorHover) {
+      fillColorHover = "rgba(50, 50, 50, 0.75)";
+    }
+
+    // Names for each style; used for looping.
+    const styleNames: string[] = [
+      "borderTop",
+      "borderBottom",
+      "borderLeft",
+      "borderRight",
+      "borderTopLeftRadius",
+      "borderTopRightRadius",
+      "borderBottomLeftRadius",
+      "borderBottomRightRadius",
+      "backgroundColor",
+      "cursor",
+      "transition",
+    ];
+
+    // Default button styles.
+    const staticDefaults: string[] = [
+      "none",
+      "none",
+      "none",
+      "none",
+      direction === "right" ? "5px" : "0px",
+      direction === "left" ? "5px" : "0px",
+      direction === "right" ? "5px" : "0px",
+      direction === "left" ? "5px" : "0px",
+      "rgba(100, 100, 100, 0.5)",
+      "pointer",
+      "all 200ms ease",
+    ];
+
+    // Default button styles.
+    const hoverDefaults: string[] = [
+      "none",
+      "none",
+      "none",
+      "none",
+      direction === "right" ? "5px" : "0px",
+      direction === "left" ? "5px" : "0px",
+      direction === "right" ? "5px" : "0px",
+      direction === "left" ? "5px" : "0px",
+      "rgba(100, 100, 100, 0.8)",
+      "pointer",
+      "all 200ms ease",
+    ];
+
+    // Apply the static button styles.
+    this.applyMassButtonStyles(
+      carouselButton as HTMLButtonElement,
+      direction,
+      styleNames,
+      staticDefaults,
+      this.buttonStyles,
+      this.leftButtonStyles,
+      this.rightButtonStyles,
+      fillColorStatic
+    );
+
+    // Set the hover styles for the button.
+    const mouseEnterListener = () => {
+      this.applyMassButtonStyles(
+        carouselButton as HTMLButtonElement,
+        direction,
+        styleNames,
+        hoverDefaults,
+        this.buttonHoverStyles,
+        this.leftButtonHoverStyles,
+        this.rightButtonHoverStyles,
+        fillColorHover as string
+      );
+    };
+    const mouseLeaveListener = () => {
+      this.applyMassButtonStyles(
+        carouselButton as HTMLButtonElement,
+        direction,
+        styleNames,
+        staticDefaults,
+        this.buttonStyles,
+        this.leftButtonStyles,
+        this.rightButtonStyles,
+        fillColorStatic as string
+      );
+    };
+    carouselButton.addEventListener("mouseenter", mouseEnterListener);
+    carouselButton.addEventListener("mouseleave", mouseLeaveListener);
+
+    // Store the proper reference to the event listeners.
+    if (direction === "left") {
+      this.leftButtonMouseEnterListener = mouseEnterListener;
+      this.leftButtonMouseLeaveListener = mouseLeaveListener;
+    } else {
+      this.rightButtonMouseEnterListener = mouseEnterListener;
+      this.rightButtonMouseLeaveListener = mouseLeaveListener;
+    }
 
     // Position the button based on the user's options.
     carouselButton.style.position = "absolute";
-    switch (this.buttonPosition) {
+    switch (
+      direction === "left"
+        ? this.leftButtonStyles.position
+        : this.rightButtonStyles.position
+    ) {
       case "top":
         carouselButton.style.top = "0";
         break;
@@ -534,6 +739,74 @@ export default class Carousel {
     if (direction === "right") {
       carouselButton.style.right = "0";
     }
+  }
+
+  /**
+   * Applies the button styles en masse. These styles change as the user hovers
+   * over the buttons, and each may need to have different styles applied
+   * appropriately.
+   * @param {HTMLButtonElement} carouselButton The button to apply the styles to.
+   * @param {string} direction The direction of the button.
+   * @param {string[]} styleNames The names of the styles to apply.
+   * @param {string[]} values The values of the styles to apply.
+   * @returns {void} Nothing.
+   */
+  private applyMassButtonStyles(
+    carouselButton: HTMLButtonElement,
+    direction: string,
+    styleNames: string[],
+    defaultValues: string[],
+    buttonStyles: ButtonStyle,
+    leftButtonStyles: ButtonStyle,
+    rightButtonStyles: ButtonStyle,
+    fillColor: string
+  ): void {
+    // Set the common width and height of both buttons.
+    carouselButton.style.width =
+      buttonStyles.width !== undefined ? buttonStyles.width : "25px";
+    carouselButton.style.height =
+      buttonStyles.height !== undefined ? buttonStyles.height : "80%";
+
+    // Set the width and height for each button's overriden styles.
+    if (direction === "left" && leftButtonStyles.width !== undefined) {
+      carouselButton.style.width = leftButtonStyles.width;
+    } else if (direction === "right" && rightButtonStyles.width !== undefined) {
+      carouselButton.style.width = rightButtonStyles.width;
+    }
+    if (direction === "left" && leftButtonStyles.height !== undefined) {
+      carouselButton.style.height = leftButtonStyles.height;
+    } else if (
+      direction === "right" &&
+      rightButtonStyles.height !== undefined
+    ) {
+      carouselButton.style.height = rightButtonStyles.height;
+    }
+
+    // Apply the styles common to both buttons.
+    styleNames.forEach((styleName, index) => {
+      carouselButton.style[styleName as any] = (buttonStyles as any)[styleName]
+        ? (buttonStyles as any)[styleName]
+        : defaultValues[index];
+    });
+
+    // Apply the correct left, right, or default styles to the button.
+    styleNames.forEach((styleName) => {
+      if (direction === "left" && (leftButtonStyles as any)[styleName]) {
+        carouselButton.style[styleName as any] = (leftButtonStyles as any)[
+          styleName
+        ];
+      } else if (
+        direction === "right" &&
+        (rightButtonStyles as any)[styleName]
+      ) {
+        carouselButton.style[styleName as any] = (rightButtonStyles as any)[
+          styleName
+        ];
+      }
+
+      // Apply the correct fill color to the button.
+      carouselButton.children[0].children[0].setAttribute("fill", fillColor);
+    });
   }
 
   /**
@@ -638,6 +911,19 @@ export default class Carousel {
       setTimeout(() => {
         // Check for height changes and resize the carousel item container.
         this.resizeCarouselItemContainer();
+
+        // Used to properly resize buttons when using percentages.
+        if (
+          this.buttonStyles.height?.includes("%") ||
+          this.leftButtonStyles.height?.includes("%") ||
+          this.rightButtonStyles.height?.includes("%")
+        ) {
+          setTimeout(() => {
+            this.carouselContainer.style.height = `${parseFloat(
+              getComputedStyle(this.carouselItemContainer as HTMLElement).height
+            )}px`;
+          }, 0);
+        }
       }, 0);
     }, 0);
   }
@@ -659,34 +945,72 @@ export default class Carousel {
     const constructFromState =
       (options as CarouselState).carouselID !== undefined;
 
-    // Initialize all class attributes.
-    this.itemWidth = options.itemWidth;
-    this.itemHeight = options.itemHeight;
-    this.itemSpacing = options.itemSpacing;
-    this.buttonWidth = options.buttonWidth;
-    this.buttonHeight = options.buttonHeight;
-    this.buttonPosition = options.buttonPosition;
-    this.numItemsVisible = options.numItemsVisible;
-    this.scrollBy = options.scrollBy;
+    // Initialize the required class attributes.
     this.resizingMethod =
       options.resizingMethod === "stretch-populate"
         ? "stretch-gap"
         : options.resizingMethod;
-    this.autoScroll = options.autoScroll;
-    this.autoScrollInterval = options.autoScrollInterval;
-    this.autoScrollDirection = options.autoScrollDirection;
-    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover;
-    this.syncScrollWithVisibility = options.syncScrollWithVisibility;
-    this.transitionDuration = options.transitionDuration || 500;
-    this.transitionDelay = options.transitionDelay || 0;
-    this.transitionTimingFunction =
-      options.transitionTimingFunction || "ease-in-out";
     this.wrappingMethod = options.wrappingMethod;
+
+    // Initialize the optional class attributes.
+    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 1;
+    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 1;
+    this.itemSpacing =
+      options.itemSpacing !== undefined ? options.itemSpacing : 0;
+    this.buttonStyles =
+      options.buttonStyles !== undefined ? options.buttonStyles : {};
+    this.buttonHoverStyles =
+      options.buttonHoverStyles !== undefined ? options.buttonHoverStyles : {};
+    this.leftButtonStyles =
+      options.leftButtonStyles !== undefined ? options.leftButtonStyles : {};
+    this.leftButtonHoverStyles =
+      options.leftButtonHoverStyles !== undefined
+        ? options.leftButtonHoverStyles
+        : {};
+    this.rightButtonStyles =
+      options.rightButtonStyles !== undefined ? options.rightButtonStyles : {};
+    this.rightButtonHoverStyles =
+      options.rightButtonHoverStyles !== undefined
+        ? options.rightButtonHoverStyles
+        : {};
+    this.scrollable =
+      options.scrollable !== undefined ? options.scrollable : true;
+    this.autoScroll =
+      options.autoScroll !== undefined ? options.autoScroll : false;
+    this.autoScrollInterval =
+      options.autoScrollInterval !== undefined
+        ? options.autoScrollInterval
+        : 1000;
+    this.autoScrollDirection =
+      options.autoScrollInterval !== undefined
+        ? options.autoScrollDirection
+        : "right";
+    this.autoScrollPauseOnHover = options.autoScrollPauseOnHover
+      ? options.autoScrollPauseOnHover
+      : false;
+    this.scrollBy = options.scrollBy !== undefined ? options.scrollBy : 1;
+    this.numItemsVisible =
+      options.numItemsVisible !== undefined ? options.numItemsVisible : 1;
+    this.syncScrollWithVisibility =
+      options.syncScrollWithVisibility !== undefined
+        ? options.syncScrollWithVisibility
+        : false;
+    this.transitionDuration =
+      options.transitionDuration !== undefined
+        ? options.transitionDuration
+        : 500;
+    this.transitionDelay =
+      options.transitionDelay !== undefined ? options.transitionDelay : 0;
+    this.transitionTimingFunction =
+      options.transitionTimingFunction !== undefined
+        ? options.transitionTimingFunction
+        : "ease-in-out";
     this.transition = `transform 
-      ${this.transitionDuration}ms 
-      ${this.transitionTimingFunction} 
-      ${this.transitionDelay}ms`;
-    this.scrollable = options.scrollable;
+        ${this.transitionDuration}ms 
+        ${this.transitionTimingFunction} 
+        ${this.transitionDelay}ms`;
+
+    // Initialize the carousel internal data.
     this.itemAspectRatio = this.itemHeight / this.itemWidth;
     this.originalItemHeight = this.itemHeight;
     this.originalItemWidth = this.itemWidth;
@@ -892,8 +1216,8 @@ export default class Carousel {
       // If wrap method is "none", just add a blank div with correct dimensions.
       if (this.wrappingMethod == "none" && timesWrapped > 0) {
         const dummyItem = document.createElement("div");
-        dummyItem.classList.add("carousel-item");
-        dummyItem.classList.add("dummy");
+        dummyItem.classList.add("freighter-carousel-item");
+        dummyItem.classList.add("frieght-carousel-item-dummy");
         dummyItem.style.width = `${this.itemWidth}px`;
         dummyItem.style.height = `${this.itemHeight}px`;
         activeCarouselItems.push(dummyItem);
@@ -970,9 +1294,9 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   public resizeCarouselItemContainer(): void {
-    // The height of the main container is the max of the button height and the
-    // carousel item container height.
-    let maxHeight;
+    // The height of the main container is the max of the left button height, the
+    // right button height, and the carousel item container height.
+    let maxHeight: number;
     try {
       maxHeight = Math.max(
         parseFloat(
@@ -981,6 +1305,10 @@ export default class Carousel {
         ),
         parseFloat(
           getComputedStyle(this.carouselItemContainer as HTMLElement).height
+        ),
+        parseFloat(
+          getComputedStyle(this.carouselContainer.children[2] as HTMLElement)
+            .height
         )
       );
     } catch (error) {
@@ -1127,12 +1455,15 @@ export default class Carousel {
       itemWidth: this.originalItemWidth,
       itemHeight: this.originalItemHeight,
       itemSpacing: this.itemSpacing,
-      buttonWidth: this.buttonWidth,
-      buttonHeight: this.buttonHeight,
-      buttonPosition: this.buttonPosition,
+      buttonStyles: this.buttonStyles,
+      buttonHoverStyles: this.buttonHoverStyles,
+      leftButtonStyles: this.leftButtonStyles,
+      leftButtonHoverStyles: this.leftButtonHoverStyles,
+      rightButtonStyles: this.rightButtonStyles,
+      rightButtonHoverStyles: this.rightButtonHoverStyles,
       numItemsVisible: this.numItemsVisible,
       scrollBy: this.originalScrollBy,
-      containerID: this.carouselContainer.id,
+      containerID: (this.carouselContainer.parentElement as HTMLElement).id,
       transitionDuration: this.transitionDuration,
       transitionDelay: this.transitionDelay,
       transitionTimingFunction: this.transitionTimingFunction,
@@ -1205,6 +1536,31 @@ export default class Carousel {
     } catch (error) {
       console.log(
         "Tried removing event listeners from carousel container, caught the following exception:",
+        error
+      );
+    }
+
+    // Remove the mouse enter and leave events from the carousel buttons.
+    try {
+      this.carouselContainer.children[0].removeEventListener(
+        "mouseenter",
+        this.leftButtonMouseEnterListener
+      );
+      this.carouselContainer.children[0].removeEventListener(
+        "mouseleave",
+        this.leftButtonMouseLeaveListener
+      );
+      this.carouselContainer.children[2].removeEventListener(
+        "mouseenter",
+        this.rightButtonMouseEnterListener
+      );
+      this.carouselContainer.children[2].removeEventListener(
+        "mouseleave",
+        this.rightButtonMouseLeaveListener
+      );
+    } catch (error) {
+      console.log(
+        "Tried removing event listeners from carousel buttons, caught the following exception:",
         error
       );
     }
