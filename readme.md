@@ -1,4 +1,6 @@
-# _|<| ing Carousel Wrapp |>|_
+# freighter.js
+
+A highly customizable carousel library for the web.
 
 ## Changing Carousel Properties
 

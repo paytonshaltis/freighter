@@ -11,7 +11,7 @@ import CarouselState, { equalStates } from "./types/CarouselState.type.js";
  * a single member attribute, the Carousel instance itself, whose reference
  * may freely change.
  */
-export default class CarouselManager {
+export default class Freighter {
   private carousel: Carousel;
   private populateResizeObserver: ResizeObserver | null;
 
