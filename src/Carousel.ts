@@ -47,6 +47,7 @@ export default class Carousel {
   private usingBezierTransition: boolean;
   private currentScrollBy: number;
   private isHovering: boolean = false;
+  private usingButtonPercents: boolean;
 
   // Maintain some original state for the carousel.
   private originalItemHeight: number;
@@ -651,6 +652,12 @@ export default class Carousel {
       setTimeout(() => {
         // Check for height changes and resize the carousel item container.
         this.resizeCarouselItemContainer();
+
+        setTimeout(() => {
+          this.carouselContainer.style.height = `${parseFloat(
+            getComputedStyle(this.carouselItemContainer as HTMLElement).height
+          )}px`;
+        }, 0);
       }, 0);
     }, 0);
   }
@@ -687,7 +694,7 @@ export default class Carousel {
     this.buttonWidth =
       options.buttonWidth !== undefined ? options.buttonWidth : "25px";
     this.buttonHeight =
-      options.buttonHeight !== undefined ? options.buttonHeight : "25px";
+      options.buttonHeight !== undefined ? options.buttonHeight : "100%";
     this.buttonPosition =
       options.buttonPosition !== undefined ? options.buttonPosition : "center";
     this.scrollable =
@@ -732,6 +739,10 @@ export default class Carousel {
     this.originalItemHeight = this.itemHeight;
     this.originalItemWidth = this.itemWidth;
     this.originalScrollBy = this.scrollBy;
+
+    // If the carousel is using buttons that are sized as a percentage
+    // of the carousel container, switch on a flag.
+    this.usingButtonPercents = this.buttonWidth.includes("%");
 
     // The current amount to scroll should default to the user's indicated amount.
     // If the user wants to sync the scroll amount with the number of items visible,
@@ -1013,23 +1024,31 @@ export default class Carousel {
   public resizeCarouselItemContainer(): void {
     // The height of the main container is the max of the button height and the
     // carousel item container height.
-    let maxHeight;
-    try {
-      maxHeight = Math.max(
-        parseFloat(
-          getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
-            .height
-        ),
-        parseFloat(
-          getComputedStyle(this.carouselItemContainer as HTMLElement).height
-        )
+    let maxHeight: number;
+
+    // Only try getting the max height if the buttons are not using percentages.
+    if (!this.usingButtonPercents) {
+      try {
+        maxHeight = Math.max(
+          parseFloat(
+            getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
+              .height
+          ),
+          parseFloat(
+            getComputedStyle(this.carouselItemContainer as HTMLElement).height
+          )
+        );
+      } catch (error) {
+        console.log(
+          "Tried getting the computed style of a carousel item, caught the following exception:",
+          error
+        );
+        maxHeight = 0;
+      }
+    } else {
+      maxHeight = parseFloat(
+        getComputedStyle(this.carouselItemContainer as HTMLElement).height
       );
-    } catch (error) {
-      console.log(
-        "Tried getting the computed style of a carousel item, caught the following exception:",
-        error
-      );
-      maxHeight = 0;
     }
     this.carouselContainer.style.height = `${maxHeight}px`;
   }

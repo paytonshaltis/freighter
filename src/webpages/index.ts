@@ -70,26 +70,17 @@ const c3 = new CarouselManager({
 });
 
 const kingCrimson = new CarouselManager({
-  itemWidth: 200,
-  itemHeight: 200,
+  itemWidth: 1,
+  itemHeight: 1,
+  numItemsVisible: 3,
   itemSpacing: 25,
-  buttonWidth: "20px",
-  buttonHeight: "250px",
-  buttonPosition: "center",
-  numItemsVisible: 1,
   scrollBy: 1,
   containerID: "king-crimson",
   resizingMethod: "stretch-scale",
   transitionDuration: 500,
   transitionDelay: 0,
   transitionTimingFunction: "ease",
-  scrollable: false,
   wrappingMethod: "none",
-  autoScroll: false,
-  autoScrollInterval: 1000,
-  autoScrollDirection: "right",
-  autoScrollPauseOnHover: true,
-  syncScrollWithVisibility: false,
 });
 
 document.querySelector("button#b1")?.addEventListener("click", () => {
