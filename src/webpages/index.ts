@@ -30,7 +30,7 @@ const c2 = new CarouselManager({
   buttonWidth: "20px",
   buttonHeight: "75px",
   buttonPosition: "top",
-  numItemsVisible: 4,
+  numItemsVisible: 2,
   scrollBy: 1,
   containerID: "second-carousel",
   resizingMethod: "stretch-gap",

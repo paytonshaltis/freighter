@@ -106,7 +106,6 @@ export default class Carousel {
     const carouselContainer: HTMLElement = document.createElement("div");
     carouselContainer.id = `carousel-container-${this.carouselID}`;
     selectedContainer.appendChild(carouselContainer);
-    console.log("Appended carousel container to target div.");
 
     // Apply the appropriate class to the carousel container.
     carouselContainer.classList.add("carousel-container");
@@ -423,6 +422,8 @@ export default class Carousel {
     // The width of the main container is dependend on the resize mode.
     this.carouselContainer.style.width =
       this.resizingMethod === "none" ? "fit-content" : "100%";
+    this.carouselContainer.style.margin =
+      this.resizingMethod === "none" ? "0 auto" : "0";
 
     // The position should be relative to allow for the absolute positioning of
     // the carousel control buttons.
