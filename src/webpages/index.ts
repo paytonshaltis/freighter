@@ -77,6 +77,26 @@ const kingCrimson = new CarouselManager({
   wrappingMethod: "none",
 });
 
+kingCrimson.changeCarouselProperties({
+  itemHeight: 1,
+  itemWidth: 2,
+  itemSpacing: 0,
+  buttonWidth: "5%",
+  buttonHeight: "75%",
+  buttonPosition: "bottom",
+  numItemsVisible: 4,
+  scrollBy: 3,
+  transitionDuration: 1000,
+  transitionDelay: 250,
+  transitionTimingFunction: "cubic-bezier(0.36, 0, 0.66, -0.56)",
+  scrollable: true,
+  autoScroll: true,
+  autoScrollInterval: 1000,
+  autoScrollDirection: "right",
+  autoScrollPauseOnHover: true,
+  syncScrollWithVisibility: false,
+});
+
 document.querySelector("button#b1")?.addEventListener("click", () => {
   const newItem1 = document.createElement("div");
   newItem1.innerHTML = "New Item 1";

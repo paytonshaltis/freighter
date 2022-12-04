@@ -269,6 +269,16 @@ export default class Carousel {
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
 
+          // For bezier transitions, the dummy items need to be hidden as
+          // to insinuate that the carousel cannot be scrolled if the
+          // wrapping method is none.
+          const hideDummies =
+            this.usingBezierTransition &&
+            this.wrappingMethod === "none" &&
+            !this.canScrollRight
+              ? true
+              : false;
+
           // Reposition the pointers.
           this.prevScroll = "left";
           this.adjustPointers(direction);
@@ -291,6 +301,12 @@ export default class Carousel {
           );
           nextItems.forEach((item) => {
             item.classList.add("dummy");
+
+            // If we are using the bezier transition, and the wrap method is
+            // none, the dummy items should be hidden.
+            if (hideDummies) {
+              item.style.visibility = "hidden";
+            }
           });
           this.carouselItemContainer.append(...nextItems);
 
@@ -311,6 +327,16 @@ export default class Carousel {
           while (this.rightCarouselPointer >= this.allItems.length) {
             this.rightCarouselPointer -= this.allItems.length;
           }
+
+          // For bezier transitions, the dummy items need to be hidden as
+          // to insinuate that the carousel cannot be scrolled if the
+          // wrapping method is none.
+          const hideDummies =
+            this.usingBezierTransition &&
+            this.wrappingMethod === "none" &&
+            !this.canScrollLeft
+              ? true
+              : false;
 
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
@@ -337,6 +363,12 @@ export default class Carousel {
           );
           prevItems.forEach((item) => {
             item.classList.add("dummy");
+
+            // If we are using the bezier transition, and the wrap method is
+            // none, the dummy items should be hidden.
+            if (hideDummies) {
+              item.style.visibility = "hidden";
+            }
           });
           this.carouselItemContainer.prepend(...prevItems);
 

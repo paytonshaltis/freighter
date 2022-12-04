@@ -3,6 +3,7 @@ import CarouselOptions, {
   convertCarouselOptions,
   validateCarouselOptions,
 } from "./types/CarouselOptions.type.js";
+import CarouselProperties from "./types/CarouselProperties.type.js";
 import CarouselState, { equalStates } from "./types/CarouselState.type.js";
 
 /**
@@ -25,6 +26,91 @@ export default class CarouselManager {
     // with the updated options.
     this.populateResizeObserver = null;
     this.carousel = this.changeCarouselOptions(options);
+  }
+
+  public changeCarouselProperties(properties: CarouselProperties): void {
+    // Create a new carousel with the updated options.
+    this.changeCarouselOptions({
+      ...this.carousel.getCurrentState(),
+      ...properties,
+    } as CarouselState);
+  }
+
+  /**
+   * Adds a new item to the carousel. The item is added to the end of the
+   * carousel by default, but an optional index can be provided.
+   * @param {HTMLElement | HTMLElement[]} items The item(s) to be added to
+   * the carousel.
+   * @param {number} index Optional index at which to add the item. Adds to
+   * the end of the carousel by default.
+   */
+  public addCarouselItems(
+    items: HTMLElement | HTMLElement[],
+    index?: number
+  ): void {
+    // Call the helper with either an array of one item or the entire array.
+    if ((items as HTMLElement[]).length !== undefined) {
+      this.addCarouselItemsHelper(items as HTMLElement[], index);
+    } else {
+      this.addCarouselItemsHelper([items as HTMLElement], index);
+    }
+  }
+
+  /**
+   * Removes a number of carousel items starting from the given index.
+   * By default, this method just returns the item at this index, but
+   * the number of items to remove can be specified.
+   * @param {number} index The index of the item to be removed.
+   * @param {number} count Optional number of items to remove. Defaults to 1.
+   */
+  public removeCarouselItems(index: number, count: number = 1): void {
+    const state = this.carousel.getCurrentState();
+
+    // Throw appropriate errors is fields are missing. Mainly to suppress TS errors.
+    if (!state.numItemsVisible) {
+      throw new Error(
+        "Number of items visible is undefined, but required for 'stretch-populate' recalculations."
+      );
+    }
+
+    // If wrapping is not allowed for the carousel, then removing items must move
+    // the bottom pointer slightly as to not show duplicates.
+    if (
+      state.wrappingMethod === "none" ||
+      state.wrappingMethod === "wrap-smart"
+    ) {
+      // If the carousel is scrolled to the end, need to move the bottom pointer
+      // back by the number of items removed.
+      if (
+        state.leftCarouselPointer + state.numItemsVisible ===
+        state.carouselItems.length
+      ) {
+        state.leftCarouselPointer -= count;
+      }
+
+      // If the top pointer will shift back to the other end of the carousel, need
+      // to move the index back by the number of items removed.
+      while (
+        state.leftCarouselPointer + state.numItemsVisible >=
+        state.carouselItems.length - count
+      ) {
+        state.leftCarouselPointer -= count;
+      }
+
+      // If the bottom pointer shifted into the negatives, reset it to 0.
+      if (state.leftCarouselPointer < 0) {
+        state.leftCarouselPointer = 0;
+      }
+    }
+
+    // Remove the item at the specified index.
+    state.carouselItems.splice(index, count);
+
+    // Create a new carousel with the updated options.
+    this.changeCarouselOptions({
+      ...state,
+      carouselItems: [...state.carouselItems],
+    } as CarouselState);
   }
 
   /**
@@ -190,26 +276,6 @@ export default class CarouselManager {
   }
 
   /**
-   * Adds a new item to the carousel. The item is added to the end of the
-   * carousel by default, but an optional index can be provided.
-   * @param {HTMLElement | HTMLElement[]} items The item(s) to be added to
-   * the carousel.
-   * @param {number} index Optional index at which to add the item. Adds to
-   * the end of the carousel by default.
-   */
-  public addCarouselItems(
-    items: HTMLElement | HTMLElement[],
-    index?: number
-  ): void {
-    // Call the helper with either an array of one item or the entire array.
-    if ((items as HTMLElement[]).length !== undefined) {
-      this.addCarouselItemsHelper(items as HTMLElement[], index);
-    } else {
-      this.addCarouselItemsHelper([items as HTMLElement], index);
-    }
-  }
-
-  /**
    * Adds new items to the carousel. The items are added to the end of the
    * carousel by default, but an optional index can be provided.
    * @param {HTMLElement[]} items The items to be added to the carousel.
@@ -222,63 +288,6 @@ export default class CarouselManager {
     index !== undefined
       ? state.carouselItems.splice(index, 0, ...items)
       : state.carouselItems.push(...items);
-
-    // Create a new carousel with the updated options.
-    this.changeCarouselOptions({
-      ...state,
-      carouselItems: [...state.carouselItems],
-    } as CarouselState);
-  }
-
-  /**
-   * Removes a number of carousel items starting from the given index.
-   * By default, this method just returns the item at this index, but
-   * the number of items to remove can be specified.
-   * @param {number} index The index of the item to be removed.
-   * @param {number} count Optional number of items to remove. Defaults to 1.
-   */
-  public removeCarouselItems(index: number, count: number = 1): void {
-    const state = this.carousel.getCurrentState();
-
-    // Throw appropriate errors is fields are missing. Mainly to suppress TS errors.
-    if (!state.numItemsVisible) {
-      throw new Error(
-        "Number of items visible is undefined, but required for 'stretch-populate' recalculations."
-      );
-    }
-
-    // If wrapping is not allowed for the carousel, then removing items must move
-    // the bottom pointer slightly as to not show duplicates.
-    if (
-      state.wrappingMethod === "none" ||
-      state.wrappingMethod === "wrap-smart"
-    ) {
-      // If the carousel is scrolled to the end, need to move the bottom pointer
-      // back by the number of items removed.
-      if (
-        state.leftCarouselPointer + state.numItemsVisible ===
-        state.carouselItems.length
-      ) {
-        state.leftCarouselPointer -= count;
-      }
-
-      // If the top pointer will shift back to the other end of the carousel, need
-      // to move the index back by the number of items removed.
-      while (
-        state.leftCarouselPointer + state.numItemsVisible >=
-        state.carouselItems.length - count
-      ) {
-        state.leftCarouselPointer -= count;
-      }
-
-      // If the bottom pointer shifted into the negatives, reset it to 0.
-      if (state.leftCarouselPointer < 0) {
-        state.leftCarouselPointer = 0;
-      }
-    }
-
-    // Remove the item at the specified index.
-    state.carouselItems.splice(index, count);
 
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
