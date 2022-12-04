@@ -35,12 +35,22 @@ export default class CarouselManager {
    * @param {CarouselProperties} properties The new carousel properties.
    * @returns {void} Nothing.
    */
-  public changeCarouselProperties(properties: CarouselProperties): void {
+  public setCarouselProperties(properties: CarouselProperties): void {
     // Create a new carousel with the updated options.
     this.changeCarouselOptions({
       ...this.carousel.getCurrentState(),
       ...properties,
     } as CarouselState);
+  }
+
+  /**
+   * Retrieves the current state of the carousel and returns it. This includes
+   * internal data not specified in the original options or updated properties,
+   * such as the carousel items themselves and the current carousel pointer.
+   * @returns {CarouselState} The current state of the carousel.
+   */
+  public getCarouselProperties(): CarouselState {
+    return this.carousel.getCurrentState();
   }
 
   /**
