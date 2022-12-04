@@ -71,7 +71,7 @@ const kingCrimson = new CarouselManager({
 kingCrimson.setCarouselProperties({
   itemHeight: 1,
   itemWidth: 1,
-  itemSpacing: 10,
+  itemSpacing: 25,
   numItemsVisible: 3,
   scrollBy: 3,
   transitionDuration: 1000,

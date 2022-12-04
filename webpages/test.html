@@ -35,7 +35,7 @@
         <div>e</div>
       </div>
 
-      <div id="king-crimson" class="carousel" style="width: 50%">
+      <div id="king-crimson" class="carousel" style="width: 80%">
         <div>
           <div class="album-info">
             <a
@@ -71,14 +71,14 @@
             <p>Red</p>
           </div>
         </div>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
-        <div>5</div>
-        <div>6</div>
-        <div>7</div>
-        <div>8</div>
+        <div class="album-info">1</div>
+        <div class="album-info">2</div>
+        <div class="album-info">3</div>
+        <div class="album-info">4</div>
+        <div class="album-info">5</div>
+        <div class="album-info">6</div>
+        <div class="album-info">7</div>
+        <div class="album-info">8</div>
       </div>
 
       <button id="b1">Add Items</button>
@@ -106,11 +106,16 @@
       }
       div.carousel {
         margin: 5rem auto;
-        background-color: brown;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: lightgray;
       }
       div.album-info {
+        border-radius: 5px;
+        overflow: hidden;
         position: relative;
         height: inherit;
+        background-color: brown;
       }
       div.album-info a {
         transition: filter 0.3s ease-in-out;

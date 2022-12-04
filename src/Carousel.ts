@@ -536,9 +536,6 @@ export default class Carousel {
 
       // The carousel items should by default not be allowed to shrink.
       carouselItem.style.flexShrink = "0";
-
-      // TODO: Apply other styles based on the constructor.
-      carouselItem.style.backgroundColor = "#fff";
     });
   }
 
