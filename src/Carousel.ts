@@ -557,7 +557,17 @@ export default class Carousel {
     // TODO: Apply other styles based on the constructor.
     carouselButton.style.border = "none";
     carouselButton.style.backgroundColor = "#555";
+    carouselButton.style.backgroundColor = "transparent";
     carouselButton.style.opacity = "0.5";
+    carouselButton.innerHTML = `<img src="../../icons/chevron-${direction}.svg" style="max-width: 60%; max-height: 60%;" />`;
+    carouselButton.style.borderTopLeftRadius =
+      direction === "left" ? "0" : "5px";
+    carouselButton.style.borderTopRightRadius =
+      direction === "right" ? "0" : "5px";
+    carouselButton.style.borderBottomLeftRadius =
+      direction === "left" ? "0" : "5px";
+    carouselButton.style.borderBottomRightRadius =
+      direction === "right" ? "0" : "5px";
 
     // Position the button based on the user's options.
     carouselButton.style.position = "absolute";
