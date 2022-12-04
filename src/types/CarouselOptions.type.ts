@@ -1,7 +1,9 @@
+import CarouselProperties from "./CarouselProperties.type";
+
 /**
  * Type definition for the options object to be passed to the carousel constructor.
  */
-type CarouselOptions = {
+type CarouselOptions = CarouselProperties & {
   containerID: string;
   resizingMethod:
     | "none"

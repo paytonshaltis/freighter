@@ -103,7 +103,7 @@ let carouselNumber: number = 3;
   for (let i = 0; i < amount; i++) {
     let div = document.createElement("div");
     div.innerHTML = "New Item " + (index + i);
-    carousel?.addCarouselItem(div, index);
+    carousel?.addCarouselItems(div, index);
   }
 };
 (document.getElementById("remove") as HTMLElement).onclick = () => {
