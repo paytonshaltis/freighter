@@ -27,6 +27,7 @@ export default class Carousel {
   private resizingMethod: "none" | "stretch" | "stretch-gap" | "stretch-scale";
   private wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
   private buttonStyles: ButtonStyle;
+  private buttonHoverStyles: ButtonStyle;
   private leftButtonStyles: ButtonStyle;
   private leftButtonHoverStyles: ButtonStyle;
   private rightButtonStyles: ButtonStyle;
@@ -580,29 +581,25 @@ export default class Carousel {
     // Other required styles.
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
 
-    // Apply the correct left or right arrow to the button.
-    carouselButton.innerHTML = `
-        <svg 
-          height="85.999px" 
-          width="46.001px"
-          fill="${
-            direction === "left"
-              ? this.leftButtonStyles.color
-                ? this.leftButtonStyles.color
-                : "rgba(50, 50, 50, 0.8)"
-              : this.rightButtonStyles.color
-              ? this.rightButtonStyles.color
-              : "rgba(50, 50, 50, 0.8)"
-          }" 
-          style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;" 
-          viewBox="0 0 46.001 85.999"
-        >
-          ${
-            direction === "right"
-              ? '<path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43 L1.003,80.094z"/>'
-              : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
-          }
-        </svg>`;
+    // Set the fill colors for static and hover.
+    const fillColorStatic = this.buttonStyles.color
+      ? this.buttonStyles.color
+      : direction === "left"
+      ? this.leftButtonStyles.color
+        ? this.leftButtonStyles.color
+        : "rgba(50, 50, 50, 0.75)"
+      : this.rightButtonStyles.color
+      ? this.rightButtonStyles.color
+      : "rgba(50, 50, 50, 0.75)";
+    const fillColorHover = this.buttonHoverStyles.color
+      ? this.buttonHoverStyles.color
+      : direction === "left"
+      ? this.leftButtonHoverStyles.color
+        ? this.leftButtonHoverStyles.color
+        : "rgba(50, 50, 50, 0.75)"
+      : this.rightButtonHoverStyles.color
+      ? this.rightButtonHoverStyles.color
+      : "rgba(50, 50, 50, 0.75)";
 
     // Names for each style; used for looping.
     const styleNames: string[] = [
@@ -660,7 +657,11 @@ export default class Carousel {
       carouselButton as HTMLButtonElement,
       direction,
       styleNames,
-      staticDefaults
+      staticDefaults,
+      this.buttonStyles,
+      this.leftButtonStyles,
+      this.rightButtonStyles,
+      fillColorStatic
     );
 
     // Set the hover styles for the button.
@@ -669,7 +670,11 @@ export default class Carousel {
         carouselButton as HTMLButtonElement,
         direction,
         styleNames,
-        hoverDefaults
+        hoverDefaults,
+        this.buttonHoverStyles,
+        this.leftButtonHoverStyles,
+        this.rightButtonHoverStyles,
+        fillColorHover
       );
     };
     const mouseLeaveListener = () => {
@@ -677,7 +682,11 @@ export default class Carousel {
         carouselButton as HTMLButtonElement,
         direction,
         styleNames,
-        staticDefaults
+        staticDefaults,
+        this.buttonStyles,
+        this.leftButtonStyles,
+        this.rightButtonStyles,
+        fillColorStatic
       );
     };
     carouselButton.addEventListener("mouseleave", mouseLeaveListener);
@@ -732,31 +741,49 @@ export default class Carousel {
     carouselButton: HTMLButtonElement,
     direction: string,
     styleNames: string[],
-    values: string[]
+    defaultValues: string[],
+    buttonStyles: ButtonStyle,
+    leftButtonStyles: ButtonStyle,
+    rightButtonStyles: ButtonStyle,
+    fillColor: string
   ): void {
     // Apply the styles common to both buttons.
     styleNames.forEach((styleName, index) => {
-      carouselButton.style[styleName as any] = (this.buttonStyles as any)[
-        styleName
-      ]
-        ? (this.buttonStyles as any)[styleName]
-        : values[index];
+      carouselButton.style[styleName as any] = (buttonStyles as any)[styleName]
+        ? (buttonStyles as any)[styleName]
+        : defaultValues[index];
     });
 
     // Apply the correct left, right, or default styles to the button.
     styleNames.forEach((styleName) => {
-      if (direction === "left" && (this.leftButtonStyles as any)[styleName]) {
-        carouselButton.style[styleName as any] = (this.leftButtonStyles as any)[
+      if (direction === "left" && (leftButtonStyles as any)[styleName]) {
+        carouselButton.style[styleName as any] = (leftButtonStyles as any)[
           styleName
         ];
       } else if (
         direction === "right" &&
-        (this.rightButtonStyles as any)[styleName]
+        (rightButtonStyles as any)[styleName]
       ) {
-        carouselButton.style[styleName as any] = (
-          this.rightButtonStyles as any
-        )[styleName];
+        carouselButton.style[styleName as any] = (rightButtonStyles as any)[
+          styleName
+        ];
       }
+
+      // Apply the correct left or right arrow to the button.
+      carouselButton.innerHTML = `
+    <svg 
+      height="85.999px" 
+      width="46.001px"
+      fill="${fillColor}" 
+      style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;" 
+      viewBox="0 0 46.001 85.999"
+    >
+      ${
+        direction === "right"
+          ? '<path d="M1.003,80.094c-1.338,1.352-1.338,3.541,0,4.893c1.337,1.35,3.506,1.352,4.845,0l39.149-39.539  c1.338-1.352,1.338-3.543,0-4.895L5.848,1.014c-1.339-1.352-3.506-1.352-4.845,0c-1.338,1.352-1.338,3.541-0.001,4.893L36.706,43 L1.003,80.094z"/>'
+          : '<path d="M44.998,80.094c1.338,1.352,1.338,3.541,0,4.893c-1.336,1.35-3.506,1.352-4.844,0L1.003,45.447  c-1.338-1.352-1.338-3.543,0-4.895l39.15-39.539c1.338-1.352,3.506-1.352,4.844,0S46.335,4.555,45,5.906L9.294,43L44.998,80.094z"/>'
+      }
+    </svg>`;
     });
   }
 
@@ -910,6 +937,8 @@ export default class Carousel {
       options.itemSpacing !== undefined ? options.itemSpacing : 0;
     this.buttonStyles =
       options.buttonStyles !== undefined ? options.buttonStyles : {};
+    this.buttonHoverStyles =
+      options.buttonHoverStyles !== undefined ? options.buttonHoverStyles : {};
     this.leftButtonStyles =
       options.leftButtonStyles !== undefined ? options.leftButtonStyles : {};
     this.leftButtonHoverStyles =

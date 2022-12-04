@@ -86,8 +86,15 @@ kingCrimson.setCarouselProperties({
   leftButtonStyles: {
     height: "50px",
   },
+  leftButtonHoverStyles: {
+    backgroundColor: "red",
+  },
   buttonStyles: {
     height: "135px",
+  },
+  buttonHoverStyles: {
+    // color: "#0066ff",
+    // backgroundColor: "#0066ff",
   },
 });
 

@@ -24,6 +24,7 @@ type ButtonStyle = {
 
   // Misc. styles.
   cursor?: string;
+  transition?: string;
 };
 
 export default ButtonStyle;
