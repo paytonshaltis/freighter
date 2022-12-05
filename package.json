@@ -1,28 +1,37 @@
 {
-  "name": "wrapping-carousel",
-  "description": "---",
+  "name": "freighter",
   "version": "1.0.0",
+  "description": "Freighter is a highly-customizable HTML carousel library featuring multiple resizing and wrap methods.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build-sass": "sass src/css/styles.scss dist/css/styles.css",
-    "build": "tsc && npm run build-sass"
+    "build": "tsc && npm run sass",
+    "sass": "sass ./webpage/sass/styles.scss ./webpage/styles.css --no-source-map"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/paytonshaltis/wrapping-carousel.git"
+    "url": "git+https://github.com/paytonshaltis/freighter.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "javascript",
+    "css",
+    "html",
+    "library",
+    "typescript",
+    "responsive",
+    "slider",
+    "carousel",
+    "carousel-slider",
+    "freighter",
+    "freighterjs"
+  ],
+  "author": "Payton Shaltis",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/paytonshaltis/wrapping-carousel/issues"
+    "url": "https://github.com/paytonshaltis/freighter/issues"
   },
-  "homepage": "https://github.com/paytonshaltis/wrapping-carousel#readme",
-  "devDependencies": {
-    "sass": "^1.56.1"
-  },
+  "homepage": "https://github.com/paytonshaltis/freighter#readme",
   "dependencies": {
-    "bootstrap": "^5.2.3"
+    "bootstrap": "^5.2.3",
+    "sass": "^1.56.1"
   }
 }
