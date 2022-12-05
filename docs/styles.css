@@ -10769,3 +10769,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.a-color {
+  height: 250px;
+  background-color: blue;
+}
