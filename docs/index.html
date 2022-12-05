@@ -4,15 +4,84 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 a-color d-none d-lg-block">left</div>
-        <div class="col-lg-6 a-color">middle</div>
-        <div class="col-lg-3 a-color d-none d-lg-block">right</div>
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-secondary">
+      <div class="container">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          type="button"
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNav"
+          aria-controls="offcanvasNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="#">Freight.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavBar"
+          aria-controls="mainNavBar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsable primary navigation links themselves. -->
+        <div class="collapse navbar-collapse" id="mainNavBar">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Demos</a>
+            <a class="nav-link" href="#">Docs</a>
+            <a class="nav-link" href="#">Download</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container text-center my-3" style="height: 300vh">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-3 col-xl-2">
+          <div
+            class="offcanvas-lg offcanvas-start bg-light border"
+            style="height: 300vh"
+            tabindex="-1"
+            id="offcanvasNav"
+            aria-labelledby="offcanvasNavLabel"
+          >
+            <div class="offcanvas-header">Offcanvas Header</div>
+            Navigation Bar
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-lg col-xl-8">
+          <div class="bg-light border" style="height: 300vh">Main Content</div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-lg-2 col-xl-2 d-none d-lg-block">
+          <div class="bg-light border" style="height: 300vh">Page Map</div>
+        </div>
       </div>
     </div>
   </body>
