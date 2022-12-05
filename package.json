@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && npm run sass",
-    "sass": "sass ./webpage/sass/styles.scss ./webpage/styles.css --no-source-map"
+    "sass": "sass ./docs/sass/styles.scss ./docs/styles.css --no-source-map"
   },
   "repository": {
     "type": "git",
