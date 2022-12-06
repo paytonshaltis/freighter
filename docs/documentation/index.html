@@ -21,8 +21,8 @@
           class="navbar-toggler d-inline d-lg-none me-sm-3"
           type="button"
           data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbarLeft"
-          aria-controls="offcanvasNavbarLeft"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,8 +35,8 @@
           class="navbar-toggler"
           type="button"
           data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbarRight"
-          aria-controls="offcanvasNavbarRight"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,8 +45,8 @@
         <div
           class="offcanvas offcanvas-end bg-secondary text-white"
           tabindex="-1"
-          id="offcanvasNavbarRight"
-          aria-labelledby="offcanvasNavbarRightLabel"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
         >
           <!-- Header of the offcanvas for primary navigation. -->
           <div class="offcanvas-header">
@@ -54,7 +54,7 @@
               type="button"
               class="btn-close btn-close-white"
               data-bs-dismiss="offcanvas"
-              data-bs-target="#offcanvasNavbarRight"
+              data-bs-target="#offcanvas-right"
               aria-label="Close"
             ></button>
             <div>Navigation</div>
@@ -108,8 +108,8 @@
           <div
             class="offcanvas-lg offcanvas-start border-end"
             tabindex="-1"
-            id="offcanvasNavbarLeft"
-            aria-labelledby="offcanvasNavbarLeftLabel"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
           >
             <!-- Header of the offcanvas for secondary navigation. -->
             <div class="offcanvas-header">
@@ -118,7 +118,7 @@
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="offcanvas"
-                data-bs-target="#offcanvasNavbarLeft"
+                data-bs-target="#offcanvas-left"
                 aria-label="Close"
               ></button>
             </div>
@@ -130,7 +130,16 @@
 
         <!-- Column 2: Main content area. -->
         <div class="col-md text-center">
-          <div class="" style="height: 300vh">Main Content</div>
+          <!-- Define this container to use scrollspy. -->
+          <div
+            class=""
+            data-bs-spy="scroll"
+            data-bs-target="#navbar-3"
+            tabindex="0"
+            style="height: 300vh"
+          >
+            <h1>Main Content</h1>
+          </div>
         </div>
 
         <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
@@ -139,62 +148,27 @@
             class="sticky-top border-start overflow-auto"
             style="top: 72px; max-height: calc(100vh - 88px)"
           >
-            <p class="sticky-top bg-white mb-0 pb-2">Page Contents</p>
+            <p class="sticky-top bg-white mb-0 ms-3 text-start">
+              Page Contents
+            </p>
+            <hr class="my-2 mx-2 ms-3" />
             <nav
-              id="navbar-example3"
-              class="flex-column align-items-stretch text-start"
-              style="font-size: 15px"
+              id="navbar-3"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
             >
               <nav class="nav py-0 flex-column">
-                <a class="nav-link py-0" href="#item-1">Item 1</a>
+                <a class="nav-link py-0 ps-2" href="#">Wrapping Methods</a>
                 <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-1-1">Item 1-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-1-2">Item 1-2</a>
+                  <a class="nav-link ms-3 py-0 ps-1" href="#">None</a>
+                  <a class="nav-link ms-3 py-0 ps-1" href="#">Wrap-Simple</a>
+                  <a class="nav-link ms-3 py-0 ps-1" href="#">Wrap-Smart</a>
                 </nav>
-                <a class="nav-link py-0" href="#item-2">Item 2</a>
-                <a class="nav-link py-0" href="#item-3">Item 3</a>
+                <a class="nav-link py-0 ps-2" href="#">Item 2</a>
+                <a class="nav-link py-0 ps-2" href="#">Item 3</a>
                 <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-3-1">Item 3-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-3-2">Item 3-2</a>
-                </nav>
-              </nav>
-              <nav class="nav py-0 flex-column">
-                <a class="nav-link py-0" href="#item-1">Item 1</a>
-                <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-1-1">Item 1-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-1-2">Item 1-2</a>
-                </nav>
-                <a class="nav-link py-0" href="#item-2">Item 2</a>
-                <a class="nav-link py-0" href="#item-3">Item 3</a>
-                <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-3-1">Item 3-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-3-2">Item 3-2</a>
-                </nav>
-              </nav>
-              <nav class="nav py-0 flex-column">
-                <a class="nav-link py-0" href="#item-1">Item 1</a>
-                <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-1-1">Item 1-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-1-2">Item 1-2</a>
-                </nav>
-                <a class="nav-link py-0" href="#item-2">Item 2</a>
-                <a class="nav-link py-0" href="#item-3">Item 3</a>
-                <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-3-1">Item 3-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-3-2">Item 3-2</a>
-                </nav>
-              </nav>
-              <nav class="nav py-0 flex-column">
-                <a class="nav-link py-0" href="#item-1">Item 1</a>
-                <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-1-1">Item 1-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-1-2">Item 1-2</a>
-                </nav>
-                <a class="nav-link py-0" href="#item-2">Item 2</a>
-                <a class="nav-link py-0" href="#item-3">Item 3</a>
-                <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0" href="#item-3-1">Item 3-1</a>
-                  <a class="nav-link ms-3 py-0" href="#item-3-2">Item 3-2</a>
+                  <a class="nav-link ms-3 py-0 ps-1" href="#">Item 3-1</a>
+                  <a class="nav-link ms-3 py-0 ps-1" href="#">Item 3-2</a>
                 </nav>
               </nav>
             </nav>
