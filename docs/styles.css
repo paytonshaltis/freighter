@@ -10771,6 +10771,15 @@ textarea.form-control-lg {
 }
 body {
   background-color: rgb(250, 250, 250);
+  background-color: rgba(161, 75, 59, 0.075);
+}
+
+.custom-border-start {
+  border-left: 1px solid rgba(161, 75, 59, 0.35);
+}
+
+.custom-border-end {
+  border-right: 1px solid rgba(161, 75, 59, 0.35);
 }
 
 div.warning-container {
@@ -10783,6 +10792,7 @@ div.warning-container {
 
 div.code-container {
   border-radius: 5px;
+  border: 1px solid rgba(161, 75, 59, 0.5);
 }
 
 hr.section-divider {
