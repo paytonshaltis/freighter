@@ -1,6 +1,23 @@
 $offcanvas-horizontal-width: "275px";
 $navbar-brand-margin-end: "0px";
 
+// Styles for the documentation navigation links.
+a.nav-link.documentation-link {
+  width: fit-content;
+  color: rgb(88, 88, 88);
+  border-radius: 5px;
+}
+
+a.nav-link.documentation-link.active {
+  color: rgb(58, 58, 58);
+  background-color: lightgray;
+}
+
+a.nav-link.documentation-link:hover {
+  color: white;
+  background-color: gray;
+}
+
 // Add Bootstrap overrides here:
 @import "../../node_modules/bootstrap/scss/bootstrap";
 

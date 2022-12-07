@@ -1,4 +1,20 @@
 @charset "UTF-8";
+a.nav-link.documentation-link {
+  width: fit-content;
+  color: rgb(88, 88, 88);
+  border-radius: 5px;
+}
+
+a.nav-link.documentation-link.active {
+  color: rgb(58, 58, 58);
+  background-color: lightgray;
+}
+
+a.nav-link.documentation-link:hover {
+  color: white;
+  background-color: gray;
+}
+
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
