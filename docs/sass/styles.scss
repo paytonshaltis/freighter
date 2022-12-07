@@ -99,13 +99,13 @@ div.ci {
 
 div.ci p {
   color: white;
-  font-size: 6.5vw;
+  font-size: min(6.5vw, 7.5rem);
   font-weight: bold;
   margin: 0;
   padding: 0 0.75vw;
-  padding-bottom: 0.75vw;
+  padding-bottom: min(0.75vw, 1rem);
   line-height: 100%;
-  border: 2px dashed rgba($primary, 0.45);
+  // border: 2px dashed rgba($primary, 0.45);
 }
 
 @import "../custom";
