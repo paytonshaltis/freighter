@@ -15,7 +15,22 @@ a.nav-link.documentation-link.active {
 
 a.nav-link.documentation-link:hover {
   color: white;
-  background-color: gray;
+  background-color: rgba(128, 128, 128, 0.85);
+}
+
+// Styles for the page contents navigation links.
+a.nav-link.page-contents-link {
+  width: fit-content;
+  color: rgb(136, 136, 136);
+}
+
+a.nav-link.page-contents-link.active {
+  font-weight: bold;
+  color: rgb(87, 87, 87);
+}
+
+a.nav-link.page-contents-link:hover {
+  text-decoration: underline;
 }
 
 // Add Bootstrap overrides here:

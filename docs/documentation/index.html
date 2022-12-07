@@ -10,6 +10,7 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+    <script src="main.js" type="module"></script>
     <title>Freighter | Payton Shaltis</title>
   </head>
   <body>
@@ -128,28 +129,37 @@
               <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
               <hr class="my-2" />
               <nav
-                id="navbar-3"
+                id="nav-right"
                 class="flex-column align-items-stretch text-start"
-                style="font-size: 14px"
+                style="font-size: 16px"
               >
                 <nav class="nav py-0 flex-column">
-                  <p class="mt-3 mb-1"><u>Basics</u></p>
-                  <a
-                    class="nav-link mb-1 py-0 px-2 documentation-link active"
-                    href="#"
-                    >Getting Started</a
+                  <p class="mb-1 fw-bold">
+                    <small>Basics</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Installation</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
                     >Your First Carousel</a
                   >
-                  <p class="mt-3 mb-1"><u>Carousel Container</u></p>
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Container</small>
+                  </p>
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Wrapping Methods</a
+                    >Properties</a
+                  >
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Wrapping</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Resizing Methods</a
+                    >Resizing</a
                   >
-                  <p class="mt-3 mb-1"><u>Carousel Items</u></p>
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Items</small>
+                  </p>
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
                     >Visibility</a
                   >
@@ -163,12 +173,12 @@
         </div>
 
         <!-- Column 2: Main content area. -->
-        <div class="col-md text-center">
+        <div class="col-md-9 col-lg-8 text-center">
           <!-- Define this container to use scrollspy. -->
           <div
             class=""
             data-bs-spy="scroll"
-            data-bs-target="#navbar-3"
+            data-bs-target="#nav-left"
             tabindex="0"
             style="height: 300vh"
           >
@@ -189,26 +199,76 @@
             </p>
             <hr class="my-2 mx-2 ms-3 me-3" />
             <nav
-              id="navbar-3"
+              id="nav-left"
               class="flex-column align-items-stretch text-start ms-2"
               style="font-size: 14px"
             >
               <nav class="nav py-0 flex-column">
-                <a class="nav-link py-0 ps-2 mt-1" href="#">Wrapping Methods</a>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link active"
+                  href="#"
+                  >None</a
+                >
                 <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0 ps-1 mt-1" href="#">None</a>
-                  <a class="nav-link ms-3 py-0 ps-1 mt-1" href="#"
-                    >Wrap-Simple</a
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link active"
+                    href="#"
+                    >Description</a
                   >
-                  <a class="nav-link ms-3 py-0 ps-1 mt-1" href="#"
-                    >Wrap-Smart</a
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >Examples</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >...</a
                   >
                 </nav>
-                <a class="nav-link py-0 ps-2 mt-1" href="#">Item 2</a>
-                <a class="nav-link py-0 ps-2 mt-1" href="#">Item 3</a>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#"
+                  >Wrap-Simple</a
+                >
                 <nav class="nav py-0 flex-column">
-                  <a class="nav-link ms-3 py-0 ps-1 mt-1" href="#">Item 3-1</a>
-                  <a class="nav-link ms-3 py-0 ps-1 mt-1" href="#">Item 3-2</a>
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >Description</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >Examples</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >...</a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#"
+                  >Wrap-Smart</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >Description</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >Examples</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#"
+                    >...</a
+                  >
                 </nav>
               </nav>
             </nav>
