@@ -10807,3 +10807,29 @@ a.nav-link.page-contents-link.active {
 a.nav-link.page-contents-link:hover {
   text-decoration: underline;
 }
+
+div.freighter-c {
+  border-radius: 10px;
+}
+
+div.ci {
+  background-color: rgba(161, 75, 59, 0.55);
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  border: 3px solid rgba(161, 75, 59, 0.75);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.ci p {
+  color: white;
+  font-size: 5rem;
+  font-weight: bold;
+  margin: 0;
+  margin-top: -0.75rem;
+  padding: 0;
+  line-height: 100%;
+}

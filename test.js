@@ -10,7 +10,7 @@ const freighter = new Freighter({
   scrollBy: 3,
   transitionDuration: 2500,
   transitionTimingFunction: "linear",
-  scrollable: false,
+  scrollable: true,
   autoScroll: true,
   autoScrollInterval: 2500,
   autoScrollDirection: "right",
