@@ -10,6 +10,18 @@ body {
   background-color: rgb(250, 250, 250);
 }
 
+// Styles for top navigation bar.
+body nav#nav-top {
+  background-color: rgba($primary, 0.95);
+  background-image: linear-gradient(
+    180deg,
+    rgba($primary, 0.9),
+    rgba($primary, 0.7),
+    rgba($primary, 0.5),
+    rgba($primary, 0.3)
+  );
+}
+
 // Styles for the documentation navigation links.
 a.nav-link.documentation-link {
   width: fit-content;

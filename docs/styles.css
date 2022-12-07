@@ -10773,6 +10773,11 @@ body {
   background-color: rgb(250, 250, 250);
 }
 
+body nav#nav-top {
+  background-color: rgba(161, 75, 59, 0.95);
+  background-image: linear-gradient(180deg, rgba(161, 75, 59, 0.9), rgba(161, 75, 59, 0.7), rgba(161, 75, 59, 0.5), rgba(161, 75, 59, 0.3));
+}
+
 a.nav-link.documentation-link {
   width: fit-content;
   color: rgb(88, 88, 88);
