@@ -1,4 +1,5 @@
 node_modules
-package_lock.json
+package-lock.json
 dist
 .DS_Store
+webpage/styles.css

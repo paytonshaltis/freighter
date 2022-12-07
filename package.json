@@ -1,0 +1,36 @@
+{
+  "name": "freighter",
+  "version": "1.0.0",
+  "description": "Freighter is a highly-customizable HTML carousel library featuring multiple resizing and wrap methods.",
+  "scripts": {
+    "build": "tsc && npm run sass",
+    "sass": "sass ./docs/sass/styles.scss ./docs/styles.css --no-source-map"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paytonshaltis/freighter.git"
+  },
+  "keywords": [
+    "javascript",
+    "css",
+    "html",
+    "library",
+    "typescript",
+    "responsive",
+    "slider",
+    "carousel",
+    "carousel-slider",
+    "freighter",
+    "freighterjs"
+  ],
+  "author": "Payton Shaltis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paytonshaltis/freighter/issues"
+  },
+  "homepage": "https://github.com/paytonshaltis/freighter#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "sass": "^1.56.1"
+  }
+}
