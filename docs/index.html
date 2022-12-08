@@ -14,19 +14,201 @@
     <title>Freighter | Payton Shaltis</title>
   </head>
   <body>
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
     <!-- Primary container for all webpage content. -->
-    <div class="container-lg text-center my-3" style="height: 300vh">
+    <div class="container-lg text-center my-3">
       <!-- Row 1: Title and carousel train. -->
       <div class="row g-0 justify-content-center">
         <!-- Column 1: The only content in the first row. -->
         <div class="col-md-10">
           <!-- Train carousel. -->
-          <div id="carousel-train">
+          <div
+            id="carousel-train"
+            style="margin-top: 1rem; margin-bottom: 2rem"
+          >
             <div id="ci-train-engine" class="ci-train align-right">
               <img id="train-engine" src="./icons/train-engine.svg" />
             </div>
             <div class="ci-train"><img src="./icons/train-car.svg" /></div>
             <div class="ci-train"><img src="./icons/train-car.svg" /></div>
+          </div>
+        </div>
+      </div>
+      <!-- Row 2: Hero section with large display heading. -->
+      <div class="row g-0 justify-content-center">
+        <!-- Column 1: The only content in the second row. -->
+        <div class="col-md-10">
+          <!-- Hero section content. -->
+          <section id="hero" class="px-3 mb-5">
+            <h1 class="fw-semibold display-3">
+              Responsive, Customizable, and Dynamic Carousels
+            </h1>
+            <p class="lead text-secondary">
+              Freighter.js is an HTML carousel library that lets you customize
+              the look and behavior properties of your carousel elements. Change
+              these properties on-the-fly with the Freighter API, and decide how
+              your carousel should change on different screen sizes.
+            </p>
+          </section>
+
+          <!-- Row 3: Download buttons for different distributions. -->
+          <div class="row g-0">
+            <!-- Column 1: The only content in the third row. -->
+            <div class="col-md">
+              <!-- Download section content. -->
+              <section id="download" class="px-3 mt-5">
+                <h2 class="pb-2 border-bottom">Download Freighter</h2>
+                <div class="row py-5 row-cols-1 row-cols-lg-3 text-start">
+                  <div class="col d-flex align-items-start mb-5">
+                    <div
+                      class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"
+                    >
+                      <img
+                        src="./icons/npm.svg"
+                        alt="NPM icon"
+                        style="width: 25px; opacity: 50%"
+                      />
+                    </div>
+                    <div>
+                      <h3 class="fs-3">NPM</h3>
+                      <p>
+                        Paragraph of text beneath the heading to explain the
+                        heading. We'll add onto it with another sentence and
+                        probably just keep going until we run out of words.
+                      </p>
+                      <a href="#" class="btn btn-primary"> Primary button </a>
+                    </div>
+                  </div>
+                  <div class="col d-flex align-items-start mb-5">
+                    <div
+                      class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"
+                    >
+                      <img
+                        src="./icons/ts.svg"
+                        alt="TypeScript icon"
+                        style="width: 25px; opacity: 50%"
+                      />
+                    </div>
+                    <div>
+                      <h3 class="fs-3">Source Code</h3>
+                      <p>
+                        Paragraph of text beneath the heading to explain the
+                        heading. We'll add onto it with another sentence and
+                        probably just keep going until we run out of words.
+                      </p>
+                      <a href="#" class="btn btn-primary"> Primary button </a>
+                    </div>
+                  </div>
+                  <div class="col d-flex align-items-start mb-5">
+                    <div
+                      class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"
+                    >
+                      <img
+                        src="./icons/js.svg"
+                        alt="JavaScript icon"
+                        style="width: 25px; opacity: 50%"
+                      />
+                    </div>
+                    <div>
+                      <h3 class="fs-3">Minified Bundle</h3>
+                      <p>
+                        Paragraph of text beneath the heading to explain the
+                        heading. We'll add onto it with another sentence and
+                        probably just keep going until we run out of words.
+                      </p>
+                      <a href="#" class="btn btn-primary"> Primary button </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </div>

@@ -73,3 +73,5 @@ The following is a list of the internal IDs and classes used to keep track of th
 - `frieghter-carousel-item-dummy`
 - `freighter-carousel-arrow-left`
 - `freighter-carousel-arrow-right`
+
+<a target="_blank" href="https://icons8.com/icon/uJM6fQYqDaZK/typescript">TypeScript</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
