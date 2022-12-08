@@ -39,6 +39,7 @@
 - None
 - Wrap-Simple
 - Wrap-Smart
+  - Changing back to simple
 
 ### Resizing
 
@@ -114,5 +115,6 @@
 ### Cautions
 
 - Reserved IDs and Classes
+- Duplicate container items
 - Interacting with DOM
   - Manually changing styles

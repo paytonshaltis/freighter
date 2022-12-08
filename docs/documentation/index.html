@@ -13,9 +13,12 @@
     <script src="main.js" type="module"></script>
     <title>Freighter | Payton Shaltis</title>
   </head>
-  <body>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
     <!-- Sticky and collapsing main navigation bar. -->
-    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-secondary">
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
       <div class="container-xl">
         <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
         <button
@@ -101,13 +104,13 @@
     </nav>
 
     <!-- Primary container for all webpage content. -->
-    <div class="container-xl my-3 text-center" style="height: 300vh">
+    <div class="container-xl my-3">
       <!-- One row, three column layout. -->
       <div class="row g-0">
         <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
         <div class="col-lg-2">
           <div
-            class="offcanvas-lg offcanvas-start border-end"
+            class="offcanvas-lg offcanvas-start custom-border-end"
             tabindex="-1"
             id="offcanvas-left"
             aria-labelledby="offcanvas-left-label"
@@ -129,42 +132,51 @@
               <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
               <hr class="my-2" />
               <nav
-                id="nav-right"
+                id="nav-left"
                 class="flex-column align-items-stretch text-start"
                 style="font-size: 16px"
               >
                 <nav class="nav py-0 flex-column">
                   <p class="mb-1 fw-bold">
-                    <small>Basics</small>
+                    <small>Getting Started</small>
                   </p>
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Installation</a
-                  >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Your First Carousel</a
-                  >
-                  <p class="mt-2 mb-1 fw-bold">
-                    <small>Carousel Container</small>
-                  </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Properties</a
+                    >Downloading</a
                   >
                   <a
                     class="nav-link mb-1 py-0 px-2 documentation-link active"
                     href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
                     >Wrapping</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
                     >Resizing</a
                   >
-                  <p class="mt-2 mb-1 fw-bold">
-                    <small>Carousel Items</small>
-                  </p>
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Visibility</a
+                    >Container</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Size and Scale</a
+                    >Items</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Buttons</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
                   >
                 </nav>
               </nav>
@@ -173,101 +185,324 @@
         </div>
 
         <!-- Column 2: Main content area. -->
-        <div class="col-md-9 col-lg-8 text-center">
+        <div class="col-md-9 col-lg-8">
           <!-- Define this container to use scrollspy. -->
-          <div
-            class=""
-            data-bs-spy="scroll"
-            data-bs-target="#nav-left"
-            tabindex="0"
-            style="height: 300vh"
-          >
-            <h1>Main Content</h1>
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Basic Usage</h1>
+            <p class="lead">
+              Learn the basics of Freighter carousels and start creating your
+              own. Start by selecting a container to house your carousel. Select
+              methods for resizing and wrapping your carousel, then begin adding
+              items. Add and delete items or change the properties of your
+              carousel at any time.
+            </p>
+            <section id="creating-a-carousel" class="main-content-section">
+              <h2>Creating a Carousel</h2>
+              <p>
+                Freighter carousels are highly customizable, but require only
+                <b>three</b> properties in order to create the simplest type of
+                carousel:
+              </p>
+              <ul>
+                <li>
+                  <b>Container</b> - The container that houses the carousel.
+                  This is created by you, and the ID is passed to the carousel
+                  constructor.
+                </li>
+                <li>
+                  <b>Rezise Method</b> - How the carousel will behave when the
+                  window is resized. These range from scaling the size of
+                  carousel content to decreasing the number of visible carousel
+                  items.
+                </li>
+                <li>
+                  <b>Wrap Method</b> - How the carousel items will 'wrap' when
+                  scrolling past the end of the carousel. A carousel can wrap
+                  around infinitely, or prevent scrolling when one end is
+                  reached.
+                </li>
+              </ul>
+              <p>
+                The three required carousel properties will be passed to the
+                <code>Freighter</code> constructor inside of a
+                <code>CarouselOptions</code> object. By the time all required
+                carousel properties have been discussed on this page, a call to
+                the constructor will look something like this:
+              </p>
+              <div class="border code-container">
+                <pre><code>
+      const myCarousel = new Freighter({
+        containerID: 'my-carousel',
+        resizingMethod: 'stretch-scale',
+        wrappingMethod: 'wrap-smart'
+      });</code></pre>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="choose-a-container" class="main-content-section">
+              <h3>Choose a Container</h3>
+              <p>
+                Any <code>div</code> that you create can be used to house a
+                Freighter carousel. The only requirement is that you assign the
+                <code>div</code> a unique ID that can be used to locate and
+                modify this DOM element:
+              </p>
+              <div class="border code-container">
+                <pre><code>    
+    &lt;div id="my-carousel"&gt;
+      &lt;!-- Carousel items will eventually go in here! --&gt;
+    &lt;/div&gt;</code></pre>
+              </div>
+              <p class="mt-3">
+                You can add, reposition, and style this container. All Freighter
+                carousel DOM elements will be appended to it (they will be made
+                the children of the chosen <code>div</code>). The classes and ID
+                of the chosen container will <b>not</b> be altered, so feel free
+                to apply custom CSS classes to your container.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="pick-a-resize" class="main-content-section">
+              <h3>Pick a Resize</h3>
+              <p>
+                The next required property for any carousel is the resizing
+                method. When the width of the browser increases or decreases,
+                the carousel must respond in an appropriate way. The way in
+                which the carousel responds can be configured throught the
+                <code>resizingMethod</code> property. One method included in
+                Freighter is <code>stretch-scale</code>, which will stretch or
+                shrink the carousel while preserving the aspect ratio of each
+                item.
+              </p>
+              <div class="warning-container">
+                <p class="mb-0">
+                  Note that <code>stretch-scale</code> was chosen intentionally
+                  in this case, because it does not require a set height or
+                  width. Other resizing methods, such as <code>none</code>, will
+                  require a fixed height and width, and thus more properties are
+                  required in its constructor.
+                </p>
+              </div>
+              <p>
+                You can see the full list of resizing methods
+                <a href="./resizing">here</a>, as well as a variety of examples
+                that show off how each resizing method can be used. For the
+                purposes of this page, the <code>stretch-scale</code> value will
+                be used.
+              </p>
+              <p>
+                Try resizing the browser window and see how the carousel
+                responds. You will notice a few things:
+              </p>
+              <ul>
+                <li>
+                  The number of visible items in the carousel remains the same.
+                </li>
+                <li>
+                  The aspect ratio of each item is preserved, even though each
+                  item's width and height increases or decreases with the size
+                  of the browser window.
+                </li>
+                <li>
+                  The size of the gap between carousel items is preserved.
+                </li>
+              </ul>
+              <div id="carousel-1" class="freighter-c mb-3" style="width: 100%">
+                <div class="ci"><p>A</p></div>
+                <div class="ci"><p>B</p></div>
+                <div class="ci"><p>C</p></div>
+                <div class="ci"><p>D</p></div>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="pick-a-wrap" class="main-content-section">
+              <h3>Pick a Wrap</h3>
+              <p>
+                The final property required for a carousel is the
+                <code>wrappingMethod</code>. This describes how the carousel
+                should wrap items if one of the ends is reached. Here, we will
+                use the <code>wrap-simple</code> value, which just wraps items
+                by scroll amount in either direction.
+              </p>
+              <p>
+                Compare the wrapping method in the carousel below (which uses
+                <code>wrap-simple</code>) to the carousel above (which uses
+                <code>none</code> as its wrap value). You will notice a few
+                things:
+              </p>
+              <ul>
+                <li>
+                  The carousel using <code>none</code> as its wrap value does
+                  not allow you to scroll past the first or last item.
+                </li>
+                <li>
+                  The carousel using <code>wrap-simple</code> always scrolls by
+                  the same amount, no matter the position in the carousel.
+                </li>
+                <li>
+                  The relative order of the carousel items is
+                  <b>not</b> preserved when using <code>wrap-simple</code>. For
+                  example, the first item may appear after the last item in the
+                  carousel.
+                </li>
+              </ul>
+              <div id="carousel-2" class="freighter-c mb-3" style="width: 100%">
+                <div class="ci"><p>A</p></div>
+                <div class="ci"><p>B</p></div>
+                <div class="ci"><p>C</p></div>
+                <div class="ci"><p>D</p></div>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="add-items" class="main-content-section">
+              <h2>Add Items</h2>
+              <p>
+                The next step in creating a valid Freighter carousel is to add
+                items. This can be done at two different times during the
+                creation of a carousel - at the time of carousel creation, or
+                after the carousel is created.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="at-creation" class="main-content-section">
+              <h3>At Creation</h3>
+              <p>
+                The easiest way to add items to a carousel is to do so at
+                creation time (before the constructor is called). This can be
+                done directly in the markup, and involves you adding any number
+                of <code>div</code> elements inside of your selected container.
+              </p>
+              <p>
+                For example, suppose that we want 6 carousel items in a
+                carousel. The markup (as an extension from the code above) would
+                look something like this:
+              </p>
+              <div class="border code-container">
+                <pre><code>
+    &lt;div id="my-carousel"&gt;
+      &lt;div class="my-item"&gt;
+        &lt;p&gt;A&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="my-item"&gt;
+        &lt;p&gt;B&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="my-item"&gt;
+        &lt;p&gt;C&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="my-item"&gt;
+        &lt;p&gt;D&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="my-item"&gt;
+        &lt;p&gt;E&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="my-item"&gt;
+        &lt;p&gt;F&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;</code></pre>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="after-creation" class="main-content-section">
+              <h3>After Creation</h3>
+            </section>
           </div>
         </div>
 
         <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
         <div class="col-md-3 col-lg-2 d-none d-md-block">
           <div
-            class="sticky-top border-start overflow-auto"
-            style="top: 72px; max-height: calc(100vh - 88px)"
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
           >
-            <p
-              class="sticky-top bg-white mb-0 ms-3 text-start fw-bold text-muted"
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
             >
-              Page Contents
-            </p>
+              Basic Usage
+            </a>
             <hr class="my-2 mx-2 ms-3 me-3" />
             <nav
-              id="nav-left"
+              id="nav-right"
               class="flex-column align-items-stretch text-start ms-2"
               style="font-size: 14px"
             >
               <nav class="nav py-0 flex-column">
                 <a
-                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link active"
-                  href="#"
-                  >None</a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#creating-a-carousel"
+                  >Creating a Carousel</a
                 >
                 <nav class="nav py-0 flex-column">
                   <a
-                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link active"
-                    href="#"
-                    >Description</a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#choose-a-container"
+                    >Choose a Container</a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >Examples</a
+                    href="#pick-a-resize"
+                    >Pick a Resize</a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >...</a
+                    href="#pick-a-wrap"
+                    >Pick a Wrap</a
                   >
                 </nav>
                 <a
                   class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
-                  href="#"
-                  >Wrap-Simple</a
+                  href="#add-items"
+                  >Add Items</a
                 >
                 <nav class="nav py-0 flex-column">
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >Description</a
+                    href="#at-creation"
+                    >At Creation</a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >Examples</a
-                  >
-                  <a
-                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >...</a
+                    href="#after-creation"
+                    >After Creation</a
                   >
                 </nav>
                 <a
                   class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
-                  href="#"
-                  >Wrap-Smart</a
+                  href="#configure-properties"
+                  >Configure Properties</a
                 >
                 <nav class="nav py-0 flex-column">
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >Description</a
+                    href="#container"
+                    >Container</a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >Examples</a
+                    href="#items"
+                    >Items</a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#"
-                    >...</a
+                    href="#buttons"
+                    >Buttons</a
+                  >
+                  <a
+                    class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                    href="#change-properties"
+                    >Change Properties</a
+                  >
+                </nav>
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#getting-properties"
+                    >Getting Properties</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#setting-properties"
+                    >Setting Properties</a
                   >
                 </nav>
               </nav>

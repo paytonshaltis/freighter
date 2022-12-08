@@ -1,5 +1,60 @@
-$offcanvas-horizontal-width: "275px";
-$navbar-brand-margin-end: "0px";
+$offcanvas-horizontal-width: 275px;
+$navbar-brand-margin-end: 0px;
+$primary: rgb(161, 75, 59);
+$navbar-height: 72px;
+$scrollspy-offset-amount: 8px;
+
+// Add Bootstrap overrides here:
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background-color: rgb(250, 250, 250);
+  background-color: rgba($primary, 0.075);
+}
+
+.custom-border-start {
+  border-left: 1px solid rgba($primary, 0.35);
+}
+
+.custom-border-end {
+  border-right: 1px solid rgba($primary, 0.35);
+}
+
+div.warning-container {
+  background-color: rgba($warning, 0.1);
+  border: 1px solid rgba($warning, 0.5);
+  border-radius: 5px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+div.code-container {
+  border-radius: 5px;
+  border: 1px solid rgba($primary, 0.5);
+}
+
+hr.section-divider {
+  opacity: 10%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+section.main-content-section {
+  padding-top: $navbar-height + $scrollspy-offset-amount;
+  margin-top: -($navbar-height + $scrollspy-offset-amount);
+}
+
+// Styles for top navigation bar.
+body nav#nav-top {
+  background-color: rgba($primary, 0.95);
+  background-image: linear-gradient(
+    180deg,
+    rgba($primary, 0.9),
+    rgba($primary, 0.7),
+    rgba($primary, 0.5),
+    rgba($primary, 0.3)
+  );
+}
 
 // Styles for the documentation navigation links.
 a.nav-link.documentation-link {
@@ -9,17 +64,18 @@ a.nav-link.documentation-link {
 }
 
 a.nav-link.documentation-link.active {
-  color: rgb(58, 58, 58);
-  background-color: lightgray;
+  color: white;
+  background-color: rgba($primary, 0.75);
 }
 
 a.nav-link.documentation-link:hover {
-  color: white;
-  background-color: rgba(128, 128, 128, 0.85);
+  color: black;
+  background-color: rgba($primary, 0.15);
 }
 
 // Styles for the page contents navigation links.
 a.nav-link.page-contents-link {
+  text-decoration: none;
   width: fit-content;
   color: rgb(136, 136, 136);
 }
@@ -31,9 +87,35 @@ a.nav-link.page-contents-link.active {
 
 a.nav-link.page-contents-link:hover {
   text-decoration: underline;
+  color: inherit;
 }
 
-// Add Bootstrap overrides here:
-@import "../../node_modules/bootstrap/scss/bootstrap";
+// Carousel styles.
+div.freighter-c {
+  border-radius: 10px;
+}
+
+div.ci {
+  background-color: rgba($primary, 0.55);
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  border: 3px solid rgba($primary, 0.75);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.ci p {
+  color: white;
+  font-size: min(6.5vw, 7.5rem);
+  font-weight: bold;
+  margin: 0;
+  padding: 0 0.75vw;
+  padding-bottom: min(0.75vw, 1rem);
+  line-height: 100%;
+  // border: 2px dashed rgba($primary, 0.45);
+}
 
 @import "../custom";
