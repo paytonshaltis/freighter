@@ -1,4 +1,4 @@
-import Freighter from "../../dist/Freighter.js";
+import Freighter from "../../../dist/Freighter.js";
 
 const freighter1 = new Freighter({
   containerID: "carousel-1",

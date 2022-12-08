@@ -10868,3 +10868,39 @@ div.ci p {
   padding-bottom: min(0.75vw, 1rem);
   line-height: 100%;
 }
+
+#carousel-train {
+  margin: 0 auto;
+  width: fit-content;
+  overflow-x: hidden;
+}
+
+.ci-train {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+.ci-train img {
+  width: 100%;
+  height: 100%;
+}
+
+#ci-train-engine img#train-engine {
+  height: 70%;
+  width: fit-content;
+}
+
+#ci-train-engine.align-right {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#ci-train-engine.align-center {
+  flex-direction: column;
+  align-items: center;
+}
