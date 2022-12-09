@@ -65,6 +65,17 @@ div.download-div:hover div.icon-square img {
   opacity: 100%;
 }
 
+button#npm-copy-button {
+  background-color: transparent;
+  border: none;
+  opacity: 50%;
+  transition: opacity 250ms;
+}
+
+button#npm-copy-button:hover {
+  opacity: 100%;
+}
+
 // Styles for the documentation navigation links.
 a.nav-link.documentation-link {
   width: fit-content;
