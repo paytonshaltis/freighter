@@ -55,6 +55,16 @@ body nav#nav-top {
   );
 }
 
+// Styles for the home page.
+div.download-div div.icon-square img {
+  opacity: 50%;
+  transition: opacity 500ms;
+}
+
+div.download-div:hover div.icon-square img {
+  opacity: 100%;
+}
+
 // Styles for the documentation navigation links.
 a.nav-link.documentation-link {
   width: fit-content;
