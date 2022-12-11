@@ -982,7 +982,7 @@ export default class Carousel {
         ? options.autoScrollInterval
         : 1000;
     this.autoScrollDirection =
-      options.autoScrollInterval !== undefined
+      options.autoScrollDirection !== undefined
         ? options.autoScrollDirection
         : "right";
     this.autoScrollPauseOnHover = options.autoScrollPauseOnHover
