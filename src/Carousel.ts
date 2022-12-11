@@ -580,10 +580,8 @@ export default class Carousel {
     // Add the SVG icon to the button.
     carouselButton.innerHTML = `
     <svg
-      height="85.999px"
-      width="46.001px"
       fill="black"
-      style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;"
+      style="max-width: 60%; max-height: 60%;"
       viewBox="0 0 46.001 85.999"
     >
       ${
