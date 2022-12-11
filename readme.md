@@ -1,5 +1,11 @@
 # Freighter
 
+<!-- Add an image by link -->
+
+![Version](https://img.shields.io/npm/v/freighterjs)
+![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main)
+![License](https://img.shields.io/npm/l/freighterjs)
+
 A highly customizable carousel library for the web.
 
 ## Changing Carousel Properties
