@@ -1507,7 +1507,7 @@ export default class Carousel {
    * @returns {void} Nothing.
    */
   private startAutoScrollTimeout(): void {
-    this.autoScrollTimeout = setTimeout(() => {
+    this.autoScrollTimeout = window.setTimeout(() => {
       const wasScrollable = this.scrollable;
       switch (this.autoScrollDirection) {
         case "left":

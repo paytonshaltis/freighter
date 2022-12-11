@@ -1,4 +1,4 @@
-import Freighter from "../dist/Freighter.js";
+import Freighter from "../dist/FreighterES6.js";
 
 const freighter = new Freighter({
   wrappingMethod: "wrap-simple",
