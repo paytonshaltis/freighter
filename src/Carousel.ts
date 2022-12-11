@@ -1494,12 +1494,12 @@ export default class Carousel {
       switch (this.autoScrollDirection) {
         case "left":
           this.scrollable = true;
-          (this.carouselContainer.children[0] as HTMLButtonElement).click();
+          this.leftButtonClickListener(new Event("click"));
           this.scrollable = wasScrollable;
           break;
         case "right":
           this.scrollable = true;
-          (this.carouselContainer.children[2] as HTMLButtonElement).click();
+          this.rightButtonClickListener(new Event("click"));
           this.scrollable = wasScrollable;
           break;
       }
