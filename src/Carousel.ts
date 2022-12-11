@@ -273,7 +273,7 @@ export default class Carousel {
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
       this.leftButtonClickListener = () => {
-        if (!this.isScrolling && this.scrollable && this.canScrollLeft) {
+        if (!this.isScrolling && this.canScrollLeft) {
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
 
@@ -331,7 +331,7 @@ export default class Carousel {
     // Add the event listener for scrolling to the right.
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
-        if (!this.isScrolling && this.scrollable && this.canScrollRight) {
+        if (!this.isScrolling && this.canScrollRight) {
           while (this.rightCarouselPointer >= this.allItems.length) {
             this.rightCarouselPointer -= this.allItems.length;
           }
@@ -469,8 +469,10 @@ export default class Carousel {
     this.applyCarouselItemContainerWrapperStyles();
     this.applyCarouselItemContainerStyles();
     this.applyCarouselItemStyles();
-    this.applyCarouselButtonStyles("left");
-    this.applyCarouselButtonStyles("right");
+    if (this.scrollable) {
+      this.applyCarouselButtonStyles("left");
+      this.applyCarouselButtonStyles("right");
+    }
   }
 
   /**
@@ -571,15 +573,15 @@ export default class Carousel {
       ) as HTMLElement;
 
     // Other required styles.
-    carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
+    carouselButton.style.zIndex = "1";
+    carouselButton.style.padding = "1px 6px";
+    carouselButton.style.margin = "0";
 
     // Add the SVG icon to the button.
     carouselButton.innerHTML = `
     <svg
-      height="85.999px"
-      width="46.001px"
       fill="black"
-      style="enable-background: new 0 0 46.001 85.999; max-width: 60%; max-height: 60%;"
+      style="max-width: 60%; max-height: 60%;"
       viewBox="0 0 46.001 85.999"
     >
       ${
@@ -982,7 +984,7 @@ export default class Carousel {
         ? options.autoScrollInterval
         : 1000;
     this.autoScrollDirection =
-      options.autoScrollInterval !== undefined
+      options.autoScrollDirection !== undefined
         ? options.autoScrollDirection
         : "right";
     this.autoScrollPauseOnHover = options.autoScrollPauseOnHover
@@ -1063,8 +1065,14 @@ export default class Carousel {
     }
 
     // Configure and add the carousel buttons.
-    this.carouselContainer.prepend(this.configureCarouselButton("left"));
-    this.carouselContainer.appendChild(this.configureCarouselButton("right"));
+    const leftCarouselButton = this.configureCarouselButton("left");
+    const rightCarouselButton = this.configureCarouselButton("right");
+
+    // Only add the buttons if the carousel is scrollable.
+    if (this.scrollable) {
+      this.carouselContainer.prepend(leftCarouselButton);
+      this.carouselContainer.append(rightCarouselButton);
+    }
 
     // Initialize the carousel with the correct starting data depending on
     // whether the carousel is being constructed from a CarouselOptions object
@@ -1297,26 +1305,37 @@ export default class Carousel {
     // The height of the main container is the max of the left button height, the
     // right button height, and the carousel item container height.
     let maxHeight: number;
-    try {
-      maxHeight = Math.max(
-        parseFloat(
-          getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
-            .height
-        ),
-        parseFloat(
-          getComputedStyle(this.carouselItemContainer as HTMLElement).height
-        ),
-        parseFloat(
-          getComputedStyle(this.carouselContainer.children[2] as HTMLElement)
-            .height
-        )
+
+    // Only try to get the height of the buttons if the carousel is scrollable.
+    if (!this.scrollable) {
+      maxHeight = parseFloat(
+        getComputedStyle(this.carouselItemContainer as HTMLElement).height
       );
-    } catch (error) {
-      console.log(
-        "Tried getting the computed style of a carousel item, caught the following exception:",
-        error
-      );
-      maxHeight = 0;
+    }
+
+    // Otherwise, get the max of the item container and button heights.
+    else {
+      try {
+        maxHeight = Math.max(
+          parseFloat(
+            getComputedStyle(this.carouselContainer.children[0] as HTMLElement)
+              .height
+          ),
+          parseFloat(
+            getComputedStyle(this.carouselItemContainer as HTMLElement).height
+          ),
+          parseFloat(
+            getComputedStyle(this.carouselContainer.children[2] as HTMLElement)
+              .height
+          )
+        );
+      } catch (error) {
+        console.log(
+          "Tried getting the computed style of a carousel item, caught the following exception:",
+          error
+        );
+        maxHeight = 0;
+      }
     }
     this.carouselContainer.style.height = `${maxHeight}px`;
   }
@@ -1493,12 +1512,12 @@ export default class Carousel {
       switch (this.autoScrollDirection) {
         case "left":
           this.scrollable = true;
-          (this.carouselContainer.children[0] as HTMLButtonElement).click();
+          this.leftButtonClickListener(new Event("click"));
           this.scrollable = wasScrollable;
           break;
         case "right":
           this.scrollable = true;
-          (this.carouselContainer.children[2] as HTMLButtonElement).click();
+          this.rightButtonClickListener(new Event("click"));
           this.scrollable = wasScrollable;
           break;
       }
@@ -1506,21 +1525,23 @@ export default class Carousel {
   }
 
   public removeAllEventListeners(): void {
-    // Remove clicks from both buttons.
-    try {
-      this.carouselContainer.children[0].removeEventListener(
-        "click",
-        this.leftButtonClickListener
-      );
-      this.carouselContainer.children[2].removeEventListener(
-        "click",
-        this.rightButtonClickListener
-      );
-    } catch (error) {
-      console.log(
-        "Tried removing event listeners from carousel buttons, caught the following exception:",
-        error
-      );
+    // Remove clicks from both buttons if the carousel is scrollable.
+    if (this.scrollable) {
+      try {
+        this.carouselContainer.children[0].removeEventListener(
+          "click",
+          this.leftButtonClickListener
+        );
+        this.carouselContainer.children[2].removeEventListener(
+          "click",
+          this.rightButtonClickListener
+        );
+      } catch (error) {
+        console.log(
+          "Tried removing event listeners from carousel buttons, caught the following exception:",
+          error
+        );
+      }
     }
 
     // Remove the mouse enter and leave events from the carousel container.
@@ -1540,29 +1561,32 @@ export default class Carousel {
       );
     }
 
-    // Remove the mouse enter and leave events from the carousel buttons.
-    try {
-      this.carouselContainer.children[0].removeEventListener(
-        "mouseenter",
-        this.leftButtonMouseEnterListener
-      );
-      this.carouselContainer.children[0].removeEventListener(
-        "mouseleave",
-        this.leftButtonMouseLeaveListener
-      );
-      this.carouselContainer.children[2].removeEventListener(
-        "mouseenter",
-        this.rightButtonMouseEnterListener
-      );
-      this.carouselContainer.children[2].removeEventListener(
-        "mouseleave",
-        this.rightButtonMouseLeaveListener
-      );
-    } catch (error) {
-      console.log(
-        "Tried removing event listeners from carousel buttons, caught the following exception:",
-        error
-      );
+    // Remove the mouse enter and leave events from the carousel buttons if the
+    // carousel is scrollable.
+    if (this.scrollable) {
+      try {
+        this.carouselContainer.children[0].removeEventListener(
+          "mouseenter",
+          this.leftButtonMouseEnterListener
+        );
+        this.carouselContainer.children[0].removeEventListener(
+          "mouseleave",
+          this.leftButtonMouseLeaveListener
+        );
+        this.carouselContainer.children[2].removeEventListener(
+          "mouseenter",
+          this.rightButtonMouseEnterListener
+        );
+        this.carouselContainer.children[2].removeEventListener(
+          "mouseleave",
+          this.rightButtonMouseLeaveListener
+        );
+      } catch (error) {
+        console.log(
+          "Tried removing event listeners from carousel buttons, caught the following exception:",
+          error
+        );
+      }
     }
 
     // Remove transition end from the carousel item container.
