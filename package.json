@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Freighter is a highly-customizable HTML carousel library featuring multiple resizing and wrap methods.",
   "scripts": {
-    "build": "tsc && npm run bundle && npm run sass",
-    "bundle": "webpack",
+    "build": "tsc && npm run bundle-es6 && npm run bundle-umd && npm run sass",
+    "bundle-es6": "webpack --config webpack-es6.config.js",
+    "bundle-umd": "webpack --config webpack-umd.config.js",
     "sass": "sass ./docs/sass/common.scss ./docs/styles/common.css --no-source-map",
     "dlb": "git branch | grep -v \"main\" | xargs git branch -D"
   },
@@ -34,5 +35,9 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "sass": "^1.56.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
