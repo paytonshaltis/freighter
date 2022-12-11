@@ -273,7 +273,7 @@ export default class Carousel {
     // Add the event listener for scrolling to the left.
     if (direction === "left") {
       this.leftButtonClickListener = () => {
-        if (!this.isScrolling && this.scrollable && this.canScrollLeft) {
+        if (!this.isScrolling && this.canScrollLeft) {
           // Clear the auto scroll timeout.
           clearTimeout(this.autoScrollTimeout);
 
@@ -331,7 +331,7 @@ export default class Carousel {
     // Add the event listener for scrolling to the right.
     else if (direction === "right") {
       this.rightButtonClickListener = () => {
-        if (!this.isScrolling && this.scrollable && this.canScrollRight) {
+        if (!this.isScrolling && this.canScrollRight) {
           while (this.rightCarouselPointer >= this.allItems.length) {
             this.rightCarouselPointer -= this.allItems.length;
           }
@@ -572,6 +572,7 @@ export default class Carousel {
 
     // Other required styles.
     carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
+    carouselButton.style.display = this.scrollable ? "block" : "none";
 
     // Add the SVG icon to the button.
     carouselButton.innerHTML = `
