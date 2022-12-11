@@ -1,5 +1,10 @@
+# NPM and Node
 node_modules
 package-lock.json
+
+# Compiler output
 dist
+docs/styles
+
+# MacOS
 .DS_Store
-webpage/styles.css

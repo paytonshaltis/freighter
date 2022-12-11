@@ -4,86 +4,218 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <title>Home | Freighter</title>
 
+    <!-- Bootstrap styles with overrides. -->
+    <link rel="stylesheet" href="./styles/common.css" />
+
+    <!-- MainJS script with train carousel code. -->
+    <script src="main.js" type="module"></script>
+
+    <!-- BootstrapJS CDN link. -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-    <title>Freighter | Payton Shaltis</title>
+
+    <!-- JQuery CDN link. -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Enable tootlips with JQuery. -->
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
   </head>
   <body>
-    <!-- Sticky and collapsing main navigation bar. -->
-    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-secondary">
-      <div class="container-lg">
-        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
-        <button
-          type="button"
-          class="navbar-toggler d-inline d-md-none me-sm-3"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNav"
-          aria-controls="offcanvasNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Brand navigation link. -->
-        <a class="navbar-brand" href="#">Freighter.js</a>
-
-        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNavBar"
-          aria-controls="mainNavBar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Collapsable primary navigation links themselves. -->
-        <div class="collapse navbar-collapse" id="mainNavBar">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link active" aria-current="page" href="index.html"
-              >Home</a
-            >
-            <a class="nav-link" href="./demos/index.html">Demos</a>
-            <a class="nav-link" href="./documentation/index.html">Docs</a>
-            <a class="nav-link" href="./downloads/index.html">Download</a>
+    <!-- Primary container for all webpage content. -->
+    <div class="container-lg text-center my-3">
+      <!-- Row 1: Title and carousel train. -->
+      <div class="row g-0 justify-content-center">
+        <!-- Column 1: The only content in the first row. -->
+        <div class="col-md-10">
+          <!-- Train carousel. -->
+          <div
+            id="carousel-train"
+            style="margin-top: 1rem; margin-bottom: 2rem"
+          >
+            <div id="ci-train-engine" class="ci-train align-right">
+              <img id="train-engine" src="./icons/train-engine.svg" />
+            </div>
+            <div class="ci-train"><img src="./icons/train-car.svg" /></div>
+            <div class="ci-train"><img src="./icons/train-car.svg" /></div>
           </div>
         </div>
       </div>
-    </nav>
 
-    <!-- Primary container for all webpage content. -->
-    <div class="container-lg text-center my-3" style="height: 300vh">
-      <!-- One row, three column layout. -->
-      <div class="row g-0">
-        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
-        <div class="col-md-3">
-          <div
-            class="offcanvas-md offcanvas-start bg-light border"
-            style="height: 300vh"
-            tabindex="-1"
-            id="offcanvasNav"
-            aria-labelledby="offcanvasNavLabel"
-          >
-            <div class="offcanvas-header">Offcanvas Header</div>
-            Navigation Bar
-          </div>
+      <!-- Row 2: NPM and GitHub badges. -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <img
+            src="https://img.shields.io/npm/v/freighterjs"
+            alt="NPM version"
+          />
+          <img
+            src="https://img.shields.io/github/last-commit/paytonshaltis/freighter/main"
+            alt="GitHub last commit"
+          />
+          <img
+            src="https://img.shields.io/npm/l/freighterjs"
+            alt="NPM license"
+          />
         </div>
+      </div>
 
-        <!-- Column 2: Main content area. -->
-        <div class="col-md">
-          <div class="bg-light border" style="height: 300vh">Main Content</div>
-        </div>
+      <!-- Row 3: Main content; hero and downloads. -->
+      <div class="row g-0 mt-5 justify-content-center">
+        <!-- Column 1: The only content in the second row. -->
+        <div class="col-md-10">
+          <!-- Hero section content. -->
+          <section id="hero" class="px-3 mb-5">
+            <h1 class="display-3">
+              Responsive, Customizable, and Dynamic Carousels
+            </h1>
+            <p class="lead text-secondary fs-4 px-4">
+              Freighter.js is an HTML carousel library that lets you customize
+              the look and behavior properties of your carousel elements. Change
+              these properties on-the-fly with the Freighter API, and decide how
+              your carousel should change on different screen sizes.
+            </p>
+          </section>
 
-        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
-        <div class="col-lg-2 d-none d-lg-block">
-          <div class="bg-light border" style="height: 300vh">Page Map</div>
+          <!-- Spacers between main sections. -->
+          <div class="row my-5"></div>
+          <div class="row my-5"></div>
+
+          <!-- Download section content. -->
+          <section id="download" class="px-3 mt-5">
+            <!-- Row 1: Contains the heading and NPM install script. -->
+            <div class="row border-bottom">
+              <div class="col-md-6 mb-2">
+                <h2 class="display-6" style="white-space: nowrap">
+                  Download Freighter
+                </h2>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div
+                  class="border bg-light code-container p-3 ps-4 pe-3 mx-auto font-monospace text-secondary"
+                  style="width: fit-content"
+                >
+                  &gt; npm i freighterjs
+                  <button
+                    id="npm-copy-button"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Copy to Clipboard"
+                    onclick="navigator.clipboard.writeText('npm install freighterjs');"
+                  >
+                    <img src="./icons/copy.svg" width="20px" alt="Copy icon" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: The actual content and links for downloading. -->
+            <div class="row py-3 text-start row-cols-1 row-cols-xl-3">
+              <!-- Column 1: NPM. -->
+              <div class="col d-flex align-items-start mb-5 download-div">
+                <div
+                  class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"
+                >
+                  <img
+                    src="./icons/npm.svg"
+                    alt="NPM icon"
+                    style="width: 25px"
+                  />
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; height: 100%"
+                >
+                  <h3>Node Package Manager</h3>
+                  <p>
+                    The recommended way to install Freighter is as a Node
+                    module. Run the following command in your project directory
+                    to install and use Freighter:
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    style="margin-top: auto; width: fit-content"
+                  >
+                    View Package on NPM
+                  </a>
+                </div>
+              </div>
+
+              <!-- Column 2: TS. -->
+              <div class="col d-flex align-items-start mb-5 download-div">
+                <div
+                  class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"
+                >
+                  <img
+                    src="./icons/ts.svg"
+                    alt="TypeScript icon"
+                    style="width: 25px"
+                  />
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; height: 100%"
+                >
+                  <h3 class="fs-3">Source Code</h3>
+                  <p>
+                    Freighter was written completely in TypeScript, enabling the
+                    library to take advantage of custom types, classes, and
+                    strict type checking. You can download the raw source code
+                    for Freighter on the downloads page.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    style="margin-top: auto; width: fit-content"
+                  >
+                    Download TS Source
+                  </a>
+                </div>
+              </div>
+
+              <!-- Column 3: JS. -->
+              <div class="col d-flex align-items-start mb-5 download-div">
+                <div
+                  class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"
+                >
+                  <img
+                    src="./icons/js.svg"
+                    alt="JavaScript icon"
+                    style="width: 25px"
+                  />
+                </div>
+                <div
+                  style="display: flex; flex-direction: column; height: 100%"
+                >
+                  <h3 class="fs-3">Script Bundle</h3>
+                  <p>
+                    Freighter uses Webpack to bundle the library into a single
+                    JavaScript file, which can be easily included in a webpage.
+                    You can download the bundled JavaScript file on the
+                    downloads page.
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-primary"
+                    style="margin-top: auto; width: fit-content"
+                  >
+                    Download JS Bundle
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>

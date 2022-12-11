@@ -1,5 +1,11 @@
 # Freighter
 
+<!-- Add an image by link -->
+
+![Version](https://img.shields.io/npm/v/freighterjs)
+![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main)
+![License](https://img.shields.io/npm/l/freighterjs)
+
 A highly customizable carousel library for the web.
 
 ## Changing Carousel Properties
@@ -73,3 +79,5 @@ The following is a list of the internal IDs and classes used to keep track of th
 - `frieghter-carousel-item-dummy`
 - `freighter-carousel-arrow-left`
 - `freighter-carousel-arrow-right`
+
+<a target="_blank" href="https://icons8.com/icon/uJM6fQYqDaZK/typescript">TypeScript</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

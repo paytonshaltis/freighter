@@ -4,9 +4,9 @@ $primary: rgb(161, 75, 59);
 $navbar-height: 72px;
 $scrollspy-offset-amount: 8px;
 
-// Add Bootstrap overrides here:
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+// Overriden Bootstrap styles.
 body {
   background-color: rgb(250, 250, 250);
   background-color: rgba($primary, 0.075);
@@ -44,7 +44,6 @@ section.main-content-section {
   margin-top: -($navbar-height + $scrollspy-offset-amount);
 }
 
-// Styles for top navigation bar.
 body nav#nav-top {
   background-color: rgba($primary, 0.95);
   background-image: linear-gradient(
@@ -54,6 +53,27 @@ body nav#nav-top {
     rgba($primary, 0.5),
     rgba($primary, 0.3)
   );
+}
+
+// Styles for the home page.
+div.download-div div.icon-square img {
+  opacity: 50%;
+  transition: opacity 500ms;
+}
+
+div.download-div:hover div.icon-square img {
+  opacity: 100%;
+}
+
+button#npm-copy-button {
+  background-color: transparent;
+  border: none;
+  opacity: 50%;
+  transition: opacity 250ms;
+}
+
+button#npm-copy-button:hover {
+  opacity: 100%;
 }
 
 // Styles for the documentation navigation links.
@@ -90,7 +110,7 @@ a.nav-link.page-contents-link:hover {
   color: inherit;
 }
 
-// Carousel styles.
+// General carousel styles.
 div.freighter-c {
   border-radius: 10px;
 }
@@ -118,4 +138,34 @@ div.ci p {
   // border: 2px dashed rgba($primary, 0.45);
 }
 
-@import "../custom";
+// Train carousel styles.
+#carousel-train {
+  margin: 0 auto;
+  width: fit-content;
+  overflow-x: hidden;
+}
+.ci-train {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+.ci-train img {
+  width: 100%;
+  height: 100%;
+}
+#ci-train-engine img#train-engine {
+  height: 70%;
+  width: fit-content;
+}
+#ci-train-engine.align-right {
+  flex-direction: column;
+  align-items: flex-end;
+}
+#ci-train-engine.align-center {
+  flex-direction: column;
+  align-items: center;
+}

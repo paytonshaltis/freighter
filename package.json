@@ -4,7 +4,7 @@
   "description": "Freighter is a highly-customizable HTML carousel library featuring multiple resizing and wrap methods.",
   "scripts": {
     "build": "tsc && npm run sass",
-    "sass": "sass ./docs/sass/styles.scss ./docs/styles.css --no-source-map"
+    "sass": "sass ./docs/sass/common.scss ./docs/styles/common.css --no-source-map"
   },
   "repository": {
     "type": "git",

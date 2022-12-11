@@ -15,17 +15,12 @@
   </head>
   <body>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        font-family: "Istok Web", sans-serif;
-      }
       #carousel {
         border-radius: 10px;
         background-color: rgba(248, 125, 25, 0.575);
         margin: 0 auto;
       }
-      .item {
+      .ci-train {
         width: 100%;
         height: 100%;
         display: flex;
@@ -34,33 +29,11 @@
         align-items: flex-end;
         position: relative;
       }
-      div.item-text-bg {
-        position: absolute;
-        background-color: #f26522;
-        border-radius: 0.75vw;
-        width: 95%;
-        height: 54.3%;
-        top: 48%;
-        left: 52.63%;
-        transform: translate(-50%, -50%);
-        margin: 0 auto;
-      }
-      p.item-text {
-        position: absolute;
-        color: white;
-        font-size: 4vw;
-        font-weight: 700;
-        top: 47.5%;
-        left: 52.5%;
-        transform: translate(-50%, -50%);
-        text-shadow: 6px 4px 0px rgb(163, 98, 0);
-        text-decoration: underline;
-      }
-      .item img {
+      .ci-train img {
         width: 100%;
         height: 100%;
       }
-      .item img.first-image {
+      .ci-train img.first-image {
         height: 70%;
         width: fit-content;
       }
@@ -71,21 +44,16 @@
     </style>
 
     <div id="carousel" style="width: 100%">
-      <div class="item" id="first">
-        <img class="first-image" src="./icons/train-engine.svg" />
+      <div class="ci-train" id="first">
+        <img class="first-image" src="./docs/icons/train-engine.svg" />
       </div>
-      <div class="item">
-        <img src="./icons/train-car-empty.svg" />
-        <div class="item-text-bg"></div>
-        <p class="item-text">Freighter.js</p>
-      </div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
-      <div class="item"><img src="./icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
+      <div class="ci-train"><img src="./docs/icons/train-car.svg" /></div>
     </div>
   </body>
 </html>
