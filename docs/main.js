@@ -8,7 +8,8 @@ const freighter = new Freighter({
   itemSpacing: 1,
   containerID: "carousel-train",
   numItemsVisible: 3,
-  syncScrollWithVisibility: true,
+  scrollBy: 4,
+  syncScrollWithVisibility: false,
   transitionDuration: 2500,
   transitionTimingFunction: "linear",
   autoScroll: true,
@@ -83,12 +84,14 @@ const resizeTrain = (manual = false) => {
     freighter.addCarouselItems(createTrainEngine());
     freighter.addCarouselItems(createTrainCar());
     freighter.addCarouselItems(createTrainCar());
+    freighter.addCarouselItems(document.createElement("div"));
 
     // Increase the number of visible items to 3. No need if manual change is large.
     if (!manual) {
       freighter.setCarouselProperties({
         numItemsVisible: 3,
-        syncScrollWithVisibility: true,
+        scrollBy: 4,
+        syncScrollWithVisibility: false,
       });
     }
   } else if (
@@ -106,11 +109,13 @@ const resizeTrain = (manual = false) => {
     // Add a new train engine and one train car.
     freighter.addCarouselItems(createTrainEngine());
     freighter.addCarouselItems(createTrainCar());
+    freighter.addCarouselItems(document.createElement("div"));
 
     // Reduce the number of visible items to 2.
     freighter.setCarouselProperties({
       numItemsVisible: 2,
-      syncScrollWithVisibility: true,
+      scrollBy: 3,
+      syncScrollWithVisibility: false,
     });
   } else if (window.innerWidth < 575 && (breakpoint !== "small" || manual)) {
     breakpoint = "small";
