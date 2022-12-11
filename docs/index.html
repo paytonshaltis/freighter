@@ -15,6 +15,17 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+    <!-- Enable tootlips with JQuery. -->
+    <script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
     <title>Freighter | Payton Shaltis</title>
   </head>
   <body>
@@ -131,7 +142,7 @@
         <div class="col-md-10">
           <!-- Hero section content. -->
           <section id="hero" class="px-3 mb-5">
-            <h1 class="fw-semibold display-3">
+            <h1 class="display-3">
               Responsive, Customizable, and Dynamic Carousels
             </h1>
             <p class="lead text-secondary fs-4 px-4">
@@ -147,7 +158,35 @@
             <div class="col-md">
               <!-- Download section content. -->
               <section id="download" class="px-3 mt-5">
-                <h2 class="pb-4 border-bottom">Download Freighter</h2>
+                <div class="row border-bottom">
+                  <div class="col-md-6 mb-2">
+                    <h2 class="display-6" style="white-space: nowrap">
+                      Download Freighter
+                    </h2>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div
+                      class="border bg-light code-container p-3 ps-4 pe-3 mx-auto font-monospace text-secondary"
+                      style="width: fit-content"
+                    >
+                      &gt; npm i freighterjs
+                      <button
+                        id="npm-copy-button"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Copy to Clipboard"
+                        onclick="navigator.clipboard.writeText('npm install freighterjs');"
+                      >
+                        <img
+                          src="./icons/copy.svg"
+                          width="20px"
+                          alt="Copy icon"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="row py-3 text-start row-cols-1 row-cols-xl-3">
                   <div class="col d-flex align-items-start mb-5 download-div">
                     <div
@@ -166,22 +205,19 @@
                         height: 100%;
                       "
                     >
-                      <h3>
-                        <a class="text-dark" href="#">Node Package Manager</a>
-                      </h3>
+                      <h3>Node Package Manager</h3>
                       <p>
                         The recommended way to install Freighter is as a Node
                         module. Run the following command in your project
                         directory to install and use Freighter:
                       </p>
-                      <div
-                        class="border bg-light code-container px-0 text-secondary"
-                        style="width: fit-content"
+                      <a
+                        href="#"
+                        class="btn btn-primary"
+                        style="margin-top: auto; width: fit-content"
                       >
-                        <pre
-                          class="mb-0 p-3 m-0"
-                        ><code>&gt; npm install freighterjs<button id="npm-copy-button" onclick="navigator.clipboard.writeText('npm install freighterjs');"><img src="./icons/copy.svg" width="17px" alt="Copy icon"></button></code></pre>
-                      </div>
+                        View Package on NPM
+                      </a>
                     </div>
                   </div>
                   <div class="col d-flex align-items-start mb-5 download-div">
