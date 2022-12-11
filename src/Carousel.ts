@@ -573,8 +573,7 @@ export default class Carousel {
       ) as HTMLElement;
 
     // Other required styles.
-    carouselButton.style.zIndex = this.scrollable ? "1" : "-9999";
-    carouselButton.style.display = this.scrollable ? "block" : "none";
+    carouselButton.style.zIndex = "1";
 
     // Add the SVG icon to the button.
     carouselButton.innerHTML = `
