@@ -574,6 +574,8 @@ export default class Carousel {
 
     // Other required styles.
     carouselButton.style.zIndex = "1";
+    carouselButton.style.padding = "1px 6px";
+    carouselButton.style.margin = "0";
 
     // Add the SVG icon to the button.
     carouselButton.innerHTML = `
