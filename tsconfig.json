@@ -4,7 +4,7 @@
     // "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "js-output",
+    "outDir": "dist/js-output",
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
