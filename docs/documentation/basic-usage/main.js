@@ -1,9 +1,8 @@
-import Freighter from "../../../dist/Freighter.js";
+import Freighter from "../../../dist/FreighterES6.js";
 
 const freighter1 = new Freighter({
   containerID: "carousel-1",
   resizingMethod: "stretch-scale",
-  wrappingMethod: "none",
   numItemsVisible: 3,
   scrollBy: 2,
   itemSpacing: 20,

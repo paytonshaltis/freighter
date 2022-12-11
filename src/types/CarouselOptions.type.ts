@@ -6,13 +6,13 @@ import CarouselProperties from "./CarouselProperties.type.js";
  */
 type CarouselOptions = CarouselProperties & {
   containerID: string;
-  resizingMethod:
+  resizingMethod?:
     | "none"
     | "stretch"
     | "stretch-gap"
     | "stretch-scale"
     | "stretch-populate";
-  wrappingMethod: "none" | "wrap-simple" | "wrap-smart";
+  wrappingMethod?: "none" | "wrap-simple" | "wrap-smart";
   itemWidth?: number;
   itemHeight?: number;
   itemSpacing?: number;
@@ -44,8 +44,9 @@ export function validateCarouselOptions(options: CarouselOptions): void {
     throw new Error("containerID must be a non-empty string.");
   }
 
-  // Resizing method is always required.
+  // Resizing method must be one of the following: 'none', 'stretch', 'stretch-gap', 'stretch-scale', 'stretch-populate'.
   if (
+    options.resizingMethod &&
     options.resizingMethod !== "none" &&
     options.resizingMethod !== "stretch" &&
     options.resizingMethod !== "stretch-gap" &&
@@ -57,8 +58,9 @@ export function validateCarouselOptions(options: CarouselOptions): void {
     );
   }
 
-  // Wrapping method is always required.
+  // Wrapping method must be one of the following: 'none', 'wrap-simple', 'wrap-smart'.
   if (
+    options.wrappingMethod &&
     options.wrappingMethod !== "wrap-simple" &&
     options.wrappingMethod !== "wrap-smart" &&
     options.wrappingMethod !== "none"
@@ -78,8 +80,6 @@ export function validateCarouselOptions(options: CarouselOptions): void {
       "Carousels using a resizing method other than 'stretch-scale' and 'stretch' require a defined itemWidth that is a positive number greater than 0."
     );
   }
-
-  // TODO check button styles.
 
   // Only stretch-scale doesn't need an exact height.
   if (
