@@ -947,16 +947,22 @@ export default class Carousel {
     const constructFromState =
       (options as CarouselState).carouselID !== undefined;
 
-    // Initialize the required class attributes.
+    // Initialize the required class attributes. Set their defaults to "none" if
+    // they are not explicitly provided.
     this.resizingMethod =
       options.resizingMethod === "stretch-populate"
         ? "stretch-gap"
-        : options.resizingMethod;
-    this.wrappingMethod = options.wrappingMethod;
+        : options.resizingMethod
+        ? options.resizingMethod
+        : "none";
+    this.wrappingMethod = options.wrappingMethod
+      ? options.wrappingMethod
+      : "none";
 
     // Initialize the optional class attributes.
-    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 1;
-    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 1;
+    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 225;
+    this.itemHeight =
+      options.itemHeight !== undefined ? options.itemHeight : 150;
     this.itemSpacing =
       options.itemSpacing !== undefined ? options.itemSpacing : 0;
     this.buttonStyles =
