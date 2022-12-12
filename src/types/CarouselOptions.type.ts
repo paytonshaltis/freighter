@@ -70,37 +70,16 @@ export function validateCarouselOptions(options: CarouselOptions): void {
     );
   }
 
-  // Only stretch-scale and stretch don't need an exact width.
-  if (
-    options.resizingMethod !== "stretch-scale" &&
-    options.resizingMethod !== "stretch" &&
-    (!options.itemWidth || (options.itemWidth && options.itemWidth < 0))
-  ) {
-    throw new Error(
-      "Carousels using a resizing method other than 'stretch-scale' and 'stretch' require a defined itemWidth that is a positive number greater than 0."
-    );
-  }
-
-  // Only stretch-scale doesn't need an exact height.
-  if (
-    options.resizingMethod !== "stretch-scale" &&
-    (!options.itemHeight || (options.itemHeight && options.itemHeight < 0))
-  ) {
-    throw new Error(
-      "Carousels using a resizing method other than 'stretch-scale' require a defined itemHeight that is a positive number greater than 0."
-    );
-  }
-
   // itemSpacing is always optional, but if it is defined, it must be a positive
   // number greater than or equal to 0.
-  if (options.itemSpacing && options.itemSpacing < 0) {
+  if (options.itemSpacing !== undefined && options.itemSpacing < 0) {
     throw new Error("itemSpacing must be a positive number or 0.");
   }
 
   // Scroll by is always optional, but if it is defined, it must be a positive
   // integer greater than 0.
   if (
-    options.scrollBy &&
+    options.scrollBy !== undefined &&
     (options.scrollBy < 1 || options.scrollBy % 1 !== 0)
   ) {
     throw new Error("scrollBy must be a positive integer greater than 1.");
@@ -120,14 +99,17 @@ export function validateCarouselOptions(options: CarouselOptions): void {
   // Transition duration, delay, and timing function are always optional, but if
   // they are defined, they must be positive numbers greater than 0 and a non-
   // empty string, respectively.
-  if (options.transitionDuration && options.transitionDuration < 0) {
+  if (
+    options.transitionDuration !== undefined &&
+    options.transitionDuration < 0
+  ) {
     throw new Error("transitionDuration must be a positive number or 0.");
   }
-  if (options.transitionDelay && options.transitionDelay < 0) {
+  if (options.transitionDelay != undefined && options.transitionDelay < 0) {
     throw new Error("transitionDelay must be a positive number or 0.");
   }
   if (
-    options.transitionTimingFunction &&
+    options.transitionTimingFunction != undefined &&
     options.transitionTimingFunction.length === 0
   ) {
     throw new Error("transitionTimingFunction must be a non-empty string.");

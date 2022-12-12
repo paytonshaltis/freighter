@@ -61,7 +61,7 @@ export function validateButtonStyles(
   buttonStyle: ButtonStyle | undefined
 ): void {
   if (
-    buttonStyle?.position &&
+    buttonStyle?.position !== undefined &&
     buttonStyle?.position !== "top" &&
     buttonStyle?.position !== "center" &&
     buttonStyle?.position !== "bottom"

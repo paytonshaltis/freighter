@@ -960,8 +960,9 @@ export default class Carousel {
       : "none";
 
     // Initialize the optional class attributes.
-    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 1;
-    this.itemHeight = options.itemHeight !== undefined ? options.itemHeight : 1;
+    this.itemWidth = options.itemWidth !== undefined ? options.itemWidth : 150;
+    this.itemHeight =
+      options.itemHeight !== undefined ? options.itemHeight : 150;
     this.itemSpacing =
       options.itemSpacing !== undefined ? options.itemSpacing : 0;
     this.buttonStyles =
