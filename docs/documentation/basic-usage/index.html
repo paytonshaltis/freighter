@@ -199,48 +199,23 @@
             <section id="creating-a-carousel" class="main-content-section">
               <h2>Creating a Carousel</h2>
               <p>
-                Freighter carousels are highly customizable, but require only
-                <b>three</b> properties in order to create the simplest type of
-                carousel:
+                A carousel is created by specifying an existing container
+                <code>div</code> and a list of properties. All properties within
+                the list are optional with the exception of the
+                <code>containerID</code> property, which specifies the container
+                in which the Freighter carousel will be appended.
               </p>
-              <ul>
-                <li>
-                  <b>Container</b> - The container that houses the carousel.
-                  This is created by you, and the ID is passed to the carousel
-                  constructor.
-                </li>
-                <li>
-                  <b>Rezise Method</b> - How the carousel will behave when the
-                  window is resized. These range from scaling the size of
-                  carousel content to decreasing the number of visible carousel
-                  items.
-                </li>
-                <li>
-                  <b>Wrap Method</b> - How the carousel items will 'wrap' when
-                  scrolling past the end of the carousel. A carousel can wrap
-                  around infinitely, or prevent scrolling when one end is
-                  reached.
-                </li>
-              </ul>
               <p>
-                The three required carousel properties will be passed to the
-                <code>Freighter</code> constructor inside of a
-                <code>CarouselOptions</code> object. By the time all required
-                carousel properties have been discussed on this page, a call to
-                the constructor will look something like this:
+                The following sections will demonstrate the creation of some of
+                the simplest carousels. These will take advantage of the
+                <code>resizingMethod</code> and
+                <code>wrappingMethod</code> properties in order to quickly
+                create responsive carousel elements.
               </p>
-              <div class="border bg-light code-container">
-                <pre><code>
-      const myCarousel = new Freighter({
-        containerID: 'my-carousel',
-        resizingMethod: 'stretch-scale',
-        wrappingMethod: 'wrap-smart'
-      });</code></pre>
-              </div>
             </section>
             <hr class="section-divider" />
-            <section id="choose-a-container" class="main-content-section">
-              <h3>Choose a Container</h3>
+            <section id="choosing-a-container" class="main-content-section">
+              <h3>Choosing a Container</h3>
               <p>
                 Any <code>div</code> that you create can be used to house a
                 Freighter carousel. The only requirement is that you assign the
@@ -248,12 +223,11 @@
                 modify this DOM element:
               </p>
               <div class="border bg-light code-container">
-                <pre><code>    
-    &lt;div id="my-carousel"&gt;
-      &lt;!-- Carousel items will eventually go in here! --&gt;
-    &lt;/div&gt;</code></pre>
+                <pre><code>&lt;div id="myCarousel"&gt;
+  &lt;!-- Carousel items will eventually go in here! --&gt;
+&lt;/div&gt;</code></pre>
               </div>
-              <p class="mt-3">
+              <p>
                 You can add, reposition, and style this container. All Freighter
                 carousel DOM elements will be appended to it (they will be made
                 the children of the chosen <code>div</code>). The classes and ID
@@ -262,105 +236,47 @@
               </p>
             </section>
             <hr class="section-divider" />
-            <section id="pick-a-resize" class="main-content-section">
-              <h3>Pick a Resize</h3>
+            <section id="content-first-philosophy" class="main-content-section">
+              <h3>Content-First Philosophy</h3>
               <p>
-                The next required property for any carousel is the resizing
-                method. When the width of the browser increases or decreases,
-                the carousel must respond in an appropriate way. The way in
-                which the carousel responds can be configured throught the
-                <code>resizingMethod</code> property. One method included in
-                Freighter is <code>stretch-scale</code>, which will stretch or
-                shrink the carousel while preserving the aspect ratio of each
-                item.
+                Let's create the simplest possible carousel by calling the
+                Freighter constructor with an object containing only the
+                <code>containerID</code> property. The code below presupposes
+                that the above <code>div</code> with the ID of
+                <code>myCarousel</code> has already been created:
               </p>
-              <div class="warning-container">
-                <p class="mb-0">
-                  Note that <code>stretch-scale</code> was chosen intentionally
-                  in this case, because it does not require a set height or
-                  width. Other resizing methods, such as <code>none</code>, will
-                  require a fixed height and width, and thus more properties are
-                  required in its constructor.
-                </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter({
+  containerID: 'myCarousel',
+});</code></pre>
               </div>
               <p>
-                You can see the full list of resizing methods
-                <a href="./resizing">here</a>, as well as a variety of examples
-                that show off how each resizing method can be used. For the
-                purposes of this page, the <code>stretch-scale</code> value will
-                be used.
+                With no other properties passes into the constructor, the
+                generated carousel looks a bit silly:
               </p>
-              <p>
-                Try resizing the browser window and see how the carousel
-                responds. You will notice a few things:
+              <div id="carousel-0"></div>
+              <p class="mt-3">
+                You can just about see the flat 'next' and 'previous' buttons,
+                but nothing else renders to the screen. This is because
+                Freighter carousels take a content-first approach, meaning that
+                the content <em>within</em> a carousel dictates how it will
+                look. This includes the dimensions of the carousel, which
+                currently has a height of a few pixels.
               </p>
-              <ul>
-                <li>
-                  The number of visible items in the carousel remains the same.
-                </li>
-                <li>
-                  The aspect ratio of each item is preserved, even though each
-                  item's width and height increases or decreases with the size
-                  of the browser window.
-                </li>
-                <li>
-                  The size of the gap between carousel items is preserved.
-                </li>
-              </ul>
-              <div id="carousel-1" class="freighter-c mb-3" style="width: 100%">
-                <div class="ci"><p>A</p></div>
-                <div class="ci"><p>B</p></div>
-                <div class="ci"><p>C</p></div>
-                <div class="ci"><p>D</p></div>
-              </div>
             </section>
             <hr class="section-divider" />
-            <section id="pick-a-wrap" class="main-content-section">
-              <h3>Pick a Wrap</h3>
+            <section id="adding-items" class="main-content-section">
+              <h2>Adding Items</h2>
               <p>
-                The final property required for a carousel is the
-                <code>wrappingMethod</code>. This describes how the carousel
-                should wrap items if one of the ends is reached. Here, we will
-                use the <code>wrap-simple</code> value, which just wraps items
-                by scroll amount in either direction.
+                Let's continue creating our carousel by adding some items to it.
+                This will fix the height of the carousel demonstrated in the
+                above sections. Remember that this is because the carousel
+                itself typically inherits the dimensions of its carousel items.
               </p>
               <p>
-                Compare the wrapping method in the carousel below (which uses
-                <code>wrap-simple</code>) to the carousel above (which uses
-                <code>none</code> as its wrap value). You will notice a few
-                things:
-              </p>
-              <ul>
-                <li>
-                  The carousel using <code>none</code> as its wrap value does
-                  not allow you to scroll past the first or last item.
-                </li>
-                <li>
-                  The carousel using <code>wrap-simple</code> always scrolls by
-                  the same amount, no matter the position in the carousel.
-                </li>
-                <li>
-                  The relative order of the carousel items is
-                  <b>not</b> preserved when using <code>wrap-simple</code>. For
-                  example, the first item may appear after the last item in the
-                  carousel.
-                </li>
-              </ul>
-              <div id="carousel-2" class="freighter-c mb-3" style="width: 100%">
-                <div class="ci"><p>A</p></div>
-                <div class="ci"><p>B</p></div>
-                <div class="ci"><p>C</p></div>
-                <div class="ci"><p>D</p></div>
-              </div>
-            </section>
-            <hr class="section-divider" />
-            <section id="add-items" class="main-content-section">
-              <h2>Add Items</h2>
-              <p>
-                The next step in creating a valid Freighter carousel is to add
-                items. This can be done at two different times during the
-                creation of a carousel - at the time of carousel creation, or
-                after the carousel is created.
+                There are two ways to add content to a carousel: before the
+                carousel is created or after the carousel is created. This
+                section discusses the basics of both approaches.
               </p>
             </section>
             <hr class="section-divider" />
@@ -373,37 +289,115 @@
                 of <code>div</code> elements inside of your selected container.
               </p>
               <p>
-                For example, suppose that we want 6 carousel items in a
-                carousel. The markup (as an extension from the code above) would
-                look something like this:
+                For example, suppose that we want 3 carousel items to our
+                carousel before calling the constructor. The markup would look
+                something like this:
               </p>
               <div class="border bg-light code-container">
-                <pre><code>
-    &lt;div id="my-carousel"&gt;
-      &lt;div class="my-item"&gt;
-        &lt;p&gt;A&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class="my-item"&gt;
-        &lt;p&gt;B&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class="my-item"&gt;
-        &lt;p&gt;C&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class="my-item"&gt;
-        &lt;p&gt;D&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class="my-item"&gt;
-        &lt;p&gt;E&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class="my-item"&gt;
-        &lt;p&gt;F&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;</code></pre>
+                <pre><code>&lt;div id="myCarousel"&gt;
+  &lt;div class="myItem"&gt;
+    &lt;p&gt;A&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="myItem"&gt;
+    &lt;p&gt;B&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="myItem"&gt;
+    &lt;p&gt;C&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+              <p>
+                There are a couple of key things to notice about this approach:
+              </p>
+              <ul>
+                <li>
+                  Each carousel item is given an optional classname of
+                  <code>myItem</code>, which is an arbitrary classname that can
+                  be used to style the carousel items later.
+                </li>
+                <li>
+                  Each carousel item contains a <code>&lt;p&gt;</code> tag.
+                  Carousel items may contain any number of other items, but each
+                  carousel item at the highest level <b>must</b> be a
+                  <code>div</code>.
+                </li>
+              </ul>
+              <p>
+                If the constructor code from above is run now, the following
+                carousel will be generated. The <code>myItem</code> class and
+                <code>p</code> elements were styled in order to make the
+                carousel items more visually appealing, but buttons and carousel
+                functionality was <b>not</b> altered:
+              </p>
+              <div id="carousel-1" class="freighter-c">
+                <div class="ci"><p style="font-size: 4rem">A</p></div>
+                <div class="ci"><p style="font-size: 4rem">B</p></div>
+                <div class="ci"><p style="font-size: 4rem">C</p></div>
               </div>
             </section>
             <hr class="section-divider" />
             <section id="after-creation" class="main-content-section">
               <h3>After Creation</h3>
+              <p>
+                Freighter carousels give you the ability to modify most of the
+                properties of a carousel after they have already been
+                constructed. Naturally, one of the most important things that
+                you can change about a carousel are its items.
+              </p>
+              <p>
+                Freighter provides the <code>addCarouselItems()</code> method
+                that can be called on a <code>Freighter</code> instance, which
+                explains why we stored the constructor's return value in a
+                variable called <code>myCarousel</code> in the previous
+                sections. This method takes either a single HTML element or an
+                array of HTML elements as its first parameter, and an optional
+                second parameter that specifies where the items should be added.
+                By default, items are pushed to the end of the carousel:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>// Carousel items to be added.
+const newItem1 = document.createElement('div');
+newItem.innerHTML = '&lt;p&gt;D&lt;/p&gt;';
+newItem.classList.add('myItem');
+
+const newItem2 = document.createElement('div');
+newItem.innerHTML = '&lt;p&gt;E&lt;/p&gt;';
+newItem.classList.add('myItem');
+
+const newItem3 = document.createElement('div');
+newItem.innerHTML = '&lt;p&gt;F&lt;/p&gt;';
+newItem.classList.add('myItem');
+
+// Appends one item to the end of the carousel.
+myCarousel.addCarouselItems(newItem1);
+
+// Prepends two items to the beginning of the carousel.
+myCarousel.addCarouselItems([newItem2, newItem3], 0);</code></pre>
+              </div>
+              <p>
+                Obviously, this code can be run at any time after the carousel
+                has been created, such as in a button click handler. Try
+                scrolling through the carousel below first, and notice that
+                there is only one item in it. Then, click the button to append a
+                new item to the end of the carousel:
+              </p>
+              <div class="row">
+                <div class="col-md col-xs-12">
+                  <div id="carousel-2" class="freighter-c" style="width: 100%">
+                    <div class="ci"><p style="font-size: 4rem">1</p></div>
+                  </div>
+                </div>
+                <div
+                  class="col-md col-xs-12 mt-3 mt-md-0 d-flex align-items-center justify-content-center"
+                >
+                  <button
+                    id="add-item"
+                    class="btn btn-primary d-block fs-5 p-3"
+                  >
+                    Add Item (1) Total
+                  </button>
+                </div>
+              </div>
             </section>
           </div>
         </div>
@@ -435,24 +429,19 @@
                 <nav class="nav py-0 flex-column">
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#choose-a-container"
-                    >Choose a Container</a
+                    href="#choosing-a-container"
+                    >Choosing a Container</a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#pick-a-resize"
-                    >Pick a Resize</a
-                  >
-                  <a
-                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#pick-a-wrap"
-                    >Pick a Wrap</a
+                    href="#content-first-philosophy"
+                    >Content-First Philosophy</a
                   >
                 </nav>
                 <a
                   class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
-                  href="#add-items"
-                  >Add Items</a
+                  href="#adding-items"
+                  >Adding Items</a
                 >
                 <nav class="nav py-0 flex-column">
                   <a
