@@ -3,7 +3,7 @@ $navbar-brand-margin-end: 0px;
 $primary: rgb(161, 75, 59);
 $navbar-height: 72px;
 $scrollspy-offset-amount: 8px;
-$nav-tabs-link-hover-border-color: rgba($primary, 0.3);
+$nav-tabs-link-hover-border-color: transparent;
 $nav-tabs-link-active-color: $primary;
 $nav-tabs-link-active-bg: rgba($primary, 0.075);
 $nav-tabs-link-active-border-color: rgba($primary, 0.5);
@@ -12,7 +12,15 @@ $nav-tabs-link-active-border-color: rgba($primary, 0.5);
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-  border-bottom: rgba($primary, 0.075);
+  border-top: transparent;
+  border-right: transparent;
+  border-left: transparent;
+  border-bottom: 3px solid rgba($primary, 0.5);
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+  background-color: rgba($primary, 0.075);
 }
 
 // Overriden Bootstrap styles.
