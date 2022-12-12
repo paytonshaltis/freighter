@@ -110,6 +110,7 @@
     <div class="container">
       <!-- Row 1: Title, description, GH and NPM links.  -->
       <div class="row mt-3">
+        <!-- Column 1: Title and description. -->
         <div class="col-12 col-lg-6">
           <h1 class="display-3">Downloads</h1>
           <p class="lead">
@@ -119,8 +120,12 @@
             or check out the project on GitHub or NPM.
           </p>
         </div>
+
+        <!-- Column 2: GH and NPM link buttons. -->
         <div class="col-12 col-lg-6 my-auto">
+          <!-- Row 1: Contains link buttons. -->
           <div class="row">
+            <!-- Column 1: GitHub link button. -->
             <div class="col-12">
               <a
                 href="#"
@@ -128,12 +133,94 @@
                 >View on GitHub</a
               >
             </div>
+
+            <!-- Column 2: NPM link button. -->
             <div class="col-12">
               <a
                 href="#"
                 class="btn btn-primary w-75 my-2 py-2 mx-auto d-block fs-4"
                 >View on NPM</a
               >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Download tabs. -->
+      <div class="row mt-5">
+        <!-- Column 1: The main tabbed content of the downloads page. -->
+        <div class="col">
+          <ul class="nav nav-tabs" id="tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="ts-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#ts-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="ts-tab-pane"
+                aria-selected="true"
+              >
+                TS Source
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="es6-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#es6-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="es6-tab-pane"
+                aria-selected="false"
+              >
+                JS Bundle - ES6
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="umd-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#umd-tab-pane"
+                type="button"
+                role="tab"
+                aria-controls="umd-tab-pane"
+                aria-selected="false"
+              >
+                JS Bundle - UMD
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content" id="tab-content">
+            <div
+              class="tab-pane fade show active"
+              id="ts-tab-pane"
+              role="tabpanel"
+              aria-labelledby="ts-tab"
+              tabindex="0"
+            >
+              TS Source
+            </div>
+            <div
+              class="tab-pane fade"
+              id="es6-tab-pane"
+              role="tabpanel"
+              aria-labelledby="es6-tab"
+              tabindex="0"
+            >
+              ES6
+            </div>
+            <div
+              class="tab-pane fade"
+              id="umd-tab-pane"
+              role="tabpanel"
+              aria-labelledby="umd-tab"
+              tabindex="0"
+            >
+              UMD
             </div>
           </div>
         </div>
