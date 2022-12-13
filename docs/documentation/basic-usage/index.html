@@ -399,6 +399,91 @@ myCarousel.addCarouselItems([newItem2, newItem3], 0);</code></pre>
                 </div>
               </div>
             </section>
+            <hr class="section-divider" />
+            <section id="configure-properties" class="main-content-section">
+              <h2>Configure Properties</h2>
+              <p>
+                Now that our carousel is capable of holding items, we want to
+                change some of the default properties of the carousel. Similar
+                to how items could be added during or after creation of the
+                carousel, properties can be passed into the Freighter
+                constructor or modified after the carousel has been created.
+              </p>
+              <p>
+                The properties that are available to customize are logically
+                organized into 3 categories:
+              </p>
+              <ul>
+                <li><b>Container</b></li>
+                <li><b>Items</b></li>
+                <li><b>Buttons</b></li>
+              </ul>
+              <p>
+                In order to simplify the process of changing carousel
+                properties, this section will focus on adding properties to the
+                carousel through the constructor. See the
+                <a href="#change-properties">next section</a> for how to change
+                the properties on an existing carousel.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="container" class="main-content-section">
+              <h3>Container</h3>
+              <p>
+                Two of the most powerful container properties offered by
+                Freigher include the <code>resizingMethod</code> and
+                <code>wrappingMethod</code> properties. Due to the complexity of
+                each value for these properties, they are covered in their own
+                detailed documentation pages.
+              </p>
+              <p>
+                The two values that will be used in the example below are
+                <code>resizingMethod: 'stretch-scale'</code> and
+                <code>wrappingMethod: 'wrap-simple'</code>. You may be able to
+                figure out what these values do by comparing the carousel to the
+                ones in the previous sections, but be sure to consult their
+                respective documentation pages for more information.
+              </p>
+              <p>
+                Some of the more self-explanatory properties offerred for
+                carousels include the <code>numItemsVisible</code>,
+                <code>scrollBy</code>, and <code>autoScroll</code> properties.
+                Below shows an example of constructing a carousel that overrides
+                the default values for these properties, as well as the
+                resulting carousel:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>// Create a new carousel using the container with the ID "myCarousel".
+const myCarousel = new Freighter({
+  containerID: 'myCarousel',
+  resizingMethod: 'stretch-scale',
+  wrappingMethod: 'wrap-simple',
+  numItemsVisible: 3,
+  scrollBy: 2,
+  autoScroll: true,
+});</code></pre>
+              </div>
+              <div id="carousel-3" class="freighter-c">
+                <div class="ci"><p style="font-size: 4rem">1</p></div>
+                <div class="ci"><p style="font-size: 4rem">2</p></div>
+                <div class="ci"><p style="font-size: 4rem">3</p></div>
+                <div class="ci"><p style="font-size: 4rem">4</p></div>
+                <div class="ci"><p style="font-size: 4rem">5</p></div>
+                <div class="ci"><p style="font-size: 4rem">6</p></div>
+                <div class="ci"><p style="font-size: 4rem">7</p></div>
+                <div class="ci"><p style="font-size: 4rem">8</p></div>
+                <div class="ci"><p style="font-size: 4rem">9</p></div>
+                <div class="ci"><p style="font-size: 4rem">10</p></div>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="items" class="main-content-section">
+              <h3>Items</h3>
+            </section>
+            <hr class="section-divider" />
+            <section id="buttons" class="main-content-section">
+              <h3>Buttons</h3>
+            </section>
           </div>
         </div>
 

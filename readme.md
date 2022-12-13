@@ -13,30 +13,30 @@ A highly customizable carousel library for the web.
 The following is a table that details exactly which Carousel properties can be changed and if changing them is currently implemented.
 
 | Carousel Style Property    | Changeable | Implemented |
-| :------------------------- | :--------: | :---------: |
+| :------------------------- | :--------: | :---------: | --- |
 | `containerID`              |     ❌     |      ✔      |
-| `resizingMethod`           |     ❌     |      ✔      |
-| `wrappingMethod`           |     ❌     |      ✔      |
-| `itemWidth`                |     ✔      |      ✔      |
-| `itemHeight`               |     ✔      |      ✔      |
-| `itemSpacing`              |     ✔      |      ✔      |
-| `numItemsVisible`          |     ✔      |      ✔      |
-| `scrollBy`                 |     ✔      |      ✔      |
-| `syncScrollWithVisibility` |     ✔      |      ✔      |
-| `scrollable`               |     ✔      |      ✔      |
-| `autoScroll`               |     ✔      |      ✔      |
-| `autoScrollInterval`       |     ✔      |      ✔      |
-| `autoScrollDirection`      |     ✔      |      ✔      |
-| `autoScrollPauseOnHover`   |     ✔      |      ✔      |
-| `transitionDuration`       |     ✔      |      ✔      |
-| `transitionDelay`          |     ✔      |      ✔      |
-| `transitionTimingFunction` |     ✔      |      ✔      |
-| `buttonStyles`             |     ✔      |      ✔      |
-| `buttonHoverStyles`        |     ✔      |      ✔      |
-| `leftButtonStyles`         |     ✔      |      ✔      |
-| `leftButtonHoverStyles`    |     ✔      |      ✔      |
-| `rightButtonStyles`        |     ✔      |      ✔      |
-| `rightButtonHoverStyles`   |     ✔      |      ✔      |
+| `resizingMethod`           |     ❌     |      ✔      | c   |
+| `wrappingMethod`           |     ❌     |      ✔      | c   |
+| `itemWidth`                |     ✔      |      ✔      | i   |
+| `itemHeight`               |     ✔      |      ✔      | i   |
+| `itemSpacing`              |     ✔      |      ✔      | i   |
+| `numItemsVisible`          |     ✔      |      ✔      | c   |
+| `scrollBy`                 |     ✔      |      ✔      | c   |
+| `syncScrollWithVisibility` |     ✔      |      ✔      | c   |
+| `scrollable`               |     ✔      |      ✔      | c   |
+| `autoScroll`               |     ✔      |      ✔      | c   |
+| `autoScrollInterval`       |     ✔      |      ✔      | c   |
+| `autoScrollDirection`      |     ✔      |      ✔      | c   |
+| `autoScrollPauseOnHover`   |     ✔      |      ✔      | c   |
+| `transitionDuration`       |     ✔      |      ✔      | c   |
+| `transitionDelay`          |     ✔      |      ✔      | c   |
+| `transitionTimingFunction` |     ✔      |      ✔      | c   |
+| `buttonStyles`             |     ✔      |      ✔      | b   |
+| `buttonHoverStyles`        |     ✔      |      ✔      | b   |
+| `leftButtonStyles`         |     ✔      |      ✔      | b   |
+| `leftButtonHoverStyles`    |     ✔      |      ✔      | b   |
+| `rightButtonStyles`        |     ✔      |      ✔      | b   |
+| `rightButtonHoverStyles`   |     ✔      |      ✔      | b   |
 | `showTimeline`             |     ✔      |     ❌      |
 
 | Button Style Property     | Changeable | Implemented |

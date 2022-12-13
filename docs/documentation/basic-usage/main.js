@@ -12,6 +12,15 @@ const freighter2 = new Freighter({
   containerID: "carousel-2",
 });
 
+const freighter3 = new Freighter({
+  containerID: "carousel-3",
+  resizingMethod: "stretch-scale",
+  wrappingMethod: "wrap-simple",
+  numItemsVisible: 3,
+  scrollBy: 2,
+  autoScroll: true,
+});
+
 let newItemCounter = 1;
 function getNewElement() {
   const newElement = document.createElement("div");
