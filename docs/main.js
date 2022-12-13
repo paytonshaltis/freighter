@@ -2,7 +2,6 @@ import Freighter from "../dist/FreighterES6.js";
 
 const freighter = new Freighter({
   wrappingMethod: "wrap-simple",
-  resizingMethod: "none",
   itemHeight: 125,
   itemWidth: 250,
   itemSpacing: 1,
