@@ -470,10 +470,6 @@ const myCarousel = new Freighter({
                 <div class="ci"><p>4</p></div>
                 <div class="ci"><p>5</p></div>
                 <div class="ci"><p>6</p></div>
-                <div class="ci"><p>7</p></div>
-                <div class="ci"><p>8</p></div>
-                <div class="ci"><p>9</p></div>
-                <div class="ci"><p>10</p></div>
               </div>
               <p class="mt-3">
                 There are many more properties that can be modified to impact
@@ -486,6 +482,65 @@ const myCarousel = new Freighter({
             <hr class="section-divider" />
             <section id="items" class="main-content-section">
               <h3>Items</h3>
+              <p>
+                Some properties that can be set on Freighter carousels impact
+                the way that carousel items <em>themselves</em> appear or behave
+                on the screen. The most important ones are
+                <code>itemHeight</code>, <code>itemWidth</code>, and
+                <code>itemSpacing</code>, which do esentially what their names
+                suggest. Each of these values implicitly uses the
+                <code>px</code> unit, and only requires a number to be set as
+                its value.
+              </p>
+              <div class="warning-container">
+                The <code>itemHeight</code> and
+                <code>itemWidth</code> properties only affect the carousel when
+                the <code>resizingMethod</code> property has certain values:
+                <br />
+                <br />
+                For example, if the <code>resizingMethod</code> property is set
+                to <code>stretch-scale</code>, then the
+                <code>itemHeight</code> and <code>itemWidth</code> properties
+                will be used to determine only the <b>initial</b> height and
+                width of each item in the carousel, which will then scale up or
+                down with the browser to maintain the original aspect ratio. For
+                this reason, using a height of 1 and width of 2 with
+                <code>stretch-scale</code> would be the same as using a height
+                of 100 and a width of 200 - these values simply define the
+                aspect ratio that will be preserved for each carousel item.
+              </div>
+              <p>
+                Below shows an example of constructing a carousel that overrides
+                the default values for these properties, as well as the
+                resulting carousel:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>// Create a new carousel using the container with the ID "myCarousel".
+const myCarousel = new Freighter({
+  containerID: 'myCarousel',
+  resizingMethod: 'stretch-scale',
+  wrappingMethod: 'wrap-simple',
+  numItemsVisible: 3,
+  scrollBy: 2,
+  itemHeight: 3,
+  itemWidth: 2,
+  itemSpacing: 10,
+});</code></pre>
+              </div>
+              <div id="carousel-4" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+              </div>
+              <p class="mt-3">
+                There's more to adjusting the size and spacing of each carousel
+                item, but what you have seen are the absolute basics. Check out
+                all of the properties associated with Freighter carousel items
+                <a href="#">here</a>.
+              </p>
             </section>
             <hr class="section-divider" />
             <section id="buttons" class="main-content-section">

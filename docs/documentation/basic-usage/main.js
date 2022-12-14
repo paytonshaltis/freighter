@@ -21,6 +21,17 @@ const freighter3 = new Freighter({
   autoScroll: true,
 });
 
+const freighter4 = new Freighter({
+  containerID: "carousel-4",
+  resizingMethod: "stretch-scale",
+  wrappingMethod: "wrap-simple",
+  numItemsVisible: 3,
+  scrollBy: 2,
+  itemSpacing: 10,
+  itemHeight: 3,
+  itemWidth: 2,
+});
+
 let newItemCounter = 1;
 function getNewElement() {
   const newElement = document.createElement("div");
