@@ -806,7 +806,9 @@ export default class Carousel {
         ];
       }
 
-      // Apply the correct fill color to the button.
+      // Apply the correct fill color and transition to the button chevron.
+      (carouselButton.children[0].children[0] as HTMLElement).style.transition =
+        defaultValues[styleNames.indexOf("transition")];
       carouselButton.children[0].children[0].setAttribute("fill", fillColor);
     });
   }
