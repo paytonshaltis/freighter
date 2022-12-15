@@ -32,6 +32,25 @@ const freighter4 = new Freighter({
   itemWidth: 2,
 });
 
+const freighter5 = new Freighter({
+  containerID: "carousel-5",
+  resizingMethod: "stretch-scale",
+  wrappingMethod: "wrap-simple",
+  numItemsVisible: 3,
+  scrollBy: 2,
+  buttonStyles: {
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    color: "orange",
+  },
+  buttonHoverStyles: {
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    height: "90%",
+  },
+  rightButtonStyles: {
+    color: "blue",
+  },
+});
+
 let newItemCounter = 1;
 function getNewElement() {
   const newElement = document.createElement("div");

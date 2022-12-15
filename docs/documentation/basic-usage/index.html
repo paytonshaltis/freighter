@@ -545,6 +545,97 @@ const myCarousel = new Freighter({
             <hr class="section-divider" />
             <section id="buttons" class="main-content-section">
               <h3>Buttons</h3>
+              <p>
+                The final category of customizable carousel properties are those
+                that change the style of the buttons that appear on the left and
+                right sides of the carousel. Each button is highly customizable,
+                including the ability to change each button individually.
+              </p>
+              <p>
+                Customizing buttons works a bit differently than customizing the
+                carousel or its items. There 6 total button properties that can
+                be assigned objects as their values, with each object containing
+                a set of styles for that button (or buttons). Below is the code
+                for a simple example of customizing the buttons of a carousel,
+                with the resulting carousel and an explanation below:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>// Create a new carousel using the container with the ID "myCarousel".
+const myCarousel = new Freighter({
+  containerID: 'myCarousel',
+  resizingMethod: 'stretch-scale',
+  wrappingMethod: 'wrap-simple',
+  numItemsVisible: 3,
+  scrollBy: 2,
+
+  // Common styles for both buttons.
+  buttonStyles: {
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    color: 'orange',
+  },
+
+  // Common hover styles for both buttons.
+  buttonHoverStyles: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    height: '90%'
+  },
+
+  // Styles for the right button only.
+  rightButtonStyles: {
+    color: 'blue',
+  }
+});</code></pre>
+              </div>
+              <div id="carousel-5" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+              </div>
+              <p class="mt-3">
+                Below is an explanation for the property values applied and the
+                resulting carousel:
+              </p>
+              <ul>
+                <li>
+                  The order of properties has no effect on how button styles are
+                  applied; styles for <em>both</em> buttons are always applied
+                  before styles for an <em>individual</em> button override these
+                  styles.
+                  <ul>
+                    <li>
+                      The <code>buttonStyles</code> property is applied to both
+                      buttons, and the <code>buttonHoverStyles</code> property
+                      is applied to both buttons when the user hovers over
+                      either button.
+                    </li>
+                    <li>
+                      The property values in the constructor above ensure that
+                      both buttons are white with orange chevrons normally, and
+                      increase their opacity and height on hover.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  The <code>rightButtonStyles</code> are applied after, applying
+                  new or overriding existing properties to only the right
+                  button. This is why the right button chevron is blue instead
+                  of orange.
+                </li>
+                <li>
+                  Because the chevron hover styles are never overridden on
+                  either button, hovering over the buttons resets the chevron
+                  color to its default color.
+                </li>
+              </ul>
+              <p>
+                Visible and responsive buttons are key to any good carousel,
+                which is why Freighter features ones that are highly and
+                individually customizable. Check out all of the properties
+                associated with freighter carousel buttons <a href="#">here</a>.
+              </p>
             </section>
           </div>
         </div>
