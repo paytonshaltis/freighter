@@ -187,6 +187,7 @@
         <!-- Column 2: Main content area. -->
         <div class="col-md-9 col-lg-8">
           <!-- Define this container to use scrollspy. -->
+
           <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
             <h1 class="text-start">Basic Usage</h1>
             <p class="lead">
@@ -400,8 +401,8 @@ myCarousel.addCarouselItems([newItem2, newItem3], 0);</code></pre>
               </div>
             </section>
             <hr class="section-divider" />
-            <section id="configure-properties" class="main-content-section">
-              <h2>Configure Properties</h2>
+            <section id="configuring-properties" class="main-content-section">
+              <h2>Configuring Properties</h2>
               <p>
                 Now that our carousel is capable of holding items, we want to
                 change some of the default properties of the carousel. Similar
@@ -567,6 +568,7 @@ const myCarousel = new Freighter({
   wrappingMethod: 'wrap-simple',
   numItemsVisible: 3,
   scrollBy: 2,
+  itemSpacing: 20,
 
   // Common styles for both buttons.
   buttonStyles: {
@@ -637,6 +639,44 @@ const myCarousel = new Freighter({
                 associated with freighter carousel buttons <a href="#">here</a>.
               </p>
             </section>
+            <hr class="section-divider" />
+            <section id="changing-properties" class="main-content-section">
+              <h2>Changing Properties</h2>
+              <p>
+                Much of the power of Freighter carousels comes from the ability
+                to change most of the properties of a carousel after it has been
+                created. At the click of a button, carousel item sizes,
+                spacings, transitions, button styles, and more can all be
+                changed.
+              </p>
+              <p>
+                Freighter also provides ways of retrieving the current property
+                values applied to a carousel. These could be useful for writing
+                your own code that behaves differently based on the current
+                property values.
+              </p>
+              <p>
+                It should now start to make sense why a reference to each
+                carousel above was stored during construction; a number of
+                useful methods (including those described below) can be called
+                on a carousel object.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="getting-properties" class="main-content-section">
+              <h3>Getting Properties</h3>
+              <p>
+                At any point, the current value for any carousel property can be
+                retrieved. In order to simply the interface for retrieving these
+                values, all property values are stored in a single object - this
+                object can be retrieved using the
+                <code>getCarouselProperties()</code> method,
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="setting-properties" class="main-content-section">
+              <h3>Setting Properties</h3>
+            </section>
           </div>
         </div>
 
@@ -695,8 +735,8 @@ const myCarousel = new Freighter({
                 </nav>
                 <a
                   class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
-                  href="#configure-properties"
-                  >Configure Properties</a
+                  href="#configuring-properties"
+                  >Configuring Properties</a
                 >
                 <nav class="nav py-0 flex-column">
                   <a
@@ -716,8 +756,8 @@ const myCarousel = new Freighter({
                   >
                   <a
                     class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
-                    href="#change-properties"
-                    >Change Properties</a
+                    href="#changing-properties"
+                    >Changing Properties</a
                   >
                 </nav>
                 <nav class="nav py-0 flex-column">

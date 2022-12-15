@@ -38,6 +38,7 @@ const freighter5 = new Freighter({
   wrappingMethod: "wrap-simple",
   numItemsVisible: 3,
   scrollBy: 2,
+  itemSpacing: 20,
   buttonStyles: {
     backgroundColor: "rgba(255, 255, 255, 0.75)",
     color: "orange",
