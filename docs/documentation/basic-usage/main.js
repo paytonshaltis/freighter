@@ -58,6 +58,7 @@ const freighter6 = new Freighter({
   wrappingMethod: "wrap-simple",
   numItemsVisible: 3,
   scrollBy: 1,
+  syncScrollWithVisibility: true,
   itemSpacing: 20,
   buttonStyles: {
     backgroundColor: "rgba(120, 120, 120, 0.75)",
@@ -66,8 +67,19 @@ const freighter6 = new Freighter({
   buttonHoverStyles: {
     backgroundColor: "rgba(120, 120, 120, 0.9)",
     color: "rgba(255, 0, 0, 0.9)",
-    width: "5%",
+    width: "30px",
   },
+});
+
+const freighter7 = new Freighter({
+  containerID: "carousel-7",
+  resizingMethod: "stretch",
+  wrappingMethod: "wrap-smart",
+  itemWidth: 150,
+  itemHeight: 150,
+  numItemsVisible: 2,
+  scrollBy: 2,
+  itemSpacing: 10,
 });
 
 let newItemCounter = 1;
@@ -90,3 +102,20 @@ document
   .addEventListener("click", () => {
     console.log(freighter6.getCarouselProperties());
   });
+
+document.getElementById("visible-items-3").addEventListener("click", () => {
+  freighter7.setCarouselProperties({ numItemsVisible: 3 });
+});
+
+document
+  .getElementById("transition-duration-1000")
+  .addEventListener("click", () => {
+    freighter7.setCarouselProperties({ transitionDuration: 1000 });
+  });
+
+document.getElementById("blue-right-button").addEventListener("click", () => {
+  freighter7.setCarouselProperties({
+    rightButtonStyles: { backgroundColor: "rgba(0, 0, 255, 0.5)" },
+    rightButtonHoverStyles: { backgroundColor: "rgba(0, 0, 255, 0.9)" },
+  });
+});
