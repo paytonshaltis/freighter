@@ -670,8 +670,29 @@ const myCarousel = new Freighter({
                 retrieved. In order to simply the interface for retrieving these
                 values, all property values are stored in a single object - this
                 object can be retrieved using the
-                <code>getCarouselProperties()</code> method,
+                <code>getCarouselProperties()</code> method. Take, for example,
+                the carousel below. There is no code included for this carousel,
+                but rather a button that calls the
+                <code>getCarouselProperties()</code> method and logs the
+                resulting object to the console.
               </p>
+              <p>
+                Try it yourself: press the button and open the console. Apart
+                from now understanding what properties were used to create the
+                carousel below, being able to see all of the keys in this object
+                can introduce the programmer to properties of which they were
+                previously unaware:
+              </p>
+              <div id="carousel-6" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+              </div>
+              <button
+                id="get-properties"
+                class="btn btn-primary d-block fs-5 p-3 mt-4 mx-auto"
+              >
+                Print Carousel Properties to Console
+              </button>
             </section>
             <hr class="section-divider" />
             <section id="setting-properties" class="main-content-section">

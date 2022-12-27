@@ -52,6 +52,24 @@ const freighter5 = new Freighter({
   },
 });
 
+const freighter6 = new Freighter({
+  containerID: "carousel-6",
+  resizingMethod: "stretch-populate",
+  wrappingMethod: "wrap-simple",
+  numItemsVisible: 3,
+  scrollBy: 1,
+  itemSpacing: 20,
+  // buttonStyles: {
+  //   backgroundColor: "rgba(120, 120, 120, 0.75)",
+  //   color: "rgba(255, 0, 0, 0.5)",
+  // },
+  // buttonHoverStyles: {
+  //   backgroundColor: "rgba(120, 120, 120, 0.9)",
+  //   color: "rgba(255, 0, 0, 0.9)",
+  //   width: "5%",
+  // },
+});
+
 let newItemCounter = 1;
 function getNewElement() {
   const newElement = document.createElement("div");
@@ -66,3 +84,9 @@ document.querySelector("button#add-item").addEventListener("click", () => {
     "button#add-item"
   ).innerHTML = `Add Item (${newItemCounter}) Total`;
 });
+
+document
+  .querySelector("button#get-properties")
+  .addEventListener("click", () => {
+    console.log(freighter6.getCarouselProperties());
+  });
