@@ -59,15 +59,15 @@ const freighter6 = new Freighter({
   numItemsVisible: 3,
   scrollBy: 1,
   itemSpacing: 20,
-  // buttonStyles: {
-  //   backgroundColor: "rgba(120, 120, 120, 0.75)",
-  //   color: "rgba(255, 0, 0, 0.5)",
-  // },
-  // buttonHoverStyles: {
-  //   backgroundColor: "rgba(120, 120, 120, 0.9)",
-  //   color: "rgba(255, 0, 0, 0.9)",
-  //   width: "5%",
-  // },
+  buttonStyles: {
+    backgroundColor: "rgba(120, 120, 120, 0.75)",
+    color: "rgba(255, 0, 0, 0.5)",
+  },
+  buttonHoverStyles: {
+    backgroundColor: "rgba(120, 120, 120, 0.9)",
+    color: "rgba(255, 0, 0, 0.9)",
+    width: "5%",
+  },
 });
 
 let newItemCounter = 1;
