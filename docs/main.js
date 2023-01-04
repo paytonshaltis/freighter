@@ -1,11 +1,9 @@
 import Freighter from "../dist/FreighterES6.js";
 
-const freighter = new Freighter({
-  wrappingMethod: "wrap-simple",
+const freighter = new Freighter("carousel-train", "none", "wrap-simple", {
   itemHeight: 125,
   itemWidth: 250,
   itemSpacing: 1,
-  containerID: "carousel-train",
   numItemsVisible: 3,
   scrollBy: 4,
   syncScrollWithVisibility: false,

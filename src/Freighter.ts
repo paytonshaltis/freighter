@@ -19,18 +19,37 @@ export default class Freighter {
    * Constructor for the Freighter class. Initializes the Carousel by
    * passing the options parameter to the Carousel constructor. Assigns the
    * returned carousel to the carousel member attribute.
-   * @param {CarouselOptions} options Carousel options to be passed to the Carousel constructor.
+   * @param {string} containerID The ID of the carousel container element.
+   * @param {string} resizingMethod The resizing method to use for the carousel.
+   * @param {string} wrappingMethod The wrapping method to use for the carousel.
+   * @param {CarouselProperties} properties Carousel properties to be passed
+   * to the Carousel constructor.
    */
-  constructor(options: CarouselOptions) {
-    // Throw an error if the constructor is called with no options.
-    if (!options) {
-      throw new Error("Carousel options must be provided.");
+  constructor(
+    containerID: string,
+    resizingMethod:
+      | "none"
+      | "stretch"
+      | "stretch-gap"
+      | "stretch-scale"
+      | "stretch-populate",
+    wrappingMethod: "none" | "wrap-simple" | "wrap-smart",
+    properties: CarouselProperties
+  ) {
+    // Throw an error if the constructor is called with no properties.
+    if (!properties) {
+      throw new Error("Carousel properties must be provided.");
     }
 
     // Reassign the carousel member attribute to a new Carousel instance
     // with the updated options.
     this.populateResizeObserver = null;
-    this.carousel = this.changeCarouselOptions(options);
+    this.carousel = this.changeCarouselOptions({
+      containerID,
+      resizingMethod,
+      wrappingMethod,
+      ...properties,
+    });
   }
 
   /**
