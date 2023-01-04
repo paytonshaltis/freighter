@@ -30,6 +30,30 @@ const freighter5 = new Freighter("carousel-5", "stretch-scale", "none", {
   itemSpacing: 15,
 });
 
+const freighter6 = new Freighter("carousel-6", "stretch-scale", "wrap-simple", {
+  numItemsVisible: 3,
+  scrollBy: 3,
+  itemSpacing: 15,
+});
+
+const freighter7 = new Freighter("carousel-7", "stretch-scale", "wrap-simple", {
+  numItemsVisible: 3,
+  scrollBy: 2,
+  itemSpacing: 15,
+});
+
+const freighter8 = new Freighter("carousel-8", "stretch-scale", "wrap-simple", {
+  numItemsVisible: 4,
+  scrollBy: 1,
+  itemSpacing: 15,
+});
+
+const freighter9 = new Freighter("carousel-9", "stretch-scale", "wrap-simple", {
+  numItemsVisible: 3,
+  scrollBy: 1,
+  itemSpacing: 15,
+});
+
 // Remove last two items from carousel.
 document.getElementById("remove-last-two").addEventListener("click", () => {
   if (freighter4.getCarouselState().carouselItems.length < 2) {
@@ -79,3 +103,27 @@ document
     }
     document.getElementById("remove-first-two").classList.remove("disabled");
   });
+
+// Remove last one item from carousel.
+document.getElementById("remove-last-one").addEventListener("click", () => {
+  if (freighter9.getCarouselState().carouselItems.length < 1) {
+    return;
+  }
+  freighter9.removeCarouselItems(length - 1, 1);
+  if (freighter9.getCarouselState().carouselItems.length < 2) {
+    document.getElementById("remove-last-one").classList.add("disabled");
+  }
+});
+
+// Reset the items in the carousel above.
+document.getElementById("reset-last-one").addEventListener("click", () => {
+  while (freighter9.getCarouselState().carouselItems.length < 9) {
+    const item = document.createElement("div");
+    item.classList.add("ci");
+    item.innerHTML = `<p>${
+      freighter9.getCarouselState().carouselItems.length + 1
+    }</p>`;
+    freighter9.addCarouselItems(item);
+  }
+  document.getElementById("remove-last-one").classList.remove("disabled");
+});

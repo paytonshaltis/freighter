@@ -423,7 +423,148 @@
             <hr class="section-divider" />
             <section id="wrap-simple" class="main-content-section">
               <h3><code>wrap-simple</code></h3>
+              <p>
+                The second wrapping method is more powerful that
+                <code>none</code>, allowing for a simple infinite scrolling
+                experience. The <code>scrollBy</code> value is always treated as
+                the <em>exact</em> number of items to scroll by, regardless of
+                how many items are available to scroll. This means that the
+                carousel's absolute ordering of items may change, though its
+                relative order will be preserved.
+              </p>
+              <p>
+                Below is the code required to set up a carousel with the
+                <code>wrap-simple</code> wrapping method. This code presupposes
+                that <code>&lt;div id="myCarousel"&gt;</code> already exists in
+                the DOM, and has 9 carousel items as children. Try scrolling
+                left from the first item, or right from the last item.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'wrap-simple',
+  'stretch-scale',
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemSpacing: 15,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-6" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Much like the wrapping method <code>none</code>, a carousel with
+                a total number of items (9) that is evenly divisible by the
+                <code>scrollBy</code> and
+                <code>numItemsVisible</code> properties (both 3) works out
+                nicely. Let's see how the carousel's behavior changes when this
+                isn't the case. Below is the same carousel with a
+                <code>scrollBy</code> value of 2:
+              </p>
+              <div id="carousel-7" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                In this case, you'll notice that it takes a few full traversals
+                of the carousel for the '1 2 3' items to be restored. This is
+                also the first time we've seen the carousel's absolute ordering
+                of items change: scrolling left from the original position shows
+                '8 9 1' as the visible carousel items.
+              </p>
+              <p>
+                Allowing wrapping with this method means that there is always a
+                next (or previous) set of items to display in the carousel . As
+                a result of this, carousels with the
+                <code>wrap-simple</code> wrapping method <em>will not</em> have
+                empty spaces. For example, take a look at the carousel below,
+                which has a <code>numItemsVisible</code> of 4, but only 3 items
+                in the carousel:
+              </p>
+              <div id="carousel-8" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+              </div>
+              <p class="mt-3">
+                Because the carousel is allowed to wrap, it means that there
+                will <em>always</em> be another item to add to the end of the
+                carousel, and it will <em>always</em> be the first items in the
+                carousel.
+              </p>
+              <div class="warning-container">
+                The behavior of the <code>wrap-simple</code> wrapping method
+                means that carousel items may be duplicated in the DOM. If you
+                inspect this page, you will notice that duplicate carousel items
+                have the same IDs. If you write code that is dependent on the
+                IDs of elements contained within carousel items, you may run
+                into issues. <br /><br />
+                One way to avoid this issue is to ensure that the number of
+                items in the carousel is always evenly divisible by the
+                <code>numItemsVisible</code> and <code>scrollBy</code> values.
+              </div>
+              <p>
+                If you want your carousel to wrap, but you want the absolute
+                order of carousel items to be preserved (i.e. not the previous
+                example), you should make sure that the total number of items in
+                the carousel is evenly divisible by the
+                <code>numItemsVisible</code> and <code>scrollBy</code> values.
+              </p>
+              <p>
+                The ability to wrap around in either direction means that
+                removing carousel items will never result in blank spaces in the
+                carousel, unless the carousel is emptied completely:
+              </p>
+              <div id="carousel-9" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <div class="row">
+                <div class="col-9">
+                  <button
+                    type="button"
+                    id="remove-last-one"
+                    class="btn btn-primary d-block fs-5 p-2 mt-4 w-100"
+                  >
+                    Remove Last Element from Carousel
+                  </button>
+                </div>
+                <div class="col-3">
+                  <button
+                    type="button"
+                    id="reset-last-one"
+                    class="btn btn-primary d-block fs-5 p-2 mt-4 w-100"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
             </section>
+
             <hr class="section-divider" />
             <section id="wrap-smart" class="main-content-section">
               <h3><code>wrap-smart</code></h3>
