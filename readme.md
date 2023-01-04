@@ -13,30 +13,30 @@ A highly customizable carousel library for the web.
 The following is a table that details exactly which Carousel properties can be changed and if changing them is currently implemented.
 
 | Carousel Style Property    | Changeable | Implemented |
-| :------------------------- | :--------: | :---------: | --- |
+| :------------------------- | :--------: | :---------: | 
 | `containerID`              |     ❌     |      ✔      |
-| `resizingMethod`           |     ❌     |      ✔      | c   |
-| `wrappingMethod`           |     ❌     |      ✔      | c   |
-| `itemWidth`                |     ✔      |      ✔      | i   |
-| `itemHeight`               |     ✔      |      ✔      | i   |
-| `itemSpacing`              |     ✔      |      ✔      | i   |
-| `numItemsVisible`          |     ✔      |      ✔      | c   |
-| `scrollBy`                 |     ✔      |      ✔      | c   |
-| `syncScrollWithVisibility` |     ✔      |      ✔      | c   |
-| `scrollable`               |     ✔      |      ✔      | c   |
-| `autoScroll`               |     ✔      |      ✔      | c   |
-| `autoScrollInterval`       |     ✔      |      ✔      | c   |
-| `autoScrollDirection`      |     ✔      |      ✔      | c   |
-| `autoScrollPauseOnHover`   |     ✔      |      ✔      | c   |
-| `transitionDuration`       |     ✔      |      ✔      | c   |
-| `transitionDelay`          |     ✔      |      ✔      | c   |
-| `transitionTimingFunction` |     ✔      |      ✔      | c   |
-| `buttonStyles`             |     ✔      |      ✔      | b   |
-| `buttonHoverStyles`        |     ✔      |      ✔      | b   |
-| `leftButtonStyles`         |     ✔      |      ✔      | b   |
-| `leftButtonHoverStyles`    |     ✔      |      ✔      | b   |
-| `rightButtonStyles`        |     ✔      |      ✔      | b   |
-| `rightButtonHoverStyles`   |     ✔      |      ✔      | b   |
+| `resizingMethod`           |     ❌     |      ✔      | 
+| `wrappingMethod`           |     ❌     |      ✔      | 
+| `itemWidth`                |     ✔      |      ✔      | 
+| `itemHeight`               |     ✔      |      ✔      | 
+| `itemSpacing`              |     ✔      |      ✔      | 
+| `numItemsVisible`          |     ✔      |      ✔      | 
+| `scrollBy`                 |     ✔      |      ✔      | 
+| `syncScrollWithVisibility` |     ✔      |      ✔      | 
+| `scrollable`               |     ✔      |      ✔      | 
+| `autoScroll`               |     ✔      |      ✔      |
+| `autoScrollInterval`       |     ✔      |      ✔      | 
+| `autoScrollDirection`      |     ✔      |      ✔      | 
+| `autoScrollPauseOnHover`   |     ✔      |      ✔      | 
+| `transitionDuration`       |     ✔      |      ✔      | 
+| `transitionDelay`          |     ✔      |      ✔      | 
+| `transitionTimingFunction` |     ✔      |      ✔      |
+| `buttonStyles`             |     ✔      |      ✔      | 
+| `buttonHoverStyles`        |     ✔      |      ✔      | 
+| `leftButtonStyles`         |     ✔      |      ✔      | 
+| `leftButtonHoverStyles`    |     ✔      |      ✔      | 
+| `rightButtonStyles`        |     ✔      |      ✔      | 
+| `rightButtonHoverStyles`   |     ✔      |      ✔      | 
 | `showTimeline`             |     ✔      |     ❌      |
 
 | Button Style Property     | Changeable | Implemented |
@@ -79,5 +79,3 @@ The following is a list of the internal IDs and classes used to keep track of th
 - `frieghter-carousel-item-dummy`
 - `freighter-carousel-arrow-left`
 - `freighter-carousel-arrow-right`
-
-<a target="_blank" href="https://icons8.com/icon/uJM6fQYqDaZK/typescript">TypeScript</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
