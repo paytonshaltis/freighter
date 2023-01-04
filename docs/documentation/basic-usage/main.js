@@ -1,30 +1,18 @@
 import Freighter from "../../../dist/FreighterES6.js";
 
-const freighter0 = new Freighter({
-  containerID: "carousel-0",
-});
+const freighter0 = new Freighter("carousel-0", "none", "none", {});
 
-const freighter1 = new Freighter({
-  containerID: "carousel-1",
-});
+const freighter1 = new Freighter("carousel-1", "none", "none", {});
 
-const freighter2 = new Freighter({
-  containerID: "carousel-2",
-});
+const freighter2 = new Freighter("carousel-2", "none", "none", {});
 
-const freighter3 = new Freighter({
-  containerID: "carousel-3",
-  resizingMethod: "stretch-scale",
-  wrappingMethod: "wrap-simple",
+const freighter3 = new Freighter("carousel-3", "stretch-scale", "wrap-simple", {
   numItemsVisible: 3,
   scrollBy: 2,
   autoScroll: true,
 });
 
-const freighter4 = new Freighter({
-  containerID: "carousel-4",
-  resizingMethod: "stretch-scale",
-  wrappingMethod: "wrap-simple",
+const freighter4 = new Freighter("carousel-4", "stretch-scale", "wrap-simple", {
   numItemsVisible: 3,
   scrollBy: 2,
   itemSpacing: 10,
@@ -32,10 +20,7 @@ const freighter4 = new Freighter({
   itemWidth: 2,
 });
 
-const freighter5 = new Freighter({
-  containerID: "carousel-5",
-  resizingMethod: "stretch-scale",
-  wrappingMethod: "wrap-simple",
+const freighter5 = new Freighter("carousel-5", "stretch-scale", "wrap-simple", {
   numItemsVisible: 3,
   scrollBy: 2,
   itemSpacing: 20,
@@ -52,29 +37,28 @@ const freighter5 = new Freighter({
   },
 });
 
-const freighter6 = new Freighter({
-  containerID: "carousel-6",
-  resizingMethod: "stretch-populate",
-  wrappingMethod: "wrap-simple",
-  numItemsVisible: 3,
-  scrollBy: 1,
-  syncScrollWithVisibility: true,
-  itemSpacing: 20,
-  buttonStyles: {
-    backgroundColor: "rgba(120, 120, 120, 0.75)",
-    color: "rgba(255, 0, 0, 0.5)",
-  },
-  buttonHoverStyles: {
-    backgroundColor: "rgba(120, 120, 120, 0.9)",
-    color: "rgba(255, 0, 0, 0.9)",
-    width: "30px",
-  },
-});
+const freighter6 = new Freighter(
+  "carousel-6",
+  "stretch-populate",
+  "wrap-simple",
+  {
+    numItemsVisible: 3,
+    scrollBy: 1,
+    syncScrollWithVisibility: true,
+    itemSpacing: 20,
+    buttonStyles: {
+      backgroundColor: "rgba(120, 120, 120, 0.75)",
+      color: "rgba(255, 0, 0, 0.5)",
+    },
+    buttonHoverStyles: {
+      backgroundColor: "rgba(120, 120, 120, 0.9)",
+      color: "rgba(255, 0, 0, 0.9)",
+      width: "30px",
+    },
+  }
+);
 
-const freighter7 = new Freighter({
-  containerID: "carousel-7",
-  resizingMethod: "stretch",
-  wrappingMethod: "wrap-smart",
+const freighter7 = new Freighter("carousel-7", "stretch", "wrap-smart", {
   itemWidth: 150,
   itemHeight: 150,
   numItemsVisible: 2,
@@ -94,13 +78,13 @@ document.querySelector("button#add-item").addEventListener("click", () => {
   freighter2.addCarouselItems(getNewElement());
   document.querySelector(
     "button#add-item"
-  ).innerHTML = `Add Item (${newItemCounter}) Total`;
+  ).innerHTML = `Add Item (${newItemCounter} Total)`;
 });
 
 document
   .querySelector("button#get-properties")
   .addEventListener("click", () => {
-    console.log(freighter6.getCarouselProperties());
+    console.log(freighter6.getCarouselState());
   });
 
 document.getElementById("visible-items-3").addEventListener("click", () => {

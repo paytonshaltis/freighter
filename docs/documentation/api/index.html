@@ -204,25 +204,50 @@
                 that can be called on that method. Note that each of these
                 methods require an instance of the Freighter class to be called
                 on, so, for example, the call
-                <code>Freighter.getCarouselProperties()</code> would simply
-                raise an exception.
+                <code>Freighter.getCarouselState()</code> would simply raise an
+                exception.
               </p>
             </section>
             <hr class="section-divider" />
             <section id="freighter" class="main-content-section">
-              <h3><code>Freighter(options)</code></h3>
+              <h3>
+                <code
+                  >Freighter(containerID, resizingMethod, wrappingMethod,
+                  properties)</code
+                >
+              </h3>
               <p>
                 <em
                   >Constructor for the Freighter class. Initializes the Carousel
-                  by passing the options parameter to the Carousel constructor.
-                  Assigns the returned carousel to the carousel member
-                  attribute.</em
+                  by passing the properties parameter to the Carousel
+                  constructor. Assigns the returned carousel to the carousel
+                  member attribute.</em
                 >
               </p>
-              <p>Parameters (1 required):</p>
+              <p>Parameters (4 required):</p>
               <ul>
                 <li>
-                  <code>options: CarouselOptions</code> - Initial options and
+                  <code>containerID: string</code> - The ID of the container
+                  <code>&lt;div&gt;</code> to be used as the carousel parent
+                  element.
+                </li>
+                <li>
+                  <code
+                    >resizingMethod: "none" | "stretch" | "stretch-gap" |
+                    "stretch-scale" | "stretch-populate"</code
+                  >
+                  - The method to be used when resizing the carousel due to
+                  browser window resizing.
+                </li>
+                <li>
+                  <code
+                    >wrappingMethod: "none" | "wrap-simple" | "wrap-smart"</code
+                  >
+                  - The wrapping method to be used when the carousel is scrolled
+                  while at either extreme.
+                </li>
+                <li>
+                  <code>properties: CarouselProperties</code> - Initial
                   properties to be used when creating a Freighter carousel.
                 </li>
               </ul>
@@ -252,14 +277,14 @@
               <p>Returns <code>void</code>.</p>
             </section>
             <hr class="section-divider" />
-            <section id="getcarouselproperties" class="main-content-section">
-              <h3><code>getCarouselProperties()</code></h3>
+            <section id="getcarouselstate" class="main-content-section">
+              <h3><code>getCarouselState()</code></h3>
               <p>
                 <em>
                   Retrieves the current state of the carousel and returns it.
-                  This includes internal data not specified in the original
-                  options or updated properties, such as the carousel items
-                  themselves and the current carousel pointer.
+                  This includes internal data not specified in the original or
+                  updated properties, such as the carousel items themselves and
+                  the current carousel pointer.
                 </em>
               </p>
               <p>Parameters (0)</p>
@@ -482,6 +507,45 @@ transitionTimingFunction: "ease-in-out"</code></pre>
               </div>
             </section>
             <hr class="section-divider" />
+            <section id="carouselstate" class="main-content-section">
+              <h3><code>CarouselState</code></h3>
+              <p>
+                <em
+                  >An object containing several (key, value) pairs that
+                  represent the current state of a Freighter carousel. The state
+                  is defined as the intersection between a
+                  <code>CarouselProperties</code> object and a few other
+                  internal pieces of state that may be useful to know.</em
+                >
+              </p>
+              <p>Object Keys:</p>
+              <ul>
+                <li>
+                  All of the properties available in a
+                  <code>CarouselProperties</code> object, and...
+                </li>
+                <li>
+                  <code>carouselID: number</code> - The unique internal number
+                  assigned to a carousel. Will be different from all other
+                  carousels in order to uniquely identify each.
+                </li>
+                <li>
+                  <code>carouselItems: HTMLElement[]</code> - An array of all of
+                  the carousel items. Allows for the modification or access of
+                  these items.
+                </li>
+                <li>
+                  <code>leftCarouselPointer: number</code> - The index of the
+                  leftmost visible carousel item. Useful for determining which
+                  items are visible.
+                </li>
+                <li>
+                  <code>carouselContainer: HTMLElement</code> - The outermost
+                  HTML element that houses the entire carousel.
+                </li>
+              </ul>
+            </section>
+            <hr class="section-divider" />
             <section id="buttonstyle" class="main-content-section">
               <h3><code>ButtonStyle</code></h3>
               <p>
@@ -559,45 +623,6 @@ transitionTimingFunction: "ease-in-out"</code></pre>
                 </li>
               </ul>
             </section>
-            <hr class="section-divider" />
-            <section id="carouselstate" class="main-content-section">
-              <h3><code>CarouselState</code></h3>
-              <p>
-                <em
-                  >An object containing several (key, value) pairs that
-                  represent the current state of a Freighter carousel. The state
-                  is defined as the intersection between a
-                  <code>CarouselProperties</code> object and a few other
-                  internal pieces of state that may be useful to know.</em
-                >
-              </p>
-              <p>Object Keys:</p>
-              <ul>
-                <li>
-                  All of the properties available in a
-                  <code>CarouselProperties</code> object, and...
-                </li>
-                <li>
-                  <code>carouselID: number</code> - The unique internal number
-                  assigned to a carousel. Will be different from all other
-                  carousels in order to uniquely identify each.
-                </li>
-                <li>
-                  <code>carouselItems: HTMLElement[]</code> - An array of all of
-                  the carousel items. Allows for the modification or access of
-                  these items.
-                </li>
-                <li>
-                  <code>leftCarouselPointer: number</code> - The index of the
-                  leftmost visible carousel item. Useful for determining which
-                  items are visible.
-                </li>
-                <li>
-                  <code>carouselContainer: HTMLElement</code> - The outermost
-                  HTML element that houses the entire carousel.
-                </li>
-              </ul>
-            </section>
           </div>
         </div>
 
@@ -638,8 +663,8 @@ transitionTimingFunction: "ease-in-out"</code></pre>
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#getcarouselproperties"
-                    ><code>getCarouselProperties()</code></a
+                    href="#getcarouselstate"
+                    ><code>getCarouselState()</code></a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
@@ -660,23 +685,18 @@ transitionTimingFunction: "ease-in-out"</code></pre>
                 <nav class="nav py-0 flex-column">
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#carouseloptions"
-                    ><code>CarouselOptions</code></a
-                  >
-                  <a
-                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
                     href="#carouselproperties"
                     ><code>CarouselProperties</code></a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#buttonstyle"
-                    ><code>ButtonStyle</code></a
+                    href="#carouselstate"
+                    ><code>CarouselState</code></a
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                    href="#carouselstate"
-                    ><code>CarouselState</code></a
+                    href="#buttonstyle"
+                    ><code>ButtonStyle</code></a
                   >
                 </nav>
               </nav>

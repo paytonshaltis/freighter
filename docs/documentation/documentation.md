@@ -104,14 +104,13 @@
 
 - Callable methods
   - setCarouselProperties()
-  - getCarouselProperties()
+  - getCarouselState()
   - addCarouselItems()
   - removeCarouselItems()
 - Types
-  - CarouselOptions
   - CarouselProperties
-  - ButtonStyle
   - CarouselState
+  - ButtonStyle
 
 ### Cautions
 

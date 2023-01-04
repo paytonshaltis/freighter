@@ -13,20 +13,6 @@ type CarouselOptions = CarouselProperties & {
     | "stretch-scale"
     | "stretch-populate";
   wrappingMethod?: "none" | "wrap-simple" | "wrap-smart";
-  itemWidth?: number;
-  itemHeight?: number;
-  itemSpacing?: number;
-  scrollable?: boolean;
-  scrollBy?: number;
-  numItemsVisible?: number;
-  syncScrollWithVisibility?: boolean;
-  autoScroll?: boolean;
-  autoScrollInterval?: number;
-  autoScrollDirection?: "left" | "right";
-  autoScrollPauseOnHover?: boolean;
-  transitionDuration?: number;
-  transitionDelay?: number;
-  transitionTimingFunction?: string;
 };
 
 /**

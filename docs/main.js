@@ -1,11 +1,9 @@
 import Freighter from "../dist/FreighterES6.js";
 
-const freighter = new Freighter({
-  wrappingMethod: "wrap-simple",
+const freighter = new Freighter("carousel-train", "none", "wrap-simple", {
   itemHeight: 125,
   itemWidth: 250,
   itemSpacing: 1,
-  containerID: "carousel-train",
   numItemsVisible: 3,
   scrollBy: 4,
   syncScrollWithVisibility: false,
@@ -66,7 +64,7 @@ const createTrainCar = () => {
 
 // Returns the number of carousel items currently in the carousel.
 const getItemCount = () => {
-  return freighter.getCarouselProperties().carouselItems.length;
+  return freighter.getCarouselState().carouselItems.length;
 };
 
 // Function that takes appropriate action to the train based on screen size.
