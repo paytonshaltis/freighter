@@ -84,7 +84,7 @@ document.querySelector("button#add-item").addEventListener("click", () => {
 document
   .querySelector("button#get-properties")
   .addEventListener("click", () => {
-    console.log(freighter6.getCarouselProperties());
+    console.log(freighter6.getCarouselState());
   });
 
 document.getElementById("visible-items-3").addEventListener("click", () => {

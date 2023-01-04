@@ -64,7 +64,7 @@ const createTrainCar = () => {
 
 // Returns the number of carousel items currently in the carousel.
 const getItemCount = () => {
-  return freighter.getCarouselProperties().carouselItems.length;
+  return freighter.getCarouselState().carouselItems.length;
 };
 
 // Function that takes appropriate action to the train based on screen size.

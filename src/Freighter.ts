@@ -95,7 +95,7 @@ export default class Freighter {
    * such as the carousel items themselves and the current carousel pointer.
    * @returns {CarouselState} The current state of the carousel.
    */
-  public getCarouselProperties(): CarouselState {
+  public getCarouselState(): CarouselState {
     return this.carousel.getCurrentState();
   }
 
