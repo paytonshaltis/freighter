@@ -102,12 +102,13 @@
 
 ### API
 
-- Callable functions
+- Callable methods
   - setCarouselProperties()
   - getCarouselProperties()
   - addCarouselItems()
   - removeCarouselItems()
 - Types
+  - CarouselOptions
   - CarouselProperties
   - ButtonStyle
   - CarouselState

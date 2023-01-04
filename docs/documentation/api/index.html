@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./main.js" type="module"></script>
+    <title>Freighter Docs | API</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Items</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Buttons</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">API</h1>
+            <p class="lead">
+              There are only a few callable methods and custom types that you
+              need to know in order to take advantage of Freighter carousels.
+              Below, you will find method signatures, descriptions, and return
+              types for each method that can be called on a carousel, as well as
+              the custom types referenced.
+            </p>
+            <section id="callable-methods" class="main-content-section">
+              <h2>Callable Methods</h2>
+              <p>
+                Once a Freighter object is constructed, there are a few methods
+                that can be called on that method. Note that each of these
+                methods require an instance of the Freighter class to be called
+                on, so, for example, the call
+                <code>Freighter.getCarouselProperties()</code> would simply
+                raise an exception.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="freighter" class="main-content-section">
+              <h3><code>Freighter(options)</code></h3>
+              <p>
+                <em
+                  >Constructor for the CarouselManager class. Initializes the
+                  Carousel by passing the options parameter to the Carousel
+                  constructor. Assigns the returned carousel to the carousel
+                  member attribute.</em
+                >
+              </p>
+              <p>Parameters (1 required):</p>
+              <ul>
+                <li>
+                  <code>options: CarouselOptions</code> - Initial options and
+                  properties to be used when creating a Freighter carousel.
+                </li>
+              </ul>
+              <p>
+                Returns the <code>Freighter</code> object that was constructed.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="setcarouselproperties" class="main-content-section">
+              <h3>
+                <code>setCarouselProperties(properties)</code>
+              </h3>
+              <p>
+                <em>
+                  Changes the carousel properties to those provided as
+                  arguments. Note that not all carousel properties can be
+                  changed, such as the wrap and resize methods.</em
+                >
+              </p>
+              <p>Parameters (1 required):</p>
+              <ul>
+                <li>
+                  <code>properties: CarouselProperties</code> - The new Carousel
+                  properties.
+                </li>
+              </ul>
+              <p>Returns <code>void</code>.</p>
+            </section>
+            <hr class="section-divider" />
+            <section id="getcarouselproperties" class="main-content-section">
+              <h3><code>getCarouselProperties()</code></h3>
+              <p>
+                <em>
+                  Retrieves the current state of the carousel and returns it.
+                  This includes internal data not specified in the original
+                  options or updated properties, such as the carousel items
+                  themselves and the current carousel pointer.
+                </em>
+              </p>
+              <p>Parameters (0)</p>
+              <p>
+                Returns the <code>CarouselState</code> object representing the
+                carousel's current state.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="addcarouselitems" class="main-content-section">
+              <h3>
+                <code>addCarouselItems(items, index?)</code>
+              </h3>
+              <p>
+                <em
+                  >Adds a new item to the carousel. The item is added to the end
+                  of the carousel by default, but an optional index can be
+                  provided.</em
+                >
+              </p>
+              <p>Parameters (1 required, 1 optional):</p>
+              <ul>
+                <li>
+                  <code>items: HTMLElement | HTMLElement[]</code> - The HTML
+                  element or elements to be added to the carousel.
+                </li>
+                <li>
+                  <code>index?: number</code> - Optional index at which to add
+                  the item. Adds to the end of the carousel by default.
+                </li>
+              </ul>
+            </section>
+            <hr class="section-divider" />
+            <section id="removecarouselitems" class="main-content-section">
+              <h3>
+                <code>removeCarouselItems(index, count = 1)</code>
+              </h3>
+              <p>
+                <em
+                  >Removes a number of carousel items starting from the given
+                  index. By default, this method just returns the item at this
+                  index, but the number of items to remove can be specified.</em
+                >
+              </p>
+              <p>Parameters (1 required, 1 default):</p>
+              <ul>
+                <li>
+                  <code>index: number</code> - The index of the item to be
+                  removed, or the starting index if multiple items are to be
+                  removed.
+                </li>
+                <li>
+                  <code>count: number = 1</code>- Optional number of items to
+                  remove. Defaults to 1.
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              API
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#callable-methods"
+                  >Callable Methods</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#freighter"
+                    ><code>Freighter()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#setcarouselproperties"
+                    ><code>setCarouselProperties()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#getcarouselproperties"
+                    ><code>getCarouselProperties()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#addcarouselitems"
+                    ><code>addCarouselItems()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#removecarouselitems"
+                    ><code>removeCarouselItems()</code></a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#types"
+                  >Types</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#carouseloptions"
+                    ><code>CarouselOptions</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#carouselproperties"
+                    ><code>CarouselProperties</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#buttonstyle"
+                    ><code>ButtonStyle</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#carouselstate"
+                    ><code>CarouselState</code></a
+                  >
+                </nav>
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
