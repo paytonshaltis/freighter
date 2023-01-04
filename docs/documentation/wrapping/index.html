@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./main.js" type="module"></script>
+    <title>Freighter Docs | Wrapping</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Items</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Buttons</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Wrapping</h1>
+            <p class="lead">
+              A wrapping method must be specified for any Freighter carousel,
+              and there are 3 to choose from.
+            </p>
+            <section id="what-is-wrapping" class="main-content-section">
+              <h2>What is Wrapping?</h2>
+              <p>
+                The term 'wrapping' in the context of a Freighter carousel is
+                used to describe the behavior of a carousel when it is scrolled
+                in either direction past the available elements. When a user
+                scrolls to the last carousel items in your carousel, how should
+                the container respond to another scroll to the right? This is
+                the question that can be answered by the 'wrapping method' of
+                your carousel.
+              </p>
+              <p>
+                The wrapping method for a Freighter carousel is indicated in the
+                constructor, as the third parameter. See the code block below
+                that demonstrates how to utilize the wrapping method
+                <code>wrap-simple</code> in the carousel
+                <code>myCarousel</code>:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',     // Specify the container ID here.
+  'none',           // Specify the desired resizing method here.
+  'wrap-simple',    // Specify the desired wrapping method here.
+  {},               // Dymamic properties can be specified here.
+);</code></pre>
+              </div>
+              <div class="warning-container">
+                One important thing to note is that the wrapping is 1 of 3
+                carousel properties not specified within the
+                <code>CarouselProperties</code> object passed to the
+                constructor. This is because the
+                <code>CarouselProperties</code> object only contains the
+                properties that can be changed after the carousel is
+                initialized. Wrapping is a <em>fixed</em> property that must be
+                specified at initialization, and therefore does not belong
+                inside of this object.
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="wrapping-methods" class="main-content-section">
+              <h2>Wrapping Methods</h2>
+              <p>
+                Freighter offers 3 wrapping methods: <code>none</code>,
+                <code>wrap-simple</code>, and <code>wrap-smart</code>. For the
+                most part, these methods will behave as you might expect. There
+                are a few quirks to each of them, however, that are worth
+                noting.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="none" class="main-content-section">
+              <h3><code>none</code></h3>
+              <p>
+                The first and simplest wrapping method
+                <em>disallows</em> scrolling to the left beyond the first item
+                or scrolling to the right beyond the last item. This wrapping
+                method guarantees that the order of carousel items will always
+                be preserved; an carousel item with a lower index will never be
+                displayed after an carousel item with a higher index. It also
+                guarantees that the carousel will never display an empty space
+                where an item should be.
+              </p>
+              <p>
+                Take for example the carousel created from the code below. This
+                code presupposes that
+                <code>&lt;div id="myCarousel"&gt;</code> already exists in the
+                DOM, and has 9 carousel items as children. Notice that the
+                carousel cannot be scrolled to the left until it has been
+                scrolled right at least once.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'none',
+  'stretch-scale',
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemSpacing: 15,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-1" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                This is all works fine. In the example above, the number of
+                items (9) was evenly divisible by the <code>scrollBy</code> and
+                <code>numItemsVisible</code> values (both 3). How would a
+                carousel with a wrapping method of <code>none</code> behave if
+                this isn't the case?
+              </p>
+              <p>
+                Let's start by increasing <code>scrollBy</code> to 4. This
+                carousel can scroll to the right by 4 elements: the first scroll
+                will set the visible elements to '5 6 7'. Attempting to scroll
+                again would set the visible elements to '9 10 11' if they
+                existed, but our carousel only contains 9 elements. Try
+                scrolling the carousel to see how the wrapping method
+                <code>none</code> behaves in this situation:
+              </p>
+              <div id="carousel-2" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Clearly, wrapping method <code>none</code> does not scroll past
+                the first or last element! This means that the
+                <code>scrollBy</code> property is actually treated as the
+                <em>maximum</em> number of elements that can be scrolled in
+                either direction, but can be less than this if there are not
+                enough elements to scroll that far.
+              </p>
+              <p>
+                What if there are fewer carousel items than the
+                <code>numItemsVisible</code> value? Well, because there are no
+                more elements to either the left or right of the currently
+                visible elements, the carousel won't be able to scroll at all:
+              </p>
+              <div id="carousel-3" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+              </div>
+              <p class="mt-3">
+                When items are added or removed from a carousel using the
+                wrapping method of <code>none</code>, the 'empty space'
+                principle must be maintained: the carousel must never display an
+                empty space if an item is available to fill it.
+              </p>
+              <p>
+                Adding new items does not put the carousel in risk of violating
+                this principle, but removing them does. What if a carousel with
+                9 items is scrolled all the way to the right (displaying '7 8
+                9'), and the last two items are removed? In order to preserve
+                the 'empty space' principle, the carousel must be scrolled back
+                to the left until all empty spaces are filled.
+              </p>
+              <p>
+                Try it for yourself - scroll to the end of the carousel, remove
+                the last two elements, and see how the carousel is automatically
+                shifted back in order to prevent the introduction of unneccesary
+                empty slots.
+              </p>
+              <div id="carousel-4" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <div class="row">
+                <div class="col-9">
+                  <button
+                    type="button"
+                    id="remove-last-two"
+                    class="btn btn-primary d-block fs-5 p-2 mt-4 w-100"
+                  >
+                    Remove Last 2 Elements from Carousel
+                  </button>
+                </div>
+                <div class="col-3">
+                  <button
+                    type="button"
+                    id="reset-last-removals"
+                    class="btn btn-primary d-block fs-5 p-2 mt-4 w-100"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              <p class="mt-3">
+                The same is done with a carousel whose items are removed from
+                the start when scrolled all the way to the left:
+              </p>
+              <div id="carousel-5" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <div class="row">
+                <div class="col-9">
+                  <button
+                    type="button"
+                    id="remove-first-two"
+                    class="btn btn-primary d-block fs-5 p-2 mt-4 w-100"
+                  >
+                    Remove First 2 Elements from Carousel
+                  </button>
+                </div>
+                <div class="col-3">
+                  <button
+                    type="button"
+                    id="reset-first-removals"
+                    class="btn btn-primary d-block fs-5 p-2 mt-4 w-100"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="wrap-simple" class="main-content-section">
+              <h3><code>wrap-simple</code></h3>
+            </section>
+            <hr class="section-divider" />
+            <section id="wrap-smart" class="main-content-section">
+              <h3><code>wrap-smart</code></h3>
+            </section>
+            <hr class="section-divider" />
+            <section id="changing-to-wrap-simple">
+              <h4>Changing to <code>wrap-simple</code></h4>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Wrapping
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#what-is-wrapping"
+                  >What is Wrapping?</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#wrapping-methods"
+                  >Wrapping Methods</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#none"
+                    ><code>none</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#wrap-simple"
+                    ><code>wrap-simple</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#wrap-smart"
+                    ><code>wrap-smart</code></a
+                  >
+                  <nav class="nav py-0 flex-column">
+                    <a
+                      class="nav-link ms-4 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                      href="#changing-to-wrap-simple"
+                      >Changing to <code>wrap-simple</code></a
+                    >
+                  </nav>
+                </nav>
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

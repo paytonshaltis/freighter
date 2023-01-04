@@ -36,18 +36,22 @@
 
 ### Wrapping
 
-- None
-- Wrap-Simple
-- Wrap-Smart
-  - Changing back to simple
+- What is Wrapping?
+- Wrapping Methods
+  - None
+  - Wrap-Simple
+  - Wrap-Smart
+    - Changing back to simple
 
 ### Resizing
 
-- None
-- Stretch
-- Stretch-Gap
-- Stretch-Scale
-- Stretch-Populate
+- What is Resizing?
+- Resizing Methods
+  - None
+  - Stretch
+  - Stretch-Gap
+  - Stretch-Scale
+  - Stretch-Populate
 
 ### Container
 
@@ -119,3 +123,4 @@
 - Interacting with DOM
   - Manually changing styles
 - Transition timing functions
+- Changing from wrap-smart to wrap-simple

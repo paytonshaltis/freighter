@@ -154,7 +154,7 @@ export default class Freighter {
       // If the top pointer will shift back to the other end of the carousel, need
       // to move the index back by the number of items removed.
       while (
-        state.leftCarouselPointer + state.numItemsVisible >=
+        state.leftCarouselPointer + state.numItemsVisible - 1 >=
         state.carouselItems.length - count
       ) {
         state.leftCarouselPointer -= count;
