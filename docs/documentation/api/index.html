@@ -317,6 +317,124 @@
                 </li>
               </ul>
             </section>
+            <hr class="section-divider" />
+            <section id="types" class="main-content-section">
+              <h2>Types</h2>
+              <p>
+                Freighter was written in TypeScript, allowing it to take
+                advantage of the great typing system offered. The methods listed
+                above mention a few custom types whose structure must be
+                understood in order to effectively be called. Below are the
+                custom types used by Freighter and their structures:
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="carouselproperties" class="main-content-section">
+              <h3><code>CarouselProperties</code></h3>
+              <p>
+                <em>
+                  An object containing several (key, value) pairs that define
+                  the properties of a Freighter carousel. Note that because each
+                  of these properties is optional, the object can be empty.
+                  Based on the wrapping and resizing methods selected, however,
+                  some properties may be required.
+                </em>
+              </p>
+              <p>Object Keys and Defaults:</p>
+              <ul>
+                <li>
+                  <code>itemWidth?: number</code> - The width of each carousel
+                  item in pixels.
+                </li>
+                <li>
+                  <code>itemHeight?: number</code> - The height of each carousel
+                  item in pixels.
+                </li>
+                <li>
+                  <code>itemSpacing?: number</code> - The space between each
+                  item in pixels.
+                </li>
+                <li>
+                  <code>buttonStyles?: ButtonStyle</code> - The common styles
+                  that both buttons will use.
+                </li>
+                <li>
+                  <code>buttonHoverStyles?: ButtonStyle</code> - The common
+                  styles that both buttons will use when being hovered.
+                </li>
+                <li>
+                  <code>leftButtonStyles?: ButtonStyle</code> - The left button
+                  style overrides that will take precedence over the shared
+                  button styles.
+                </li>
+                <li>
+                  <code>leftButtonHoverStyles?: ButtonStyle</code> - The left
+                  button hover style overrides that will take precedence over
+                  the shared button hover styles.
+                </li>
+                <li>
+                  <code>rightButtonStyles?: ButtonStyle</code> - The right
+                  button style overrides that will take precedence over the
+                  shared button styles.
+                </li>
+                <li>
+                  <code>rightButtonHoverStyles?: ButtonStyle</code> - The right
+                  button hover style overrides that will take precedence over
+                  the shared button hover styles.
+                </li>
+                <li>
+                  <code>scrollable?: boolean</code> - Whether or not the
+                  carousel can be manually scrolled. If set to false, the
+                  buttons will not appear either.
+                </li>
+                <li>
+                  <code>scrollBy?: number</code> - The number of items to scroll
+                  by. This value is used for both manual and auto scroll.
+                </li>
+                <li>
+                  <code>numItemsVisible?: number</code> - The number of carousel
+                  items that are visible at any given time.
+                </li>
+                <li>
+                  <code>syncScrollWithVisibility?: boolean</code> - Whether or
+                  not the <code>scrollBy</code> should be overriden with the
+                  <code>numItemsVisible</code>. Useful for when you want to sync
+                  these values knowing that the number of items will change.
+                </li>
+                <li>
+                  <code>autoScroll?: boolean</code> - Whether or not the
+                  carousel will scroll on its own. If <code>scrollable</code> is
+                  set to true, the user can still manually scroll.
+                </li>
+                <li>
+                  <code>autoScrollInterval?: number</code> - The number of
+                  milliseconds to wait before scrolling to the next set of
+                  carousel items.
+                </li>
+                <li>
+                  <code>autoScrollDirection?: "left" | "right"</code> - The
+                  direction that the carousel will auto scroll.
+                </li>
+                <li>
+                  <code>autoScrollPauseOnHover?: boolean</code> - Whether or not
+                  the carousel's auto scroll should pause if the user is hovered
+                  over the carousel.
+                </li>
+                <li>
+                  <code>transitionDuration?: number</code> - The number of
+                  milliseconds that it should take in order to complete a
+                  carousel scroll.
+                </li>
+                <li>
+                  <code> transitionDelay?: number</code> - The number of
+                  milliseconds that should pass before the scroll begins.
+                </li>
+                <li>
+                  <code>transitionTimingFunction?: string</code> - A valid CSS
+                  transition timing function used to scroll the carousel.
+                </li>
+              </ul>
+            </section>
           </div>
         </div>
 

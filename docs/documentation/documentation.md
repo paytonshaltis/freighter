@@ -119,3 +119,4 @@
 - Duplicate container items
 - Interacting with DOM
   - Manually changing styles
+- Transition timing functions
