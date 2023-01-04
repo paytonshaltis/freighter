@@ -54,6 +54,50 @@ const freighter9 = new Freighter("carousel-9", "stretch-scale", "wrap-simple", {
   itemSpacing: 15,
 });
 
+const freighter10 = new Freighter(
+  "carousel-10",
+  "stretch-scale",
+  "wrap-smart",
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemSpacing: 15,
+  }
+);
+
+const freighter11 = new Freighter(
+  "carousel-11",
+  "stretch-scale",
+  "wrap-smart",
+  {
+    numItemsVisible: 3,
+    scrollBy: 2,
+    itemSpacing: 15,
+  }
+);
+
+const freighter12 = new Freighter(
+  "carousel-12",
+  "stretch-scale",
+  "wrap-smart",
+  {
+    numItemsVisible: 3,
+    scrollBy: 4,
+    itemSpacing: 15,
+  }
+);
+
+const freighter13 = new Freighter(
+  "carousel-13",
+  "stretch-scale",
+  "wrap-smart",
+  {
+    numItemsVisible: 3,
+    scrollBy: 1,
+    itemSpacing: 15,
+  }
+);
+
 // Remove last two items from carousel.
 document.getElementById("remove-last-two").addEventListener("click", () => {
   if (freighter4.getCarouselState().carouselItems.length < 2) {

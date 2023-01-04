@@ -215,7 +215,7 @@
               <div class="border bg-light code-container">
                 <pre><code>const myCarousel = new Freighter(
   'myCarousel',     // Specify the container ID here.
-  'none',           // Specify the desired resizing method here.
+  'stretch-scale',  // Specify the desired resizing method here.
   'wrap-simple',    // Specify the desired wrapping method here.
   {},               // Dymamic properties can be specified here.
 );</code></pre>
@@ -267,8 +267,8 @@
               <div class="border bg-light code-container">
                 <pre><code>const myCarousel = new Freighter(
   'myCarousel',
-  'none',
   'stretch-scale',
+  'none',
   {
     numItemsVisible: 3,
     scrollBy: 3,
@@ -442,8 +442,8 @@
               <div class="border bg-light code-container">
                 <pre><code>const myCarousel = new Freighter(
   'myCarousel',
-  'wrap-simple',
   'stretch-scale',
+  'wrap-simple',
   {
     numItemsVisible: 3,
     scrollBy: 3,
@@ -568,10 +568,162 @@
             <hr class="section-divider" />
             <section id="wrap-smart" class="main-content-section">
               <h3><code>wrap-smart</code></h3>
-            </section>
-            <hr class="section-divider" />
-            <section id="changing-to-wrap-simple">
-              <h4>Changing to <code>wrap-simple</code></h4>
+              <p>
+                The third and final wrapping method is much easier to understand
+                if you already know how the previous wrapping methods work. In
+                short, <code>wrap-smart</code> is almost like the combination of
+                the above wrapping methods. Like <code>none</code>,
+                <code>wrap-smart</code> will initially treat
+                <code>scrollBy</code> as a maximum, ensuring that scrolling will
+                not disrupt the relative order of items in the carousel.
+                However, once the end of the carousel is reached,
+                <code>wrap-smart</code> will scroll by however much is needed to
+                <em>fully</em> wrap to the other side of the carousel.
+              </p>
+              <p>
+                If this isn't clear at first, the examples below should help you
+                understand what's going on.
+              </p>
+              <p>
+                First, here's how a carousel with the
+                <code>wrap-smart</code> wrapping method can be created. Again,
+                this code presupposes that
+                <code>&lt;div id="myCarousel"&gt;</code> already exists in the
+                DOM, and has 9 carousel items as children.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'wrap-smart',
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemSpacing: 15,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-10" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Imediately, you'll notice that this carousel is behaving in
+                <em>exactly</em> the same way as the one before it that used
+                <code>wrap-simple</code>. This is true: both of the variations
+                of wrap (<code>wrap-simple</code> and <code>wrap-smart</code>)
+                behave the same when the number of carousel items is evenly
+                divisible by the <code>numItemsVisible</code> and
+                <code>scrollBy</code> values. Let's see what happens when we
+                change <code>scrollBy</code> to be 2:
+              </p>
+              <div id="carousel-11" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                When the end of the carousel is hit (visible items are '7 8 9'),
+                rather than just scrolling by the <code>scrollBy</code> value of
+                2, the carousel is scrolled by 3 so that the absolute
+                positioning of carousel items does not change.
+              </p>
+              <p>
+                Let's try one more example, this time with a
+                <code>scrollBy</code> value of 4:
+              </p>
+              <div id="carousel-12" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Now, the amount that the carousel scrolls changes with each
+                subsequent scroll! If you scroll right 3 times, the carousel
+                will first scroll by 4, then 2, then 3. What's going on?
+              </p>
+              <p>
+                The <code>wrap-smart</code> wrapping method treats the
+                <code>scrollBy</code> value as a <em>maximum</em>, meaning that
+                it will always try to scroll that much, but may stop earlier to
+                avoid scrolling past either end of the carousel. When one of the
+                ends is reached, the next scroll will wrap over to the other end
+                of the carousel as much as it needs in order to keep the
+                absolute ordering of the carousel items. This is why this
+                wrapping method is called <code>wrap-<em>smart</em></code
+                >: yes, your carousel will wrap, but it will do so intelligently
+                in order to prevent items from losing their absolute ordering.
+              </p>
+              <p>
+                One of the most common use cases for this wrapping method is a
+                carousel that only scrolls by 1 item, but should 'snap' back to
+                the beginning when wrapping. Below is the code and resulting
+                carousel for such a use case:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'wrap-smart',
+  {
+    numItemsVisible: 3,
+    scrollBy: 1,
+    itemSpacing: 15,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-13" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+                <div class="ci"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                No extra code, no event listeners for when the carousel hits the
+                end, and no fear of the absolute order being altered.
+              </p>
+              <p>
+                There are a few cautions to be aware of when using
+                <code>wrap-smart</code>, which are fully explained in their
+                respective sections on the cautions page. These include
+                carousels whose wrapping methods may
+                <a href="#"
+                  >change from <code>wrap-smart</code> to
+                  <code>wrap-simple</code> under specific circumstances</a
+                >
+                , as well as the
+                <a href="#"
+                  >possibility of the absolute ordering being temporarily
+                  altered</a
+                >
+                when adding or removing items. It is recommended that you read
+                these cautions before using this wrapping method in order to
+                avoid unexpected behavior.
+              </p>
             </section>
           </div>
         </div>
@@ -621,13 +773,6 @@
                     href="#wrap-smart"
                     ><code>wrap-smart</code></a
                   >
-                  <nav class="nav py-0 flex-column">
-                    <a
-                      class="nav-link ms-4 py-0 ps-1 pe-0 mt-1 page-contents-link"
-                      href="#changing-to-wrap-simple"
-                      >Changing to <code>wrap-simple</code></a
-                    >
-                  </nav>
                 </nav>
               </nav>
             </nav>

@@ -41,7 +41,6 @@
   - None
   - Wrap-Simple
   - Wrap-Smart
-    - Changing back to simple
 
 ### Resizing
 
