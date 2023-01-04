@@ -686,12 +686,22 @@ const myCarousel = new Freighter(
                 retrieved. In order to simply the interface for retrieving these
                 values, all property values are stored in a single object - this
                 object can be retrieved using the
-                <code>getCarouselProperties()</code> method. Take, for example,
-                the carousel below. There is no code included for this carousel,
-                but rather a button that calls the
-                <code>getCarouselProperties()</code> method and logs the
-                resulting object to the console.
+                <code>getCarouselState()</code> method. Take, for example, the
+                carousel below. There is no code included for this carousel, but
+                rather a button that calls the
+                <code>getCarouselState()</code> method and logs the resulting
+                object to the console.
               </p>
+              <div class="warning-container">
+                Why is the method called <code>getCarouselState()</code> and not
+                <code>getCarouselProperties()</code>? <br /><br />
+                This is because this method returns more than just the
+                <em>properties</em> of a carousel. There are a few other pieces
+                of internal state returned that can prove useful to the
+                programmer, and they are technically not a part of the
+                properties of the carousel. For the full list of properties and
+                state, see the <a href="#">API documentation</a>.
+              </div>
               <p>
                 Try it yourself: press the button and open the console. Apart
                 from now understanding what properties were used to create the
@@ -723,7 +733,7 @@ const myCarousel = new Freighter(
                 API documentation, but most of the properties are
                 self-explanatory. Additionally, many of the changeable
                 properties can be revealed by using the
-                <code>getCarouselProperties()</code> method described above.
+                <code>getCarouselState()</code> method described above.
               </p>
               <p>
                 Use the buttons below to change a variety of carousel
