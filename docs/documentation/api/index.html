@@ -213,10 +213,10 @@
               <h3><code>Freighter(options)</code></h3>
               <p>
                 <em
-                  >Constructor for the CarouselManager class. Initializes the
-                  Carousel by passing the options parameter to the Carousel
-                  constructor. Assigns the returned carousel to the carousel
-                  member attribute.</em
+                  >Constructor for the Freighter class. Initializes the Carousel
+                  by passing the options parameter to the Carousel constructor.
+                  Assigns the returned carousel to the carousel member
+                  attribute.</em
                 >
               </p>
               <p>Parameters (1 required):</p>
@@ -335,12 +335,12 @@
                 <em>
                   An object containing several (key, value) pairs that define
                   the properties of a Freighter carousel. Note that because each
-                  of these properties is optional, the object can be empty.
-                  Based on the wrapping and resizing methods selected, however,
-                  some properties may be required.
+                  of these properties is optional, the object can be empty. If a
+                  property is left blank, it will fall back to its default value
+                  specified below.
                 </em>
               </p>
-              <p>Object Keys and Defaults:</p>
+              <p>Object Keys</p>
               <ul>
                 <li>
                   <code>itemWidth?: number</code> - The width of each carousel
@@ -355,17 +355,18 @@
                   item in pixels.
                 </li>
                 <li>
-                  <code>buttonStyles?: ButtonStyle</code> - The common styles
-                  that both buttons will use.
+                  <code>buttonStyles?: ButtonStyle</code>
+                  - The common styles that both buttons will use.
                 </li>
                 <li>
-                  <code>buttonHoverStyles?: ButtonStyle</code> - The common
-                  styles that both buttons will use when being hovered.
+                  <code>buttonHoverStyles?: ButtonStyle</code>
+                  - The common styles that both buttons will use when being
+                  hovered.
                 </li>
                 <li>
-                  <code>leftButtonStyles?: ButtonStyle</code> - The left button
-                  style overrides that will take precedence over the shared
-                  button styles.
+                  <code>leftButtonStyles?: ButtonStyle</code>
+                  - The left button style overrides that will take precedence
+                  over the shared button styles.
                 </li>
                 <li>
                   <code>leftButtonHoverStyles?: ButtonStyle</code> - The left
@@ -373,9 +374,9 @@
                   the shared button hover styles.
                 </li>
                 <li>
-                  <code>rightButtonStyles?: ButtonStyle</code> - The right
-                  button style overrides that will take precedence over the
-                  shared button styles.
+                  <code>rightButtonStyles?: ButtonStyle</code>
+                  - The right button style overrides that will take precedence
+                  over the shared button styles.
                 </li>
                 <li>
                   <code>rightButtonHoverStyles?: ButtonStyle</code> - The right
@@ -412,8 +413,8 @@
                   carousel items.
                 </li>
                 <li>
-                  <code>autoScrollDirection?: "left" | "right"</code> - The
-                  direction that the carousel will auto scroll.
+                  <code>autoScrollDirection?: "left" | "right"</code>
+                  - The direction that the carousel will auto scroll.
                 </li>
                 <li>
                   <code>autoScrollPauseOnHover?: boolean</code> - Whether or not
@@ -430,8 +431,170 @@
                   milliseconds that should pass before the scroll begins.
                 </li>
                 <li>
-                  <code>transitionTimingFunction?: string</code> - A valid CSS
-                  transition timing function used to scroll the carousel.
+                  <code>transitionTimingFunction?: string</code>
+                  - A valid CSS transition timing function used to scroll the
+                  carousel.
+                </li>
+              </ul>
+              <p>Default Values</p>
+              <div class="border bg-light code-container">
+                <pre><code>itemWidth: 225,
+itemHeight: 150,
+itemSpacing: 0,
+buttonStyles: {
+  width: "25px",
+  height: "80%",
+  position: "center",
+  borderTop: "none",
+  borderRight: "none",
+  borderBottom: "none",
+  borderLeft: "none",
+  backgroundColor: "rgba(100, 100, 100, 0.5)",
+  color: "rgba(50, 50, 50, 0.75)",
+  cursor: "pointer",
+  transition: "all 200ms ease",
+},
+buttonHoverStyles: {
+  backgroundColor: "rgba(100, 100, 100, 0.8)",
+  transition: "all 200ms ease",
+},
+leftButtonStyles: {
+  borderTopRightRadius: "5px",
+  borderBottomRightRadius: "5px",
+},
+leftButtonHoverStyles: {},
+rightButtonStyles: {
+  borderTopLeftRadius: "5px",
+  borderBottomLeftRadius: "5px",
+},
+rightButtonHoverStyles: {},
+scrollable: true,
+scrollBy: 1,
+numItemsVisible: 1,
+syncScrollWithVisibility: false,
+autoScroll: false,
+autoScrollInterval: 1000,
+autoScrollDirection: "right",
+autoScrollPauseOnHover: false,
+transitionDuration: 500,
+transitionDelay: 0,
+transitionTimingFunction: "ease-in-out"</code></pre>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="buttonstyle" class="main-content-section">
+              <h3><code>ButtonStyle</code></h3>
+              <p>
+                <em
+                  >An object containing several (key, value) pairs that define
+                  the styles of a Freighter carousel button. Note that because
+                  each of these properties is optional, the object can be empty.
+                  If a property is left blank, only the default CSS styles will
+                  be used.
+                </em>
+              </p>
+              <p>Object Keys:</p>
+              <ul>
+                <li>
+                  <code>width?: string</code> - A valid CSS width value that
+                  will be applied to the button.
+                </li>
+                <li>
+                  <code>height?: string</code> - A valid CSS height value that
+                  will be applied to the button.
+                </li>
+                <li>
+                  <code>position?: "top" | "center" | "bottom"</code> - The
+                  vertical aligmnemt of the buttons as compared to the carousel
+                  container.
+                </li>
+                <li>
+                  <code>borderTop?: string</code> - A valid CSS border value
+                  that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderRight?: string</code> - A valid CSS border value
+                  that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderBottom?: string</code> - A valid CSS border value
+                  that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderLeft?: string</code> - A valid CSS border value
+                  that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderTopLeftRadius?: string</code> - A valid CSS border
+                  radius that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderTopRightRadius?: string</code> - A valid CSS
+                  border radius that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderBottomLeftRadius?: string</code> - A valid CSS
+                  border radius that will be applied to the button.
+                </li>
+                <li>
+                  <code>borderBottomRightRadius?: string</code> - A valid CSS
+                  border radius that will be applied to the button.
+                </li>
+                <li>
+                  <code>backgroundColor?: string</code> - A valid CSS background
+                  color to be applied to the button.
+                </li>
+                <li>
+                  <code>color?: string</code> - A valid CSS color to be applied
+                  to the chevron within the button.
+                </li>
+                <li>
+                  <code>cursor?: string</code> - A valid CSS cursor option to be
+                  applied to the button.
+                </li>
+                <li>
+                  <code>transition?: string</code> - A valid CSS transition to
+                  be applied to the button; used to transition to the button's
+                  hover styles.
+                </li>
+              </ul>
+            </section>
+            <hr class="section-divider" />
+            <section id="carouselstate" class="main-content-section">
+              <h3>CarouselState</h3>
+              <p>
+                <em
+                  >An object containing several (key, value) pairs that
+                  represent the current state of a Freighter carousel. The state
+                  is defined as the intersection between a
+                  <code>CarouselProperties</code> object and a few other
+                  internal pieces of state that may be useful to know.</em
+                >
+              </p>
+              <p>Object Keys:</p>
+              <ul>
+                <li>
+                  All of the properties available in a
+                  <code>CarouselProperties</code> object, and...
+                </li>
+                <li>
+                  <code>carouselID: number</code> - The unique internal number
+                  assigned to a carousel. Will be different from all other
+                  carousels in order to uniquely identify each.
+                </li>
+                <li>
+                  <code>carouselItems: HTMLElement[]</code> - An array of all of
+                  the carousel items. Allows for the modification or access of
+                  these items.
+                </li>
+                <li>
+                  <code>leftCarouselPointer: number</code> - The index of the
+                  leftmost visible carousel item. Useful for determining which
+                  items are visible.
+                </li>
+                <li>
+                  <code>carouselContainer: HTMLElement</code> - The outermost
+                  HTML element that houses the entire carousel.
                 </li>
               </ul>
             </section>

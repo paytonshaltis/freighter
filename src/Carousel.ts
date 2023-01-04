@@ -926,10 +926,6 @@ export default class Carousel {
       borderRight: "none",
       borderBottom: "none",
       borderLeft: "none",
-      borderTopLeftRadius: "0px",
-      borderTopRightRadius: "0px",
-      borderBottomLeftRadius: "0px",
-      borderBottomRightRadius: "0px",
       backgroundColor: "rgba(100, 100, 100, 0.5)",
       color: "rgba(50, 50, 50, 0.75)",
       cursor: "pointer",
@@ -1447,7 +1443,7 @@ export default class Carousel {
   }
 
   /**
-   * Returns the current state of the carousel. This is used by the CarouselManager
+   * Returns the current state of the carousel. This is used by the Freighter class
    * when creating a new carousel with slightly different settings. The current
    * state should be preserved, and only the settings that are different should be
    * changed.
