@@ -1,5 +1,6 @@
 import ButtonStyle from "./types/ButtonStyle.type.js";
 import CarouselOptions from "./types/CarouselOptions.type.js";
+import CarouselProperties from "./types/CarouselProperties.type.js";
 import CarouselState from "./types/CarouselState.type.js";
 
 /**
@@ -888,17 +889,23 @@ export default class Carousel {
    * carousel options. The constructor initializes all class attributes, configures
    * all elements within the carousel container, styles the elements, and initializes
    * the carousel with the correct starting elements based on the carousel options.
-   * @param {CarouselOptions | CarouselState} options An object of the type CarouselOptions
+   * @param {CarouselProperties | CarouselState} properties An object of the type CarouselProperties
    * or CarouselState. Pass in a CarouselOptions object to initialize a new carousel, and
    * pass in a CarouselState object to restore a carousel from a previous state.
    * Carousel will be constructed from the passed in state.
    * @returns {Carousel} A new Carousel object.
    */
-  constructor(options: CarouselOptions | CarouselState) {
+  constructor(properties: CarouselProperties | CarouselState) {
     // Determine if the constructor is being called with a CarouselOptions object
     // or a CarouselState object.
     const constructFromState =
-      (options as CarouselState).carouselID !== undefined;
+      (properties as CarouselState).carouselID !== undefined;
+
+    // If we are not constructing from a state, then we are constructing from a
+    // CarouselOptions object.
+    const options: CarouselOptions | CarouselState = constructFromState
+      ? (properties as CarouselState)
+      : ({ ...properties } as CarouselOptions);
 
     // Initialize the required class attributes. Set their defaults to "none" if
     // they are not explicitly provided.
