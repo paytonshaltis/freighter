@@ -889,23 +889,36 @@ export default class Carousel {
    * carousel options. The constructor initializes all class attributes, configures
    * all elements within the carousel container, styles the elements, and initializes
    * the carousel with the correct starting elements based on the carousel options.
+   * @param {string} containerID The ID of the carousel container element.
+   * @param {string} resizingMethod The resizing method to use for the carousel.
+   * @param {string} wrappingMethod The wrapping method to use for the carousel.
    * @param {CarouselProperties | CarouselState} properties An object of the type CarouselProperties
    * or CarouselState. Pass in a CarouselOptions object to initialize a new carousel, and
    * pass in a CarouselState object to restore a carousel from a previous state.
    * Carousel will be constructed from the passed in state.
    * @returns {Carousel} A new Carousel object.
    */
-  constructor(properties: CarouselProperties | CarouselState) {
+  constructor(
+    properties: CarouselProperties | CarouselState,
+    containerID?: string,
+    resizingMethod?: string,
+    wrappingMethod?: string
+  ) {
     // Determine if the constructor is being called with a CarouselOptions object
     // or a CarouselState object.
     const constructFromState =
       (properties as CarouselState).carouselID !== undefined;
 
     // If we are not constructing from a state, then we are constructing from a
-    // CarouselOptions object.
+    // CarouselOptions object (new carousel creation).
     const options: CarouselOptions | CarouselState = constructFromState
       ? (properties as CarouselState)
-      : ({ ...properties } as CarouselOptions);
+      : ({
+          containerID,
+          resizingMethod,
+          wrappingMethod,
+          ...properties,
+        } as CarouselOptions);
 
     // Initialize the required class attributes. Set their defaults to "none" if
     // they are not explicitly provided.
