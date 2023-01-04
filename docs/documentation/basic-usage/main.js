@@ -78,7 +78,7 @@ document.querySelector("button#add-item").addEventListener("click", () => {
   freighter2.addCarouselItems(getNewElement());
   document.querySelector(
     "button#add-item"
-  ).innerHTML = `Add Item (${newItemCounter}) Total`;
+  ).innerHTML = `Add Item (${newItemCounter} Total)`;
 });
 
 document

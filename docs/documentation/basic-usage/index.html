@@ -201,17 +201,15 @@
               <h2>Creating a Carousel</h2>
               <p>
                 A carousel is created by specifying an existing container
-                <code>div</code> and a list of properties. All properties within
-                the list are optional with the exception of the
-                <code>containerID</code> property, which specifies the container
-                in which the Freighter carousel will be appended.
+                <code>div</code>, a resizing method, a wrapping method, and a
+                list of properties. All properties within the list are optional
+                with defaults used as fallbacks.
               </p>
               <p>
                 The following sections will demonstrate the creation of some of
                 the simplest carousels. These will take advantage of the
-                <code>resizingMethod</code> and
-                <code>wrappingMethod</code> properties in order to quickly
-                create responsive carousel elements.
+                <code>resizingMethod</code> and <code>wrappingMethod</code> in
+                order to quickly create responsive carousel elements.
               </p>
             </section>
             <hr class="section-divider" />
@@ -241,15 +239,18 @@
               <h3>Content-First Philosophy</h3>
               <p>
                 Let's create the simplest possible carousel by calling the
-                Freighter constructor with an object containing only the
-                <code>containerID</code> property. The code below presupposes
-                that the above <code>div</code> with the ID of
+                Freighter constructor with a containerID, no resizing or
+                wrapping methods, and an empty property object The code below
+                presupposes that the above <code>div</code> with the ID of
                 <code>myCarousel</code> has already been created:
               </p>
               <div class="border bg-light code-container">
-                <pre><code>const myCarousel = new Freighter({
-  containerID: 'myCarousel',
-});</code></pre>
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'none',
+  'none',
+  {}
+);</code></pre>
               </div>
               <p>
                 With no other properties passes into the constructor, the
@@ -395,7 +396,7 @@ myCarousel.addCarouselItems([newItem2, newItem3], 0);</code></pre>
                     id="add-item"
                     class="btn btn-primary d-block fs-5 p-3"
                   >
-                    Add Item (1) Total
+                    Add Item (1 Total)
                   </button>
                 </div>
               </div>
@@ -438,6 +439,15 @@ myCarousel.addCarouselItems([newItem2, newItem3], 0);</code></pre>
                 detailed documentation pages.
               </p>
               <p>
+                Note that neither <code>resizingMethod</code> nor
+                <code>wrappingMethod</code> are present in the properties
+                object; instead, they follow the containerID as normal
+                constructor parameters. This is because the properties object
+                <em>only</em> contains properties that can be dynamically
+                changed later, and the <code>resizingMethod</code> and
+                <code>wrappingMethod</code> are fixed.
+              </p>
+              <p>
                 The two values that will be used in the example below are
                 <code>resizingMethod: 'stretch-scale'</code> and
                 <code>wrappingMethod: 'wrap-simple'</code>. You may be able to
@@ -455,14 +465,16 @@ myCarousel.addCarouselItems([newItem2, newItem3], 0);</code></pre>
               </p>
               <div class="border bg-light code-container">
                 <pre><code>// Create a new carousel using the container with the ID "myCarousel".
-const myCarousel = new Freighter({
-  containerID: 'myCarousel',
-  resizingMethod: 'stretch-scale',
-  wrappingMethod: 'wrap-simple',
-  numItemsVisible: 3,
-  scrollBy: 2,
-  autoScroll: true,
-});</code></pre>
+const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale', 
+  'wrap-simple',
+  {
+    numItemsVisible: 3,
+    scrollBy: 2,
+    autoScroll: true,
+  }
+);</code></pre>
               </div>
               <div id="carousel-3" class="freighter-c">
                 <div class="ci"><p>1</p></div>
@@ -517,16 +529,18 @@ const myCarousel = new Freighter({
               </p>
               <div class="border bg-light code-container">
                 <pre><code>// Create a new carousel using the container with the ID "myCarousel".
-const myCarousel = new Freighter({
-  containerID: 'myCarousel',
-  resizingMethod: 'stretch-scale',
-  wrappingMethod: 'wrap-simple',
-  numItemsVisible: 3,
-  scrollBy: 2,
-  itemHeight: 3,
-  itemWidth: 2,
-  itemSpacing: 10,
-});</code></pre>
+const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'wrap-simple',
+  {
+    numItemsVisible: 3,
+    scrollBy: 2,
+    itemHeight: 3,
+    itemWidth: 2,
+    itemSpacing: 10,
+  }
+);</code></pre>
               </div>
               <div id="carousel-4" class="freighter-c">
                 <div class="ci"><p>1</p></div>
@@ -562,31 +576,33 @@ const myCarousel = new Freighter({
               </p>
               <div class="border bg-light code-container">
                 <pre><code>// Create a new carousel using the container with the ID "myCarousel".
-const myCarousel = new Freighter({
-  containerID: 'myCarousel',
-  resizingMethod: 'stretch-scale',
-  wrappingMethod: 'wrap-simple',
-  numItemsVisible: 3,
-  scrollBy: 2,
-  itemSpacing: 20,
+const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'wrap-simple',
+  { 
+    numItemsVisible: 3,
+    scrollBy: 2,
+    itemSpacing: 20,
 
-  // Common styles for both buttons.
-  buttonStyles: {
-    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-    color: 'orange',
-  },
+    // Common styles for both buttons.
+    buttonStyles: {
+      backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      color: 'orange',
+    },
 
-  // Common hover styles for both buttons.
-  buttonHoverStyles: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    height: '90%'
-  },
+    // Common hover styles for both buttons.
+    buttonHoverStyles: {
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      height: '90%'
+    },
 
-  // Styles for the right button only.
-  rightButtonStyles: {
-    color: 'blue',
+    // Styles for the right button only.
+    rightButtonStyles: {
+      color: 'blue',
+    }
   }
-});</code></pre>
+);</code></pre>
               </div>
               <div id="carousel-5" class="freighter-c">
                 <div class="ci"><p>1</p></div>
