@@ -162,6 +162,27 @@ div.ci p {
   // border: 2px dashed rgba($primary, 0.45);
 }
 
+// Resizeable containers for the documentation pages.
+div.resizeable-container {
+  background-color: rgba($primary, 0.125);
+  resize: horizontal;
+  max-width: 100%;
+  overflow: hidden;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+// Fixed font size for items that do not change size.
+div.ci-fixed p {
+  font-size: 4rem;
+  padding-bottom: 0.5rem;
+}
+
+div.ci-scale p {
+  font-size: 2.5rem;
+  padding-bottom: 0.5rem;
+}
+
 // Train carousel styles.
 #carousel-train {
   margin: 0 auto;

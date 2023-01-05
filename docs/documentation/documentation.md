@@ -33,6 +33,7 @@
 
 - Static Properties
 - Dynamic Properties
+- Adding Styles with Classes
 
 ### Wrapping
 
@@ -51,6 +52,7 @@
   - Stretch-Gap
   - Stretch-Scale
   - Stretch-Populate
+- Comparison Table
 
 ### Container
 

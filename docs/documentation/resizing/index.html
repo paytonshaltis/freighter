@@ -190,7 +190,402 @@
 
           <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
             <h1 class="text-start">Resizing</h1>
-            <p class="lead"></p>
+            <p class="lead">
+              Every Freighter carousel needs to have some strategy for resizing
+              itself when the width of its parent changes. Freighter includes 4,
+              each with their own set of behaviors.
+            </p>
+            <div class="warning-container">
+              Resizing the carousel containers on this screen is great for
+              understanding the documentation, but resizing the window can be a
+              hassle. For your convenience, each carousel container has been
+              given some top and bottom padding and a horizontal resize handle.
+              You can use these to resize the container to your liking without
+              needing to change the size of the browser.
+            </div>
+            <section id="what-is-resizing" class="main-content-section">
+              <h2>What is Resizing?</h2>
+              <p>
+                In order to make Freighter carousels responsive, some strategy
+                needs to be employed to resize the carousel when the width of
+                the container's parent changes. Resizing is just your carousel's
+                reaction to this change. Based on how you are planning on using
+                the carousel, some of the resizing methods may be more
+                appropriate than others.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="resizing-methods" class="main-content-section">
+              <h2>Resizing Methods</h2>
+              <p>
+                There are 4 different resizing methods to choose from in
+                Freighter. Each of these methods interacts slightly differently
+                with other carousel properties.
+              </p>
+              <p>
+                The resizing method for a Freighter carousel is indicated in the
+                constructor, as the second parameter. See the code block below
+                that demonstrates how to utilize the resizing method
+                <code>stretch-gap</code> in the carousel
+                <code>myCarousel</code>:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',     // Specify the container ID here.
+  'stretch-gap',    // Specify the desired resizing method here.
+  'none',           // Specify the desired wrapping method here.
+  {},               // Dymamic properties can be specified here.
+);</code></pre>
+              </div>
+              <div class="warning-container">
+                One important thing to note is that the resizing is one of 3
+                carousel properties not specified within the
+                <code>CarouselProperties</code> object passed to the
+                constructor. This is because the
+                <code>CarouselProperties</code> object only contains the
+                properties that can be changed after the carousel is
+                initialized. Resizing is a <em>fixed</em> property that must be
+                specified at initialization, and therefore does not belong
+                inside of this object.
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="none" class="main-content-section">
+              <h3><code>none</code></h3>
+              <p>
+                The first and simplest of the resizing methods is
+                <code>none</code>. As you might expect, a carousel with this
+                resizing method will <em>not</em> change its size when the
+                browser window's width changes. The size of the carousel is thus
+                determined by the carousel items within it, as described by the
+                <a href="#">content-first philosophy</a>.
+              </p>
+              <p>
+                Below is the code necessary to create a carousel with a resizing
+                method of <code>none</code> as well as the resulting carousel.
+                Try resizing the width of the browser window to see how the
+                carousel maintains its size. This code presupposes that
+                <code>&lt;div id="myCarousel"&gt;</code> already exists in the
+                DOM, and has 9 carousel items as children.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'none',
+  'none',
+  {
+    numItemsVisible: 5,
+    itemWidth: 50,
+    itemHeight: 50,
+    itemSpacing: 5,
+    scrollBy: 2,
+  },
+);</code></pre>
+              </div>
+              <div
+                id="carousel-1"
+                class="freighter-c resizeable-container"
+                style="overflow: hidden"
+              >
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Resizing the window will not affect the size of the carousel. In
+                fact, knowing the item height, item width, and item spacing
+                values is enough to calculate the size of the carousel. This is
+                exactly how Freighter performs this calculation under the hood.
+              </p>
+              <p>
+                For the purposes of this site, the carousel container was given
+                an additional style of <code>overflow: hidden</code> in order to
+                prevent strange behavior when resizing the window. This was
+                applied using a class that was added to the container itself.
+                You can learn more about styling the carousel container with
+                custom classes <a href="#">here</a>.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="stretch" class="main-content-section">
+              <h3><code>stretch</code></h3>
+              <p>
+                This is the most basic of a number of <code>stretch</code>-like
+                resizing methods. The basic <code>stretch</code> resizing method
+                simply stretches each carousel item to fill the entire width of
+                the carousel container. This is means that the
+                <code>itemWidth</code> is ignored, and only the width of the
+                container, the <code>itemSpacing</code>, and
+                <code>numItemsVisible</code> are used to calculate the width of
+                each item.
+              </p>
+              <p>
+                Take the code below as an example. Again, this code presupposes
+                that <code>&lt;div id="myCarousel"&gt;</code> already exists in
+                the DOM, and has 9 carousel items as children.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch',
+  'none',
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemHeight: 150,
+    itemSpacing: 10,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-2" class="freighter-c resizeable-container">
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                You can see that no matter how wide the carousel's parent
+                container is (dictated partially by the browser width), the only
+                dimension that changes for each carousel item is its width. The
+                <code>itemHeight</code> and <code>itemSpacing</code> remains the
+                same.
+              </p>
+              <p>
+                The next few resizing methods will all appear to behave in a
+                similar manner to <code>stretch</code>, with minor differences
+                for each variation.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="stretch-gap" class="main-content-section">
+              <h3><code>stretch-gap</code></h3>
+              <p>
+                In this resizing method, it is the <code>itemSpacing</code> that
+                is stretched fill the entire width of the carousel container.
+                The <code>itemSpacing</code> value will not be decreased below
+                its original value, even if the carousel container is smaller
+                than the sum of all the carousel items. In this case, the
+                carousel item overflow will be hidden, so it is up to you to
+                ensure that your parent container does not shrink below an
+                appropriate level.
+              </p>
+              <p>
+                Below is the code for one of these carousels, as well as the
+                resulting carousel. Again, this code presupposes that
+                <code>&lt;div id="myCarousel"&gt;</code> already exists in the
+                DOM, and has 9 carousel items as children.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-gap',
+  'none',
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemHeight: 150,
+    itemWidth: 175,
+    itemSpacing: 10,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-3" class="freighter-c resizeable-container">
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Because overflowing carousel items will be hidden, this is an
+                effective way of creating carousels that show a small amount of
+                the next elements. Try shrinking your browser window until the
+                left and right elements are cut off by the edges of the carousel
+                parent container. Again, you would need to restrict the minimum
+                and maximum width of this container.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="stretch-scale" class="main-content-section">
+              <h3><code>stretch-scale</code></h3>
+              <p>
+                This variation of the <code>stretch</code>-like resizing methods
+                ensures that the aspect ratio of each carousel item is
+                preserved. The aspect ratio uses the initial values of
+                <code>itemHeight</code> and <code>itemWidth</code>. This is the
+                only resizing method that actually alters the height of a
+                carousel; all of the other methods only adjust the carousel
+                width. The value of <code>itemSpacing</code>, however, remains
+                unchanged.
+              </p>
+              <p>
+                Below is the code for one of these carousels, as well as the
+                resulting carousel. Again, this code presupposes that
+                <code>&lt;div id="myCarousel"&gt;</code> already exists in the
+                DOM, and has 9 carousel items as children.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'none',
+  {
+    numItemsVisible: 3,
+    scrollBy: 3,
+    itemHeight: 2,
+    itemWidth: 3,
+    itemSpacing: 10,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-4" class="freighter-c resizeable-container">
+                <div class="ci ci-scale"><p>1</p></div>
+                <div class="ci ci-scale"><p>2</p></div>
+                <div class="ci ci-scale"><p>3</p></div>
+                <div class="ci ci-scale"><p>4</p></div>
+                <div class="ci ci-scale"><p>5</p></div>
+                <div class="ci ci-scale"><p>6</p></div>
+                <div class="ci ci-scale"><p>7</p></div>
+                <div class="ci ci-scale"><p>8</p></div>
+                <div class="ci ci-scale"><p>9</p></div>
+              </div>
+              <p class="mt-3">
+                Note that the <code>itemHeight</code> and
+                <code>itemWidth</code> provided in the original
+                <code>CarouselProperties</code> object are not the actual height
+                and width of the carousel items. Instead, they represent the
+                aspect ratio of the carousel items. Why does this work? Well,
+                the height and width <em>are</em> initially set to these values.
+                However, Freighter detects that the carousel is not currently
+                filled, and adjusts the height and width of the carousel items
+                to fill the carousel container. They are scaled up or down,
+                meaning that values of 3000 and 2000 also could have been
+                provided.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="stretch-populate" class="main-content-section">
+              <h3><code>stretch-populate</code></h3>
+              <p>
+                The final resizing method behaves slightly different from the
+                ones seen above. It is similar to <code>stretch-gap</code>, in
+                that the <code>itemSpacing</code> values are modified, however,
+                it is different in that when there is enough room to add a new
+                item (or not enough item to show all items), the
+                <code>numItemsVisible</code> will be increased (or decreased).
+              </p>
+              <p>
+                Understanding how the carousel resizes is likely better visually
+                in this case. Below is the code for one of these carousels, as
+                well as the resulting carousel. Again, this code presupposes
+                that
+                <code>&lt;div id="myCarousel"&gt;</code> already exists in the
+                DOM, and has 9 carousel items as children.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-populate',
+  'none',
+  {
+    numItemsVisible: 2,
+    scrollBy: 3,
+    itemHeight: 150,
+    itemWidth: 175,
+    itemSpacing: 10,
+  },
+);</code></pre>
+              </div>
+              <div id="carousel-5" class="freighter-c resizeable-container">
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="comparison-table" class="main-content-section">
+              <h2>Comparison Table</h2>
+              <p>
+                Each of the methods above impacts the properties of the carousel
+                in some way. The table below is a quick reference as to how
+                these properties are affected by each method.
+              </p>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th scope="col"><code>itemWidth</code></th>
+                      <th scope="col"><code>itemHeight</code></th>
+                      <th scope="col"><code>itemSpacing</code></th>
+                      <th scope="col"><code>numItemsVisible</code></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"><code>none</code></th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>stretch</code></th>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>stretch-gap</code></th>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>stretch-scale</code></th>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><code>stretch-populate</code></th>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                *❌ indicates that the property is modified by the resizing
+                method.
+              </p>
+            </section>
           </div>
         </div>
 
@@ -231,6 +626,11 @@
                   >
                   <a
                     class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#stretch"
+                    ><code>stretch</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
                     href="#stretch-gap"
                     ><code>stretch-gap</code></a
                   >
@@ -245,6 +645,11 @@
                     ><code>stretch-populate</code></a
                   >
                 </nav>
+                <a
+                  class="nav-link py-0 ps-1 pe-0 mt-1 page-contents-link"
+                  href="#comparison-table"
+                  >Comparison Table</a
+                >
               </nav>
             </nav>
           </div>

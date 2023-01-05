@@ -780,7 +780,7 @@ export default class Carousel {
         getComputedStyle(this.carouselItemContainer as Element).width
       ) -
         this.itemWidth * this.numItemsVisible) /
-      (this.numItemsVisible + 1);
+      (this.numItemsVisible - 1);
 
     // Set the gap size to the larger of the computed gap and the minimum gap
     // size provided by the constructor.
