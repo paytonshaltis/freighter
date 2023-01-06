@@ -85,6 +85,9 @@ document
   .querySelector("button#get-properties")
   .addEventListener("click", () => {
     console.log(freighter6.getCarouselState());
+    document.querySelector("button#get-properties").classList.add("disabled");
+    document.querySelector("button#get-properties").innerHTML =
+      "Check console!";
   });
 
 document.getElementById("visible-items-3").addEventListener("click", () => {
