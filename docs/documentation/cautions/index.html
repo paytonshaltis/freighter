@@ -252,7 +252,283 @@
                 and elements that are children of the carousel items will
                 <em>also</em> be duplicated, potentially duplicating IDs. Take
                 the carousel below as an example. If you inspect the carousel
-                item
+                items, you will notice that the <code>id</code> attribute of
+                some are duplicated.
+              </p>
+              <div id="carousel-1" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+              </div>
+              <p class="mt-3">
+                For the most part, this shouldn't cause any issue. If, however,
+                you write code that assumes only one element in the DOM will
+                have a given ID, this may cause that code to break. Use your
+                best judgement when pairing a wrapping method with carousel
+                items that have functionality dependent on their IDs.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="freighter-and-the-dom" class="main-content-section">
+              <h2>Freighter and the DOM</h2>
+              <p>
+                When a Freighter carousel is constructed, more elements are
+                created than just the container and children (this becomes more
+                obvious when you see the number of
+                <a href="#">reserved IDs and classnames</a> that exist)! Feel
+                free to inspect the carousel in your browser's developer tools
+                to see some of these.
+              </p>
+              <p>
+                It is important to point out that you should <b>not</b> add or
+                remove any styles, event listeners, or children from any of
+                these elements. These are all maintained by Freighter, and
+                changing them in any way risks breaking the carousel. If you are
+                feeling brave, and feel as though you understand how something
+                has been implemented, just be aware that you may end up breaking
+                something down the line.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="changing-styles" class="main-content-section">
+              <h3>Changing Styles</h3>
+              <p>
+                One important design decision made was to ensure that elements
+                created by you are not altered in any way: both the top-level
+                carousel container
+              </p>
+              <code class="text-center d-block mb-3"
+                >&lt;div id="carousel-1"
+                class="freighter-c"&gt;&lt;/div&gt;</code
+              >
+              <p>as well as all carousel items</p>
+              <code class="text-center d-block mb-3"
+                >&lt;div class="ci"&gt;&lt;p&gt;1&lt;/p&gt;&lt;/div&gt;</code
+              >
+              <p>
+                remain untouched, as indicated by a lack of inline styles. This
+                gives the programmer (mostly) total freedom to style each of
+                these components of the carousel as they wish. The only warning
+                that is associated with this feature is to
+                <b
+                  >avoid styling relative to the carousel items or containers</b
+                >
+                . Applying CSS styles that impact parents of the carousel items
+                or children of the carousel container with selectors such as
+                <code>&gt;</code>, <code>~</code> or instances of
+                <code>has()</code> may end up overriding essential styles to
+                internal Freighter elements.
+              </p>
+              <p>
+                In general, it is advised to give carousel elements a common
+                class for styling, and apply your CSS styles to the classes
+                themselves rather than parents or children of elements.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section
+              id="transition-timing-functions"
+              class="main-content-section"
+            >
+              <h2>Transition Timing Functions</h2>
+              <p>
+                Freighter provides you with the ability to select your own
+                custom CSS transition timing functions. These can be as simple
+                as <code>linear</code> or as complex as
+                <code>cubic-bezier()</code>, but the more complex come with an
+                important caution.
+              </p>
+              <p>
+                Internally, Freighter only inserts as many carousel items as
+                necessary; if you create a carousel with 15 items but set
+                <code>numItemsVisible</code> to 3, then the other 12 items are
+                stored in memory until they should come into view. For this
+                reason, some <code>cubic-bezier()</code> functions that go
+                beyond the items visible on the screen may result in blank spots
+                in the carousel. The code below demonstrates a dangerous
+                carousel whose transition timing function goes beyond the
+                visible items to an extreme degree.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'none', {
+    numItemsVisible: 2,
+    scrollBy: 1,
+    itemSpacing: 15,
+    transitionTimingFunction: "cubic-bezier(0.65, 0, 0.35, -5)",
+    transitionDuration: 1500,
+  }
+);</code></pre>
+              </div>
+              <div id="carousel-2" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+              </div>
+              <p>
+                Notice that with a function this extreme, at first the previous
+                items show up properly. Scrolling from items 3 on demonstrates
+                that only one previous item is added to either side when
+                transitioning, which also happens to be the
+                <code>scrollBy</code> value for this carousel.
+              </p>
+              <p>
+                In fact, below is a breakdown of how many carousel items are
+                actually exist in the DOM at the stages of the carousel
+                transition:
+              </p>
+              <ul>
+                <li>
+                  <b> Before Transition:</b>
+                  <code>numItemsVisible</code> carousel items loaded.
+                  <ul>
+                    <li>
+                      Only need to load those that are currently visible in the
+                      carousel.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b>During Transition:</b>
+                  <code>numItemsVisible + (2 * scrollBy)</code> carousel items
+                  loaded.
+                  <ul>
+                    <li>
+                      <code>scrollBy</code> additional items are added to each
+                      side during a scroll in either direction.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b> After Transition: </b>
+                  <code>numItemsVisible</code> carousel items loaded.
+                  <ul>
+                    <li>
+                      The extras are removed when the transition completes.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>
+                In the example above, then, we can only ever assume that 1 extra
+                carousel item will be inserted into the carousel on either side
+                during transitions. As long as the
+                <code>cubic-bezier()</code> function does not expose more than
+                one extra carousel item, this shouldn't be a problem.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section
+              id="changing-from-wrap-smart-to-wrap-simple"
+              class="main-content-section"
+            >
+              <h2>
+                Changing from <code>wrap-smart</code> to
+                <code>wrap-simple</code>
+              </h2>
+              <p>
+                Both of the wrapping methods ensure that there are never any
+                empty spots in a carousel; if there normally would be with
+                wrapping method <code>none</code>, they are filled with carousel
+                items from the start of the container. Nothing new here.
+              </p>
+              <p>
+                <code>wrap-smart</code>, however, modifies the amount that will
+                be scrolled in order to preserve the absolute ordering of the
+                carousel items - an item with a lower index will never be shown
+                after an item with a higher index. Again, this is all understood
+                by the definition of the wrapping method.
+              </p>
+              <p>
+                There is one situation in which these rules are in
+                contradiction: that is, when <code>numItemsVisible</code> is
+                <em>larger</em> than the total number of carousel items, as
+                shown below:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'wrap-simple', {
+    numItemsVisible: 5,
+    itemSpacing: 15,
+  }
+);</code></pre>
+              </div>
+              <div id="carousel-3" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+              </div>
+              <p class="mt-3">
+                Clearly, the above carousel could <b>not</b> use
+                <code>wrap-smart</code>, as the absolute ordering of the items
+                would not be preserved. What happens, then, if you try to use
+                this wrapping method in a situation like this? The carousel
+                below is the result of such an attempt:
+              </p>
+              <div id="carousel-4" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+              </div>
+              <p class="mt-3">
+                Looks the same, and if you try scrolling, you will see it
+                behaves the screen. This is because the carousel has been
+                converted to use <code>wrap-simple</code>! Check the console to
+                see the warning message that displays when this occurs; it looks
+                something like this:
+              </p>
+              <div class="warning-container">
+                <em>
+                  Carousel ID "carousel-4": Cannot allow smart wrapping if the
+                  carousel has fewer items than items visible. Setting wrapping
+                  method to 'wrap-simple'.</em
+                >
+              </div>
+              <p>
+                This may occur with other combinations of carousel properties.
+                What if you initially keep <code>numItemsVisible</code> less
+                than the total number of carousel items, but one of these
+                changes later? Suppose you remove carousel items, or decrease
+                the <code>numItemsVisible</code>, or use the resizing method
+                <code>stretch-populate</code> which can increase the
+                <code>numItemsVisible</code>? In all of these cases (and any
+                other you can think of), when it is detected that the absolute
+                ordering of carousel items cannot be maintained, the carousel is
+                automatically converted to use <code>wrap-simple</code>
+              </p>
+              <p>
+                Check out the following example. After you remove an item from
+                the carousel, you will notice that an absolute order cannot be
+                maintained, so the wrapping method switches and a warning is
+                output to the console.
+              </p>
+              <div id="carousel-5" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button
+                  id="remove-item"
+                  class="btn btn-primary mt-3"
+                  type="button"
+                >
+                  Remove Item
+                </button>
+              </div>
+              <p class="mt-3">
+                As long as you are cautious about changing the
+                <code>numItemsVisible</code> property, this should not be a
+                problem.
               </p>
             </section>
           </div>
