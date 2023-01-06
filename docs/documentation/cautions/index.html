@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./main.js" type="module"></script>
+    <title>Freighter Docs | Properties</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Items</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Buttons</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Cautions</h1>
+            <p class="lead">
+              The freedom that Freighter provides naturally has a few cautions
+              to be aware of. With so many properties that work together, it is
+              easy to accidentally create a situation that is not intended.
+            </p>
+            <section id="reserved-ids-and-classes" class="main-content-section">
+              <h2>Reserved IDs and Classnames</h2>
+              <p>
+                In order to make Freighter work, a number of custom HTML and CSS
+                IDs and classnames are used internally. In order to prevent any
+                conflicts, it is recommended that you do not use any of the
+                following IDs or classnames in your HTML. If you are
+                experiencing any odd behavior, check to make sure that you are
+                not already using any of these in your own HTML.
+              </p>
+              <p>Reserved IDs:</p>
+
+              <ul>
+                <li><code>#freighter-carousel-container-*</code></li>
+                <li>
+                  <code>#freighter-carousel-item-container-wrapper-*</code>
+                </li>
+                <li><code>#freighter-carousel-item-container-*</code></li>
+                <li><code>#freighter-carousel-item-*-*</code></li>
+                <li><code>#freighter-carousel-arrow-left-*</code></li>
+                <li><code>#freighter-carousel-arrow-right-*</code></li>
+              </ul>
+              <small>
+                * Note that the asterisk (*) in the above IDs will be replaced
+                with some number, so both
+                <code>#freighter-carouse-item-2-1</code> and
+                <code>#freighter-carousel-item-4-3</code> are potentially unsafe
+                IDs to use.
+              </small>
+              <br /><br />
+              <p>Reserved classes:</p>
+              <ul>
+                <li><code>.freighter-carousel-container</code></li>
+                <li><code>.freighter-carousel-item-container-wrapper</code></li>
+                <li><code>.freighter-carousel-item-container</code></li>
+                <li><code>.freighter-carousel-item</code></li>
+                <li><code>.frieghter-carousel-item-dummy</code></li>
+                <li><code>.freighter-carousel-arrow-left</code></li>
+                <li><code>.freighter-carousel-arrow-right</code></li>
+              </ul>
+            </section>
+            <hr class="section-divider" />
+            <section id="duplicate-carousel-items" class="main-content-section">
+              <h2>Duplicate Carousel Items</h2>
+              <p>
+                As is discussed in the <a href="#">wrapping page</a> of the
+                documentation, there are a number of wrapping methods that cause
+                carousel items to 'wrap' from end to end. In certain situations,
+                such as when the carousel contains fewer items than the
+                <code>numItemsVisible</code> property, empty spaces will be
+                filled with duplicate items.
+              </p>
+              <p>
+                If your carousel is set up in a way that makes this possible,
+                and elements that are children of the carousel items will
+                <em>also</em> be duplicated, potentially duplicating IDs. Take
+                the carousel below as an example. If you inspect the carousel
+                item
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Cautions
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#reserved-ids-and-classes"
+                  >Reserved IDs and Classes</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#duplicate-carousel-items"
+                  >Duplicate Carousel Items</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#freighter-and-the-dom"
+                  >Freighter and the DOM</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#changing-styles"
+                    >Changing Styles</a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#transition-timing-functions"
+                  >Transition Timing Functions</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#changing-from-wrap-smart-to-wrap-simple"
+                  >Changing from <code>wrap-smart</code> to
+                  <code>wrap-simple</code></a
+                >
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
