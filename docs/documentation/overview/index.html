@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./main.js" type="module"></script>
+    <title>Freighter Docs | Properties</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Items</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Buttons</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Properties Overview</h1>
+            <p class="lead">
+              Freighter features a number of configurable properties for your
+              carousels, most of which can be changed at any time.
+            </p>
+            <section id="what-are-properties" class="main-content-section">
+              <h2>What are Properties?</h2>
+              <p>
+                Properties are what defines each Freighter carousel. They range
+                from the number of items visible at a time to the wrapping and
+                resizing behavior of the carousel.
+              </p>
+              <p>
+                With the exception of <a href="#">static properties</a>, all
+                properties are optional and dynamic , meaning they can be
+                changed at any point. Properties are initially set when
+                instantiating a new carousel using the constructor, but these
+                <a href="#">dynamic properties</a> can be set or changed later
+                using the
+                <a href="#"><code>setCarouselProperties()</code></a> method.
+              </p>
+              <p>
+                The code below demonstrates initializing properties through the
+                constructor:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-gap',
+  'wrap-simple',
+  {
+    numItemsVisible: 2,
+    scrollBy: 2,
+    itemWidth: 200,
+    itemHeight: 200,
+    itemSpacing: 20,
+    ...
+  }
+);</code></pre>
+              </div>
+              <p>
+                The 3 static properties are the first 3 required parameters of
+                the constructor, whereas the dynamic properties are all included
+                in a single <code>CarouselProperties</code> object as the 4th
+                required parameter. If you didn't want to explicitly set any
+                dynamic properties, an empty object would instead be passed.
+              </p>
+              <p>
+                Another logical way of splitting up properties is by the
+                components of a carousel that they affect. Properties may affect
+                the
+                <a href="#">carousel container</a>, the
+                <a href="#">carousel items</a>, or even the
+                <a href="#">carousel buttons</a>. The documentation pages of
+                this site are set up in a way that reflects this organization.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="types-of-properties" class="main-content-section">
+              <h2>Types of Properties</h2>
+              <p>
+                As mentioned, there are 2 types of properties for any Freighter
+                carousel: <em>static</em> and <em>dynamic</em>.
+              </p>
+              <p>
+                <b>Static properties</b> are required, as they define some of
+                the core functionality of the carousel. For this reason, they
+                also <em>cannot</em> be changed later (with
+                <a href="#">one exception</a>).
+              </p>
+              <p>
+                <b>Dynamic properties</b> are optional, as they have logical
+                defaults that can be used in absence of user-set values. They
+                also aren't deeply integrated into the core functionality of the
+                carousel, so they <em>can</em> be changed later.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="static-properties" class="main-content-section">
+              <h3>Static Properties</h3>
+              <p>
+                There are only 3 static properties, as indicated by the table
+                below. Feel free to click on any property to be taken to its
+                designated section in the documentation:
+              </p>
+              <div class="table-responsive">
+                <table
+                  class="table table-striped table-hover table-bordered table-sm"
+                >
+                  <thead class="text-center">
+                    <tr>
+                      <th></th>
+                      <th colspan="3">Element(s) Potentially Affected</th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="text-start">Property Name</th>
+                      <th scope="col">Carousel Container</th>
+                      <th scope="col">Carousel Item</th>
+                      <th scope="col">Carousel Buttons</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>carouselId</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>resizingMethod</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>wrappingMethod</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small>
+                *❌ indicates that the component(s) are affected in some way by
+                the property.
+              </small>
+              <p class="mt-3">
+                Though there may not be many, the
+                <code>resizingMethod</code> and
+                <code>wrappingMethod</code> properties are so involved that each
+                one warrants its own section.
+              </p>
+              <p>
+                The <a href="#"> resizing behavior </a> of a carousel defines
+                how it reacts to changes in its parent container's size. The
+                <a href="#"> wrapping behavior </a> of a carousel defines how it
+                reacts when the user attempts to scroll beyond either end of it.
+                Freighter offers a number of built-in methods for both of these
+                behaviors, each of which can be read about on their respective
+                pages.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="dynamic-properties" class="main-content-section">
+              <h3>Dynamic Properties</h3>
+              <p>
+                There are 20 dynamic properties, some of which expecting a value
+                of an entirely different object type! The table below lists all
+                of the dynamic properties. Feel free to click on any property to
+                be take to its designated section in the documentation:
+              </p>
+              <div class="table-responsive">
+                <table
+                  class="table table-striped table-hover table-bordered table-sm"
+                >
+                  <thead class="text-center">
+                    <tr>
+                      <th></th>
+                      <th colspan="3">Element(s) Potentially Affected</th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="text-start">Property Name</th>
+                      <th scope="col">Carousel Container</th>
+                      <th scope="col">Carousel Item</th>
+                      <th scope="col">Carousel Buttons</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>itemWidth</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>itemHeight</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>itemSpacing</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>numItemsVisible</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>scrollBy</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>syncScrollWithVisibility</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>scrollable</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>autoScroll</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>autoScrollInterval</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>autoScrollDirection</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>autoScrollPauseOnHover</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>transitionDuration</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>transitionDelay</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>transitionTimingFunction</code>
+                        </a>
+                      </td>
+                      <td class="text-center">❌</td>
+                      <td class="text-center">❌</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>buttonStyles</code>
+                        </a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>buttonHoverStyles</code>
+                        </a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>leftButtonStyles</code>
+                        </a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>leftButtonHoverStyles</code>
+                        </a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>rightButtonStyles</code>
+                        </a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="#">
+                          <code>rightButtonHoverStyles</code>
+                        </a>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center">❌</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small>
+                *❌ indicates that the component(s) are affected in some way by
+                the property.
+              </small>
+              <p class="mt-3">
+                <code>itemWidth</code>, <code>itemHeight</code>, and
+                <code>itemSpacing</code> are all used to control the dimensions
+                and spacing of carousel items. They each use the
+                <code>px</code> unit, and for some carousel resizing methods,
+                may change the actual dimensions of the carousel container
+                itself.
+              </p>
+              <p>
+                <code>numItemsVisible</code> and <code>scrollBy</code> determine
+                how many items are visible in the carousel at a time, as well as
+                how far to scroll in either direction (left or right).
+                <code>syncScrollWithVisibility</code>, if set to
+                <code>true</code>, ensures that the carousel will always scroll
+                by the same amount of items that are visible, meaning each
+                scroll will load in a completely new set of items.
+              </p>
+              <p>
+                Most of the <code>autoScroll</code> properties are
+                self-explanatory. Note that if <code>autoScroll</code> itself is
+                set to <code>false</code>, the values of the other related
+                properties are ignored.
+              </p>
+              <p>
+                Much like <code>autoScroll</code>, there are a number of
+                different <code>transition</code>-related properties. These
+                really only affect the carousel container, but depending on the
+                <code>transitionTimingFunction</code> selected,
+                <a href="#"
+                  >certain carousel items may not load as you might expect.</a
+                >
+              </p>
+              <p>
+                Finally, all of the <code>buttonStyles</code> and related
+                properties are used to safely apply common styles to the
+                carousel buttons. The same base styles can be applied to both
+                using <code>buttonStyles</code>, and then individual styles can
+                be applied to each button using the
+                <code>leftButtonStyles</code> and
+                <code>rightButtonStyles</code> properties accordingly. The style
+                of the buttons can also be configured by using the
+                <code>HoverStyles</code> variation of each property.
+              </p>
+              <p>
+                For a fully-detailed description of each property, be sure to
+                check out the property's designated documentation section by
+                using the links in the table above.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="getting-properties" class="main-content-section">
+              <h3>Getting Properties</h3>
+              <p>
+                At any point, the current value for any carousel property can be
+                retrieved. In order to simply the interface for retrieving these
+                values, all property values are stored in a single object - this
+                object can be retrieved using the
+                <code>getCarouselState()</code> method. Take, for example, the
+                carousel below. There is no code included for this carousel, but
+                rather a button that calls the
+                <code>getCarouselState()</code> method and logs the resulting
+                object to the console.
+              </p>
+              <div class="warning-container">
+                Why is the method called <code>getCarouselState()</code> and not
+                <code>getCarouselProperties()</code>? <br /><br />
+                This is because this method returns more than just the
+                <em>properties</em> of a carousel. There are a few other pieces
+                of internal state returned that can prove useful to the
+                programmer, and they are technically not a part of the
+                properties of the carousel. For the full list of properties and
+                state, see the <a href="#">API documentation</a>.
+              </div>
+              <p>
+                Try it yourself: press the button and open the console. Apart
+                from now understanding what properties were used to create the
+                carousel below, being able to see all of the keys in this object
+                can introduce the programmer to properties of which they were
+                previously unaware:
+              </p>
+              <div id="carousel-1" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+              </div>
+              <button
+                id="get-properties"
+                class="btn btn-primary d-block mt-4 mx-auto"
+              >
+                Print Carousel Properties to Console
+              </button>
+            </section>
+            <hr class="section-divider" />
+            <section id="setting-properties" class="main-content-section">
+              <h3>Setting Properties</h3>
+              <p>
+                Freighter carousels allow most properties to be changed
+                dynamically, or on-the-fly. This can be done through the
+                <code>setCarouselProperties()</code> method. This method takes a
+                single parameter: a <code>CarouselProperties</code> object,
+                representing a collection of key-value pairs for the properties
+                to be changed. The object structure can be viewed in the full
+                API documentation, but most of the properties are
+                self-explanatory. Additionally, many of the changeable
+                properties can be revealed by using the
+                <code>getCarouselState()</code> method described above.
+              </p>
+              <p>
+                Use the buttons below to change a variety of carousel
+                properties:
+              </p>
+              <div id="carousel-2" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+              </div>
+              <div class="row">
+                <div class="col-4 ge-1">
+                  <button
+                    id="visible-items-3"
+                    class="btn btn-primary mt-4 w-100 h-75"
+                  >
+                    3 Visible Items
+                  </button>
+                </div>
+                <div class="col-4 gx-1">
+                  <button
+                    id="transition-duration-1000"
+                    class="btn btn-primary mt-4 w-100 h-75"
+                  >
+                    1000ms Transition Duration
+                  </button>
+                </div>
+                <div class="col-4 ge-1">
+                  <button
+                    id="blue-right-button"
+                    class="btn btn-primary mt-4 w-100 h-75"
+                  >
+                    Blue Right Button
+                  </button>
+                </div>
+              </div>
+              <p class="mt-4">
+                As you can see, Freighter offers a great amount of customization
+                to carousels, including the ability to change properties and
+                carousel items at any time.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section class="main-content-section">
+              <p>
+                These are just some of the basics; be sure to continue reading
+                the documentation for complete and in-depth breakdowns of all
+                the features that Freighter carousels have to offer, including
+                how <a href="#">wrapping</a> or
+                <a href="#">resizing</a> properties affect carousels, an
+                overview of the various <a href="#">carousel properties</a> that
+                can be customized and dynamically changed, or a full breakdown
+                of the <a href="#">API</a> offered by Freighter.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Properties Overview
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#what-are-properties"
+                  >What are Properties?</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#types-of-properties"
+                  >Types of Properties</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link py-0 ps-3 pe-0 mt-1 page-contents-link"
+                    href="#static-properties"
+                    >Static Properties</a
+                  >
+                  <a
+                    class="nav-link py-0 ps-3 pe-0 mt-1 page-contents-link"
+                    href="#dynamic-properties"
+                    >Dynamic Properties</a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#getting-properties"
+                  >Getting Properties</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#setting-properties"
+                  >Setting Properties</a
+                >
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

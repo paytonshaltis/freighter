@@ -1,6 +1,6 @@
 # Documentation Pages
 
-## Getting Started
+<!-- ## Getting Started
 
 ### Downloading
 
@@ -25,17 +25,20 @@
   - Items
   - Buttons
 - Change properties
-  - get() / set()
+  - get() / set() -->
 
 ## Carousel Properties
 
 ### Overview
 
-- Static Properties
-- Dynamic Properties
-- Adding Styles with Classes
+- What are Properties?
+- Types of Properties
+  - Static Properties
+  - Dynamic Properties
+- Getting Properties
+- Setting Properties
 
-### Wrapping
+<!-- ### Wrapping
 
 - What is Wrapping?
 - Wrapping Methods
@@ -52,7 +55,7 @@
   - Stretch-Gap
   - Stretch-Scale
   - Stretch-Populate
-- Comparison Table
+- Comparison Table -->
 
 ### Container
 
@@ -72,6 +75,7 @@
   - Duration
   - Delay
   - Timing Function
+- Custom CSS Styles
 
 ### Items
 
@@ -85,6 +89,7 @@
 - Managing Items
   - Add
   - Remove
+- Custom CSS Styles
 
 ### Buttons
 
@@ -102,8 +107,9 @@
   - Arrow
 - Cursor
 - Transition
+- Custom CSS Styles
 
-## Advanced
+<!-- ## Advanced
 
 ### API
 
@@ -115,13 +121,13 @@
 - Types
   - CarouselProperties
   - CarouselState
-  - ButtonStyle
+  - ButtonStyle -->
 
-### Cautions
+<!-- ### Cautions
 
 - Reserved IDs and Classes
 - Duplicate container items
 - Interacting with DOM
   - Manually changing styles
 - Transition timing functions
-- Changing from wrap-smart to wrap-simple
+- Changing from wrap-smart to wrap-simple -->

@@ -84,7 +84,7 @@ document.querySelector("button#add-item").addEventListener("click", () => {
 document
   .querySelector("button#get-properties")
   .addEventListener("click", () => {
-    console.log(freighter6.getCarouselState());
+    console.log("Carousel State:", freighter6.getCarouselState());
     document.querySelector("button#get-properties").classList.add("disabled");
     document.querySelector("button#get-properties").innerHTML =
       "Check console!";
