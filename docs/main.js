@@ -91,6 +91,9 @@ const resizeTrain = (manual = false) => {
         syncScrollWithVisibility: false,
       });
     }
+
+    // Add the extra margin class to center container.
+    document.getElementById("train-wrapper").classList.add("me-5");
   } else if (
     window.innerWidth < 965 &&
     window.innerWidth >= 575 &&
@@ -114,6 +117,9 @@ const resizeTrain = (manual = false) => {
       scrollBy: 3,
       syncScrollWithVisibility: false,
     });
+
+    // Add the extra margin class to center container.
+    document.getElementById("train-wrapper").classList.add("me-5");
   } else if (window.innerWidth < 575 && (breakpoint !== "small" || manual)) {
     breakpoint = "small";
 
@@ -132,6 +138,9 @@ const resizeTrain = (manual = false) => {
       syncScrollWithVisibility: false,
       scrollBy: 2,
     });
+
+    // Remove the extra margin class to center container.
+    document.getElementById("train-wrapper").classList.remove("me-5");
   }
 };
 
