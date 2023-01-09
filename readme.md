@@ -1,58 +1,13 @@
-# Freighter
+<h1 align="center">Freighter</h1>
 
-<!-- Add an image by link -->
+<div align="center">
+  <img src="./docs/icons/train-engine.svg" width="25%">
+  <img src="./docs/icons/train-car.svg" width="31%" style="margin-left: -4px;">
 
-![Version](https://img.shields.io/npm/v/freighterjs)
-![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main)
-![License](https://img.shields.io/npm/l/freighterjs)
+<br />
+<br />
 
-A highly customizable carousel library for the web.
+![Version](https://img.shields.io/npm/v/freighterjs?style=for-the-badge&logo=npm)
+![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main?style=for-the-badge&logo=github)
 
-## Changing Carousel Properties
-
-The following is a table that details exactly which Carousel properties can be changed and if changing them is currently implemented.
-
-| Carousel Style Property    | Changeable | Implemented |
-| :------------------------- | :--------: | :---------: |
-| `containerID`              |     ❌     |      ✔      |
-| `resizingMethod`           |     ❌     |      ✔      |
-| `wrappingMethod`           |     ❌     |      ✔      |
-| `itemWidth`                |     ✔      |      ✔      |
-| `itemHeight`               |     ✔      |      ✔      |
-| `itemSpacing`              |     ✔      |      ✔      |
-| `numItemsVisible`          |     ✔      |      ✔      |
-| `scrollBy`                 |     ✔      |      ✔      |
-| `syncScrollWithVisibility` |     ✔      |      ✔      |
-| `scrollable`               |     ✔      |      ✔      |
-| `autoScroll`               |     ✔      |      ✔      |
-| `autoScrollInterval`       |     ✔      |      ✔      |
-| `autoScrollDirection`      |     ✔      |      ✔      |
-| `autoScrollPauseOnHover`   |     ✔      |      ✔      |
-| `transitionDuration`       |     ✔      |      ✔      |
-| `transitionDelay`          |     ✔      |      ✔      |
-| `transitionTimingFunction` |     ✔      |      ✔      |
-| `buttonStyles`             |     ✔      |      ✔      |
-| `buttonHoverStyles`        |     ✔      |      ✔      |
-| `leftButtonStyles`         |     ✔      |      ✔      |
-| `leftButtonHoverStyles`    |     ✔      |      ✔      |
-| `rightButtonStyles`        |     ✔      |      ✔      |
-| `rightButtonHoverStyles`   |     ✔      |      ✔      |
-| `showTimeline`             |     ✔      |     ❌      |
-
-| Button Style Property     | Changeable | Implemented |
-| :------------------------ | :--------: | :---------: |
-| `width`                   |     ✔      |      ✔      |
-| `height`                  |     ✔      |      ✔      |
-| `position`                |     ✔      |      ✔      |
-| `borderTop`               |     ✔      |      ✔      |
-| `borderRight`             |     ✔      |      ✔      |
-| `borderBottom`            |     ✔      |      ✔      |
-| `borderLeft`              |     ✔      |      ✔      |
-| `borderTopLeftRadius`     |     ✔      |      ✔      |
-| `borderTopRightRadius`    |     ✔      |      ✔      |
-| `borderBottomLeftRadius`  |     ✔      |      ✔      |
-| `borderBottomRightRadius` |     ✔      |      ✔      |
-| `backgroundColor`         |     ✔      |      ✔      |
-| `color`                   |     ✔      |      ✔      |
-| `cursor`                  |     ✔      |      ✔      |
-| `transition`              |     ✔      |      ✔      |
+</div>
