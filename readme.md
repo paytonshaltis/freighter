@@ -4,8 +4,8 @@
   <br />
   <br />
   
-  ![Version](https://img.shields.io/npm/v/freighterjs?style=flat-square&logo=npm)
-  ![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main?style=flat-square&logo=github)
+  [![Version](https://img.shields.io/npm/v/freighterjs?style=flat-square&logo=npm)](https://npmjs.com/package/freighterjs)
+  [![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main?style=flat-square&logo=github)](https://github.com/paytonshaltis/freighter/commits/main)
 
   <h1>Freighter - The Responsive Carousel Library</h1>
   <p>Create responsive, dynamic, and customizable carousels. Control the wrapping and resizing behavior with a variety of built-in methods for ensuring your carousel looks great and works well on any device. Style and customize your carousel with properties including autoscroll behavior, specialized transitions, number of items to show and scroll by, and many more.</p>
