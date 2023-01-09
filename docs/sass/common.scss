@@ -41,6 +41,7 @@ div.code-container {
 div.code-container pre {
   margin-top: 1rem;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 hr.section-divider {
@@ -213,4 +214,8 @@ div.ci-scale p {
 #ci-train-engine.align-center {
   flex-direction: column;
   align-items: center;
+}
+
+div.code-container pre code {
+  background-color: $light;
 }
