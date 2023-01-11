@@ -168,10 +168,10 @@
                     >Overview</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Wrapping</a
+                    >Resizing</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
-                    >Resizing</a
+                    >Wrapping</a
                   >
                   <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
                     >Container</a
@@ -240,32 +240,58 @@
                 >
               </p>
               <p>Parameters (4 required):</p>
-              <ul>
-                <li>
-                  <code>containerID: string</code> - The ID of the container
-                  <code>&lt;div&gt;</code> to be used as the carousel parent
-                  element.
-                </li>
-                <li>
-                  <code
-                    >resizingMethod: "none" | "stretch" | "stretch-gap" |
-                    "stretch-scale" | "stretch-populate"</code
-                  >
-                  - The method to be used when resizing the carousel due to
-                  browser window resizing.
-                </li>
-                <li>
-                  <code
-                    >wrappingMethod: "none" | "wrap-simple" | "wrap-smart"</code
-                  >
-                  - The wrapping method to be used when the carousel is scrolled
-                  while at either extreme.
-                </li>
-                <li>
-                  <code>properties: CarouselProperties</code> - Initial
-                  properties to be used when creating a Freighter carousel.
-                </li>
-              </ul>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>containerID</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        The ID of the container <code>&lt;div&gt;</code> to be
+                        used as the carousel parent element.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>resizingMethod</code></td>
+                      <td>
+                        <code
+                          >"none" | "stretch" | "stretch-gap" | "stretch-scale"
+                          | "stretch-populate"</code
+                        >
+                      </td>
+                      <td>
+                        The method to be used when resizing the carousel due to
+                        browser window resizing.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>wrappingMethod</code></td>
+                      <td>
+                        <code>"none" | "wrap-simple" | "wrap-smart"</code>
+                      </td>
+                      <td>
+                        The wrapping method to be used when the carousel is
+                        scrolled while at either extreme.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>properties</code></td>
+                      <td><code>CarouselProperties</code></td>
+                      <td>
+                        The properties to be used to initialize the carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <p>
                 Returns the <code>Freighter</code> object that was constructed.
               </p>
@@ -283,12 +309,27 @@
                 >
               </p>
               <p>Parameters (1 required):</p>
-              <ul>
-                <li>
-                  <code>properties: CarouselProperties</code> - The new Carousel
-                  properties.
-                </li>
-              </ul>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>properties</code></td>
+                      <td><code>CarouselProperties</code></td>
+                      <td>
+                        The new properties to be used to update the carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <p>Returns <code>void</code>.</p>
             </section>
             <hr class="section-divider" />
@@ -321,16 +362,39 @@
                 >
               </p>
               <p>Parameters (1 required, 1 optional):</p>
-              <ul>
-                <li>
-                  <code>items: HTMLElement | HTMLElement[]</code> - The HTML
-                  element or elements to be added to the carousel.
-                </li>
-                <li>
-                  <code>index?: number</code> - Optional index at which to add
-                  the item. Adds to the end of the carousel by default.
-                </li>
-              </ul>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>items</code></td>
+                      <td><code>HTMLElement | HTMLElement[]</code></td>
+                      <td>
+                        The HTML element or elements to be added to the
+                        carousel.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>index?</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        Optional index at which to add the item. Adds to the end
+                        of the carousel by default.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small
+                >* A <code>?</code> denotes an optional parameter. See above for
+                what default is used if omitted.</small
+              >
             </section>
             <hr class="section-divider" />
             <section id="removecarouselitems" class="main-content-section">
@@ -341,21 +405,43 @@
                 <em
                   >Removes a number of carousel items starting from the given
                   index. By default, this method just returns the item at this
-                  index, but the number of items to remove can be specified.</em
+                  index, but the number of items to remove starting from this
+                  index can be specified.</em
                 >
               </p>
               <p>Parameters (1 required, 1 default):</p>
-              <ul>
-                <li>
-                  <code>index: number</code> - The index of the item to be
-                  removed, or the starting index if multiple items are to be
-                  removed.
-                </li>
-                <li>
-                  <code>count: number = 1</code>- Optional number of items to
-                  remove. Defaults to 1.
-                </li>
-              </ul>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>index</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The index of the item to be removed, or the starting
+                        index if multiple items are to be removed.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>count = 1</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        Optional number of items to remove. Defaults to 1.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small
+                >* A <code>?</code> denotes an optional parameter. See above for
+                what default is used if omitted.</small
+              >
             </section>
             <hr class="section-divider" />
             <section id="types" class="main-content-section">
@@ -380,103 +466,171 @@
                   specified below.
                 </em>
               </p>
-              <p>Object Keys</p>
-              <ul>
-                <li>
-                  <code>itemWidth?: number</code> - The width of each carousel
-                  item in pixels.
-                </li>
-                <li>
-                  <code>itemHeight?: number</code> - The height of each carousel
-                  item in pixels.
-                </li>
-                <li>
-                  <code>itemSpacing?: number</code> - The space between each
-                  item in pixels.
-                </li>
-                <li>
-                  <code>buttonStyles?: ButtonStyle</code>
-                  - The common styles that both buttons will use.
-                </li>
-                <li>
-                  <code>buttonHoverStyles?: ButtonStyle</code>
-                  - The common styles that both buttons will use when being
-                  hovered.
-                </li>
-                <li>
-                  <code>leftButtonStyles?: ButtonStyle</code>
-                  - The left button style overrides that will take precedence
-                  over the shared button styles.
-                </li>
-                <li>
-                  <code>leftButtonHoverStyles?: ButtonStyle</code> - The left
-                  button hover style overrides that will take precedence over
-                  the shared button hover styles.
-                </li>
-                <li>
-                  <code>rightButtonStyles?: ButtonStyle</code>
-                  - The right button style overrides that will take precedence
-                  over the shared button styles.
-                </li>
-                <li>
-                  <code>rightButtonHoverStyles?: ButtonStyle</code> - The right
-                  button hover style overrides that will take precedence over
-                  the shared button hover styles.
-                </li>
-                <li>
-                  <code>scrollable?: boolean</code> - Whether or not the
-                  carousel can be manually scrolled. If set to false, the
-                  buttons will not appear either.
-                </li>
-                <li>
-                  <code>scrollBy?: number</code> - The number of items to scroll
-                  by. This value is used for both manual and auto scroll.
-                </li>
-                <li>
-                  <code>numItemsVisible?: number</code> - The number of carousel
-                  items that are visible at any given time.
-                </li>
-                <li>
-                  <code>syncScrollWithVisibility?: boolean</code> - Whether or
-                  not the <code>scrollBy</code> should be overriden with the
-                  <code>numItemsVisible</code>. Useful for when you want to sync
-                  these values knowing that the number of items will change.
-                </li>
-                <li>
-                  <code>autoScroll?: boolean</code> - Whether or not the
-                  carousel will scroll on its own. If <code>scrollable</code> is
-                  set to true, the user can still manually scroll.
-                </li>
-                <li>
-                  <code>autoScrollInterval?: number</code> - The number of
-                  milliseconds to wait before scrolling to the next set of
-                  carousel items.
-                </li>
-                <li>
-                  <code>autoScrollDirection?: "left" | "right"</code>
-                  - The direction that the carousel will auto scroll.
-                </li>
-                <li>
-                  <code>autoScrollPauseOnHover?: boolean</code> - Whether or not
-                  the carousel's auto scroll should pause if the user is hovered
-                  over the carousel.
-                </li>
-                <li>
-                  <code>transitionDuration?: number</code> - The number of
-                  milliseconds that it should take in order to complete a
-                  carousel scroll.
-                </li>
-                <li>
-                  <code> transitionDelay?: number</code> - The number of
-                  milliseconds that should pass before the scroll begins.
-                </li>
-                <li>
-                  <code>transitionTimingFunction?: string</code>
-                  - A valid CSS transition timing function used to scroll the
-                  carousel.
-                </li>
-              </ul>
-              <p>Default Values</p>
+              <p>Object Keys:</p>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Property</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <code>itemWidth</code>
+                      </td>
+                      <td><code>number</code></td>
+                      <td>The width of each carousel item in pixels.</td>
+                    </tr>
+                    <tr>
+                      <td><code>itemHeight</code></td>
+                      <td><code>number</code></td>
+                      <td>The height of each carousel item in pixels.</td>
+                    </tr>
+                    <tr>
+                      <td><code>itemSpacing</code></td>
+                      <td><code>number</code></td>
+                      <td>The space between each item in pixels.</td>
+                    </tr>
+                    <tr>
+                      <td><code>buttonStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>The common styles that both buttons will use.</td>
+                    </tr>
+                    <tr>
+                      <td><code>buttonHoverStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The common styles that both buttons will use when being
+                        hovered.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>leftButtonStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The left button style overrides that will take
+                        precedence over the shared button styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>leftButtonHoverStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The left button hover style overrides that will take
+                        precedence over the shared button hover styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>rightButtonStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The right button style overrides that will take
+                        precedence over the shared button styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>rightButtonHoverStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The right button hover style overrides that will take
+                        precedence over the shared button hover styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>scrollable</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the carousel can be manually scrolled. If
+                        set to false, the buttons will not appear either.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>scrollBy</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of items to scroll by. This value is used for
+                        both manual and auto scroll.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>numItemsVisible</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of items that are visible at any given time.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>syncScrollWithVisibility</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the <code>scrollBy</code> should be
+                        overriden with the <code>numItemsVisible</code>. Useful
+                        for when you want to sync these values knowing that the
+                        number of items will change.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScroll</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the carousel will scroll on its own. If
+                        <code>scrollable</code> is set to true, the user can
+                        still manually scroll.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScrollInterval</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of milliseconds to wait before scrolling to
+                        the next set of carousel items.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScrollDirection</code></td>
+                      <td><code>"left" | "right"</code></td>
+                      <td>The direction that the carousel will auto scroll.</td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScrollPauseOnHover</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the carousel's auto scroll should pause
+                        if the user is hovered over the carousel.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>transitionDuration</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of milliseconds that it should take in order
+                        to complete a carousel scroll.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>transitionDelay</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of milliseconds that should pass before the
+                        scroll begins.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>transitionTimingFunction</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS transition timing function used to scroll
+                        the carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>Default Values:</p>
               <div class="border bg-light code-container">
                 <pre><code>itemWidth: 225,
 itemHeight: 150,
@@ -534,31 +688,58 @@ transitionTimingFunction: "ease-in-out"</code></pre>
                 >
               </p>
               <p>Object Keys:</p>
-              <ul>
-                <li>
+              <p>
+                <b>
                   All of the properties available in a
-                  <code>CarouselProperties</code> object, and...
-                </li>
-                <li>
-                  <code>carouselID: number</code> - The unique internal number
-                  assigned to a carousel. Will be different from all other
-                  carousels in order to uniquely identify each.
-                </li>
-                <li>
-                  <code>carouselItems: HTMLElement[]</code> - An array of all of
-                  the carousel items. Allows for the modification or access of
-                  these items.
-                </li>
-                <li>
-                  <code>leftCarouselPointer: number</code> - The index of the
-                  leftmost visible carousel item. Useful for determining which
-                  items are visible.
-                </li>
-                <li>
-                  <code>carouselContainer: HTMLElement</code> - The outermost
-                  HTML element that houses the entire carousel.
-                </li>
-              </ul>
+                  <code>CarouselProperties</code> object, and...</b
+                >
+              </p>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Property</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>carouselID</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The unique internal number assigned to a carousel. Will
+                        be different from all other carousels in order to
+                        uniquely identify each.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>carouselItems</code></td>
+                      <td><code>HTMLElement[]</code></td>
+                      <td>
+                        An array of all of the carousel items. Allows for the
+                        modification or access of these items.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>leftCarouselPointer</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The index of the leftmost visible carousel item. Useful
+                        for determining which items are visible.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>carouselContainer</code></td>
+                      <td><code>HTMLElement</code></td>
+                      <td>
+                        The outermost HTML element that houses the entire
+                        carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
             <hr class="section-divider" />
             <section id="buttonstyle" class="main-content-section">
@@ -573,70 +754,150 @@ transitionTimingFunction: "ease-in-out"</code></pre>
                 </em>
               </p>
               <p>Object Keys:</p>
-              <ul>
-                <li>
-                  <code>width?: string</code> - A valid CSS width value that
-                  will be applied to the button.
-                </li>
-                <li>
-                  <code>height?: string</code> - A valid CSS height value that
-                  will be applied to the button.
-                </li>
-                <li>
-                  <code>position?: "top" | "center" | "bottom"</code> - The
-                  vertical aligmnemt of the buttons as compared to the carousel
-                  container.
-                </li>
-                <li>
-                  <code>borderTop?: string</code> - A valid CSS border value
-                  that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderRight?: string</code> - A valid CSS border value
-                  that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderBottom?: string</code> - A valid CSS border value
-                  that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderLeft?: string</code> - A valid CSS border value
-                  that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderTopLeftRadius?: string</code> - A valid CSS border
-                  radius that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderTopRightRadius?: string</code> - A valid CSS
-                  border radius that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderBottomLeftRadius?: string</code> - A valid CSS
-                  border radius that will be applied to the button.
-                </li>
-                <li>
-                  <code>borderBottomRightRadius?: string</code> - A valid CSS
-                  border radius that will be applied to the button.
-                </li>
-                <li>
-                  <code>backgroundColor?: string</code> - A valid CSS background
-                  color to be applied to the button.
-                </li>
-                <li>
-                  <code>color?: string</code> - A valid CSS color to be applied
-                  to the chevron within the button.
-                </li>
-                <li>
-                  <code>cursor?: string</code> - A valid CSS cursor option to be
-                  applied to the button.
-                </li>
-                <li>
-                  <code>transition?: string</code> - A valid CSS transition to
-                  be applied to the button; used to transition to the button's
-                  hover styles.
-                </li>
-              </ul>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Property</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <code>width</code>
+                      </td>
+                      <td>
+                        <code>string</code>
+                      </td>
+                      <td>
+                        A valid CSS width value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <code>height</code>
+                      </td>
+                      <td>
+                        <code>string</code>
+                      </td>
+                      <td>
+                        A valid CSS height value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>position</code></td>
+                      <td><code>"top" | "center" | "bottom"</code></td>
+                      <td>
+                        The vertical aligmnemt of the buttons as compared to the
+                        carousel container.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderTop</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderRight</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderBottom</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderLeft</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderTopLeftRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderTopRightRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderBottomLeftRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderBottomRightRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>backgroundColor</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS background color to be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>color</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS color to be applied to the chevron within
+                        the button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>cursor</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS cursor option to be applied to the button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <code>transition</code>
+                      </td>
+                      <td>
+                        <code>string</code>
+                      </td>
+                      <td>
+                        A valid CSS transition to be applied to the button; used
+                        to transition to the button's hover styles.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </section>
           </div>
         </div>
