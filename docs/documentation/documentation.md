@@ -57,7 +57,7 @@
   - Wrap-Simple
   - Wrap-Smart -->
 
-### Container
+<!-- ### Container
 
 - Carousel Container Basics
   - carouselID
@@ -73,7 +73,7 @@
 - Transition
   - Duration
   - Delay
-  - Timing Function
+  - Timing Function -->
 
 ### Items
 
