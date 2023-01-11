@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- highlight.js -->
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/github.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script async>
+      hljs.highlightAll();
+    </script>
+
+    <!-- Custom styles and scripts -->
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script src="./main.js" type="module"></script>
+
+    <title>Freighter Docs | Container</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active text-wrap"
+                    href="#"
+                    >Container Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Item Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Button Properties</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-7">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Container Properties</h1>
+            <p class="lead">
+              A few of the <code>CarouselProperties</code> available primarily
+              affect the carousel container itself. Here, you can get an idea of
+              how to use each of these properties.
+            </p>
+            <section
+              id="carousel-container-basics"
+              class="main-content-section"
+            >
+              <h2>Carousel Container Basics</h2>
+              <p>
+                While many of the <code>CarouselProperties</code> that primarily
+                affect the carousel container fall into one of 3 major
+                categories (<a href="#manual-scrolling">manual scrolling</a>,
+                <a href="#automatic-scrolling">automatic scrolling</a>, and
+                <a href="#transitions">transitions</a> ), there are a few
+                properties that <em>don't</em> fit into any.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="carouselid" class="main-content-section">
+              <h3><code>carouselID</code></h3>
+              <p>
+                The <code>carouselID</code> property is a
+                <a href="#">static carousel property</a> that is required for
+                the creation of any Freighter carousel. It is the first
+                parameter of the
+                <a href="#"><code>Freighter()</code> constructor</a>, and cannot
+                be changed later.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="itemspacing" class="main-content-section">
+              <h3><code>itemSpacing</code></h3>
+              <p>
+                This is the carousel property that affects the amount of space
+                between items of a carousel and uses the
+                <code>px</code> unit. The space is placed
+                <em>between</em> items, and thus there will always be
+                <code>numItemsVisible - 1</code> spaces that take up
+                <code>itemSpacing</code> pixels each. When using the resizing
+                method of <code>none</code>, the size of the carousel is the sum
+                of all carousel items <em>and</em> the total amount of
+                <code>itemSpacing</code> between all of the carousel items.
+              </p>
+              <p>
+                Besides being manually changed, this property may be changed by
+                certain resizing methods. For example,
+                <code>stretch-gap</code> and <code>stretch-populate</code> are
+                partially defined by how they change the
+                <code>itemSpacing</code> property, so expect this value to
+                change when using either one of these resizing methods.
+              </p>
+            </section>
+            <section id="numitemsvisible" class="main-content-section">
+              <h3><code>numItemsVisible</code></h3>
+              <p>
+                This property determines the number of carousel items to be
+                displayed at a time. Once a scroll commences in either
+                direction, <code>numItemsVisible</code> carousel items will be
+                visible once again.
+              </p>
+              <p>
+                Besides being manually changed, this property may be changed by
+                certain resizing methods, much like the
+                <code>itemSpacing</code> property. For example, the
+                <code>stretch-populate</code> wrapping method is partially
+                defined by how it changes the
+                <code>numItemsVisible</code> property, so expect this value to
+                change when using either one of these resizing methods.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="manual-scrolling" class="main-content-section">
+              <h2>Manual Scrolling</h2>
+              <p>
+                Scrolling manually is the default behavior of a carousel, though
+                exactly <em>how</em> the manual scrolling behaves can be
+                fine-tuned via the following carousel properties.
+              </p>
+            </section>
+            <section id="scrollable" class="main-content-section">
+              <h3><code>scrollable</code></h3>
+              <p>
+                This carousel property is used to determine whether or not the
+                user has the ability to manually scroll the carousel. The
+                default value is <code>true</code>, which leaves the buttons
+                untouched and available for the user to scroll.
+              </p>
+              <p>
+                If set to <code>false</code>, the carousel buttons will be
+                removed, and the user will <b>not</b> be permitted to manually
+                scroll the carousel. Not that the value of this property does
+                not affect the <code>autoScroll</code> property; both of these
+                properties are managed independently and thus any combination of
+                the two is permitted.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="scrollby" class="main-content-section">
+              <h3><code>scrollBy</code></h3>
+              <p>
+                This property determines how many carousel items should be
+                scrolled by either a manual or automatic scroll in either
+                direction. This number is not limited by the number of carousel
+                items currently in a carousel. If <code>scrollBy</code> is
+                greater than the total number of carousel items, the carousel
+                will scroll to the end. If wrapping has been enabled, the
+                appropriate behavior will be applied according to the selected
+                wrapping method.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="syncscrollwithvisibility" class="main-content-section">
+              <h3><code>syncScrollWithVisibility</code></h3>
+              <p>
+                This property is closely associated with the
+                <code>scrollBy</code> and
+                <code>numItemsVisible</code> properties, and ensures that they
+                are in sync. More specifically, if this property is set to
+                <code>true</code>, the value of
+                <code>numItemsVisible</code> will be used as the amount to
+                scroll, overriding the <code>scrollBy</code> property. This
+                means that if the <code>numItemsVisible</code> ever changes,
+                scrolling will always scroll by the number of items, presenting
+                the user with a completely new set of items on any scroll
+                (disregarding the inevitable wrapping that occurs if there are
+                fewer carousel items).
+              </p>
+              <p>
+                This functionality is already possible: the carousel could just
+                be initialized with a <code>scrollBy</code> value that matches
+                the <code>numItemsVisible</code> value. The major use case for
+                <em>this</em> property, however, is if the
+                <code>numItemsVisible</code> changes. This is possible through
+                manual property changes, may also occur when using a resizing
+                method that changes item visibility, such as
+                <code>stretch-populate</code>.
+              </p>
+              <p>
+                This first carousel uses <code>stretch-populate</code>, but has
+                a fixed <code>scrollBy</code> value of 2. This means that no
+                matter how many carousel items are currently visible, the
+                carousel will <em>always</em> scroll by 2. This means that the
+                carousel may progress too far or not far enough on each scroll:
+              </p>
+              <div id="carousel-1" class="freighter-c resizeable-container">
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+              <small>
+                <em>
+                  Resize this carousel using the handle in the lower-right!</em
+                ></small
+              >
+              <p class="mt-3">
+                This next carousel has all of the same properties, including the
+                same <code>scrollBy</code> value of <code>2</code>. In addition,
+                its <code>syncScrollWithVisibility</code> is set to
+                <code>true</code>, which overrides the
+                <code>scrollBy</code> value. No matter the size, no items will
+                be skipped, nor will they remain visible when scrolling:
+              </p>
+              <div id="carousel-2" class="freighter-c resizeable-container">
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+              <small>
+                <em>
+                  Resize this carousel using the handle in the lower-right!</em
+                ></small
+              >
+            </section>
+            <hr class="section-divider" />
+            <section id="automatic-scrolling" class="main-content-section">
+              <h2>Automatic Scrolling</h2>
+              <p>
+                By default, a carousel will only scroll when the user manually
+                clicks on one of the scroll buttons. In addition to this (or as
+                a replacement), a carousel can be configured to automatically
+                scroll in a given direction at a given interval.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="autoscroll" class="main-content-section">
+              <h3><code>autoScroll</code></h3>
+              <p>
+                This is the property that enables and disables automatic
+                scrolling on a carousel. By default, it is set to
+                <code>false</code>. The following 3 properties will have an
+                affect on the carousel if and only if <code>autoScroll</code> is
+                set to <code>true</code>.
+              </p>
+              <p>
+                Note that enabling <code>autoScroll</code> does
+                <b>not</b> disable manual scrolling. If <code>scrollable</code>
+                <em>and</em> <code>autoScroll</code> are both true, the carousel
+                will automatically scroll, but can still be scrolled by the
+                user. If you want the carousel to <b>only</b> scroll on its own,
+                you must also set <code>scrollable</code> to <code>false</code>.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="autoscrollinterval" class="main-content-section">
+              <h3><code>autoScrollInterval</code></h3>
+              <p>
+                This property determines how often the carousel should be
+                automatically scrolled and uses the <code>ms</code> unit.
+              </p>
+              <p>
+                Every <code>autoScrollInterval</code> milliseconds, the carousel
+                will be scrolled. The interval restarts once the transition has
+                commenced. This means that a carousel with
+                <code>autoScrollInterval</code> of 1000ms and
+                <code>transitionDuration</code> of 3000ms will wait 1000ms, take
+                3000ms to transition to the next set of carousel items, and wait
+                another 1000ms before scrolling again.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="autoscrolldirection" class="main-content-section">
+              <h3><code>autoScrollDirection</code></h3>
+              <p>
+                This property can take either <code>"left"</code> or
+                <code>"right"</code> as its value, and determines the direction
+                in which a carousel will be automatically scrolled every
+                <code>autoScrollInterval</code> milliseconds.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="autoscrollpauseonhover" class="main-content-section">
+              <h3><code>autoScrollPauseOnHover</code></h3>
+              <p>
+                This property determines if hovering over the carousel will
+                prevent it from automatically scrolling to the next set of
+                carousel items. This is useful for allowing the user to take a
+                closer look at a carousel item without completely removing the
+                <code>autoScroll</code> behavior. Note that by default, this
+                property is set to <code>false</code>, so a user will by default
+                have no way of pausing the autoscroll functionality.
+              </p>
+              <p>
+                When the user stops hovering over the carousel, the timer before
+                scrolling again resets to 0. This means that when the user moves
+                their mouse off of the carousel, it will take
+                <code>autoScrollInterval</code> milliseconds to scroll again.
+                This technically means that the scroll is being 'restarted'
+                rather than 'resumed'.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="transitions" class="main-content-section">
+              <h2>Transitions</h2>
+              <p>
+                Every time the carousel is scrolled (either manually or
+                automatically), the entire carousel goes through what is known
+                as a transition. This transition defaults to a certain duration
+                and uses a simple timing function, but all of these properties
+                can be changed.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="transitionduration" class="main-content-section">
+              <h3><code>transitionDuration</code></h3>
+              <p>
+                This property, measured in <code>ms</code>, determines how long
+                a scroll in either direction will take to complete. No matter
+                how many items are being scrolled by, the speed at which the
+                transition completes is defined by this property.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="transitiondelay" class="main-content-section">
+              <h3><code>transitionDelay</code></h3>
+              <p>
+                This property is used to delay the transition of a carousel any
+                number of <code>ms</code>, defaulting to 0. Once either a button
+                is clicked to scroll or the next automatic scroll is to take
+                place, <code>transitionDelay</code> milliseconds are waited
+                before beginning the transition.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="transitiontimingfunction" class="main-content-section">
+              <h3><code>transitionTimingFunction</code></h3>
+              <p>
+                This property can take the value of any valid CSS transition
+                timing function string and defaults to
+                <code>"ease-in-out"</code> The timing function determines how
+                the transition will be executed when scrolling, including the
+                acelleration and decelleration of the transition.
+              </p>
+              <p>
+                Any CSS transition timing function can be used, including the
+                more complex <code>cubic-bezier()</code> function. If you plan
+                on using this transition timing function, check out
+                <a href="#">this section</a> of the cautions page for
+                information about how making the transition too extreme can
+                potentially result in empty carousel spaces during transitions.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-3 col-xxl-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Container Properties
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#carousel-container-basics"
+                  >Carousel Container Basics</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#carouselid"
+                    ><code>carouselID</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#itemspacing"
+                    ><code>itemSpacing</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#numitemsvisible"
+                    ><code>numItemsVisible</code></a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#manual-scrolling"
+                  >Manual Scrolling</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#scrollable"
+                    ><code>scrollable</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#scrollby"
+                    ><code>scrollBy</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#syncscrollwithvisibility"
+                    ><code>syncScrollWithVisibility</code></a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#automatic-scrolling"
+                  >Automatic Scrolling</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#autoscroll"
+                    ><code>autoScroll</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#autoscrollinterval"
+                    ><code>autoScrollInterval</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#autoscrolldirection"
+                    ><code>autoScrollDirection</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#autoscrollpauseonhover"
+                    ><code>autoScrollPauseOnHover</code></a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#transitions"
+                  >Transitions</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#transitionduration"
+                    ><code>transitionDuration</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#transitiondelay"
+                    ><code>transitionDelay</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#transitiontimingfunction"
+                    ><code>transitionTimingFunction</code></a
+                  >
+                </nav>
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

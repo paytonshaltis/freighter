@@ -29,24 +29,16 @@
 
 ## Carousel Properties
 
-### Overview
+<!-- ### Overview
 
 - What are Properties?
 - Types of Properties
   - Static Properties
   - Dynamic Properties
 - Getting Properties
-- Setting Properties
+- Setting Properties -->
 
-<!-- ### Wrapping
-
-- What is Wrapping?
-- Wrapping Methods
-  - None
-  - Wrap-Simple
-  - Wrap-Smart
-
-### Resizing
+<!-- ### Resizing
 
 - What is Resizing?
 - Resizing Methods
@@ -57,11 +49,18 @@
   - Stretch-Populate
 - Comparison Table -->
 
+<!-- ### Wrapping
+
+- What is Wrapping?
+- Wrapping Methods
+  - None
+  - Wrap-Simple
+  - Wrap-Smart -->
+
 ### Container
 
-- Creating a Container
-  - Required Properties
-- Styling a Container
+- Carousel Container Basics
+  - carouselID
 - Manual Scroll
   - Enable / Disable
   - Amount
@@ -75,21 +74,13 @@
   - Duration
   - Delay
   - Timing Function
-- Custom CSS Styles
 
 ### Items
 
-- Creating Items
-- Styling Items
+- Carousel Item Basics
 - Size
   - Width
   - Height
-- Spacing
-- Visibility
-- Managing Items
-  - Add
-  - Remove
-- Custom CSS Styles
 
 ### Buttons
 
