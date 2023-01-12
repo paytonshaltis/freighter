@@ -1,83 +1,60 @@
-# Freighter
+<div align="center">
+  <img src="./docs/icons/train-engine.svg" width="200">
+  
+  <br />
+  <br />
+  
+  [![Version](https://img.shields.io/npm/v/freighterjs?style=flat-square&logo=npm)](https://npmjs.com/package/freighterjs)
+  [![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main?style=flat-square&logo=github)](https://github.com/paytonshaltis/freighter/commits/main)
 
-<!-- Add an image by link -->
+  <h1>Freighter - The Responsive Carousel Library</h1>
+  <p>Create responsive, dynamic, and customizable carousels. Control the wrapping and resizing behavior with a variety of built-in methods for ensuring your carousel looks great and works well on any device. Style and customize your carousel with properties including autoscroll behavior, specialized transitions, number of items to show and scroll by, and many more.</p>
 
-![Version](https://img.shields.io/npm/v/freighterjs)
-![Activity](https://img.shields.io/github/last-commit/paytonshaltis/freighter/main)
-![License](https://img.shields.io/npm/l/freighterjs)
+</div>
 
-A highly customizable carousel library for the web.
+## Documentation
 
-## Changing Carousel Properties
+Full documentation for Freighter can be found on the official [documentation website](https://paytonshaltis.github.io/freighter) for Freighter. Here, you will find detailed download instructions, detailed descriptions of all carousel properties, and useful demos for inspiration.
 
-The following is a table that details exactly which Carousel properties can be changed and if changing them is currently implemented.
+## Downloading
 
-| Carousel Style Property    | Changeable | Implemented |
-| :------------------------- | :--------: | :---------: |
-| `containerID`              |     ❌     |      ✔      |
-| `resizingMethod`           |     ❌     |      ✔      |
-| `wrappingMethod`           |     ❌     |      ✔      |
-| `itemWidth`                |     ✔      |      ✔      |
-| `itemHeight`               |     ✔      |      ✔      |
-| `itemSpacing`              |     ✔      |      ✔      |
-| `numItemsVisible`          |     ✔      |      ✔      |
-| `scrollBy`                 |     ✔      |      ✔      |
-| `syncScrollWithVisibility` |     ✔      |      ✔      |
-| `scrollable`               |     ✔      |      ✔      |
-| `autoScroll`               |     ✔      |      ✔      |
-| `autoScrollInterval`       |     ✔      |      ✔      |
-| `autoScrollDirection`      |     ✔      |      ✔      |
-| `autoScrollPauseOnHover`   |     ✔      |      ✔      |
-| `transitionDuration`       |     ✔      |      ✔      |
-| `transitionDelay`          |     ✔      |      ✔      |
-| `transitionTimingFunction` |     ✔      |      ✔      |
-| `buttonStyles`             |     ✔      |      ✔      |
-| `buttonHoverStyles`        |     ✔      |      ✔      |
-| `leftButtonStyles`         |     ✔      |      ✔      |
-| `leftButtonHoverStyles`    |     ✔      |      ✔      |
-| `rightButtonStyles`        |     ✔      |      ✔      |
-| `rightButtonHoverStyles`   |     ✔      |      ✔      |
-| `showTimeline`             |     ✔      |     ❌      |
+Visit the [downloads page](https://paytonshaltis.github.io/freighter/downloads) of the Freigher website to find every version of Freighter in all downloadable formats, including the original TypeScript source, JavaScript UMD and ES6 bundles, and the NPM release.
 
-| Button Style Property     | Changeable | Implemented |
-| :------------------------ | :--------: | :---------: |
-| `width`                   |     ✔      |      ✔      |
-| `height`                  |     ✔      |      ✔      |
-| `position`                |     ✔      |      ✔      |
-| `borderTop`               |     ✔      |      ✔      |
-| `borderRight`             |     ✔      |      ✔      |
-| `borderBottom`            |     ✔      |      ✔      |
-| `borderLeft`              |     ✔      |      ✔      |
-| `borderTopLeftRadius`     |     ✔      |      ✔      |
-| `borderTopRightRadius`    |     ✔      |      ✔      |
-| `borderBottomLeftRadius`  |     ✔      |      ✔      |
-| `borderBottomRightRadius` |     ✔      |      ✔      |
-| `backgroundColor`         |     ✔      |      ✔      |
-| `color`                   |     ✔      |      ✔      |
-| `cursor`                  |     ✔      |      ✔      |
-| `transition`              |     ✔      |      ✔      |
+## Usage
 
-## Reserved Carousel IDs and Classes
+### All Carousel Examples
 
-The following is a list of the internal IDs and classes used to keep track of the carousel's elements. These are reserved and should not be used for any other purpose.
+See the [official documentation](https://paytonshaltis.github.io/freighter/basic-usage) for more detailed examples, code snippets, and live examples.
 
-### IDs
+### Usage Basics
 
-- `freighter-carousel-container-*`
-- `freighter-carousel-item-container-wrapper-*`
-- `freighter-carousel-item-container-*`
-- `freighter-carousel-item-*-*`
-- `freighter-carousel-arrow-left-*`
-- `freighter-carousel-arrow-right-*`
+In order to create a Freighter carousel, you will need a `<div>` with some unique `id`, which will be targeted and act as the outermost container for your carousel. This element should contain as many other `<div>`s as you'd like, each of which will become a carousel item.
 
-### Classes
+Use the `Freighter()` constructor to convert the element into a carousel. Note that this code should execute _after_ the element has been loaded to the DOM, otherwise, it will not be found. The constructor requires your container's `id`, a valid resizing method, a valid wrapping method, and a `CarouselProperties` object containing any other customizable carousel properties that you wish to initialize your carousel with. All of the properties within this object can be changed later with methods such as `setCarouselProperties()`, making Freighter carousels dynamic.
 
-- `freighter-carousel-container`
-- `freighter-carousel-item-container-wrapper`
-- `freighter-carousel-item-container`
-- `freighter-carousel-item`
-- `frieghter-carousel-item-dummy`
-- `freighter-carousel-arrow-left`
-- `freighter-carousel-arrow-right`
+Below is an example of calling the constructor in a JavaScript file whose environment is using ES6 modules. Notice that the `Freighter` class is `import`ed; for environments that import modules differently (`require()`, etc.), see the [downloads page](https://paytonshaltis.github.io/freighter/downloads) for the UMD module.
 
-<a target="_blank" href="https://icons8.com/icon/uJM6fQYqDaZK/typescript">TypeScript</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+```javascript
+import Freighter from "freighter-1.0.0.js";
+
+const myCarousel = new Freighter(
+  "container-id",
+  "stretch-scale",
+  "wrap-smart",
+  {
+    numItemsVisible: 3,
+    scrollBy: 1,
+    itemHeight: 3,
+    itemWidth: 5,
+    transitionDuration: 250,
+  }
+);
+```
+
+### Next Steps
+
+Eager to learn more about creating responsive carousels? Check out these links for recommended next steps!
+
+- Learn about the powerful [resizing](https://paytonshaltis.github.io/freighter/documentation/resizing) and [wrapping](https://paytonshaltis.github.io/freighter/documentation/wrapping) methods.
+- Get an overview of all dynamic [carousel properties](https://paytonshaltis.github.io/freighter/documentation/overview) that can be used to customize your carousel.
+- Check out some [carousel demos](https://paytonshaltis.github.io/freighter/demos) to see what's possible with Freighter and spark some inspiration for your next project.

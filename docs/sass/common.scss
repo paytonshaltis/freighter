@@ -29,6 +29,7 @@ div.warning-container {
   border: 1px solid rgba($warning, 0.5);
   border-radius: 5px;
   padding: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -40,6 +41,7 @@ div.code-container {
 div.code-container pre {
   margin-top: 1rem;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 hr.section-divider {
@@ -152,13 +154,34 @@ div.ci {
 
 div.ci p {
   color: white;
-  font-size: min(6.5vw, 7.5rem);
+  font-size: min(6.5vw, 5.5rem);
   font-weight: bold;
   margin: 0;
   padding: 0 0.75vw;
   padding-bottom: min(0.75vw, 1rem);
   line-height: 100%;
   // border: 2px dashed rgba($primary, 0.45);
+}
+
+// Resizeable containers for the documentation pages.
+div.resizeable-container {
+  background-color: rgba($primary, 0.125);
+  resize: horizontal;
+  max-width: 100%;
+  overflow: hidden;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+// Fixed font size for items that do not change size.
+div.ci-fixed p {
+  font-size: 4rem;
+  padding-bottom: 0.5rem;
+}
+
+div.ci-scale p {
+  font-size: 2.5rem;
+  padding-bottom: 0.5rem;
 }
 
 // Train carousel styles.
@@ -191,4 +214,8 @@ div.ci p {
 #ci-train-engine.align-center {
   flex-direction: column;
   align-items: center;
+}
+
+div.code-container pre code {
+  background-color: $light;
 }

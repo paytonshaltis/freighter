@@ -1,6 +1,6 @@
 # Documentation Pages
 
-## Getting Started
+<!-- ## Getting Started
 
 ### Downloading
 
@@ -25,35 +25,42 @@
   - Items
   - Buttons
 - Change properties
-  - get() / set()
+  - get() / set() -->
 
 ## Carousel Properties
 
-### Overview
+<!-- ### Overview
 
-- Static Properties
-- Dynamic Properties
+- What are Properties?
+- Types of Properties
+  - Static Properties
+  - Dynamic Properties
+- Getting Properties
+- Setting Properties -->
 
-### Wrapping
+<!-- ### Resizing
 
-- None
-- Wrap-Simple
-- Wrap-Smart
-  - Changing back to simple
+- What is Resizing?
+- Resizing Methods
+  - None
+  - Stretch
+  - Stretch-Gap
+  - Stretch-Scale
+  - Stretch-Populate
+- Comparison Table -->
 
-### Resizing
+<!-- ### Wrapping
 
-- None
-- Stretch
-- Stretch-Gap
-- Stretch-Scale
-- Stretch-Populate
+- What is Wrapping?
+- Wrapping Methods
+  - None
+  - Wrap-Simple
+  - Wrap-Smart -->
 
-### Container
+<!-- ### Container
 
-- Creating a Container
-  - Required Properties
-- Styling a Container
+- Carousel Container Basics
+  - carouselID
 - Manual Scroll
   - Enable / Disable
   - Amount
@@ -66,20 +73,14 @@
 - Transition
   - Duration
   - Delay
-  - Timing Function
+  - Timing Function -->
 
 ### Items
 
-- Creating Items
-- Styling Items
+- Carousel Item Basics
 - Size
   - Width
   - Height
-- Spacing
-- Visibility
-- Managing Items
-  - Add
-  - Remove
 
 ### Buttons
 
@@ -97,24 +98,27 @@
   - Arrow
 - Cursor
 - Transition
+- Custom CSS Styles
 
-## Advanced
+<!-- ## Advanced
 
 ### API
 
-- Callable functions
+- Callable methods
   - setCarouselProperties()
-  - getCarouselProperties()
+  - getCarouselState()
   - addCarouselItems()
   - removeCarouselItems()
 - Types
   - CarouselProperties
-  - ButtonStyle
   - CarouselState
+  - ButtonStyle -->
 
-### Cautions
+<!-- ### Cautions
 
 - Reserved IDs and Classes
 - Duplicate container items
 - Interacting with DOM
   - Manually changing styles
+- Transition timing functions
+- Changing from wrap-smart to wrap-simple -->

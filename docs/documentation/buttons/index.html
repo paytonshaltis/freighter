@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- highlight.js -->
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/github.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script async>
+      hljs.highlightAll();
+    </script>
+
+    <!-- Custom styles and scripts -->
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script src="./main.js" type="module"></script>
+
+    <title>Freighter Docs | Button Properties</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Item Properties</a
+                  >
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Button Properties</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Button Properties</h1>
+            <p class="lead">
+              Within the <code>CarouselProperties</code> object, there are 6
+              keys accept <code>ButtonStyle</code> objects. These properties are
+              used to control the size, position, and style of the buttons in
+              their normal and hover states.
+            </p>
+            <section
+              id="the-6-carouselproperties-button-keys"
+              class="main-content-section"
+            >
+              <h2>The 6 <code>CarouselProperties</code> Button Keys</h2>
+              <p>
+                There are 6 button-related keys in the
+                <code>CarouselProperties</code> object. Each represents the
+                styles to be used for a certain grouping of buttons under
+                certain circumstances, and this section defines the heirarchy
+                that they follow:
+              </p>
+              <div class="row">
+                <div class="col-sm-6 col-12">
+                  <p><b>Normal Styles</b></p>
+                  <ul>
+                    <li><code>buttonStyles</code></li>
+                    <li><code>leftButtonStyles</code></li>
+                    <li><code>rightButtonStyles</code></li>
+                  </ul>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <p><b>Hover Styles</b></p>
+                  <ul>
+                    <li><code>buttonHoverStyles</code></li>
+                    <li><code>leftButtonHoverStyles</code></li>
+                    <li><code>rightButtonHoverStyles</code></li>
+                  </ul>
+                </div>
+              </div>
+              <p>
+                By default, if any of these keys are omitted from the
+                <code>CarouselProperties</code> object, Freighter falls back on
+                its own defaults. This is the same behavior that occurs when
+                <em>any</em> of the <code>CarouselProperties</code> keys are
+                omitted.
+              </p>
+              <p>
+                If these keys are included in the
+                <code>CarouselProperties</code> object, the following defines
+                the heirarchy that will be used for styling carousel buttons:
+              </p>
+              <ol>
+                <li>
+                  Any properties included in <code>buttonStyles</code> will
+                  initially be applied to both the left and the right buttons.
+                </li>
+                <li>
+                  Then, any properties included in either
+                  <code>leftButtonStyles</code> or
+                  <code>rightButtonStyles</code> will be used as
+                  <em>overrides</em> for their associated buttons. This means
+                  that defining the same style in <code>buttonStyles</code> and
+                  <code>leftButtonStyles</code> will ignore the one in
+                  <code>buttonStyles</code> for the left button.
+                </li>
+                <li>
+                  When a carousel button is hovered, the same process used in 1.
+                  and 2. above will be used to determine the new style of each
+                  button. All of the associated button's hover styles will also
+                  <em>override</em> the normal styles if they are defined in
+                  both places.
+                </li>
+              </ol>
+              <p>
+                This heirarchy essentially allows you to define general styles
+                for both buttons using <code>buttonStyles</code> and
+                <code>buttonHoverStyles</code>, and then fine tune each button
+                individually using their associated properties. In fact, the
+                default Freighter styles used as fallbacks do this very thing,
+                and can be seen
+                <a href="in this section"> of the API documentation.</a>
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="the-buttonstyle-object" class="main-content-section">
+              <h2>The <code>ButtonStyle</code> object</h2>
+              <p>
+                As seen in the <a href="#">container properties</a> and
+                <a href="#">item properties</a>, each key in the
+                <code>CarouselProperties</code> object previously accepted a
+                simple type, whether that be a <code>number</code>,
+                <code>boolean</code>, <code>string</code>, etc. Because the
+                carousel buttons themselves are more complex in their styling
+                and properties, it makes more sense to abstract out their
+                properties into up to 6 <code>ButtonStyle</code> objects that
+                can be assigned to 6 keys in the main
+                <code>CarouselProperties</code> object. For a better breakdown
+                of the <code>CarouselProperties</code> object, see
+                <a href="#">this section</a> of the Freighter API documentation.
+              </p>
+              <p>
+                Below, each property of the <code>ButtonStyle</code> object is
+                described in full.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="width" class="main-content-section">
+              <h3><code>width</code></h3>
+              <p>
+                This property, which accepts any valid CSS width string,
+                determines the width of a carousel button. Note that because the
+                <code>width</code> is not restricted to the
+                <code>px</code> unit, percentages and viewport units can be
+                used. When percentages are used, they refer to the width of the
+                carousel's container element.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="height" class="main-content-section">
+              <h3><code>height</code></h3>
+              <p>
+                This property, which accepts any valid CSS height string,
+                determines the height of a carousel button. Note that because
+                the
+                <code>height</code> is not restricted to the
+                <code>px</code> unit, percentages and viewport units can be
+                used. When percentages are used, they refer to the height of the
+                carousel's container element.
+              </p>
+              <p>
+                Be sure to use caution when setting the
+                <code>height</code> property to a value larger than the height
+                of the carousel container. Note that using percentages or
+                viewport units can cause the buttons to change height as the
+                carousel container or viewport size changes.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="position" class="main-content-section">
+              <h3><code>position</code></h3>
+              <p>
+                This property accepts a value of
+                <code>"top" | "center"| "bottom"</code> and is used to determine
+                the position of each carousel button. These values are all
+                relative to the carousel container itself, and the property
+                defaults to <code>"center"</code>. Check out the example below
+                which positions the left and right buttons at the top and bottom
+                of the carousel container, respectively.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel', 'stretch-scale', 'none', {
+  numItemsVisible: 2,
+  scrollBy: 2,
+  itemSpacing: 30,
+  leftButtonStyles: {
+    position: 'top',
+    borderTopLeftRadius: '10px',
+  },
+  rightButtonStyles: {
+    position: 'bottom',
+    borderBottomRightRadius: '10px',
+  },
+});</code></pre>
+              </div>
+              <div id="carousel-1" class="freighter-c resizeable-container">
+                <div class="ci ci-fixed"><p>1</p></div>
+                <div class="ci ci-fixed"><p>2</p></div>
+                <div class="ci ci-fixed"><p>3</p></div>
+                <div class="ci ci-fixed"><p>4</p></div>
+                <div class="ci ci-fixed"><p>5</p></div>
+                <div class="ci ci-fixed"><p>6</p></div>
+                <div class="ci ci-fixed"><p>7</p></div>
+                <div class="ci ci-fixed"><p>8</p></div>
+                <div class="ci ci-fixed"><p>9</p></div>
+              </div>
+              <small>
+                <em>
+                  Resize this carousel using the handle in the lower-right!</em
+                ></small
+              >
+              <p class="mt-3">
+                Notice that because the <code>height</code> of each button has a
+                value that is a percentage of the carousel container, changing
+                the height of the container prevents the buttons from
+                overflowing.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section
+              id="border-and-borderradius-properties"
+              class="main-content-section"
+            >
+              <h3>
+                <code>border</code> and <code>borderRadius</code> Properties
+              </h3>
+              <p>
+                There are 8 <code>border</code>-like and
+                <code>borderRadius</code>-like
+                <code>ButtonStyle</code> properties that can be used to fully
+                customize your carousel control buttons:
+              </p>
+              <div class="row">
+                <div class="col-sm-6 col-12">
+                  <p><b>Border Properties</b></p>
+                  <ul>
+                    <li><code>borderTop</code></li>
+                    <li><code>borderRight</code></li>
+                    <li><code>borderBottom</code></li>
+                    <li><code>borderLeft</code></li>
+                  </ul>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <p><b>Border Radius Properties</b></p>
+                  <ul>
+                    <li><code>borderTopLeftRadius</code></li>
+                    <li><code>borderTopRightRadius</code></li>
+                    <li><code>borderBottomRightRadius</code></li>
+                    <li><code>borderBottomLeftRadius</code></li>
+                  </ul>
+                </div>
+              </div>
+              <p>
+                The idea behind seperating these out comes from the fact that
+                left and right buttons will often need seperate styling for
+                borders and border radii in order to better fit the carousel
+                container. For example, the default carousel buttons each
+                utilize different <code>borderRadius</code>-like properties to
+                get rounded corners on one side only. Each property accepts any
+                valid CSS string that could be used for a border or border
+                radius property value.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="backgroundcolor" class="main-content-section">
+              <h3><code>backgroundColor</code></h3>
+              <p>
+                This property determines the color for the carousel buttons.
+                Note that the chevron (arrow) inside of each button is
+                <b>not</b> affected by this property; only the button element
+                itself changes color when changing this property.
+              </p>
+              <p>
+                Any valid CSS color string can be used here, including
+                <code>rgba()</code> colors that introduce opacity. The default
+                color is a slightly-transparent light darkish gray.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="color" class="main-content-section">
+              <h3><code>color</code></h3>
+              <p>
+                The <code>color</code> property is responsible only for giving
+                the chevron (arrow) inside of the carousel buttons a color. Any
+                valid CSS color string can be used, and the default value is a
+                slightly-transparent dark gray.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="cursor" class="main-content-section">
+              <h3><code>cursor</code></h3>
+              <p>
+                This property, which takes the value of any valid CSS 'cursor'
+                value, is used to determine the appearance of the user's cursor
+                when hovering over a carousel button. By default, this property
+                is set to <code>cursor</code> to indicate that the user is able
+                to scroll manually with a click.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="transition" class="main-content-section">
+              <h3><code>transition</code></h3>
+              <p>
+                This property determines the transition that should be used when
+                the user hovers over a carousel button. More specifically, this
+                property determines the transition used when changing between
+                <code>buttonStyles</code> styles and
+                <code>buttonHoverStyles</code> styles, assignable for any of the
+                3 variations (left, right, and both).
+              </p>
+              <p>
+                Unlike the <code>CarouselProperties</code> transition
+                properties, the <code>transition</code> property for a
+                <code>ButtonStyle</code> object includes duration, delay, and
+                transition timing function all within the same string. By
+                default, the value is set to <code>all 200ms ease</code> in
+                order to provide a smooth transition.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Button Properties
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#the-6-carouselproperties-button-keys"
+                  >The 6 <code>CarouselProperties</code> Button Keys</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#the-buttonstyle-object"
+                  >The <code>ButtonStyle</code> object</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#width"
+                    ><code>width</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#height"
+                    ><code>height</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#position"
+                    ><code>position</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#border-and-borderradius-properties"
+                    ><code>border</code> and
+                    <code>borderRadius</code> Properties</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#backgroundcolor"
+                    ><code>backgroundColor</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#color"
+                    ><code>color</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#cursor"
+                    ><code>cursor</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#transition"
+                    ><code>transition</code></a
+                  >
+                </nav>
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 import ButtonStyle from "./types/ButtonStyle.type.js";
 import CarouselOptions from "./types/CarouselOptions.type.js";
+import CarouselProperties from "./types/CarouselProperties.type.js";
 import CarouselState from "./types/CarouselState.type.js";
 
 /**
@@ -591,40 +592,31 @@ export default class Carousel {
       }
     </svg>`;
 
-    // Set the static chevron colors.
-    let fillColorStatic: string | undefined;
-    if (this.buttonStyles.color) {
-      fillColorStatic = this.buttonStyles.color;
-    }
+    // Set the static chevron colors with either default or directional overrides.
+    let fillColorStatic = this.buttonStyles.color as string;
     if (direction === "left" && this.leftButtonStyles.color) {
       fillColorStatic = this.leftButtonStyles.color;
-    } else if (!fillColorStatic) {
-      fillColorStatic = "rgba(50, 50, 50, 0.75)";
     }
     if (direction === "right" && this.rightButtonStyles.color) {
       fillColorStatic = this.rightButtonStyles.color;
-    } else if (!fillColorStatic) {
-      fillColorStatic = "rgba(50, 50, 50, 0.75)";
     }
 
-    // Set the hover chevron colors.
-    let fillColorHover: string | undefined;
-    if (this.buttonHoverStyles.color) {
-      fillColorHover = this.buttonHoverStyles.color;
-    }
+    // Set the hover chevron colors with either default or directional overrides.
+    let fillColorHover =
+      this.buttonHoverStyles.color !== undefined
+        ? this.buttonHoverStyles.color
+        : fillColorStatic;
     if (direction === "left" && this.leftButtonHoverStyles.color) {
       fillColorHover = this.leftButtonHoverStyles.color;
-    } else if (!fillColorHover) {
-      fillColorHover = "rgba(50, 50, 50, 0.75)";
     }
     if (direction === "right" && this.rightButtonHoverStyles.color) {
       fillColorHover = this.rightButtonHoverStyles.color;
-    } else if (!fillColorHover) {
-      fillColorHover = "rgba(50, 50, 50, 0.75)";
     }
 
     // Names for each style; used for looping.
     const styleNames: string[] = [
+      "width",
+      "height",
       "borderTop",
       "borderBottom",
       "borderLeft",
@@ -638,42 +630,11 @@ export default class Carousel {
       "transition",
     ];
 
-    // Default button styles.
-    const staticDefaults: string[] = [
-      "none",
-      "none",
-      "none",
-      "none",
-      direction === "right" ? "5px" : "0px",
-      direction === "left" ? "5px" : "0px",
-      direction === "right" ? "5px" : "0px",
-      direction === "left" ? "5px" : "0px",
-      "rgba(100, 100, 100, 0.5)",
-      "pointer",
-      "all 200ms ease",
-    ];
-
-    // Default button styles.
-    const hoverDefaults: string[] = [
-      "none",
-      "none",
-      "none",
-      "none",
-      direction === "right" ? "5px" : "0px",
-      direction === "left" ? "5px" : "0px",
-      direction === "right" ? "5px" : "0px",
-      direction === "left" ? "5px" : "0px",
-      "rgba(100, 100, 100, 0.8)",
-      "pointer",
-      "all 200ms ease",
-    ];
-
     // Apply the static button styles.
     this.applyMassButtonStyles(
       carouselButton as HTMLButtonElement,
       direction,
       styleNames,
-      staticDefaults,
       this.buttonStyles,
       this.leftButtonStyles,
       this.rightButtonStyles,
@@ -686,11 +647,10 @@ export default class Carousel {
         carouselButton as HTMLButtonElement,
         direction,
         styleNames,
-        hoverDefaults,
         this.buttonHoverStyles,
         this.leftButtonHoverStyles,
         this.rightButtonHoverStyles,
-        fillColorHover as string
+        fillColorHover
       );
     };
     const mouseLeaveListener = () => {
@@ -698,7 +658,6 @@ export default class Carousel {
         carouselButton as HTMLButtonElement,
         direction,
         styleNames,
-        staticDefaults,
         this.buttonStyles,
         this.leftButtonStyles,
         this.rightButtonStyles,
@@ -757,38 +716,21 @@ export default class Carousel {
     carouselButton: HTMLButtonElement,
     direction: string,
     styleNames: string[],
-    defaultValues: string[],
     buttonStyles: ButtonStyle,
     leftButtonStyles: ButtonStyle,
     rightButtonStyles: ButtonStyle,
     fillColor: string
   ): void {
-    // Set the common width and height of both buttons.
-    carouselButton.style.width =
-      buttonStyles.width !== undefined ? buttonStyles.width : "25px";
-    carouselButton.style.height =
-      buttonStyles.height !== undefined ? buttonStyles.height : "80%";
-
-    // Set the width and height for each button's overriden styles.
-    if (direction === "left" && leftButtonStyles.width !== undefined) {
-      carouselButton.style.width = leftButtonStyles.width;
-    } else if (direction === "right" && rightButtonStyles.width !== undefined) {
-      carouselButton.style.width = rightButtonStyles.width;
-    }
-    if (direction === "left" && leftButtonStyles.height !== undefined) {
-      carouselButton.style.height = leftButtonStyles.height;
-    } else if (
-      direction === "right" &&
-      rightButtonStyles.height !== undefined
-    ) {
-      carouselButton.style.height = rightButtonStyles.height;
-    }
-
     // Apply the styles common to both buttons.
-    styleNames.forEach((styleName, index) => {
-      carouselButton.style[styleName as any] = (buttonStyles as any)[styleName]
-        ? (buttonStyles as any)[styleName]
-        : defaultValues[index];
+    styleNames.forEach((styleName) => {
+      carouselButton.style[styleName as any] = (buttonStyles as any)[styleName];
+
+      // If adding transition, make sure to apply it to the chevron as well.
+      if (styleName === "transition") {
+        (
+          carouselButton.children[0].children[0] as HTMLElement
+        ).style.transition = buttonStyles.transition as string;
+      }
     });
 
     // Apply the correct left, right, or default styles to the button.
@@ -797,18 +739,30 @@ export default class Carousel {
         carouselButton.style[styleName as any] = (leftButtonStyles as any)[
           styleName
         ];
-      } else if (
-        direction === "right" &&
-        (rightButtonStyles as any)[styleName]
-      ) {
+
+        // If adding transition, make sure to apply it to the chevron as well.
+        if (styleName === "transition") {
+          (
+            carouselButton.children[0].children[0] as HTMLElement
+          ).style.transition = leftButtonStyles.transition as string;
+        }
+      }
+      if (direction === "right" && (rightButtonStyles as any)[styleName]) {
         carouselButton.style[styleName as any] = (rightButtonStyles as any)[
           styleName
         ];
-      }
 
-      // Apply the correct fill color to the button.
-      carouselButton.children[0].children[0].setAttribute("fill", fillColor);
+        // If adding transition, make sure to apply it to the chevron as well.
+        if (styleName === "transition") {
+          (
+            carouselButton.children[0].children[0] as HTMLElement
+          ).style.transition = rightButtonStyles.transition as string;
+        }
+      }
     });
+
+    // Apply the correct fill color for the chevron.
+    carouselButton.children[0].children[0].setAttribute("fill", fillColor);
   }
 
   /**
@@ -826,7 +780,7 @@ export default class Carousel {
         getComputedStyle(this.carouselItemContainer as Element).width
       ) -
         this.itemWidth * this.numItemsVisible) /
-      (this.numItemsVisible + 1);
+      (this.numItemsVisible - 1);
 
     // Set the gap size to the larger of the computed gap and the minimum gap
     // size provided by the constructor.
@@ -935,17 +889,36 @@ export default class Carousel {
    * carousel options. The constructor initializes all class attributes, configures
    * all elements within the carousel container, styles the elements, and initializes
    * the carousel with the correct starting elements based on the carousel options.
-   * @param {CarouselOptions | CarouselState} options An object of the type CarouselOptions
+   * @param {string} containerID The ID of the carousel container element.
+   * @param {string} resizingMethod The resizing method to use for the carousel.
+   * @param {string} wrappingMethod The wrapping method to use for the carousel.
+   * @param {CarouselProperties | CarouselState} properties An object of the type CarouselProperties
    * or CarouselState. Pass in a CarouselOptions object to initialize a new carousel, and
    * pass in a CarouselState object to restore a carousel from a previous state.
    * Carousel will be constructed from the passed in state.
    * @returns {Carousel} A new Carousel object.
    */
-  constructor(options: CarouselOptions | CarouselState) {
+  constructor(
+    properties: CarouselProperties | CarouselState,
+    containerID?: string,
+    resizingMethod?: string,
+    wrappingMethod?: string
+  ) {
     // Determine if the constructor is being called with a CarouselOptions object
     // or a CarouselState object.
     const constructFromState =
-      (options as CarouselState).carouselID !== undefined;
+      (properties as CarouselState).carouselID !== undefined;
+
+    // If we are not constructing from a state, then we are constructing from a
+    // CarouselOptions object (new carousel creation).
+    const options: CarouselOptions | CarouselState = constructFromState
+      ? (properties as CarouselState)
+      : ({
+          containerID,
+          resizingMethod,
+          wrappingMethod,
+          ...properties,
+        } as CarouselOptions);
 
     // Initialize the required class attributes. Set their defaults to "none" if
     // they are not explicitly provided.
@@ -965,18 +938,39 @@ export default class Carousel {
       options.itemHeight !== undefined ? options.itemHeight : 150;
     this.itemSpacing =
       options.itemSpacing !== undefined ? options.itemSpacing : 0;
-    this.buttonStyles =
-      options.buttonStyles !== undefined ? options.buttonStyles : {};
-    this.buttonHoverStyles =
-      options.buttonHoverStyles !== undefined ? options.buttonHoverStyles : {};
-    this.leftButtonStyles =
-      options.leftButtonStyles !== undefined ? options.leftButtonStyles : {};
+    this.buttonStyles = {
+      width: "25px",
+      height: "80%",
+      position: "center",
+      borderTop: "none",
+      borderRight: "none",
+      borderBottom: "none",
+      borderLeft: "none",
+      backgroundColor: "rgba(100, 100, 100, 0.5)",
+      color: "rgba(50, 50, 50, 0.75)",
+      cursor: "pointer",
+      transition: "all 200ms ease",
+      ...options.buttonStyles,
+    };
+    this.buttonHoverStyles = {
+      backgroundColor: "rgba(100, 100, 100, 0.8)",
+      transition: "all 200ms ease",
+      ...options.buttonHoverStyles,
+    };
+    this.leftButtonStyles = {
+      borderTopRightRadius: "5px",
+      borderBottomRightRadius: "5px",
+      ...options.leftButtonStyles,
+    };
     this.leftButtonHoverStyles =
       options.leftButtonHoverStyles !== undefined
         ? options.leftButtonHoverStyles
         : {};
-    this.rightButtonStyles =
-      options.rightButtonStyles !== undefined ? options.rightButtonStyles : {};
+    this.rightButtonStyles = {
+      borderTopLeftRadius: "5px",
+      borderBottomLeftRadius: "5px",
+      ...options.rightButtonStyles,
+    };
     this.rightButtonHoverStyles =
       options.rightButtonHoverStyles !== undefined
         ? options.rightButtonHoverStyles
@@ -1469,7 +1463,7 @@ export default class Carousel {
   }
 
   /**
-   * Returns the current state of the carousel. This is used by the CarouselManager
+   * Returns the current state of the carousel. This is used by the Freighter class
    * when creating a new carousel with slightly different settings. The current
    * state should be preserved, and only the settings that are different should be
    * changed.

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../styles/common.css" />
+
+    <!-- Bootstrap popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- highlight.js -->
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/github.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script async>
+      hljs.highlightAll();
+    </script>
+
+    <!-- Custom styles and scripts -->
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script src="./main.js" type="module"></script>
+
+    <title>Freighter Docs | Downloading</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Item Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Button Properties</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Downloading</h1>
+            <p class="lead">
+              Freighter offers a number of ways to download, install, and start
+              using the library. Below, the three primary ways of downloading
+              the software are described. Any of the downloadable versions of
+              Freighter are available on the
+              <a href="#">downloads page</a>.
+            </p>
+            <section id="node-package-manager" class="main-content-section">
+              <h2>Node Package Manager</h2>
+              <p>
+                The easiest approach to downloading Freighter also happens to be
+                the recommended one, and that is allowing
+                <a href="https://npmjs.org" target="_blank"
+                  >Node Package Manager</a
+                >
+                to handle dependency management. If you would like to view the
+                package on NPM, you can do so
+                <a
+                  href="https://www.npmjs.com/package/freighterjs"
+                  target="_blank"
+                  >here</a
+                >.
+              </p>
+              <p>
+                Once your NPM project has been initialized, simply use
+                <code>npm install freighterjs</code> to add the package to your
+                project's list of dependencies.
+              </p>
+              <p>
+                Once done, you can import the package as you normally would for
+                any other package managed by NPM. Below is a small example of a
+                Freighter carousel being set up with the NPM installation:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>import Freighter from 'freighterjs';</code></pre>
+              </div>
+              <p>
+                The above example assumes that your NPM environment is set up to
+                use ES6 modules. If it is set up with a different module system,
+                use the proper import strategy (such <code>require()</code> when
+                using CommonJS).
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="minified-bundles" class="main-content-section">
+              <h2>Minified Bundles</h2>
+              <p>
+                If you would rather have the transpiled and bundled library in
+                one JavaScript file that you can keep contained within a
+                project, then using one of the minified bundles is the way to
+                go. Freighter is bundled with
+                <a href="https://webpack.js.org" target="_blank">Webpack</a>,
+                and prepared in two different ways depending on the intended
+                target environment.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="es6-module" class="main-content-section">
+              <h3>ES6 Module</h3>
+              <p>
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules"
+                  >ES6 JavaScript Modules</a
+                >
+                use the <code>import</code> and <code>export</code> keywords
+                explicitly to import and export modules, respectively. If you
+                would like to use the ES6 module version of Freighter, you can
+                do so by importing the <code>freighter-x.x.x.js</code> file,
+                available to download on the <a href="#">downloads page</a>.
+              </p>
+              <p>
+                The syntax for using the module is the same as the NPM approach;
+                simple import <code>Freighter</code> from the module's location
+                in your project directory and start using it:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>import Freighter from 'freighterjs';</code></pre>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="umd-module" class="main-content-section">
+              <h3>UMD Module</h3>
+              <p>
+                <a href="https://github.com/umdjs/umd" target="_blank"
+                  >Universal Module Definition (UMD) Modules</a
+                >
+                is a formalization of several <em>other</em> JavaScript module
+                systems, including:
+              </p>
+              <ul>
+                <li>
+                  Inline <code>&lt;script&gt;</code>
+                  tags within
+                  <code>HTML</code> documents
+                </li>
+                <li>
+                  CommonJS modules that utilize the
+                  <code>require()</code> import strategy
+                </li>
+                <li>
+                  AMD modules that utilize the
+                  <code>define()</code> import strategy
+                </li>
+              </ul>
+              <p>
+                If you desire a module for one of the systems listed above, or
+                any other systems that come to be supported by UMD, then this is
+                the version of Freighter that you'll want to download. Just like
+                the ES6 version, a UMD version is available on the
+                <a href="#">downloads page</a>.
+              </p>
+              <p>
+                Below is an example of importing Freighter using an inline
+                <code>&lt;script&gt;</code>
+                tag in an
+                <code>HTML</code> document:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>&lt;script src="freighter-x.x.x.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  // Create a new carousel using the container with the ID "myCarousel".
+  const myCarousel = new Freighter({
+    containerID: 'myCarousel',
+    resizingMethod: 'stretch-scale',
+    wrappingMethod: 'wrap-simple',
+    numItemsVisible: 3,
+    scrollBy: 2,
+    autoScroll: true,
+  });
+&lt;/script&gt;</code></pre>
+              </div>
+              <p>
+                Another example, shown below, may be the use of Freighter in a
+                Node environment, which uses the CommonJS module system:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const Freighter = require('freighter-x.x.x.js');</code></pre>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="source-code" class="main-content-section">
+              <h2>Source Code</h2>
+              <p>
+                If you would rather have the source code to Freighter (either to
+                check out how something was implemented or to make your own
+                changes), you can absolutely do so.
+              </p>
+              <p>
+                The entire development process for Freighter, including its
+                source code, is hosted on
+                <a
+                  href="https://github.com/paytonshaltis/freighter"
+                  target="_blank"
+                  >GitHub</a
+                >. While you're there, feel free to report any bugs you may
+                find, contribute through a pull request, or even just drop a
+                star on the project!
+              </p>
+              <p>
+                If you would prefer to have the TypeScript source code from a
+                specific version, the <a href="#">downloads page</a> has every
+                version available for download.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Downloading
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#node-package-manager"
+                  >Node Package Manager</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#minified-bundles"
+                  >Minified Bundles</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#es6-module"
+                    >ES6 Module</a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#umd-module"
+                    >UMD Module</a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#source-code"
+                  >Source Code</a
+                >
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

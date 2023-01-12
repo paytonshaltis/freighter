@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- highlight.js -->
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/github.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script async>
+      hljs.highlightAll();
+    </script>
+
+    <!-- Custom styles and scripts -->
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script src="./main.js" type="module"></script>
+
+    <title>Freighter Docs | API</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Item Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Button Properties</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >API</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">API</h1>
+            <p class="lead">
+              There are only a few callable methods and custom types that you
+              need to know in order to take advantage of Freighter carousels.
+              Below, you will find method signatures, descriptions, and return
+              types for each method that can be called on a carousel, as well as
+              the custom types referenced.
+            </p>
+            <section id="callable-methods" class="main-content-section">
+              <h2>Callable Methods</h2>
+              <p>
+                Once a Freighter object is constructed, there are a few methods
+                that can be called on that method. Note that each of these
+                methods require an instance of the Freighter class to be called
+                on, so, for example, the call
+                <code>Freighter.getCarouselState()</code> would simply raise an
+                exception.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="freighter" class="main-content-section">
+              <h3>
+                <code
+                  >Freighter(containerID, resizingMethod, wrappingMethod,
+                  properties)</code
+                >
+              </h3>
+              <p>
+                <em
+                  >Constructor for the Freighter class. Initializes the Carousel
+                  by passing the properties parameter to the Carousel
+                  constructor. Assigns the returned carousel to the carousel
+                  member attribute.</em
+                >
+              </p>
+              <p>Parameters (4 required):</p>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>containerID</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        The ID of the container <code>&lt;div&gt;</code> to be
+                        used as the carousel parent element.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>resizingMethod</code></td>
+                      <td>
+                        <code
+                          >"none" | "stretch" | "stretch-gap" | "stretch-scale"
+                          | "stretch-populate"</code
+                        >
+                      </td>
+                      <td>
+                        The method to be used when resizing the carousel due to
+                        browser window resizing.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>wrappingMethod</code></td>
+                      <td>
+                        <code>"none" | "wrap-simple" | "wrap-smart"</code>
+                      </td>
+                      <td>
+                        The wrapping method to be used when the carousel is
+                        scrolled while at either extreme.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>properties</code></td>
+                      <td><code>CarouselProperties</code></td>
+                      <td>
+                        The properties to be used to initialize the carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>
+                Returns the <code>Freighter</code> object that was constructed.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="setcarouselproperties" class="main-content-section">
+              <h3>
+                <code>setCarouselProperties(properties)</code>
+              </h3>
+              <p>
+                <em>
+                  Changes the carousel properties to those provided as
+                  arguments. Note that not all carousel properties can be
+                  changed, such as the wrap and resize methods.</em
+                >
+              </p>
+              <p>Parameters (1 required):</p>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>properties</code></td>
+                      <td><code>CarouselProperties</code></td>
+                      <td>
+                        The new properties to be used to update the carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>Returns <code>void</code>.</p>
+            </section>
+            <hr class="section-divider" />
+            <section id="getcarouselstate" class="main-content-section">
+              <h3><code>getCarouselState()</code></h3>
+              <p>
+                <em>
+                  Retrieves the current state of the carousel and returns it.
+                  This includes internal data not specified in the original or
+                  updated properties, such as the carousel items themselves and
+                  the current carousel pointer.
+                </em>
+              </p>
+              <p>Parameters (0)</p>
+              <p>
+                Returns the <code>CarouselState</code> object representing the
+                carousel's current state.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="addcarouselitems" class="main-content-section">
+              <h3>
+                <code>addCarouselItems(items, index?)</code>
+              </h3>
+              <p>
+                <em
+                  >Adds a new item to the carousel. The item is added to the end
+                  of the carousel by default, but an optional index can be
+                  provided.</em
+                >
+              </p>
+              <p>Parameters (1 required, 1 optional):</p>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>items</code></td>
+                      <td><code>HTMLElement | HTMLElement[]</code></td>
+                      <td>
+                        The HTML element or elements to be added to the
+                        carousel.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>index?</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        Optional index at which to add the item. Adds to the end
+                        of the carousel by default.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small
+                >* A <code>?</code> denotes an optional parameter. See above for
+                what default is used if omitted.</small
+              >
+            </section>
+            <hr class="section-divider" />
+            <section id="removecarouselitems" class="main-content-section">
+              <h3>
+                <code>removeCarouselItems(index, count = 1)</code>
+              </h3>
+              <p>
+                <em
+                  >Removes a number of carousel items starting from the given
+                  index. By default, this method just returns the item at this
+                  index, but the number of items to remove starting from this
+                  index can be specified.</em
+                >
+              </p>
+              <p>Parameters (1 required, 1 default):</p>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Parameter</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>index</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The index of the item to be removed, or the starting
+                        index if multiple items are to be removed.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>count = 1</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        Optional number of items to remove. Defaults to 1.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <small
+                >* A <code>?</code> denotes an optional parameter. See above for
+                what default is used if omitted.</small
+              >
+            </section>
+            <hr class="section-divider" />
+            <section id="types" class="main-content-section">
+              <h2>Types</h2>
+              <p>
+                Freighter was written in TypeScript, allowing it to take
+                advantage of the great typing system offered. The methods listed
+                above mention a few custom types whose structure must be
+                understood in order to effectively be called. Below are the
+                custom types used by Freighter and their structures:
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="carouselproperties" class="main-content-section">
+              <h3><code>CarouselProperties</code></h3>
+              <p>
+                <em>
+                  An object containing several (key, value) pairs that define
+                  the properties of a Freighter carousel. Note that because each
+                  of these properties is optional, the object can be empty. If a
+                  property is left blank, it will fall back to its default value
+                  specified below.
+                </em>
+              </p>
+              <p>Object Keys:</p>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Property</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <code>itemWidth</code>
+                      </td>
+                      <td><code>number</code></td>
+                      <td>The width of each carousel item in pixels.</td>
+                    </tr>
+                    <tr>
+                      <td><code>itemHeight</code></td>
+                      <td><code>number</code></td>
+                      <td>The height of each carousel item in pixels.</td>
+                    </tr>
+                    <tr>
+                      <td><code>itemSpacing</code></td>
+                      <td><code>number</code></td>
+                      <td>The space between each item in pixels.</td>
+                    </tr>
+                    <tr>
+                      <td><code>buttonStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>The common styles that both buttons will use.</td>
+                    </tr>
+                    <tr>
+                      <td><code>buttonHoverStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The common styles that both buttons will use when being
+                        hovered.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>leftButtonStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The left button style overrides that will take
+                        precedence over the shared button styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>leftButtonHoverStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The left button hover style overrides that will take
+                        precedence over the shared button hover styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>rightButtonStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The right button style overrides that will take
+                        precedence over the shared button styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>rightButtonHoverStyles</code></td>
+                      <td><code>ButtonStyle</code></td>
+                      <td>
+                        The right button hover style overrides that will take
+                        precedence over the shared button hover styles.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>scrollable</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the carousel can be manually scrolled. If
+                        set to false, the buttons will not appear either.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>scrollBy</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of items to scroll by. This value is used for
+                        both manual and auto scroll.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>numItemsVisible</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of items that are visible at any given time.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>syncScrollWithVisibility</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the <code>scrollBy</code> should be
+                        overriden with the <code>numItemsVisible</code>. Useful
+                        for when you want to sync these values knowing that the
+                        number of items will change.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScroll</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the carousel will scroll on its own. If
+                        <code>scrollable</code> is set to true, the user can
+                        still manually scroll.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScrollInterval</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of milliseconds to wait before scrolling to
+                        the next set of carousel items.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScrollDirection</code></td>
+                      <td><code>"left" | "right"</code></td>
+                      <td>The direction that the carousel will auto scroll.</td>
+                    </tr>
+                    <tr>
+                      <td><code>autoScrollPauseOnHover</code></td>
+                      <td><code>boolean</code></td>
+                      <td>
+                        Whether or not the carousel's auto scroll should pause
+                        if the user is hovered over the carousel.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>transitionDuration</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of milliseconds that it should take in order
+                        to complete a carousel scroll.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>transitionDelay</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The number of milliseconds that should pass before the
+                        scroll begins.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>transitionTimingFunction</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS transition timing function used to scroll
+                        the carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p>Default Values:</p>
+              <div class="border bg-light code-container">
+                <pre><code>itemWidth: 225,
+itemHeight: 150,
+itemSpacing: 0,
+buttonStyles: {
+  width: "25px",
+  height: "80%",
+  position: "center",
+  borderTop: "none",
+  borderRight: "none",
+  borderBottom: "none",
+  borderLeft: "none",
+  backgroundColor: "rgba(100, 100, 100, 0.5)",
+  color: "rgba(50, 50, 50, 0.75)",
+  cursor: "pointer",
+  transition: "all 200ms ease",
+},
+buttonHoverStyles: {
+  backgroundColor: "rgba(100, 100, 100, 0.8)",
+  transition: "all 200ms ease",
+},
+leftButtonStyles: {
+  borderTopRightRadius: "5px",
+  borderBottomRightRadius: "5px",
+},
+leftButtonHoverStyles: {},
+rightButtonStyles: {
+  borderTopLeftRadius: "5px",
+  borderBottomLeftRadius: "5px",
+},
+rightButtonHoverStyles: {},
+scrollable: true,
+scrollBy: 1,
+numItemsVisible: 1,
+syncScrollWithVisibility: false,
+autoScroll: false,
+autoScrollInterval: 1000,
+autoScrollDirection: "right",
+autoScrollPauseOnHover: false,
+transitionDuration: 500,
+transitionDelay: 0,
+transitionTimingFunction: "ease-in-out"</code></pre>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="carouselstate" class="main-content-section">
+              <h3><code>CarouselState</code></h3>
+              <p>
+                <em
+                  >An object containing several (key, value) pairs that
+                  represent the current state of a Freighter carousel. The state
+                  is defined as the intersection between a
+                  <code>CarouselProperties</code> object and a few other
+                  internal pieces of state that may be useful to know.</em
+                >
+              </p>
+              <p>Object Keys:</p>
+              <p>
+                <b>
+                  All of the properties available in a
+                  <code>CarouselProperties</code> object, and...</b
+                >
+              </p>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Property</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>carouselID</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The unique internal number assigned to a carousel. Will
+                        be different from all other carousels in order to
+                        uniquely identify each.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>carouselItems</code></td>
+                      <td><code>HTMLElement[]</code></td>
+                      <td>
+                        An array of all of the carousel items. Allows for the
+                        modification or access of these items.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>leftCarouselPointer</code></td>
+                      <td><code>number</code></td>
+                      <td>
+                        The index of the leftmost visible carousel item. Useful
+                        for determining which items are visible.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>carouselContainer</code></td>
+                      <td><code>HTMLElement</code></td>
+                      <td>
+                        The outermost HTML element that houses the entire
+                        carousel.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <hr class="section-divider" />
+            <section id="buttonstyle" class="main-content-section">
+              <h3><code>ButtonStyle</code></h3>
+              <p>
+                <em
+                  >An object containing several (key, value) pairs that define
+                  the styles of a Freighter carousel button. Note that because
+                  each of these properties is optional, the object can be empty.
+                  If a property is left blank, only the default CSS styles will
+                  be used.
+                </em>
+              </p>
+              <p>Object Keys:</p>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Property</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <code>width</code>
+                      </td>
+                      <td>
+                        <code>string</code>
+                      </td>
+                      <td>
+                        A valid CSS width value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <code>height</code>
+                      </td>
+                      <td>
+                        <code>string</code>
+                      </td>
+                      <td>
+                        A valid CSS height value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>position</code></td>
+                      <td><code>"top" | "center" | "bottom"</code></td>
+                      <td>
+                        The vertical aligmnemt of the buttons as compared to the
+                        carousel container.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderTop</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderRight</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderBottom</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderLeft</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border value that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderTopLeftRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderTopRightRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderBottomLeftRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>borderBottomRightRadius</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS border radius that will be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>backgroundColor</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS background color to be applied to the
+                        button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>color</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS color to be applied to the chevron within
+                        the button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><code>cursor</code></td>
+                      <td><code>string</code></td>
+                      <td>
+                        A valid CSS cursor option to be applied to the button.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <code>transition</code>
+                      </td>
+                      <td>
+                        <code>string</code>
+                      </td>
+                      <td>
+                        A valid CSS transition to be applied to the button; used
+                        to transition to the button's hover styles.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              API
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#callable-methods"
+                  >Callable Methods</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#freighter"
+                    ><code>Freighter()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#setcarouselproperties"
+                    ><code>setCarouselProperties()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#getcarouselstate"
+                    ><code>getCarouselState()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#addcarouselitems"
+                    ><code>addCarouselItems()</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#removecarouselitems"
+                    ><code>removeCarouselItems()</code></a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#types"
+                  >Types</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#carouselproperties"
+                    ><code>CarouselProperties</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#carouselstate"
+                    ><code>CarouselState</code></a
+                  >
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#buttonstyle"
+                    ><code>ButtonStyle</code></a
+                  >
+                </nav>
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- highlight.js -->
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/github.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script async>
+      hljs.highlightAll();
+    </script>
+
+    <!-- Custom styles and scripts -->
+    <link rel="stylesheet" href="../../styles/common.css" />
+    <script src="./main.js" type="module"></script>
+
+    <title>Freighter Docs | Properties</title>
+  </head>
+  <body data-bs-target="#nav-right" data-bs-smooth-scroll="true" tabindex="0">
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Left hamburger icon to toggle the offcanvas on smaller screens. -->
+        <button
+          class="navbar-toggler d-inline d-lg-none me-sm-3"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-left"
+          aria-controls="offcanvas-left"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="../">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end bg-secondary text-white"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+            <div>Navigation</div>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#">Docs</a>
+              <a class="nav-link" href="#">Demos</a>
+              <a class="nav-link" href="#">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container-xl my-3">
+      <!-- One row, three column layout. -->
+      <div class="row g-0">
+        <!-- Column 1: Secondary navigation that becomes offcanvas on smaller screens. -->
+        <div class="col-lg-2">
+          <div
+            class="offcanvas-lg offcanvas-start custom-border-end"
+            tabindex="-1"
+            id="offcanvas-left"
+            aria-labelledby="offcanvas-left-label"
+          >
+            <!-- Header of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-header">
+              <div>Contents</div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#offcanvas-left"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Body of the offcanvas for secondary navigation. -->
+            <div class="offcanvas-body flex-column ms-2 me-3">
+              <p class="mb-0 text-start fw-bold text-muted">Documentation</p>
+              <hr class="my-2" />
+              <nav
+                id="nav-left"
+                class="flex-column align-items-stretch text-start"
+                style="font-size: 16px"
+              >
+                <nav class="nav py-0 flex-column">
+                  <p class="mb-1 fw-bold">
+                    <small>Getting Started</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Downloading</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Basic Usage</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Carousel Properties</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Overview</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Resizing</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Wrapping</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Container Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Item Properties</a
+                  >
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >Button Properties</a
+                  >
+                  <p class="mt-2 mb-1 fw-bold">
+                    <small>Advanced</small>
+                  </p>
+                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                    >API</a
+                  >
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link active"
+                    href="#"
+                    >Cautions</a
+                  >
+                </nav>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Main content area. -->
+        <div class="col-md-9 col-lg-8">
+          <!-- Define this container to use scrollspy. -->
+
+          <div class="px-3" tabindex="0" data-bs-smooth-scroll="true">
+            <h1 class="text-start">Cautions</h1>
+            <p class="lead">
+              The freedom that Freighter provides naturally has a few cautions
+              to be aware of. With so many properties that work together, it is
+              easy to accidentally create a situation that is not intended.
+            </p>
+            <section id="reserved-ids-and-classes" class="main-content-section">
+              <h2>Reserved IDs and Classnames</h2>
+              <p>
+                In order to make Freighter work, a number of custom HTML and CSS
+                IDs and classnames are used internally. In order to prevent any
+                conflicts, it is recommended that you do not use any of the
+                following IDs or classnames in your HTML. If you are
+                experiencing any odd behavior, check to make sure that you are
+                not already using any of these in your own HTML.
+              </p>
+              <p>Reserved IDs:</p>
+
+              <ul>
+                <li><code>#freighter-carousel-container-*</code></li>
+                <li>
+                  <code>#freighter-carousel-item-container-wrapper-*</code>
+                </li>
+                <li><code>#freighter-carousel-item-container-*</code></li>
+                <li><code>#freighter-carousel-item-*-*</code></li>
+                <li><code>#freighter-carousel-arrow-left-*</code></li>
+                <li><code>#freighter-carousel-arrow-right-*</code></li>
+              </ul>
+              <small>
+                * Note that the asterisk (*) in the above IDs will be replaced
+                with some number, so both
+                <code>#freighter-carouse-item-2-1</code> and
+                <code>#freighter-carousel-item-4-3</code> are potentially unsafe
+                IDs to use.
+              </small>
+              <br /><br />
+              <p>Reserved classes:</p>
+              <ul>
+                <li><code>.freighter-carousel-container</code></li>
+                <li><code>.freighter-carousel-item-container-wrapper</code></li>
+                <li><code>.freighter-carousel-item-container</code></li>
+                <li><code>.freighter-carousel-item</code></li>
+                <li><code>.frieghter-carousel-item-dummy</code></li>
+                <li><code>.freighter-carousel-arrow-left</code></li>
+                <li><code>.freighter-carousel-arrow-right</code></li>
+              </ul>
+            </section>
+            <hr class="section-divider" />
+            <section id="duplicate-carousel-items" class="main-content-section">
+              <h2>Duplicate Carousel Items</h2>
+              <p>
+                As is discussed in the <a href="#">wrapping page</a> of the
+                documentation, there are a number of wrapping methods that cause
+                carousel items to 'wrap' from end to end. In certain situations,
+                such as when the carousel contains fewer items than the
+                <code>numItemsVisible</code> property, empty spaces will be
+                filled with duplicate items.
+              </p>
+              <p>
+                If your carousel is set up in a way that makes this possible,
+                and elements that are children of the carousel items will
+                <em>also</em> be duplicated, potentially duplicating IDs. Take
+                the carousel below as an example. If you inspect the carousel
+                items, you will notice that the <code>id</code> attribute of
+                some are duplicated.
+              </p>
+              <div id="carousel-1" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+              </div>
+              <p class="mt-3">
+                For the most part, this shouldn't cause any issue. If, however,
+                you write code that assumes only one element in the DOM will
+                have a given ID, this may cause that code to break. Use your
+                best judgement when pairing a wrapping method with carousel
+                items that have functionality dependent on their IDs.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="freighter-and-the-dom" class="main-content-section">
+              <h2>Freighter and the DOM</h2>
+              <p>
+                When a Freighter carousel is constructed, more elements are
+                created than just the container and children (this becomes more
+                obvious when you see the number of
+                <a href="#">reserved IDs and classnames</a> that exist)! Feel
+                free to inspect the carousel in your browser's developer tools
+                to see some of these.
+              </p>
+              <p>
+                It is important to point out that you should <b>not</b> add or
+                remove any styles, event listeners, or children from any of
+                these elements. These are all maintained by Freighter, and
+                changing them in any way risks breaking the carousel. If you are
+                feeling brave, and feel as though you understand how something
+                has been implemented, just be aware that you may end up breaking
+                something down the line.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section id="changing-styles" class="main-content-section">
+              <h3>Changing Styles</h3>
+              <p>
+                One important design decision made was to ensure that elements
+                created by you are not altered in any way: both the top-level
+                carousel container
+              </p>
+              <code class="text-center d-block mb-3"
+                >&lt;div id="carousel-1"
+                class="freighter-c"&gt;&lt;/div&gt;</code
+              >
+              <p>as well as all carousel items</p>
+              <code class="text-center d-block mb-3"
+                >&lt;div class="ci"&gt;&lt;p&gt;1&lt;/p&gt;&lt;/div&gt;</code
+              >
+              <p>
+                remain untouched, as indicated by a lack of inline styles. This
+                gives the programmer (mostly) total freedom to style each of
+                these components of the carousel as they wish. The only warning
+                that is associated with this feature is to
+                <b
+                  >avoid styling relative to the carousel items or containers</b
+                >
+                . Applying CSS styles that impact parents of the carousel items
+                or children of the carousel container with selectors such as
+                <code>&gt;</code>, <code>~</code> or instances of
+                <code>has()</code> may end up overriding essential styles to
+                internal Freighter elements.
+              </p>
+              <p>
+                In general, it is advised to give carousel elements a common
+                class for styling, and apply your CSS styles to the classes
+                themselves rather than parents or children of elements.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section
+              id="transition-timing-functions"
+              class="main-content-section"
+            >
+              <h2>Transition Timing Functions</h2>
+              <p>
+                Freighter provides you with the ability to select your own
+                custom CSS transition timing functions. These can be as simple
+                as <code>linear</code> or as complex as
+                <code>cubic-bezier()</code>, but the more complex come with an
+                important caution.
+              </p>
+              <p>
+                Internally, Freighter only inserts as many carousel items as
+                necessary; if you create a carousel with 15 items but set
+                <code>numItemsVisible</code> to 3, then the other 12 items are
+                stored in memory until they should come into view. For this
+                reason, some <code>cubic-bezier()</code> functions that go
+                beyond the items visible on the screen may result in blank spots
+                in the carousel. The code below demonstrates a dangerous
+                carousel whose transition timing function goes beyond the
+                visible items to an extreme degree.
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'none', {
+    numItemsVisible: 2,
+    scrollBy: 1,
+    itemSpacing: 15,
+    transitionTimingFunction: "cubic-bezier(0.65, 0, 0.35, -5)",
+    transitionDuration: 1500,
+  }
+);</code></pre>
+              </div>
+              <div id="carousel-2" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+                <div class="ci"><p>5</p></div>
+                <div class="ci"><p>6</p></div>
+                <div class="ci"><p>7</p></div>
+                <div class="ci"><p>8</p></div>
+              </div>
+              <p>
+                Notice that with a function this extreme, at first the previous
+                items show up properly. Scrolling from items 3 on demonstrates
+                that only one previous item is added to either side when
+                transitioning, which also happens to be the
+                <code>scrollBy</code> value for this carousel.
+              </p>
+              <p>
+                In fact, below is a breakdown of how many carousel items are
+                actually exist in the DOM at the stages of the carousel
+                transition:
+              </p>
+              <ul>
+                <li>
+                  <b> Before Transition:</b>
+                  <code>numItemsVisible</code> carousel items loaded.
+                  <ul>
+                    <li>
+                      Only need to load those that are currently visible in the
+                      carousel.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b>During Transition:</b>
+                  <code>numItemsVisible + (2 * scrollBy)</code> carousel items
+                  loaded.
+                  <ul>
+                    <li>
+                      <code>scrollBy</code> additional items are added to each
+                      side during a scroll in either direction.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <b> After Transition: </b>
+                  <code>numItemsVisible</code> carousel items loaded.
+                  <ul>
+                    <li>
+                      The extras are removed when the transition completes.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>
+                In the example above, then, we can only ever assume that 1 extra
+                carousel item will be inserted into the carousel on either side
+                during transitions. As long as the
+                <code>cubic-bezier()</code> function does not expose more than
+                one extra carousel item, this shouldn't be a problem.
+              </p>
+            </section>
+            <hr class="section-divider" />
+            <section
+              id="changing-from-wrap-smart-to-wrap-simple"
+              class="main-content-section"
+            >
+              <h2>
+                Changing from <code>wrap-smart</code> to
+                <code>wrap-simple</code>
+              </h2>
+              <p>
+                Both of the wrapping methods ensure that there are never any
+                empty spots in a carousel; if there normally would be with
+                wrapping method <code>none</code>, they are filled with carousel
+                items from the start of the container. Nothing new here.
+              </p>
+              <p>
+                <code>wrap-smart</code>, however, modifies the amount that will
+                be scrolled in order to preserve the absolute ordering of the
+                carousel items - an item with a lower index will never be shown
+                after an item with a higher index. Again, this is all understood
+                by the definition of the wrapping method.
+              </p>
+              <p>
+                There is one situation in which these rules are in
+                contradiction: that is, when <code>numItemsVisible</code> is
+                <em>larger</em> than the total number of carousel items, as
+                shown below:
+              </p>
+              <div class="border bg-light code-container">
+                <pre><code>const myCarousel = new Freighter(
+  'myCarousel',
+  'stretch-scale',
+  'wrap-simple', {
+    numItemsVisible: 5,
+    itemSpacing: 15,
+  }
+);</code></pre>
+              </div>
+              <div id="carousel-3" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+              </div>
+              <p class="mt-3">
+                Clearly, the above carousel could <b>not</b> use
+                <code>wrap-smart</code>, as the absolute ordering of the items
+                would not be preserved. What happens, then, if you try to use
+                this wrapping method in a situation like this? The carousel
+                below is the result of such an attempt:
+              </p>
+              <div id="carousel-4" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+              </div>
+              <p class="mt-3">
+                Looks the same, and if you try scrolling, you will see it
+                behaves the screen. This is because the carousel has been
+                converted to use <code>wrap-simple</code>! Check the console to
+                see the warning message that displays when this occurs; it looks
+                something like this:
+              </p>
+              <div class="warning-container">
+                <em>
+                  Carousel ID "carousel-4": Cannot allow smart wrapping if the
+                  carousel has fewer items than items visible. Setting wrapping
+                  method to 'wrap-simple'.</em
+                >
+              </div>
+              <p>
+                This may occur with other combinations of carousel properties.
+                What if you initially keep <code>numItemsVisible</code> less
+                than the total number of carousel items, but one of these
+                changes later? Suppose you remove carousel items, or decrease
+                the <code>numItemsVisible</code>, or use the resizing method
+                <code>stretch-populate</code> which can increase the
+                <code>numItemsVisible</code>? In all of these cases (and any
+                other you can think of), when it is detected that the absolute
+                ordering of carousel items cannot be maintained, the carousel is
+                automatically converted to use <code>wrap-simple</code>
+              </p>
+              <p>
+                Check out the following example. After you remove an item from
+                the carousel, you will notice that an absolute order cannot be
+                maintained, so the wrapping method switches and a warning is
+                output to the console.
+              </p>
+              <div id="carousel-5" class="freighter-c">
+                <div class="ci"><p>1</p></div>
+                <div class="ci"><p>2</p></div>
+                <div class="ci"><p>3</p></div>
+                <div class="ci"><p>4</p></div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <button
+                  id="remove-item"
+                  class="btn btn-primary mt-3"
+                  type="button"
+                >
+                  Remove Item
+                </button>
+              </div>
+              <p class="mt-3">
+                As long as you are cautious about changing the
+                <code>numItemsVisible</code> property, this should not be a
+                problem.
+              </p>
+            </section>
+          </div>
+        </div>
+
+        <!-- Column 3: Tertiary navigation that disappears on smaller screens. -->
+        <div class="col-md-3 col-lg-2 d-none d-md-block">
+          <div
+            class="sticky-top custom-border-start overflow-auto"
+            style="top: 88px; max-height: calc(100vh - 88px)"
+          >
+            <a
+              class="sticky-top mb-0 ms-3 text-start fw-bold text-muted page-contents-link"
+              href="#"
+            >
+              Cautions
+            </a>
+            <hr class="my-2 mx-2 ms-3 me-3" />
+            <nav
+              id="nav-right"
+              class="flex-column align-items-stretch text-start ms-2"
+              style="font-size: 14px"
+            >
+              <nav class="nav py-0 flex-column">
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#reserved-ids-and-classes"
+                  >Reserved IDs and Classes</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#duplicate-carousel-items"
+                  >Duplicate Carousel Items</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#freighter-and-the-dom"
+                  >Freighter and the DOM</a
+                >
+                <nav class="nav py-0 flex-column">
+                  <a
+                    class="nav-link ms-3 py-0 ps-1 pe-0 mt-1 page-contents-link"
+                    href="#changing-styles"
+                    >Changing Styles</a
+                  >
+                </nav>
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#transition-timing-functions"
+                  >Transition Timing Functions</a
+                >
+                <a
+                  class="nav-link py-0 ps-2 pe-0 mt-1 page-contents-link"
+                  href="#changing-from-wrap-smart-to-wrap-simple"
+                  >Changing from <code>wrap-smart</code> to
+                  <code>wrap-simple</code></a
+                >
+              </nav>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

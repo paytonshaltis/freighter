@@ -16,21 +16,40 @@ export default class Freighter {
   private populateResizeObserver: ResizeObserver | null;
 
   /**
-   * Constructor for the CarouselManager class. Initializes the Carousel by
+   * Constructor for the Freighter class. Initializes the Carousel by
    * passing the options parameter to the Carousel constructor. Assigns the
    * returned carousel to the carousel member attribute.
-   * @param {CarouselOptions} options Carousel options to be passed to the Carousel constructor.
+   * @param {string} containerID The ID of the carousel container element.
+   * @param {string} resizingMethod The resizing method to use for the carousel.
+   * @param {string} wrappingMethod The wrapping method to use for the carousel.
+   * @param {CarouselProperties} properties Carousel properties to be passed
+   * to the Carousel constructor.
    */
-  constructor(options: CarouselOptions) {
-    // Throw an error if the constructor is called with no options.
-    if (!options) {
-      throw new Error("Carousel options must be provided.");
+  constructor(
+    containerID: string,
+    resizingMethod:
+      | "none"
+      | "stretch"
+      | "stretch-gap"
+      | "stretch-scale"
+      | "stretch-populate",
+    wrappingMethod: "none" | "wrap-simple" | "wrap-smart",
+    properties: CarouselProperties
+  ) {
+    // Throw an error if the constructor is called with no properties.
+    if (!properties) {
+      throw new Error("Carousel properties must be provided.");
     }
 
     // Reassign the carousel member attribute to a new Carousel instance
     // with the updated options.
     this.populateResizeObserver = null;
-    this.carousel = this.changeCarouselOptions(options);
+    this.carousel = this.changeCarouselOptions({
+      containerID,
+      resizingMethod,
+      wrappingMethod,
+      ...properties,
+    });
   }
 
   /**
@@ -76,7 +95,7 @@ export default class Freighter {
    * such as the carousel items themselves and the current carousel pointer.
    * @returns {CarouselState} The current state of the carousel.
    */
-  public getCarouselProperties(): CarouselState {
+  public getCarouselState(): CarouselState {
     return this.carousel.getCurrentState();
   }
 
@@ -135,7 +154,7 @@ export default class Freighter {
       // If the top pointer will shift back to the other end of the carousel, need
       // to move the index back by the number of items removed.
       while (
-        state.leftCarouselPointer + state.numItemsVisible >=
+        state.leftCarouselPointer + state.numItemsVisible - 1 >=
         state.carouselItems.length - count
       ) {
         state.leftCarouselPointer -= count;
@@ -167,7 +186,7 @@ export default class Freighter {
    * @param {CarouselOptions} options The new options to be passed to the
    * Carousel constructor.
    * @returns {Carousel} The new Carousel instance; allows constructor of
-   * CarouselManager to call this method directly.
+   * Freighter to call this method directly.
    */
   private changeCarouselOptions(options: CarouselOptions): Carousel {
     // Don't do anything if the options are the same as the current carousel.

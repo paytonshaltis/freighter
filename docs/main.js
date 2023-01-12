@@ -1,11 +1,9 @@
 import Freighter from "../dist/FreighterES6.js";
 
-const freighter = new Freighter({
-  wrappingMethod: "wrap-simple",
+const freighter = new Freighter("carousel-train", "none", "wrap-simple", {
   itemHeight: 125,
   itemWidth: 250,
   itemSpacing: 1,
-  containerID: "carousel-train",
   numItemsVisible: 3,
   scrollBy: 4,
   syncScrollWithVisibility: false,
@@ -66,7 +64,7 @@ const createTrainCar = () => {
 
 // Returns the number of carousel items currently in the carousel.
 const getItemCount = () => {
-  return freighter.getCarouselProperties().carouselItems.length;
+  return freighter.getCarouselState().carouselItems.length;
 };
 
 // Function that takes appropriate action to the train based on screen size.
@@ -93,6 +91,9 @@ const resizeTrain = (manual = false) => {
         syncScrollWithVisibility: false,
       });
     }
+
+    // Add the extra margin class to center container.
+    document.getElementById("train-wrapper").classList.add("me-5");
   } else if (
     window.innerWidth < 965 &&
     window.innerWidth >= 575 &&
@@ -116,6 +117,9 @@ const resizeTrain = (manual = false) => {
       scrollBy: 3,
       syncScrollWithVisibility: false,
     });
+
+    // Add the extra margin class to center container.
+    document.getElementById("train-wrapper").classList.add("me-5");
   } else if (window.innerWidth < 575 && (breakpoint !== "small" || manual)) {
     breakpoint = "small";
 
@@ -134,6 +138,9 @@ const resizeTrain = (manual = false) => {
       syncScrollWithVisibility: false,
       scrollBy: 2,
     });
+
+    // Remove the extra margin class to center container.
+    document.getElementById("train-wrapper").classList.remove("me-5");
   }
 };
 
