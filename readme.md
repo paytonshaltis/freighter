@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./docs/icons/train-engine.svg" width="200">
+  <img src="./docs/icons/train-engine.svg" width="200" alt="Freighter Logo">
   
   <br />
   <br />
