@@ -24,7 +24,7 @@ Visit the [downloads page](https://paytonshaltis.github.io/freighter/downloads) 
 
 ### All Carousel Examples
 
-See the [official documentation](https://paytonshaltis.github.io/freighter/basic-usage) for more detailed examples, code snippets, and live examples.
+See the [official documentation](https://paytonshaltis.github.io/freighter/documentation/basic-usage) for more detailed examples, code snippets, and live examples.
 
 ### Usage Basics
 
