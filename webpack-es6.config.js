@@ -1,3 +1,5 @@
+// Configuration file for webpack to build an ES6 module for Freighter.
+
 const path = require("path");
 
 module.exports = {

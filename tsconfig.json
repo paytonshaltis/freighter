@@ -1,3 +1,5 @@
+// TypeScript configuration file for the Freighter source code.
+
 {
   "compilerOptions": {
     "target": "es6",

@@ -1,3 +1,5 @@
+// Configuration file for webpack to build a UMD module for Freighter.
+
 const path = require("path");
 
 module.exports = {
