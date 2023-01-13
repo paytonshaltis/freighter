@@ -47,7 +47,7 @@
         </button>
 
         <!-- Brand navigation link. -->
-        <a class="navbar-brand" href="../">Freighter.js</a>
+        <a class="navbar-brand" href="/docs">Freighter.js</a>
 
         <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
         <button
@@ -108,10 +108,15 @@
 
             <!-- Page links right-aligned. -->
             <ul class="navbar-nav ms-auto">
-              <a class="nav-link" href="#">Home</a>
-              <a class="nav-link active" aria-current="page" href="#">Docs</a>
-              <a class="nav-link" href="#">Demos</a>
-              <a class="nav-link" href="#">Downloads</a>
+              <a class="nav-link" href="/docs">Home</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/docs/documentation/basic-usage"
+                >Docs</a
+              >
+              <a class="nav-link" href="/docs/demos">Demos</a>
+              <a class="nav-link" href="/docs/downloads">Downloads</a>
             </ul>
           </div>
         </div>
@@ -155,42 +160,60 @@
                   <p class="mb-1 fw-bold">
                     <small>Getting Started</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../downloading"
                     >Downloading</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../basic-usage"
                     >Basic Usage</a
                   >
                   <p class="mt-2 mb-1 fw-bold">
                     <small>Carousel Properties</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../overview"
                     >Overview</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../resizing"
                     >Resizing</a
                   >
                   <a
                     class="nav-link mb-1 py-0 px-2 documentation-link active"
-                    href="#"
+                    href="../wrapping"
                     >Wrapping</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../container"
                     >Container Properties</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../items"
                     >Item Properties</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../buttons"
                     >Button Properties</a
                   >
                   <p class="mt-2 mb-1 fw-bold">
                     <small>Advanced</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../api"
                     >API</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../cautions"
                     >Cautions</a
                   >
                 </nav>
@@ -723,21 +746,16 @@
               </p>
               <p>
                 There are a few cautions to be aware of when using
-                <code>wrap-smart</code>, which are fully explained in their
-                respective sections on the cautions page. These include
+                <code>wrap-smart</code>, many of which are fully explained in
+                their respective sections on the cautions page. These include
                 carousels whose wrapping methods may
-                <a href="#"
+                <a
+                  href="/docs/documentation/cautions/#changing-from-wrap-smart-to-wrap-simple"
                   >change from <code>wrap-smart</code> to
                   <code>wrap-simple</code> under specific circumstances</a
                 >
-                , as well as the
-                <a href="#"
-                  >possibility of the absolute ordering being temporarily
-                  altered</a
-                >
-                when adding or removing items. It is recommended that you read
-                these cautions before using this wrapping method in order to
-                avoid unexpected behavior.
+                , as well as the possibility of the absolute ordering being
+                temporarily altered when adding or removing items.
               </p>
             </section>
           </div>

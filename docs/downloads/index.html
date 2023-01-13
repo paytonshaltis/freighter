@@ -53,7 +53,7 @@
         </button>
 
         <!-- Brand navigation link. -->
-        <a class="navbar-brand" href="../">Freighter.js</a>
+        <a class="navbar-brand" href="/docs">Freighter.js</a>
 
         <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
         <button
@@ -114,10 +114,15 @@
 
             <!-- Page links right-aligned. -->
             <ul class="navbar-nav ms-auto">
-              <a class="nav-link" href="#">Home</a>
-              <a class="nav-link active" aria-current="page" href="#">Docs</a>
-              <a class="nav-link" href="#">Demos</a>
-              <a class="nav-link" href="#">Downloads</a>
+              <a class="nav-link" href="/docs">Home</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="/docs/documentation/basic-usage"
+                >Docs</a
+              >
+              <a class="nav-link" href="/docs/demos">Demos</a>
+              <a class="nav-link active" href="/docs/downloads">Downloads</a>
             </ul>
           </div>
         </div>
@@ -147,7 +152,7 @@
             <!-- Column 1: GitHub link button. -->
             <div class="col-12">
               <a
-                href="#"
+                href="https://github.com/paytonshaltis/freighter"
                 class="btn btn-primary w-75 my-2 py-2 mx-auto d-block fs-5"
               >
                 <div class="row justify-content-center">
@@ -170,7 +175,7 @@
             <!-- Column 2: NPM link button. -->
             <div class="col-12">
               <a
-                href="#"
+                href="https://npmjs.com/package/freighterjs"
                 class="btn btn-primary w-75 my-2 py-2 mx-auto d-block fs-5"
               >
                 <div class="row justify-content-center">
@@ -277,43 +282,13 @@
                         <a href="#">View</a>
                       </td>
                       <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
+                        <a
+                          href="../versions/1.0.0/source/freighter-1.0.0.zip"
+                          download
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          >Download</a
+                        >
                       </td>
                     </tr>
                   </tbody>
@@ -329,10 +304,12 @@
             >
               <p class="lead">
                 Freighter is bundled using Webpack into two module formats:
-                <a href="#">ES6</a> and <a href="#">UMD</a>. Download this
-                version of the package if you want to use Freighter in a project
-                that utilizes the ES6 module format (uses the
-                <code>import</code> keyword ).
+                <a
+                  href="https://dev.to/iggredible/what-the-heck-are-cjs-amd-umd-and-esm-ikm"
+                  >ES6 and UMD</a
+                >. Download this version of the package if you want to use
+                Freighter in a project that utilizes the ES6 module format (uses
+                the <code>import</code> keyword ).
               </p>
               <div class="table-responsive">
                 <table class="table table-striped table-hover">
@@ -365,42 +342,6 @@
                         >
                       </td>
                     </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -414,10 +355,12 @@
             >
               <p class="lead">
                 Freighter is bundled using Webpack into two module formats:
-                <a href="#">ES6</a> and <a href="#">UMD</a>. Download this
-                version of the package if you want to use Freighter in a project
-                that utilizes the UMD module format (uses the
-                <code>require</code> keyword or linked via a
+                <a
+                  href="https://dev.to/iggredible/what-the-heck-are-cjs-amd-umd-and-esm-ikm"
+                  >ES6 and UMD</a
+                >. Download this version of the package if you want to use
+                Freighter in a project that utilizes the UMD module format (uses
+                the <code>require</code> keyword or linked via a
                 <code>&lt;script&gt;</code> tag ).
               </p>
               <div class="table-responsive">
@@ -449,42 +392,6 @@
                           target="_blank"
                           >Download</a
                         >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>12/11/22</td>
-                      <td>1.0.0</td>
-                      <td>freighter-1.0.0.zip</td>
-                      <td>1.2MB</td>
-                      <td>
-                        <a href="#">View</a>
-                      </td>
-                      <td>
-                        <a href="#">Download</a>
                       </td>
                     </tr>
                   </tbody>

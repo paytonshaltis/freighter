@@ -47,7 +47,7 @@
         </button>
 
         <!-- Brand navigation link. -->
-        <a class="navbar-brand" href="../">Freighter.js</a>
+        <a class="navbar-brand" href="/docs">Freighter.js</a>
 
         <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
         <button
@@ -108,10 +108,15 @@
 
             <!-- Page links right-aligned. -->
             <ul class="navbar-nav ms-auto">
-              <a class="nav-link" href="#">Home</a>
-              <a class="nav-link active" aria-current="page" href="#">Docs</a>
-              <a class="nav-link" href="#">Demos</a>
-              <a class="nav-link" href="#">Downloads</a>
+              <a class="nav-link" href="/docs">Home</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/docs/documentation/basic-usage"
+                >Docs</a
+              >
+              <a class="nav-link" href="/docs/demos">Demos</a>
+              <a class="nav-link" href="/docs/downloads">Downloads</a>
             </ul>
           </div>
         </div>
@@ -155,10 +160,14 @@
                   <p class="mb-1 fw-bold">
                     <small>Getting Started</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../downloading"
                     >Downloading</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../basic-usage"
                     >Basic Usage</a
                   >
                   <p class="mt-2 mb-1 fw-bold">
@@ -166,31 +175,45 @@
                   </p>
                   <a
                     class="nav-link mb-1 py-0 px-2 documentation-link active"
-                    href="#"
+                    href="../overview"
                     >Overview</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../resizing"
                     >Resizing</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../wrapping"
                     >Wrapping</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../container"
                     >Container Properties</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../items"
                     >Item Properties</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../buttons"
                     >Button Properties</a
                   >
                   <p class="mt-2 mb-1 fw-bold">
                     <small>Advanced</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../api"
                     >API</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../cautions"
                     >Cautions</a
                   >
                 </nav>
@@ -217,13 +240,20 @@
                 resizing behavior of the carousel.
               </p>
               <p>
-                With the exception of <a href="#">static properties</a>, all
-                properties are optional and dynamic , meaning they can be
+                With the exception of
+                <a href="/docs/documentation/overview/#static-properties"
+                  >static properties</a
+                >, all properties are optional and dynamic , meaning they can be
                 changed at any point. Properties are initially set when
                 instantiating a new carousel using the constructor, but these
-                <a href="#">dynamic properties</a> can be set or changed later
-                using the
-                <a href="#"><code>setCarouselProperties()</code></a> method.
+                <a href="/docs/documentation/overview/#dynamic-properties"
+                  >dynamic properties</a
+                >
+                can be set or changed later using the
+                <a href="/docs/documentation/api#setcarouselproperties"
+                  ><code>setCarouselProperties()</code></a
+                >
+                method.
               </p>
               <p>
                 The code below demonstrates initializing properties through the
@@ -255,10 +285,12 @@
                 Another logical way of splitting up properties is by the
                 components of a carousel that they affect. Properties may affect
                 the
-                <a href="#">carousel container</a>, the
-                <a href="#">carousel items</a>, or even the
-                <a href="#">carousel buttons</a>. The documentation pages of
-                this site are set up in a way that reflects this organization.
+                <a href="/docs/documentation/container">carousel container</a>,
+                the <a href="/docs/documentation/items">carousel items</a>, or
+                even the
+                <a href="/docs/documentation/buttons">carousel buttons</a>. The
+                documentation pages of this site are set up in a way that
+                reflects this organization.
               </p>
             </section>
             <hr class="section-divider" />
@@ -272,7 +304,10 @@
                 <b>Static properties</b> are required, as they define some of
                 the core functionality of the carousel. For this reason, they
                 also <em>cannot</em> be changed later (with
-                <a href="#">one exception</a>).
+                <a
+                  href="/docs/documentation/cautions/#changing-from-wrap-smart-to-wrap-simple"
+                  >one exception</a
+                >).
               </p>
               <p>
                 <b>Dynamic properties</b> are optional, as they have logical
@@ -308,7 +343,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/container/#carouselid">
                           <code>carouselID</code>
                         </a>
                       </td>
@@ -318,7 +353,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/resizing">
                           <code>resizingMethod</code>
                         </a>
                       </td>
@@ -328,7 +363,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/wrapping">
                           <code>wrappingMethod</code>
                         </a>
                       </td>
@@ -350,13 +385,15 @@
                 one warrants its own section.
               </p>
               <p>
-                The <a href="#"> resizing behavior </a> of a carousel defines
-                how it reacts to changes in its parent container's size. The
-                <a href="#"> wrapping behavior </a> of a carousel defines how it
-                reacts when the user attempts to scroll beyond either end of it.
-                Freighter offers a number of built-in methods for both of these
-                behaviors, each of which can be read about on their respective
-                pages.
+                The
+                <a href="/docs/documentation/resizing"> resizing behavior </a>
+                of a carousel defines how it reacts to changes in its parent
+                container's size. The
+                <a href="/docs/documentation/wrapping"> wrapping behavior </a>
+                of a carousel defines how it reacts when the user attempts to
+                scroll beyond either end of it. Freighter offers a number of
+                built-in methods for both of these behaviors, each of which can
+                be read about on their respective pages.
               </p>
             </section>
             <hr class="section-divider" />
@@ -387,7 +424,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/items/#itemwidth">
                           <code>itemWidth</code>
                         </a>
                       </td>
@@ -397,7 +434,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/items/#itemheight">
                           <code>itemHeight</code>
                         </a>
                       </td>
@@ -407,7 +444,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/container/#itemspacing">
                           <code>itemSpacing</code>
                         </a>
                       </td>
@@ -417,7 +454,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#numitemsvisible"
+                        >
                           <code>numItemsVisible</code>
                         </a>
                       </td>
@@ -427,7 +466,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/container/#scrollby">
                           <code>scrollBy</code>
                         </a>
                       </td>
@@ -437,7 +476,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#syncscrollwithvisibility"
+                        >
                           <code>syncScrollWithVisibility</code>
                         </a>
                       </td>
@@ -447,7 +488,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/container/#scrollable">
                           <code>scrollable</code>
                         </a>
                       </td>
@@ -457,7 +498,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a href="/docs/documentation/container/#autoscroll">
                           <code>autoScroll</code>
                         </a>
                       </td>
@@ -467,7 +508,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#autoscrollinterval"
+                        >
                           <code>autoScrollInterval</code>
                         </a>
                       </td>
@@ -477,7 +520,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#autoscrolldirection"
+                        >
                           <code>autoScrollDirection</code>
                         </a>
                       </td>
@@ -487,7 +532,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#autoscrollpauseonhover"
+                        >
                           <code>autoScrollPauseOnHover</code>
                         </a>
                       </td>
@@ -497,7 +544,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#transitionduration"
+                        >
                           <code>transitionDuration</code>
                         </a>
                       </td>
@@ -507,7 +556,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#transitiondelay"
+                        >
                           <code>transitionDelay</code>
                         </a>
                       </td>
@@ -517,7 +568,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/container/#transitiontimingfunction"
+                        >
                           <code>transitionTimingFunction</code>
                         </a>
                       </td>
@@ -527,7 +580,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/buttons/#the-buttonstyle-object"
+                        >
                           <code>buttonStyles</code>
                         </a>
                       </td>
@@ -537,7 +592,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/buttons/#the-buttonstyle-object"
+                        >
                           <code>buttonHoverStyles</code>
                         </a>
                       </td>
@@ -547,7 +604,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/buttons/#the-buttonstyle-object"
+                        >
                           <code>leftButtonStyles</code>
                         </a>
                       </td>
@@ -557,7 +616,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/buttons/#the-buttonstyle-object"
+                        >
                           <code>leftButtonHoverStyles</code>
                         </a>
                       </td>
@@ -567,7 +628,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/buttons/#the-buttonstyle-object"
+                        >
                           <code>rightButtonStyles</code>
                         </a>
                       </td>
@@ -577,7 +640,9 @@
                     </tr>
                     <tr>
                       <td>
-                        <a href="#">
+                        <a
+                          href="/docs/documentation/buttons/#the-buttonstyle-object"
+                        >
                           <code>rightButtonHoverStyles</code>
                         </a>
                       </td>
@@ -620,7 +685,8 @@
                 different <code>transition</code>-related properties. These
                 really only affect the carousel container, but depending on the
                 <code>transitionTimingFunction</code> selected,
-                <a href="#"
+                <a
+                  href="/docs/documentation/cautions/#transition-timing-functions"
                   >certain carousel items may not load as you might expect.</a
                 >
               </p>
@@ -663,7 +729,8 @@
                 of internal state returned that can prove useful to the
                 programmer, and they are technically not a part of the
                 properties of the carousel. For the full list of properties and
-                state, see the <a href="#">API documentation</a>.
+                state, see the
+                <a href="/docs/documentation/api/#types">API documentation</a>.
               </div>
               <p>
                 Try it yourself: press the button and open the console. Apart
@@ -748,11 +815,13 @@
                 These are just some of the basics; be sure to continue reading
                 the documentation for complete and in-depth breakdowns of all
                 the features that Freighter carousels have to offer, including
-                how <a href="#">wrapping</a> or
-                <a href="#">resizing</a> properties affect carousels, an
-                overview of the various <a href="#">carousel properties</a> that
-                can be customized and dynamically changed, or a full breakdown
-                of the <a href="#">API</a> offered by Freighter.
+                how <a href="/docs/documentation/wrapping">wrapping</a> or
+                <a href="/docs/documentation/resizing">resizing</a> properties
+                affect carousels, an overview of the various
+                <a href="/docs/documentation/container">carousel properties</a>
+                that can be customized and dynamically changed, or a full
+                breakdown of the
+                <a href="/docs/documentation/api">API</a> offered by Freighter.
               </p>
             </section>
           </div>

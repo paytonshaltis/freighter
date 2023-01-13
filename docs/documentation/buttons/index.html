@@ -47,7 +47,7 @@
         </button>
 
         <!-- Brand navigation link. -->
-        <a class="navbar-brand" href="../">Freighter.js</a>
+        <a class="navbar-brand" href="/docs">Freighter.js</a>
 
         <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
         <button
@@ -108,10 +108,15 @@
 
             <!-- Page links right-aligned. -->
             <ul class="navbar-nav ms-auto">
-              <a class="nav-link" href="#">Home</a>
-              <a class="nav-link active" aria-current="page" href="#">Docs</a>
-              <a class="nav-link" href="#">Demos</a>
-              <a class="nav-link" href="#">Downloads</a>
+              <a class="nav-link" href="/docs">Home</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/docs/documentation/basic-usage"
+                >Docs</a
+              >
+              <a class="nav-link" href="/docs/demos">Demos</a>
+              <a class="nav-link" href="/docs/downloads">Downloads</a>
             </ul>
           </div>
         </div>
@@ -155,42 +160,60 @@
                   <p class="mb-1 fw-bold">
                     <small>Getting Started</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../downloading"
                     >Downloading</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../basic-usage"
                     >Basic Usage</a
                   >
                   <p class="mt-2 mb-1 fw-bold">
                     <small>Carousel Properties</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../overview"
                     >Overview</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../resizing"
                     >Resizing</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../wrapping"
                     >Wrapping</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../container"
                     >Container Properties</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../items"
                     >Item Properties</a
                   >
                   <a
                     class="nav-link mb-1 py-0 px-2 documentation-link active"
-                    href="#"
+                    href="../buttons"
                     >Button Properties</a
                   >
                   <p class="mt-2 mb-1 fw-bold">
                     <small>Advanced</small>
                   </p>
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../api"
                     >API</a
                   >
-                  <a class="nav-link mb-1 py-0 px-2 documentation-link" href="#"
+                  <a
+                    class="nav-link mb-1 py-0 px-2 documentation-link"
+                    href="../cautions"
                     >Cautions</a
                   >
                 </nav>
@@ -289,18 +312,22 @@
             <section id="the-buttonstyle-object" class="main-content-section">
               <h2>The <code>ButtonStyle</code> object</h2>
               <p>
-                As seen in the <a href="#">container properties</a> and
-                <a href="#">item properties</a>, each key in the
-                <code>CarouselProperties</code> object previously accepted a
-                simple type, whether that be a <code>number</code>,
-                <code>boolean</code>, <code>string</code>, etc. Because the
-                carousel buttons themselves are more complex in their styling
-                and properties, it makes more sense to abstract out their
-                properties into up to 6 <code>ButtonStyle</code> objects that
-                can be assigned to 6 keys in the main
-                <code>CarouselProperties</code> object. For a better breakdown
-                of the <code>CarouselProperties</code> object, see
-                <a href="#">this section</a> of the Freighter API documentation.
+                As seen in the
+                <a href="/docs/documentation/container">container properties</a>
+                and <a href="/docs/documentation/items">item properties</a>,
+                each key in the <code>CarouselProperties</code> object
+                previously accepted a simple type, whether that be a
+                <code>number</code>, <code>boolean</code>, <code>string</code>,
+                etc. Because the carousel buttons themselves are more complex in
+                their styling and properties, it makes more sense to abstract
+                out their properties into up to 6
+                <code>ButtonStyle</code> objects that can be assigned to 6 keys
+                in the main <code>CarouselProperties</code> object. For a better
+                breakdown of the <code>CarouselProperties</code> object, see
+                <a href="/docs/documentation/api/#carouselproperties"
+                  >this section</a
+                >
+                of the Freighter API documentation.
               </p>
               <p>
                 Below, each property of the <code>ButtonStyle</code> object is
