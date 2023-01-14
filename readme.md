@@ -32,7 +32,7 @@ In order to create a Freighter carousel, you will need a `<div>` with some uniqu
 
 Use the `Freighter()` constructor to convert the element into a carousel. Note that this code should execute _after_ the element has been loaded to the DOM, otherwise, it will not be found. The constructor requires your container's `id`, a valid resizing method, a valid wrapping method, and a `CarouselProperties` object containing any other customizable carousel properties that you wish to initialize your carousel with. All of the properties within this object can be changed later with methods such as `setCarouselProperties()`, making Freighter carousels dynamic.
 
-Below is an example of calling the constructor in a JavaScript file whose environment is using ES6 modules. Notice that the `Freighter` class is `import`ed; for environments that import modules differently (`require()`, etc.), see the [downloads page](https://paytonshaltis.github.io/freighter/downloads) for the UMD module.
+Below is an example of calling the constructor in a JavaScript file whose environment is using ES6 modules. Notice that the `Freighter` class is `import`ed; for environments that import modules differently (`require()`, etc.), see the [downloads page](https://paytonshaltis.github.io/freighter/downloads/#umd) for the UMD module.
 
 ```javascript
 import Freighter from "freighter-1.0.0.js";
