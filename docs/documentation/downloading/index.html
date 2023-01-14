@@ -257,17 +257,20 @@
               </p>
               <p>
                 Once done, you can import the package as you normally would for
-                any other package managed by NPM. Below is a small example of a
-                Freighter carousel being set up with the NPM installation:
+                any other package managed by NPM. Keep in minde that Freighter
+                should only be used in the browser (visual carousels are
+                obviously <em>not</em> fir for the NodeJS runtime), so the
+                browser import requires a full path:
               </p>
               <div class="border bg-light code-container">
-                <pre><code>import Freighter from 'freighterjs';</code></pre>
+                <pre><code>import Freighter from './node_modules/freighterjs/Freighter.js';</code></pre>
               </div>
               <p>
-                The above example assumes that your NPM environment is set up to
-                use ES6 modules. If it is set up with a different module system,
-                use the proper import strategy (such <code>require()</code> when
-                using CommonJS).
+                The above example assumes that your
+                <code>node_modules</code> directory is in the same directory as
+                the script doing the importing; you should adjust the exact
+                import based on your setup. If NPM modules aren't your thing,
+                then you can also use the minified bundles described below.
               </p>
             </section>
             <hr class="section-divider" />
@@ -300,11 +303,11 @@
               </p>
               <p>
                 The syntax for using the module is the same as the NPM approach;
-                simple import <code>Freighter</code> from the module's location
-                in your project directory and start using it:
+                simply import <code>Freighter</code> from the file's location in
+                your project directory and start using it:
               </p>
               <div class="border bg-light code-container">
-                <pre><code>import Freighter from 'freighterjs';</code></pre>
+                <pre><code>import Freighter from 'freighter-x.x.x.js';</code></pre>
               </div>
             </section>
             <hr class="section-divider" />
@@ -359,13 +362,6 @@
     autoScroll: true,
   });
 &lt;/script&gt;</code></pre>
-              </div>
-              <p>
-                Another example, shown below, may be the use of Freighter in a
-                Node environment, which uses the CommonJS module system:
-              </p>
-              <div class="border bg-light code-container">
-                <pre><code>const Freighter = require('freighter-x.x.x.js');</code></pre>
               </div>
             </section>
             <hr class="section-divider" />
