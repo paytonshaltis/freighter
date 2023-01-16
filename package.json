@@ -1,6 +1,6 @@
 {
   "name": "freighterjs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Freighter is a highly-customizable HTML carousel library featuring a number of dynamic properties affecting carousel items and transitions. Most prominently, it gives complete control over the resizing method (for responsive layouts) as well as the wrapping method (for content display).",
   "scripts": {
     "all": "npm run build-prod && npm run sass",

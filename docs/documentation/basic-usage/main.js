@@ -1,4 +1,4 @@
-import Freighter from "../../versions/es6/freighter-1.0.0.js";
+import Freighter from "../../versions/es6/freighter-1.0.2.js";
 
 const freighter0 = new Freighter("carousel-0", "none", "none", {});
 
