@@ -35,7 +35,7 @@ Use the `Freighter()` constructor to convert the element into a carousel. Note t
 Below is an example of calling the constructor in a JavaScript file whose environment is using ES6 modules. Notice that the `Freighter` class is `import`ed; for environments that import modules differently (`require()`, etc.), see the [downloads page](https://paytonshaltis.github.io/freighter/downloads/#umd) for the UMD module.
 
 ```javascript
-import Freighter from "freighter-1.0.0.js";
+import Freighter from "freighter-1.0.2.js";
 
 const myCarousel = new Freighter(
   "container-id",

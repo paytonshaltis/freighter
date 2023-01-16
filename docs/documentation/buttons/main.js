@@ -1,4 +1,4 @@
-import Freighter from "../../versions/es6/freighter-1.0.0.js";
+import Freighter from "../../versions/es6/freighter-1.0.2.js";
 
 const freighter1 = new Freighter("carousel-1", "stretch-scale", "none", {
   numItemsVisible: 2,
