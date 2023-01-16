@@ -45,6 +45,12 @@ div.code-container pre {
   padding-right: 1.5rem;
 }
 
+div.code-container.slim pre {
+  margin-top: 0.35rem;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
+}
+
 hr.section-divider {
   opacity: 10%;
   margin-top: 2rem;

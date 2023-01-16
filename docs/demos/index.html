@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demos | Freighter</title>
+
+    <!-- Bootstrap popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- highlight.js -->
+    <link
+      rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/github.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script async>
+      hljs.highlightAll();
+    </script>
+
+    <!-- Custom styles and scripts -->
+    <link rel="stylesheet" href="../styles/common.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./main.js" type="module"></script>
+
+    <!-- JQuery CDN link. -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Sticky and collapsing main navigation bar. -->
+    <nav
+      id="nav-top"
+      class="navbar sticky-top navbar-expand-sm navbar-dark py-3"
+    >
+      <div class="container-xl">
+        <!-- Brand navigation link. -->
+        <a class="navbar-brand" href="/freighter/">Freighter.js</a>
+
+        <!-- Right hanmurger icon to toggle the primary navbar on smaller screens. -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas-right"
+          aria-controls="offcanvas-right"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Primary navigation bar that becomes offcanvas on smaller screens. -->
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvas-right"
+          aria-labelledby="offcanvas-right-label"
+        >
+          <!-- Header of the offcanvas for primary navigation. -->
+          <div class="offcanvas-header">
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvas-right"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Body of the offcanvas for primary navigation. -->
+          <div class="offcanvas-body">
+            <!-- Version dropdown left-aligned. -->
+            <div class="navbar-nav me-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="."
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  v1.0.0
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <p class="dropdown-header">Versions</p>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" aria-current="page" href="."
+                      >v1.0.0</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </div>
+
+            <!-- Page links right-aligned. -->
+            <ul class="navbar-nav ms-auto">
+              <a class="nav-link" href="/freighter/">Home</a>
+              <a class="nav-link" href="/freighter/documentation/basic-usage"
+                >Docs</a
+              >
+
+              <a
+                class="nav-link active"
+                href="/freighter/demos"
+                aria-current="page"
+                >Demos</a
+              >
+              <a class="nav-link" href="/freighter/downloads">Downloads</a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary container for all webpage content. -->
+    <div class="container">
+      <!-- Row 1: Title, description, GH and NPM links.  -->
+      <div class="row mt-3">
+        <h1 class="display-3">Demos</h1>
+
+        <!-- Column 1: Title and description. -->
+        <div class="col-12 col-lg-7">
+          <p class="lead">
+            Need some inspiration or just looking for more examples of how to
+            use some of the more complex properties offered by Freighter? Check
+            out some of these examples!
+          </p>
+        </div>
+
+        <!-- Column 2: GH link buttons. -->
+        <div class="col-12 col-lg-5">
+          <!-- Row 1: Contains link button. -->
+          <div class="row">
+            <!-- Column 1: GitHub link button. -->
+            <div class="col-12">
+              <a
+                href="https://github.com/paytonshaltis/freighter/pulls"
+                class="btn btn-success w-75 my-2 py-2 mx-auto d-block fs-5"
+              >
+                <div class="">Submit Your Own as a GitHub Pull Request!</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Demos -->
+      <div class="row mt-5 justify-content-center">
+        <!-- Column 1: Album art demo. -->
+        <div class="col-12">
+          <div id="demo-1-container">
+            <div id="demo-1-carousel">
+              <div class="d1-ci">
+                <img src="demo-images/demo-1/crimson-king.jpeg" />
+                <p class="light-bg">In the Court of the Crimson King</p>
+              </div>
+              <div class="d1-ci">
+                <img src="demo-images/demo-1/sgt-peppers.webp" />
+                <p class="dark-bg">Sgt. Pepper's Lonely Hearts Club Band</p>
+              </div>
+              <div class="d1-ci">
+                <img src="demo-images/demo-1/whos-next.jpg" />
+                <p class="dark-bg">Who's Next</p>
+              </div>
+              <div class="d1-ci">
+                <img src="demo-images/demo-1/the-wall.jpg" />
+                <p class="light-bg">The Wall</p>
+              </div>
+              <div class="d1-ci">
+                <img src="demo-images/demo-1/saucerful-of-secrets.jpg" />
+                <p class="dark-bg">A Saucerful of Secrets</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3"></div>
+          <div class="col-12">
+            <div>
+              <h2>Album Art Showcase</h2>
+              <h3 class="lead">About the Demo</h3>
+              <p>
+                Items are scrolling by one at a time, since Freighter's default
+                <code>scrollBy</code> value of 1 is being used. Notice that the
+                carousel items maintain their aspect ratios thanks to
+                <code>stretch-scale</code>. We stop any 'snapping' back to the
+                start of the list and allow for an infinite scroll with
+                <code>wrap-simple</code>. Notice how the buttons change when you
+                hover over them. Some additional CSS adds hover styles for each
+                carousel item and its text, but each carousel item contains all
+                of the elements that it needs directly inside of it (images and
+                text in this case). A maximum width has been set on the
+                container in order to prevent the carousel from getting too
+                large.
+              </p>
+              <h3 class="lead">Code for the Demo</h3>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="border bg-light code-container slim">
+                      <pre><code>&lt;!-- HTML --&gt;
+      
+&lt;div id="demo-1-container"&gt;
+  &lt;div id="demo-1-carousel"&gt;
+    &lt;div class="d1-ci"&gt;
+      &lt;img src="demo-images/demo-1/crimson-king.jpeg" /&gt;
+      &lt;p class="light-bg"&gt;In the Court of the Crimson King&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="d1-ci"&gt;
+      &lt;img src="demo-images/demo-1/sgt-peppers.webp" /&gt;
+      &lt;p class="dark-bg"&gt;Sgt. Pepper's Lonely Hearts Club Band&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="d1-ci"&gt;
+      &lt;img src="demo-images/demo-1/whos-next.jpg" /&gt;
+      &lt;p class="dark-bg"&gt;Who's Next&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="d1-ci"&gt;
+      &lt;img src="demo-images/demo-1/the-wall.jpg" /&gt;
+      &lt;p class="light-bg"&gt;The Wall&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="d1-ci"&gt;
+      &lt;img src="demo-images/demo-1/saucerful-of-secrets.jpg" /&gt;
+      &lt;p class="dark-bg"&gt;A Saucerful of Secrets&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="border bg-light code-container slim">
+                      <pre><code>// JavaScript
+                  
+const demo1 = new Freighter(
+  "demo-1-carousel", 
+  "stretch-scale", 
+  "wrap-simple", {
+    numItemsVisible: 3,
+    itemSpacing: 10,
+    itemHeight: 1,
+    itemWidth: 1,
+    transitionDuration: 750,
+    buttonStyles: {
+      height: "30%",
+      width: "35px",
+      backgroundColor: "rgba(255, 255, 255, 0.75)",
+      color: "rgba(0, 0, 0, 0.75)",
+    },
+    buttonHoverStyles: {
+      backgroundColor: "rgba(255, 255, 255, 0.9)",
+      color: "rgba(0, 0, 0, 0.9)",
+      width: "38px",
+    },
+  }
+);</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="border bg-light code-container slim">
+                  <pre><code>/* CSS */
+                
+#demo-1-container {
+  --transition-time: 200ms;
+  padding: 0;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.d1-ci {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.d1-ci img {
+  height: 100%;
+  width: 100%;
+  transition: filter var(--transition-time) ease-in-out;
+}
+
+.d1-ci p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  pointer-events: none;
+  font-size: 1.75em;
+  text-align: center;
+  opacity: 0;
+  font-style: italic;
+  font-weight: bold;
+  transition: opacity var(--transition-time) ease-in-out;
+}
+
+.d1-ci p.dark-bg {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.d1-ci p.light-bg {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.d1-ci img:hover {
+  filter: blur(4px);
+}
+
+.d1-ci:hover p {
+  opacity: 1;
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
