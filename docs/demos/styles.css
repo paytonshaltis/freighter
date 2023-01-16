@@ -1,0 +1,50 @@
+#demo-1-container {
+  --transition-time: 200ms;
+  padding: 0;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.d1-ci {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.d1-ci img {
+  height: 100%;
+  width: 100%;
+  transition: filter var(--transition-time) ease-in-out;
+}
+
+.d1-ci p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  pointer-events: none;
+  font-size: 1.75em;
+  text-align: center;
+  opacity: 0;
+  font-style: italic;
+  font-weight: bold;
+  transition: opacity var(--transition-time) ease-in-out;
+}
+
+.d1-ci p.dark-bg {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.d1-ci p.light-bg {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.d1-ci img:hover {
+  filter: blur(4px);
+}
+
+.d1-ci:hover p {
+  opacity: 1;
+}
